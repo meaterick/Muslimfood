@@ -62,7 +62,7 @@ test('committed fallback data is consistent', () => {
     assert.equal(places.length, v[0] + v[4], `${file} count`);
     for (const p of places) {
       assert.ok(p.id && Number.isFinite(p.y) && Number.isFinite(p.x) && p.k, `${file}: bad place ${JSON.stringify(p)}`);
-      if (p.k !== 'p') assert.ok(['C', 'O', 'Y', 'F', 'L', 'U'].includes(p.s), `${file}: ${p.id} status ${p.s}`);
+      if (p.k !== 'p') assert.ok(['C', 'O', 'Y', 'F', 'L', 'V', 'U', 'M'].includes(p.s), `${file}: ${p.id} status ${p.s}`);
     }
     for (const row of searchRecords(places)) expected.set(row.id, JSON.parse(JSON.stringify(row)));
   }

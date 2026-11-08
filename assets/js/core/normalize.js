@@ -10,11 +10,14 @@
 //   y,x  latitude, longitude
 //   k    category: r restaurant, f fast food, c cafe/dessert/bakery, m market/butcher, o other, p prayer place
 //   s    halal status: C certified, O only halal, Y halal, L limited halal options,
-//        F listed by an official Muslim-friendly programme, U unconfirmed (inferred)
+//        F listed by an official Muslim-friendly programme, U unconfirmed (inferred);
+//        meat-free alternatives: V whole menu vegetarian/vegan, M has vegetarian/vegan dishes
+//   dv   for s=V/M: "vegan" | "vegetarian"
 //   why  for s=U: "name" (name says halal) or "cuisine" (cuisine usually halal)
 //   cu   cuisine tokens, e.g. ["turkish","kebab"]
 //   a    address, ph phone, w website, ig instagram url, oh opening_hours (OSM syntax)
 //   mu   menu URL, mn menu item names, ml localized menu item names, su source page URL
+//   mv   diet label per item in mn: "v" vegan, "l" lacto, "o" ovo, "lo" lacto-ovo, "" unknown
 //   ohx  free-text opening hours when it could not be converted
 //   ck   date the halal status was last checked (YYYY-MM-DD)
 //   ce   certification body / note
@@ -33,7 +36,10 @@ import { roundCoord, isInKorea } from './geo.js';
 export const UI_LANGS = ['en', 'ko', 'ar', 'id', 'ms', 'tr', 'fr'];
 const NAME_LANGS = [...UI_LANGS, 'ja', 'zh'];
 
-export const STATUS_ORDER = { C: 0, O: 1, Y: 2, F: 3, L: 4, U: 5 };
+// Strongest evidence first. A fully meat-free kitchen (V) ranks above an
+// unconfirmed halal hint (U); a normal kitchen with vegetarian dishes (M) last.
+export const STATUS_ORDER = { C: 0, O: 1, Y: 2, F: 3, L: 4, V: 5, U: 6, M: 7 };
+export const MEAT_FREE = new Set(['V', 'M']);
 
 const AMENITY_CAT = {
   restaurant: 'r',
@@ -192,6 +198,19 @@ export function inferStatus(tags) {
   return null;
 }
 
+/** Meat-free status from diet:vegan / diet:vegetarian tags, or null. */
+export function vegStatus(tags) {
+  const val = (k) => String(tags[k] || '').trim().toLowerCase();
+  const vegan = val('diet:vegan');
+  const vegetarian = val('diet:vegetarian');
+  if (vegan === 'only') return { s: 'V', dv: 'vegan' };
+  if (vegetarian === 'only') return { s: 'V', dv: 'vegetarian' };
+  const some = (v) => v === 'yes' || v === 'limited';
+  if (some(vegan)) return { s: 'M', dv: 'vegan' };
+  if (some(vegetarian)) return { s: 'M', dv: 'vegetarian' };
+  return null;
+}
+
 function alcoholOf(tags) {
   if (ALCOHOL_AMENITIES.has(tags.amenity)) return 1;
   const v = (k) => String(tags[k] || '').toLowerCase();
@@ -302,6 +321,8 @@ export function compact(obj) {
  * opts.infer: allow an unconfirmed status when there is no halal tag:
  *   'name' = only when there is a halal claim in the name or category,
  *   true = also from a likely cuisine (Korea).
+ * opts.veg: allow meat-free places without a halal tag:
+ *   'only' = whole menu vegetarian/vegan, true = also places with such dishes.
  * Returns null for elements that should not be shown.
  */
 export function fromOsmElement(el, opts = {}) {
@@ -314,6 +335,7 @@ export function fromOsmElement(el, opts = {}) {
 
   let s;
   let why;
+  let dv;
   if (k === 'p') {
     s = undefined;
   } else {
@@ -322,12 +344,17 @@ export function fromOsmElement(el, opts = {}) {
     s = taggedStatus(tags);
     if (!s) {
       if (String(tags['diet:halal'] ?? tags.halal ?? '').trim().toLowerCase() === 'no') return null;
-      if (!opts.infer) return null;
-      const inf = inferStatus(tags);
+      let inf = opts.infer ? inferStatus(tags) : null;
       // infer: 'name' allows only "halal" in the name; true also allows cuisine hints.
-      if (!inf || (opts.infer === 'name' && inf.why !== 'name')) return null;
-      s = inf.s;
-      why = inf.why;
+      if (inf && opts.infer === 'name' && inf.why !== 'name') inf = null;
+      // veg: 'only' = fully meat-free kitchens, true = also places with meat-free dishes.
+      let veg = opts.veg ? vegStatus(tags) : null;
+      if (veg && opts.veg === 'only' && veg.s !== 'V') veg = null;
+      const best = [inf, veg].filter(Boolean).sort((a, b) => STATUS_ORDER[a.s] - STATUS_ORDER[b.s])[0];
+      if (!best) return null;
+      s = best.s;
+      why = best.why;
+      dv = best.dv;
     }
   }
 
@@ -347,6 +374,7 @@ export function fromOsmElement(el, opts = {}) {
     k,
     s,
     why,
+    dv,
     cu: k === 'p' ? undefined : cuisineTokens(tags),
     a: addressOf(tags, lat, lon),
     ph: firstOf(tags, ['phone', 'contact:phone', 'contact:mobile']),
@@ -377,5 +405,10 @@ export function betterStatus(a, b) {
 
 /** Is this a "confirmed" status (tagged by the community or listed officially)? */
 export function isConfirmed(s) {
-  return s && s !== 'U';
+  return Boolean(s) && s !== 'U';
+}
+
+/** Halal evidence (as opposed to a meat-free alternative or a hint). */
+export function isHalalStatus(s) {
+  return ['C', 'O', 'Y', 'F', 'L'].includes(s);
 }

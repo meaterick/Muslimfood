@@ -1,6 +1,7 @@
 /* Muslimfood — palette from Islamic tilework and Korean celadon:
    lapis ink, porcelain, jade (halal), tile turquoise (Muslim-friendly),
-   saffron (some halal), stone (unconfirmed), pomegranate (warnings). */
+   saffron (some halal), stone (unconfirmed), leaf (meat-free),
+   pomegranate (warnings). Meat-free places use squares, halal ones circles. */
 
 :root {
   --ink: #14233f;
@@ -21,6 +22,10 @@
   --turq: #138d90;
   --turq-soft: #ddf0f0;
   --turq-ink: #0b6d70;
+  --leaf: #4b8a2b;
+  --leaf-soft: #e9f3df;
+  --leaf-ink: #36661c;
+  --on-leaf: #ffffff;
   --saffron: #d99a1c;
   --saffron-ink: #8a5d00;
   --saffron-soft: #fbefd6;
@@ -63,6 +68,10 @@
   --turq: #3dbfc2;
   --turq-soft: #123a3d;
   --turq-ink: #3dbfc2;
+  --leaf: #8cc85b;
+  --leaf-soft: #1d2f16;
+  --leaf-ink: #9cd36b;
+  --on-leaf: #0e1726;
   --saffron: #e7b149;
   --saffron-ink: #f0c56d;
   --saffron-soft: #3a2e14;
@@ -97,6 +106,10 @@
     --turq: #3dbfc2;
     --turq-soft: #123a3d;
     --turq-ink: #3dbfc2;
+    --leaf: #8cc85b;
+    --leaf-soft: #1d2f16;
+    --leaf-ink: #9cd36b;
+    --on-leaf: #0e1726;
     --saffron: #e7b149;
     --saffron-ink: #f0c56d;
     --saffron-soft: #3a2e14;
@@ -577,6 +590,11 @@ a {
   border: 1.5px dashed var(--stone);
 }
 
+.legend-dot.s-V {
+  background: var(--leaf);
+  border-radius: 3px;
+}
+
 .panel-scroll {
   flex: 1;
   min-height: 0;
@@ -732,6 +750,19 @@ a {
   color: var(--on-lapis);
 }
 
+.mark.s-V {
+  background: var(--leaf);
+  color: var(--on-leaf);
+  border-radius: 11px;
+}
+
+.mark.s-M {
+  background: var(--paper);
+  color: var(--leaf-ink);
+  border-radius: 11px;
+  border: 2.5px solid var(--leaf);
+}
+
 .mark.s-C::after {
   content: '';
   position: absolute;
@@ -817,6 +848,17 @@ a {
 .badge.s-P {
   background: var(--lapis-soft);
   color: var(--lapis);
+}
+
+.badge.s-V {
+  background: var(--leaf-soft);
+  color: var(--leaf-ink);
+}
+
+.badge.s-M {
+  background: transparent;
+  color: var(--leaf-ink);
+  border: 1.5px solid var(--leaf);
 }
 
 .open-state {
@@ -1071,6 +1113,12 @@ a {
   border-color: var(--lapis);
 }
 
+.status-card.s-V,
+.status-card.s-M {
+  background: var(--leaf-soft);
+  border-color: var(--leaf);
+}
+
 .status-title {
   display: flex;
   align-items: center;
@@ -1191,6 +1239,23 @@ a {
 .place-menu ul {
   margin: 0;
   padding-inline-start: 20px;
+}
+
+.place-menu li + li {
+  margin-top: 3px;
+}
+
+.diet-tag {
+  display: inline-block;
+  margin-inline-start: 6px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--leaf-soft);
+  color: var(--leaf-ink);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 20px;
+  white-space: nowrap;
 }
 
 .fact {

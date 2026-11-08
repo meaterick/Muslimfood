@@ -82,6 +82,10 @@
   },
   "filter": {
     "label": "Filtres",
+    "show": "Afficher",
+    "showAll": "Halal + végétarien",
+    "showHalal": "Halal uniquement",
+    "showVeg": "Végétarien et vegan",
     "confirmed": "Lieux confirmés uniquement",
     "openNow": "Ouvert actuellement",
     "prayer": "Lieux de prière",
@@ -103,6 +107,10 @@
     "F": "Adapté aux musulmans",
     "L": "Quelques options halal",
     "U": "Non confirmé",
+    "V": "100 % végétarien",
+    "VV": "100 % vegan",
+    "M": "Plats végétariens",
+    "MV": "Plats vegan",
     "desc": {
       "C": "Une certification halal est signalée pour cet établissement.",
       "O": "D’après la source, tous les plats servis sont halal.",
@@ -110,8 +118,18 @@
       "F": "Répertorié comme adapté aux musulmans par un organisme de tourisme officiel. Des plats halal ou sans porc sont généralement proposés et de l’alcool peut être servi.",
       "L": "Quelques options halal sont signalées.",
       "Uname": "Le nom ou la catégorie indique une offre halal. Renseignez-vous auprès du personnel avant de commander.",
-      "Ucuisine": "Ce type de cuisine est souvent halal en Corée, par exemple la cuisine turque, ouzbèke ou pakistanaise. Renseignez-vous auprès du personnel avant de commander."
+      "Ucuisine": "Ce type de cuisine est souvent halal en Corée, par exemple la cuisine turque, ouzbèke ou pakistanaise. Renseignez-vous auprès du personnel avant de commander.",
+      "V": "Toute la carte est végétarienne : ni viande ni poisson, mais des produits laitiers et des œufs peuvent être utilisés. Sans certification halal : demandez si les sauces contiennent de l’alcool, comme du vin de cuisine.",
+      "VV": "Toute la carte est vegan : ni viande, ni poisson, ni produits laitiers, ni œufs. Sans certification halal : demandez si les sauces contiennent de l’alcool, comme du vin de cuisine.",
+      "M": "Propose quelques plats végétariens, mais la viande y est aussi cuisinée : ustensiles et huile peuvent être partagés. Sans certification halal.",
+      "MV": "Propose quelques plats vegan, mais la viande y est aussi cuisinée : ustensiles et huile peuvent être partagés. Sans certification halal."
     }
+  },
+  "diet": {
+    "v": "Vegan",
+    "l": "Lacto (laitages)",
+    "o": "Ovo (œufs)",
+    "lo": "Lacto-ovo (laitages, œufs)"
   },
   "cat": {
     "r": "Restaurant",
@@ -249,7 +267,9 @@
     "kcisa": "Agence coréenne d’information culturelle, restaurants de cuisine du monde",
     "cur": "Liste de la communauté Muslimfood",
     "live": "OpenStreetMap (en direct)",
-    "kto": "Office national du tourisme coréen, guide des restaurants adaptés aux musulmans"
+    "kto": "Office national du tourisme coréen, guide des restaurants adaptés aux musulmans",
+    "seoul": "Ville de Séoul, restaurants végétariens certifiés",
+    "suwon": "Ville de Suwon, restaurants avec menu vegan"
   },
   "guide": {
     "title": "Manger halal en Corée",
@@ -261,6 +281,9 @@
     "levelsIntro": "Chaque lieu sur la carte indique sur quoi repose son statut halal. Vérifiez auprès du restaurant, car les menus et les propriétaires peuvent changer.",
     "ktoTitle": "Le classement des restaurants en Corée",
     "ktoBody": "Les organismes de tourisme coréens distinguent quatre catégories : certifié halal (certificat de la Fédération musulmane de Corée, KMF), halal déclaré par le restaurateur (propriétaire musulman, sans porc ni alcool), adapté aux musulmans (plats halal, alcool éventuellement servi) et sans porc (la viande n’est pas halal). Repérez ces indications à l’entrée.",
+    "ktoLink": "Liste des restaurants adaptés aux musulmans de l’Office national du tourisme coréen (PDF)",
+    "vegTitle": "Lieux végétariens et vegan",
+    "vegIntro": "Les marqueurs carrés indiquent les lieux végétariens et vegan, utiles s’il n’y a pas de restaurant halal à proximité. Sans viande, on évite la principale difficulté, mais ce n’est pas certifié : les sauces peuvent contenir de l’alcool.",
     "foodIntro": "De nombreux plats coréens contiennent du porc ou de l’alcool, parfois sous forme d’ingrédients peu visibles. Les recettes varient selon les restaurants. Renseignez-vous auprès du personnel.",
     "avoidTitle": "Plats contenant généralement du porc",
     "hiddenTitle": "Ingrédients à vérifier",

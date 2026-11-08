@@ -1,6 +1,6 @@
 // Pure merge/normalisation steps of the data build (tested in tests/build.test.mjs).
 
-import { fromOsmElement, betterStatus } from '../../assets/js/core/normalize.js';
+import { fromOsmElement, betterStatus, MEAT_FREE } from '../../assets/js/core/normalize.js';
 import { cellKey, distance, isInKorea, CELL_SIZE } from '../../assets/js/core/geo.js';
 import { namesMatch } from '../../assets/js/core/text.js';
 
@@ -21,9 +21,12 @@ export function normalizeParts(parts) {
       if (byId.has(id)) continue;
       const lat = el.lat ?? el.center?.lat;
       const lon = el.lon ?? el.center?.lon;
-      // Only the Korea extras use generic cuisine-based hints.
-      const infer = name === 'korea' ? isInKorea(lat, lon) : 'name';
-      const place = fromOsmElement(el, { infer });
+      // Only the Korea extras use generic cuisine-based hints and meat-free dishes;
+      // the 'veg' part adds fully meat-free kitchens worldwide.
+      const inKorea = isInKorea(lat, lon);
+      const infer = name === 'korea' ? inKorea : name === 'veg' ? false : 'name';
+      const veg = name === 'korea' ? inKorea : name === 'veg' ? 'only' : false;
+      const place = fromOsmElement(el, { infer, veg });
       if (!place) continue;
       // Prayer places are prebuilt for Korea only (elsewhere the app queries live).
       if (place.k === 'p' && !(name === 'korea' && isInKorea(place.y, place.x))) continue;
@@ -72,7 +75,16 @@ export function mergeInto(byCell, place, sourceKey) {
       same.s = s;
       if (s !== 'U') delete same.why;
     }
-    for (const f of ['a', 'ph', 'oh', 'ohx', 'w', 'ig', 'pt', 'mu', 'mn', 'ml', 'su']) if (!same[f] && place[f]) same[f] = place[f];
+    for (const f of ['a', 'ph', 'oh', 'ohx', 'w', 'ig', 'pt', 'mu', 'su']) if (!same[f] && place[f]) same[f] = place[f];
+    // Menu names, translations and diet labels belong together.
+    if (!same.mn?.length && place.mn?.length) {
+      same.mn = place.mn;
+      if (place.ml) same.ml = place.ml;
+      if (place.mv) same.mv = place.mv;
+    }
+    // Meat-free details stay useful on a place that is (more strongly) halal.
+    if (MEAT_FREE.has(place.s) || place.v) same.v = 1;
+    if (place.dv && !same.dv) same.dv = place.dv;
     if (!same.cu?.length && place.cu?.length) same.cu = place.cu;
     if (place.nl) same.nl = { ...place.nl, ...same.nl };
     if (!same.n && place.n) same.n = place.n;
@@ -86,7 +98,8 @@ export function mergeInto(byCell, place, sourceKey) {
 
 /** Merge local source files: official lists first, unconfirmed hints last. */
 export function mergeSources(byCell, sources) {
-  const order = (s) => (s.status === 'U' ? 2 : s.status === 'F' ? 0 : 1);
+  // Halal lists first, then meat-free lists, unconfirmed hints last.
+  const order = (s) => (s.status === 'U' ? 3 : s.status === 'F' ? 0 : MEAT_FREE.has(s.status) ? 2 : 1);
   const stats = [];
   for (const src of [...sources].sort((a, b) => order(a) - order(b))) {
     let added = 0;
@@ -98,6 +111,6 @@ export function mergeSources(byCell, sources) {
 
 /** Compact search rows with coordinates for loading the matching cell on selection. */
 export function searchRecords(places) {
-  return places.filter((p) => p.n && p.k !== 'p').map(({ id, n, nl, y, x, k, s, a, cu, mn, ml }) =>
-    ({ id, n, nl, y, x, k, s, a, cu, mn, ml }));
+  return places.filter((p) => p.n && p.k !== 'p').map(({ id, n, nl, y, x, k, s, dv, a, cu, mn, ml }) =>
+    ({ id, n, nl, y, x, k, s, dv, a, cu, mn, ml }));
 }

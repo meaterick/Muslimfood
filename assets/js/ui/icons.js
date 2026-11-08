@@ -28,6 +28,7 @@ export const ICON_PATHS = {
   moon: 'M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z',
   flag: 'M5 21V4M5 4h11l-2 4 2 4H5',
   edit: 'M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4',
+  leaf: 'M5 19.5C4.5 11 9.5 5 19.5 4.5 19.5 14 14 19.5 5 19.5zM5 19.5l8.5-8.5',
   // category glyphs (also used on map markers)
   restaurant: 'M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M16.5 21V3c-2 1.2-3.5 4-3.5 7.5V13h3.5',
   fastfood: 'M4.5 11a7.5 6 0 0 1 15 0zM4 14.5h16M5 17.5h14v.5a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-.5z',

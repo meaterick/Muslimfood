@@ -82,3 +82,50 @@ test('different names or far away places are not merged; prayer places merge by 
   const mosque = [...byCell.values()].flat().find((p) => p.id === 'n2');
   assert.equal(mosque.a, '경기도 안산시 단원구 원곡공원로 16-1');
 });
+
+test('meat-free kitchens worldwide, Korean vegetarian dishes, and merging into halal places', () => {
+  const parts = {
+    tagged: { elements: [node(40, 37.5345, 126.9940, { amenity: 'restaurant', name: '할랄 키친', 'diet:halal': 'yes' })] },
+    korea: {
+      elements: [
+        node(41, 37.5636, 126.9850, { amenity: 'restaurant', name: '채식 식당', 'diet:vegetarian': 'yes' }),
+        // outside Korea the Korea query must not add "some vegetarian dishes" places
+        node(42, 33.59, 130.40, { amenity: 'restaurant', name: 'Fukuoka Bistro', 'diet:vegetarian': 'yes' }),
+      ],
+    },
+    veg: {
+      elements: [
+        node(43, 51.52, -0.08, { amenity: 'restaurant', name: 'Mildreds', 'diet:vegan': 'only' }),
+        node(44, 51.52, -0.09, { amenity: 'cafe', name: 'Some Cafe', 'diet:vegan': 'yes' }),
+      ],
+    },
+  };
+  const { byId } = normalizeParts(parts);
+  assert.equal(byId.get('n40').s, 'Y');
+  assert.equal(byId.get('n41').s, 'M');
+  assert.ok(!byId.has('n42'));
+  assert.equal(byId.get('n43').s, 'V');
+  assert.ok(!byId.has('n44'), 'worldwide only fully meat-free kitchens are prebuilt');
+
+  const byCell = groupByCell(byId.values());
+  const stats = mergeSources(byCell, [
+    {
+      source: 'seoul',
+      file: 'seoul.json',
+      status: 'V',
+      places: [
+        // same restaurant as the halal OSM place: keeps Y, gains dishes and the vegetarian flag
+        { id: 'seoul-1', n: '할랄키친', y: 37.53452, x: 126.99401, k: 'r', s: 'M', dv: 'vegan', mn: ['두부 텐더'], mv: ['v'] },
+        { id: 'seoul-2', n: '비건 식당', y: 37.57, x: 126.98, k: 'r', s: 'V', dv: 'vegan', mn: ['비빔밥', '샐러드'], mv: ['v', 'l'] },
+      ],
+    },
+  ]);
+  assert.deepEqual(stats.map((x) => x.added), [1]);
+  const all = [...byCell.values()].flat();
+  const halal = all.find((p) => p.id === 'n40');
+  assert.equal(halal.s, 'Y');
+  assert.equal(halal.v, 1);
+  assert.deepEqual(halal.mn, ['두부 텐더']);
+  assert.deepEqual(halal.mv, ['v']);
+  assert.equal(all.find((p) => p.id === 'seoul-2').s, 'V');
+});

@@ -82,6 +82,10 @@
   },
   "filter": {
     "label": "Filtreler",
+    "show": "Göster",
+    "showAll": "Helal + vejetaryen",
+    "showHalal": "Yalnızca helal",
+    "showVeg": "Vejetaryen ve vegan",
     "confirmed": "Yalnızca doğrulanmış",
     "openNow": "Şu an açık",
     "prayer": "Namaz yerleri",
@@ -103,6 +107,10 @@
     "F": "Müslüman dostu",
     "L": "Kısmen helal",
     "U": "Doğrulanmadı",
+    "V": "Tamamen vejetaryen",
+    "VV": "Tamamen vegan",
+    "M": "Vejetaryen yemekler",
+    "MV": "Vegan yemekler",
     "desc": {
       "C": "Bu yer için bir helal sertifikası kayıtlı.",
       "O": "Yalnızca helal yemek sunduğu bildirildi.",
@@ -110,8 +118,18 @@
       "F": "Resmî bir turizm kuruluşu tarafından Müslüman dostu olarak listelendi. Genellikle helal veya domuz etsiz yemekler sunar; alkol servis edilebilir.",
       "L": "Birkaç helal seçeneği olduğu bildirildi.",
       "Uname": "Adı veya kategorisi helal seçenekler olabileceğini gösteriyor. Sipariş vermeden önce personele sorun.",
-      "Ucuisine": "Bu mutfak Kore'de genellikle helal olduğu için listelendi (örneğin Türk, Özbek veya Pakistan mutfağı). Sipariş vermeden önce çalışanlara sorun."
+      "Ucuisine": "Bu mutfak Kore'de genellikle helal olduğu için listelendi (örneğin Türk, Özbek veya Pakistan mutfağı). Sipariş vermeden önce çalışanlara sorun.",
+      "V": "Menüdeki her şey vejetaryendir: et veya balık yoktur, ancak süt ürünleri ve yumurta kullanılabilir. Helal sertifikalı değildir: soslarda pişirme şarabı gibi alkol olup olmadığını sorun.",
+      "VV": "Menüdeki her şey vegandır: et, balık, süt ürünü veya yumurta yoktur. Helal sertifikalı değildir: soslarda pişirme şarabı gibi alkol olup olmadığını sorun.",
+      "M": "Bazı vejetaryen yemekler sunar, ancak burada et de pişirilir; tava ve yağ ortak kullanılabilir. Helal sertifikalı değildir.",
+      "MV": "Bazı vegan yemekler sunar, ancak burada et de pişirilir; tava ve yağ ortak kullanılabilir. Helal sertifikalı değildir."
     }
+  },
+  "diet": {
+    "v": "Vegan",
+    "l": "Lakto (süt ürünü)",
+    "o": "Ovo (yumurta)",
+    "lo": "Lakto-ovo (süt, yumurta)"
   },
   "cat": {
     "r": "Restoran",
@@ -249,7 +267,9 @@
     "kcisa": "Kore Kültür Bilgi Hizmetleri Ajansı, dünya mutfağı restoranları",
     "cur": "Muslimfood topluluk listesi",
     "live": "OpenStreetMap (canlı)",
-    "kto": "Kore Turizm Örgütü, Müslüman dostu restoran rehberi"
+    "kto": "Kore Turizm Örgütü, Müslüman dostu restoran rehberi",
+    "seoul": "Seul Büyükşehir Belediyesi, sertifikalı vejetaryen restoranlar",
+    "suwon": "Suwon Belediyesi, vegan menüsü olan restoranlar"
   },
   "guide": {
     "title": "Kore'de helal beslenme",
@@ -261,6 +281,9 @@
     "levelsIntro": "Haritadaki her yer, yemeğinin helal olduğundan ne kadar emin olduğumuzu gösterir. Menüler ve işletme sahipleri değişebildiği için her zaman restorana sorun.",
     "ktoTitle": "Kore'nin resmî sınıflandırması",
     "ktoBody": "Kore turizm kuruluşları Müslüman dostu restoranları dört seviyede sınıflandırır: Helal sertifikalı (Kore Müslümanlar Federasyonu KMF sertifikası), Öz-sertifikalı (Müslüman işletme sahibi, domuz eti ve alkol yok), Müslüman dostu (helal yemekler var, alkol servis edilebilir) ve Domuz etsiz (domuz eti yok ama et helal değil). Girişteki bu işaretlere bakın.",
+    "ktoLink": "Kore Turizm Organizasyonu'nun Müslüman dostu restoran listesi (PDF)",
+    "vegTitle": "Vejetaryen ve vegan yerler",
+    "vegIntro": "Kare işaretler vejetaryen ve vegan yerleri gösterir; yakında helal restoran yoksa işinize yarar. Etsiz yemek en büyük helal kaygısını ortadan kaldırır, ancak sertifikalı değildir: soslarda alkol olabilir.",
     "foodIntro": "Birçok Kore yemeği, görünmese bile domuz eti veya alkol içerir. Tarifler restorandan restorana değişir, bu yüzden mutlaka sorun.",
     "avoidTitle": "Genellikle domuz eti içerir",
     "hiddenTitle": "Sorulması gereken gizli malzemeler",

@@ -10,6 +10,9 @@ import { store } from './store.js';
 import { storage } from './util.js';
 import { REPO_URL, ISSUE_NEW_PLACE } from '../config.js';
 
+// The Korea Tourism Organization's own list is linked, not copied (all rights reserved).
+const KTO_PDF = 'https://english.visitkorea.or.kr/public/asis/upload/Muslim-friendly_restaurants.pdf';
+
 const LANG_NAMES = { en: 'English', ko: '한국어', ar: 'العربية', id: 'Bahasa Indonesia', ms: 'Bahasa Melayu', tr: 'Türkçe', fr: 'Français' };
 
 let lastFocus = null;
@@ -131,7 +134,8 @@ function speak(text) {
 function levelRow(s, kind = 'r') {
   const label = s === 'P' ? t('prayer.mosque') : t(`status.${s}`);
   const desc = s === 'U' ? t('status.desc.Ucuisine') : s === 'P' ? t('cat.p') : t(`status.desc.${s}`);
-  return `<li class="level"><span class="mark s-${s}" aria-hidden="true">${icon(s === 'P' ? 'prayer' : kind === 'r' ? 'restaurant' : kind)}</span><div><strong>${esc(label)}</strong><p>${esc(desc)}</p></div></li>`;
+  const glyph = s === 'P' ? 'prayer' : s === 'V' || s === 'M' ? 'leaf' : kind === 'r' ? 'restaurant' : kind;
+  return `<li class="level"><span class="mark s-${s}" aria-hidden="true">${icon(glyph)}</span><div><strong>${esc(label)}</strong><p>${esc(desc)}</p></div></li>`;
 }
 
 function dishList(items) {
@@ -181,7 +185,11 @@ export function renderGuide(tab = 'levels', center = null) {
   if (tab === 'levels') {
     html = `<p>${esc(t('guide.levelsIntro'))}</p>
       <ul class="level-list">${['C', 'O', 'Y', 'F', 'L', 'U'].map((s) => levelRow(s)).join('')}${levelRow('P')}</ul>
-      <div class="callout"><h3>${esc(t('guide.ktoTitle'))}</h3><p>${esc(t('guide.ktoBody'))}</p></div>`;
+      <h3 class="level-sub">${esc(t('guide.vegTitle'))}</h3>
+      <p>${esc(t('guide.vegIntro'))}</p>
+      <ul class="level-list">${levelRow('V')}${levelRow('M')}</ul>
+      <div class="callout"><h3>${esc(t('guide.ktoTitle'))}</h3><p>${esc(t('guide.ktoBody'))}</p>
+        <p><a href="${KTO_PDF}" target="_blank" rel="noopener">${esc(t('guide.ktoLink'))}</a></p></div>`;
   } else if (tab === 'food') {
     html = `<p>${esc(t('guide.foodIntro'))}</p>
       <h3 class="dish-group avoid"><span class="dot" aria-hidden="true"></span>${esc(t('guide.avoidTitle'))}</h3>${dishList(DISHES.avoid)}

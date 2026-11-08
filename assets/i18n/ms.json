@@ -79,6 +79,10 @@
   },
   "filter": {
     "label": "Penapis",
+    "show": "Tunjukkan",
+    "showAll": "Halal + vegetarian",
+    "showHalal": "Halal sahaja",
+    "showVeg": "Vegetarian & vegan",
     "confirmed": "Yang disahkan sahaja",
     "openNow": "Dibuka sekarang",
     "prayer": "Tempat solat",
@@ -100,6 +104,10 @@
     "F": "Mesra Muslim",
     "L": "Sebahagian halal",
     "U": "Belum disahkan",
+    "V": "Semuanya vegetarian",
+    "VV": "Semuanya vegan",
+    "M": "Ada hidangan vegetarian",
+    "MV": "Ada hidangan vegan",
     "desc": {
       "C": "Sijil halal direkodkan untuk tempat ini.",
       "O": "Dilaporkan menghidangkan makanan halal sahaja.",
@@ -107,8 +115,18 @@
       "F": "Disenaraikan sebagai mesra Muslim oleh badan pelancongan rasmi. Biasanya ada hidangan halal atau tanpa babi; alkohol mungkin dihidangkan.",
       "L": "Dilaporkan mempunyai beberapa pilihan halal.",
       "Uname": "Nama atau kategori tempat ini menunjukkan adanya pilihan halal. Tanya kakitangan sebelum membuat pesanan.",
-      "Ucuisine": "Disenaraikan kerana masakan ini biasanya halal di Korea (contohnya Turki, Uzbekistan atau Pakistan). Tanya pekerja sebelum memesan."
+      "Ucuisine": "Disenaraikan kerana masakan ini biasanya halal di Korea (contohnya Turki, Uzbekistan atau Pakistan). Tanya pekerja sebelum memesan.",
+      "V": "Semua menu vegetarian: tiada daging atau ikan, tetapi mungkin menggunakan susu dan telur. Tidak diperakui halal: tanya tentang alkohol dalam sos, seperti arak masakan.",
+      "VV": "Semua menu vegan: tiada daging, ikan, susu atau telur. Tidak diperakui halal: tanya tentang alkohol dalam sos, seperti arak masakan.",
+      "M": "Menghidangkan beberapa hidangan vegetarian, tetapi turut memasak daging, jadi peralatan dan minyak mungkin dikongsi. Tidak diperakui halal.",
+      "MV": "Menghidangkan beberapa hidangan vegan, tetapi turut memasak daging, jadi peralatan dan minyak mungkin dikongsi. Tidak diperakui halal."
     }
+  },
+  "diet": {
+    "v": "Vegan",
+    "l": "Lakto (susu)",
+    "o": "Ovo (telur)",
+    "lo": "Lakto-ovo (susu, telur)"
   },
   "cat": {
     "r": "Restoran",
@@ -246,7 +264,9 @@
     "kcisa": "Agensi Perkhidmatan Maklumat Budaya Korea, restoran masakan dunia",
     "cur": "Senarai komuniti Muslimfood",
     "live": "OpenStreetMap (langsung)",
-    "kto": "Panduan restoran mesra Muslim, Pertubuhan Pelancongan Korea"
+    "kto": "Panduan restoran mesra Muslim, Pertubuhan Pelancongan Korea",
+    "seoul": "Kerajaan Metropolitan Seoul, restoran vegetarian diperakui",
+    "suwon": "Bandar Suwon, restoran dengan menu vegan"
   },
   "guide": {
     "title": "Makan halal di Korea",
@@ -258,6 +278,9 @@
     "levelsIntro": "Setiap tempat dalam peta menunjukkan sejauh mana kami pasti makanannya halal. Sentiasa semak dengan restoran: menu dan pemilik boleh berubah.",
     "ktoTitle": "Penarafan rasmi Korea",
     "ktoBody": "Badan pelancongan Korea membahagikan restoran mesra Muslim kepada empat tahap: Halal certified (sijil daripada Persekutuan Muslim Korea, KMF), Self-certified (pemilik Muslim, tanpa babi dan alkohol), Muslim-friendly (ada hidangan halal, alkohol mungkin dihidangkan) dan Pork-free (tanpa babi, tetapi daging tidak halal). Cari tanda ini di pintu masuk.",
+    "ktoLink": "Senarai restoran mesra Muslim oleh Korea Tourism Organization (PDF)",
+    "vegTitle": "Tempat vegetarian dan vegan",
+    "vegIntro": "Penanda segi empat menunjukkan tempat vegetarian dan vegan, berguna jika tiada restoran halal berdekatan. Makanan tanpa daging mengelakkan kebimbangan halal yang utama, tetapi tidak diperakui: sos mungkin mengandungi alkohol.",
     "foodIntro": "Banyak masakan Korea mengandungi babi atau alkohol walaupun tidak kelihatan. Resipi berbeza antara restoran, jadi sentiasa bertanya.",
     "avoidTitle": "Biasanya mengandungi babi",
     "hiddenTitle": "Bahan tersembunyi yang perlu ditanya",

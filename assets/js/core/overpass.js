@@ -35,6 +35,23 @@ ${taggedSelectors(b)}
 out center tags qt;`;
 }
 
+/**
+ * Meat-free kitchens worldwide (whole menu vegan or vegetarian). Vegetarian and
+ * vegan dishes contain no pork or non-halal meat, so they are a common choice
+ * for Muslims when no halal restaurant is near.
+ */
+export function vegQuery(bbox, timeout = 600) {
+  const b = bbox ? `(${bboxString(bbox)})` : '';
+  return `[out:json][timeout:${timeout}];
+(
+  nwr["diet:vegan"="only"]${b};
+  nwr["diet:vegetarian"="only"]${b};
+);
+out center tags qt;`;
+}
+
+const VEG_SOME = '"^(only|yes|limited)$"';
+
 const KR_CUISINES =
   'turkish|kebab|doner|uzbek|pakistani|arab|lebanese|middle_eastern|persian|iranian|afghan|indonesian|malaysian|egyptian|moroccan|bangladeshi|syrian|iraqi|yemeni|saudi|kazakh|kyrgyz|uyghur|uighur|tajik|turkmen|kurdish|palestinian|jordanian|tunisian|algerian|sudanese|somali|emirati|azerbaijani|shawarma|falafel|halal|central_asian';
 const KR_NAMES =
@@ -54,6 +71,8 @@ export function koreaQuery(timeout = 600) {
   nwr${FOOD}["name"~"${KR_NAMES}",i]${b};
   nwr["shop"]["name"~"할랄|halal|حلال",i]${b};
   nwr["amenity"="place_of_worship"]["religion"="muslim"]${b};
+  nwr["diet:vegan"~${VEG_SOME}]${b};
+  nwr["diet:vegetarian"~${VEG_SOME}]${b};
 );
 out center tags qt;`;
 }
@@ -68,7 +87,7 @@ nwr["amenity"="place_of_worship"]["religion"="muslim"](${bboxString(bbox)});
 out center tags qt;`;
 }
 
-/** Live query for a small viewport, including explicit halal claims in local and translated names. */
+/** Live query for a small viewport: halal tags, halal claims in local and translated names, and meat-free places. */
 export function liveFoodQuery(bbox, timeout = 25) {
   const b = `(${bboxString(bbox)})`;
   const halalName = `[~"^(name(:[^:]+)?|brand)$"~"${HALAL_NAME_PATTERN}",i]`;
@@ -78,6 +97,8 @@ ${taggedSelectors(b)}
   nwr${FOOD}${halalName}${b};
   nwr${FOOD_SHOP}${halalName}${b};
   nwr${FOOD}["cuisine"~"(^|[;,])[[:space:]]*halal[[:space:]]*($|[;,])",i]${b};
+  nwr["diet:vegan"~${VEG_SOME}]${b};
+  nwr["diet:vegetarian"~${VEG_SOME}]${b};
 );
 out center tags qt;`;
 }

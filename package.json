@@ -9,7 +9,6 @@
     "build:data:offline": "node scripts/build-data.mjs --offline",
     "import:kr": "node scripts/import-kr.mjs",
     "serve": "node scripts/serve.mjs",
-    "check": "node scripts/check.mjs",
     "test": "node --test tests/*.test.mjs"
   },
   "engines": {

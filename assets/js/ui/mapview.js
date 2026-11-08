@@ -32,8 +32,28 @@ const PIN = {
   F: { fill: '#138D90', glyph: '#FFFFFF' },
   L: { fill: '#D99A1C', glyph: '#14233F' },
   U: { fill: '#FFFFFF', glyph: '#5E6573', ring: '#7A808C', dashed: true },
+  // Meat-free alternatives: a rounded square with a leaf, so they never read as halal.
+  V: { fill: '#4B8A2B', glyph: '#FFFFFF', square: true, icon: 'leaf' },
+  M: { fill: '#FFFFFF', glyph: '#3F7A22', ring: '#4B8A2B', square: true, icon: 'leaf' },
   P: { fill: '#2346A0', glyph: '#FFFFFF' },
 };
+
+/** Circle, or rounded square for meat-free places. */
+function shapePath(ctx, cx, cy, r, square) {
+  ctx.beginPath();
+  if (!square) {
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    return;
+  }
+  const s = r * 0.9;
+  const rad = r * 0.38;
+  ctx.moveTo(cx - s + rad, cy - s);
+  ctx.arcTo(cx + s, cy - s, cx + s, cy + s, rad);
+  ctx.arcTo(cx + s, cy + s, cx - s, cy + s, rad);
+  ctx.arcTo(cx - s, cy + s, cx - s, cy - s, rad);
+  ctx.arcTo(cx - s, cy - s, cx + s, cy - s, rad);
+  ctx.closePath();
+}
 
 const EMPTY = { type: 'FeatureCollection', features: [] };
 
@@ -71,38 +91,34 @@ function drawPin(id) {
   ctx.scale(ratio, ratio);
   const cx = size / 2;
   const r = sel ? 15 : 12;
+  const sq = Boolean(st.square);
   if (sel) {
-    ctx.beginPath();
-    ctx.arc(cx, cx, r + 6, 0, Math.PI * 2);
+    shapePath(ctx, cx, cx, r + 6, sq);
     ctx.fillStyle = 'rgba(35, 70, 160, 0.22)';
     ctx.fill();
   }
   // soft shadow
-  ctx.beginPath();
-  ctx.arc(cx, cx + 1.2, r + 1, 0, Math.PI * 2);
+  shapePath(ctx, cx, cx + 1.2, r + 1, sq);
   ctx.fillStyle = 'rgba(20, 35, 63, 0.28)';
   ctx.fill();
   // white rim
-  ctx.beginPath();
-  ctx.arc(cx, cx, r + 1.5, 0, Math.PI * 2);
+  shapePath(ctx, cx, cx, r + 1.5, sq);
   ctx.fillStyle = '#FFFFFF';
   ctx.fill();
   // body
-  ctx.beginPath();
-  ctx.arc(cx, cx, r, 0, Math.PI * 2);
+  shapePath(ctx, cx, cx, r, sq);
   ctx.fillStyle = st.fill;
   ctx.fill();
   if (st.ring) {
     ctx.setLineDash(st.dashed ? [3.2, 2.4] : []);
-    ctx.lineWidth = 2;
+    ctx.lineWidth = sq ? 2.4 : 2;
     ctx.strokeStyle = st.ring;
-    ctx.beginPath();
-    ctx.arc(cx, cx, r - 1, 0, Math.PI * 2);
+    shapePath(ctx, cx, cx, r - 1, sq);
     ctx.stroke();
     ctx.setLineDash([]);
   }
   // glyph
-  const path = new Path2D(ICON_PATHS[CATEGORY_ICON[k]] || ICON_PATHS.other);
+  const path = new Path2D(ICON_PATHS[st.icon || CATEGORY_ICON[k]] || ICON_PATHS.other);
   const g = r * 1.18;
   ctx.save();
   ctx.translate(cx - g / 2, cx - g / 2);
@@ -137,7 +153,7 @@ function drawPin(id) {
 }
 
 function drawCluster(id) {
-  // id = cl-<label>-<g|u|s>
+  // id = cl-<label>-<g|v|u|s>: halal / vegetarian only (square, like its markers) / unconfirmed / summary
   const parts = id.split('-');
   const kind = parts.pop();
   const label = parts.slice(1).join('-');
@@ -150,13 +166,13 @@ function drawCluster(id) {
   const ctx = c.getContext('2d');
   ctx.scale(ratio, ratio);
   const cx = size / 2;
-  ctx.beginPath();
-  ctx.arc(cx, cx, r + 4, 0, Math.PI * 2);
-  ctx.fillStyle = kind === 'u' ? 'rgba(122, 128, 140, 0.30)' : kind === 's' ? 'rgba(35, 70, 160, 0.25)' : 'rgba(30, 123, 79, 0.30)';
+  const square = kind === 'v';
+  shapePath(ctx, cx, cx, r + 4, square);
+  ctx.fillStyle =
+    kind === 'u' ? 'rgba(122, 128, 140, 0.30)' : kind === 's' ? 'rgba(35, 70, 160, 0.25)' : kind === 'v' ? 'rgba(75, 138, 43, 0.30)' : 'rgba(30, 123, 79, 0.30)';
   ctx.fill();
-  ctx.beginPath();
-  ctx.arc(cx, cx, r, 0, Math.PI * 2);
-  ctx.fillStyle = kind === 'u' ? '#5E6573' : kind === 's' ? '#14233F' : '#1E7B4F';
+  shapePath(ctx, cx, cx, r, square);
+  ctx.fillStyle = kind === 'u' ? '#5E6573' : kind === 's' ? '#14233F' : kind === 'v' ? '#4B8A2B' : '#1E7B4F';
   ctx.fill();
   ctx.lineWidth = 2;
   ctx.strokeStyle = '#FFFFFF';
@@ -304,7 +320,11 @@ export class MapView {
       cluster: true,
       clusterMaxZoom: 13,
       clusterRadius: 44,
-      clusterProperties: { conf: ['+', ['case', ['==', ['get', 's'], 'U'], 0, 1]] },
+      // Cluster colour: jade when it holds halal places, leaf when only meat-free ones, stone otherwise.
+      clusterProperties: {
+        halal: ['+', ['case', ['in', ['get', 's'], ['literal', ['C', 'O', 'Y', 'F', 'L']]], 1, 0]],
+        veg: ['+', ['case', ['in', ['get', 's'], ['literal', ['V', 'M']]], 1, 0]],
+      },
     });
     add('mf-prayer', { type: 'geojson', data: this.data.prayer });
     add('mf-selected', { type: 'geojson', data: this.data.selected });
@@ -337,7 +357,7 @@ export class MapView {
       minzoom: DETAIL_ZOOM,
       filter: ['has', 'point_count'],
       layout: {
-        'icon-image': ['concat', 'cl-', abbrev(['get', 'point_count']), ['case', ['>', ['get', 'conf'], 0], '-g', '-u']],
+        'icon-image': ['concat', 'cl-', abbrev(['get', 'point_count']), ['case', ['>', ['get', 'halal'], 0], '-g', ['>', ['get', 'veg'], 0], '-v', '-u']],
         'icon-allow-overlap': true,
         'icon-ignore-placement': true,
       },

@@ -147,3 +147,29 @@ test("infer: 'name' accepts halal names but not cuisine hints", () => {
   assert.equal(fromOsmElement(turkish, { infer: true }).why, 'cuisine');
   assert.equal(fromOsmElement(node(21, { amenity: 'fast_food', name: 'Halal Bites' }), { infer: 'name' }).why, 'name');
 });
+
+test('meat-free statuses from diet:vegan / diet:vegetarian', async () => {
+  const { vegStatus, isHalalStatus } = await import('../assets/js/core/normalize.js');
+  assert.deepEqual(vegStatus({ 'diet:vegan': 'only' }), { s: 'V', dv: 'vegan' });
+  assert.deepEqual(vegStatus({ 'diet:vegetarian': 'only', 'diet:vegan': 'yes' }), { s: 'V', dv: 'vegetarian' });
+  assert.deepEqual(vegStatus({ 'diet:vegetarian': 'yes' }), { s: 'M', dv: 'vegetarian' });
+  assert.equal(vegStatus({ 'diet:vegan': 'no' }), null);
+  const vegan = node(30, { amenity: 'restaurant', name: 'Plant Kitchen', 'diet:vegan': 'only' });
+  assert.equal(fromOsmElement(vegan), null, 'not shown unless meat-free places are requested');
+  const p = fromOsmElement(vegan, { veg: 'only' });
+  assert.equal(p.s, 'V');
+  assert.equal(p.dv, 'vegan');
+  const options = node(31, { amenity: 'restaurant', name: 'Bistro', 'diet:vegetarian': 'yes' });
+  assert.equal(fromOsmElement(options, { veg: 'only' }), null, "'only' skips places with just some dishes");
+  assert.equal(fromOsmElement(options, { veg: true }).s, 'M');
+  // a halal tag always wins; the vegetarian info stays as a flag
+  const halal = fromOsmElement(node(32, { amenity: 'restaurant', name: 'H', 'diet:halal': 'yes', 'diet:vegan': 'only' }), { veg: true });
+  assert.equal(halal.s, 'Y');
+  assert.equal(halal.v, 1);
+  // an explicit "not halal" is respected
+  assert.equal(fromOsmElement(node(33, { amenity: 'restaurant', name: 'X', 'diet:halal': 'no', 'diet:vegan': 'only' }), { veg: true }), null);
+  // a fully meat-free kitchen ranks above a cuisine hint, a hint above "some vegetarian dishes"
+  assert.equal(fromOsmElement(node(34, { amenity: 'restaurant', name: 'Istanbul Veg', cuisine: 'turkish', 'diet:vegetarian': 'only' }), { infer: true, veg: true }).s, 'V');
+  assert.equal(fromOsmElement(node(35, { amenity: 'restaurant', name: 'Istanbul Grill', cuisine: 'turkish', 'diet:vegetarian': 'yes' }), { infer: true, veg: true }).s, 'U');
+  assert.ok(isHalalStatus('C') && isHalalStatus('L') && !isHalalStatus('V') && !isHalalStatus('U'));
+});

@@ -26,11 +26,18 @@ import { initDialogs, renderMenu, renderAbout, openGuide, initGuide, openDialog,
 import { AREAS, areaName, SEOUL_DEFAULT, TZ_START } from './ui/content.js';
 import { distance, padBbox, isInKorea, inBbox } from './core/geo.js';
 import { isOpenNow } from './core/hours.js';
-import { cuisineGroupOf, CUISINE_GROUP_KEYS } from './core/normalize.js';
+import { cuisineGroupOf, CUISINE_GROUP_KEYS, MEAT_FREE } from './core/normalize.js';
 import { esc } from './core/text.js';
 import { icon } from './ui/icons.js';
 
 const PAGE = 40;
+// "Show" choices: halal and vegetarian places, halal only, or vegetarian only.
+const SHOW = ['all', 'halal', 'veg'];
+const SHOW_ICON = { all: 'leaf', halal: 'restaurant', veg: 'leaf' };
+const savedShow = () => {
+  const v = storage.get('show');
+  return SHOW.includes(v) ? v : 'all';
+};
 const app = $('#app');
 const panel = $('#panel');
 
@@ -40,7 +47,7 @@ preloadMapLibrary(); // MapView.init() awaits the same download
 
 const state = {
   theme: storage.get('theme', 'auto'),
-  filters: { confirmed: false, open: false, cuisine: '', cats: new Set(), prayer: false },
+  filters: { show: savedShow(), confirmed: false, open: false, cuisine: '', cats: new Set(), prayer: false },
   user: null,
   selected: null,
   limit: PAGE,
@@ -138,6 +145,9 @@ function inCuisine(p, g) {
 
 function passes(p, now, { ignoreConfirmed = false } = {}) {
   const f = state.filters;
+  if (f.show === 'halal' && MEAT_FREE.has(p.s)) return false;
+  // vegetarian: meat-free kitchens, places with vegetarian dishes, and halal places that have some
+  if (f.show === 'veg' && !MEAT_FREE.has(p.s) && !p.v) return false;
   if (!ignoreConfirmed && f.confirmed && p.s === 'U') return false;
   if (f.cats.size && !f.cats.has(p.k)) return false;
   if (f.cuisine && !inCuisine(p, f.cuisine)) return false;
@@ -147,14 +157,18 @@ function passes(p, now, { ignoreConfirmed = false } = {}) {
 
 function filtersActive() {
   const f = state.filters;
-  return f.confirmed || f.open || f.cuisine || f.cats.size > 0;
+  return f.show !== 'all' || f.confirmed || f.open || f.cuisine || f.cats.size > 0;
 }
 
 function renderChips() {
   const f = state.filters;
   const chip = (key, label, pressed, extra = '') =>
     `<button type="button" class="chip ${extra}" data-filter="${key}" aria-pressed="${pressed}">${label}</button>`;
+  const showKey = { all: 'filter.showAll', halal: 'filter.showHalal', veg: 'filter.showVeg' };
   $('#chips').innerHTML = [
+    `<label class="chip has-select" data-active="${f.show !== 'all'}">${icon(SHOW_ICON[f.show])}<span class="visually-hidden">${esc(t('filter.show'))}</span><select id="show-select">${SHOW.map(
+      (v) => `<option value="${v}"${v === f.show ? ' selected' : ''}>${esc(t(showKey[v]))}</option>`,
+    ).join('')}</select></label>`,
     chip('confirmed', `${icon('check')}${esc(t('filter.confirmed'))}`, f.confirmed),
     chip('open', `${icon('clock')}${esc(t('filter.openNow'))}`, f.open),
     `<label class="chip has-select" data-active="${Boolean(f.cuisine)}">${icon('sliders')}<span class="visually-hidden">${esc(t('filter.cuisine'))}</span><select id="cuisine-select"><option value="">${esc(
@@ -611,6 +625,13 @@ function bindEvents() {
     if (e.target.id === 'cuisine-select') {
       state.filters.cuisine = e.target.value;
       refresh();
+    } else if (e.target.id === 'show-select') {
+      state.filters.show = SHOW.includes(e.target.value) ? e.target.value : 'all';
+      storage.set('show', state.filters.show);
+      const chipEl = e.target.closest('.chip');
+      chipEl.dataset.active = String(state.filters.show !== 'all');
+      chipEl.querySelector('.ic').outerHTML = icon(SHOW_ICON[state.filters.show]);
+      refresh();
     }
   });
 
@@ -642,7 +663,8 @@ function bindEvents() {
         refresh();
         break;
       case 'reset-filters':
-        state.filters = { ...state.filters, confirmed: false, open: false, cuisine: '', cats: new Set() };
+        state.filters = { ...state.filters, show: 'all', confirmed: false, open: false, cuisine: '', cats: new Set() };
+        storage.set('show', 'all');
         renderChips();
         refresh();
         break;

@@ -144,7 +144,7 @@ export async function ensureLive(bbox, kind, { includeKorea = false } = {}) {
       const query = kind === 'prayer' ? prayerQuery(box) : liveFoodQuery(box);
       const json = await runOverpass(query, { signal: ctrl.signal, timeoutMs: 12000 });
       for (const el of json.elements) {
-        const p = fromOsmElement(el, { infer: 'name' });
+        const p = fromOsmElement(el, { infer: 'name', veg: true });
         if (!p) continue;
         if (kind === 'prayer' ? p.k !== 'p' : p.k === 'p') continue;
         p.src = 'live';

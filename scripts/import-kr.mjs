@@ -11,7 +11,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parseCsvObjects, decodeKorean } from './lib/csv.mjs';
 import { combineKoreanHours } from './lib/kr-hours.mjs';
 import { namesMatch } from '../assets/js/core/text.js';
@@ -27,6 +27,16 @@ const DATASETS = {
   gg_restaurants: { pk: '15099378', title: '경기관광공사_경기도 무슬림 친화 음식점' },
   gg_prayer: { pk: '15099380', title: '경기관광공사_경기도 이슬람 예배당 및 예배소 현황' },
   kcisa_world: { pk: '15111398', title: '한국문화정보원_전국 세계 음식점 데이터' },
+  suwon_vegan: { pk: '15129222', title: '경기도 수원시_비건메뉴취급업소' },
+};
+
+// Seoul publishes its certified-business list (incl. vegetarian restaurants) on
+// Seoul Open Data Plaza; data.go.kr only links to it (pk 15172394).
+const SEOUL_FSA = {
+  infId: 'OA-23126',
+  catalogPk: '15172394',
+  title: '서울특별시_식품안전정보 서비스_먹거리 지도정보 (채식음식점)',
+  url: 'https://data.seoul.go.kr/dataList/OA-23126/S/1/datasetView.do',
 };
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -91,6 +101,52 @@ async function downloadDataset(key) {
     url: `https://www.data.go.kr/data/${pk}/fileData.do`,
     modified,
     license: license || '이용허락범위 제한 없음',
+    fetched: new Date().toISOString().slice(0, 10),
+  };
+  await writeFile(file, bytes);
+  await writeFile(file + '.json', JSON.stringify(meta, null, 2));
+  return { text: decodeKorean(bytes), meta };
+}
+
+/** data.go.kr catalogue metadata (title, modified date, licence) for a dataset page. */
+async function catalogMeta(pk) {
+  try {
+    const page = await (await fetchRetry(`https://www.data.go.kr/data/${pk}/fileData.do`)).text();
+    const j = JSON.parse(/(\{"@context":"https:\/\/schema\.org"[\s\S]*?\})\s*<\/script>/.exec(page)[1]);
+    return { modified: j.dateModified, license: j.license?.name };
+  } catch {
+    return {};
+  }
+}
+
+async function downloadSeoulFsa() {
+  const file = path.join(CACHE, 'seoul_fsa.csv');
+  if (OFFLINE || (existsSync(file) && process.argv.includes('--cached'))) {
+    return { text: decodeKorean(await readFile(file)), meta: JSON.parse(await readFile(file + '.json', 'utf8')) };
+  }
+  // Same request as the "CSV" button of the sheet view.
+  const body = new URLSearchParams({
+    srvType: 'S',
+    infId: SEOUL_FSA.infId,
+    serviceKind: '1',
+    pageNo: '1',
+    gridTotalCnt: '',
+    ssUserId: 'SAMPLE_VIEW',
+    strWhere: '',
+    strOrderby: 'CRTFC_UPSO_MGT_SNO DESC',
+  });
+  const res = await fetchRetry('https://datafile.seoul.go.kr/bigfile/iot/sheet/csv/download.do', {
+    method: 'POST',
+    body,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded', Referer: SEOUL_FSA.url },
+  });
+  const bytes = new Uint8Array(await res.arrayBuffer());
+  const cat = await catalogMeta(SEOUL_FSA.catalogPk);
+  const meta = {
+    title: SEOUL_FSA.title,
+    url: SEOUL_FSA.url,
+    modified: cat.modified || null,
+    license: cat.license || '이용허락범위 제한 없음',
     fetched: new Date().toISOString().slice(0, 10),
   };
   await writeFile(file, bytes);
@@ -250,14 +306,35 @@ const HALAL_NAME = /할랄|halal|حلال/i;
 const LIKELY_NAME = /케밥|kebab|kebap|사마르칸트|samarkand|타슈켄트|tashkent|우즈벡|uzbek|인도네시아|indonesia|말레이시아|malaysia|파키스탄|pakistan|아랍|arab|이스탄불|istanbul|두바이|dubai/i;
 const EXCLUDE_NAME = /발리|bali|펍|pub|\bbar\b|호프|포차|술집|비어|beer|와인|wine|bistro|비스트로/i;
 
-function kcisaCuisine(cat3) {
+// Other cuisines, used for restaurants listed for their vegetarian menu.
+const KCISA_OTHER_CUISINE = {
+  이탈리아: 'italian',
+  일본: 'japanese',
+  중국: 'chinese',
+  미국: 'american',
+  프랑스: 'french',
+  스페인: 'spanish',
+  베트남: 'vietnamese',
+  태국: 'thai',
+  멕시코: 'mexican',
+  영국: 'british',
+  포르투갈: 'portuguese',
+  독일: 'german',
+  그리스: 'greek',
+  대만: 'taiwanese',
+  한국: 'korean',
+};
+
+function kcisaCuisine(cat3, { all = false } = {}) {
   const out = [];
   for (const w of cat3.split(/\s+/)) {
-    const t = KCISA_CUISINE[w];
+    const t = KCISA_CUISINE[w] || (all ? KCISA_OTHER_CUISINE[w] : undefined);
     if (t && !out.includes(t)) out.push(t);
   }
   return out;
 }
+
+
 
 function kcisaCandidate(r) {
   const name = r['시설명'];
@@ -274,22 +351,137 @@ function kcisaCandidate(r) {
 }
 
 function koreanPhone(p) {
-  const v = String(p || '').trim();
+  const v = String(p || '').trim().replace(/\s*-\s*/g, '-');
   return /^[0-9+][0-9\- ]{6,}$/.test(v) ? v : undefined;
 }
+
+// Some publishers export EUC-KR, which has no code for rarer Hangul syllables
+// (e.g. 똠) or emoji; those arrive as "?". Drop a "?" that touches Hangul.
+export function dropLostChars(text) {
+  return String(text || '')
+    .replace(/(?<=[가-힣])\?+|\?+(?=[가-힣])/g, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
+const PUBLISHERS = {
+  gg: '경기관광공사 (Gyeonggi Tourism Organization)',
+  kcisa: '한국문화정보원 (Korea Culture Information Service Agency)',
+  seoul: '서울특별시 (Seoul Metropolitan Government)',
+  suwon: '경기도 수원시 (Suwon City)',
+};
 
 function sourceHeader(key, meta, extra = {}) {
   return {
     source: key,
     title: meta.title,
-    publisher: key.startsWith('gg') ? '경기관광공사 (Gyeonggi Tourism Organization)' : '한국문화정보원 (Korea Culture Information Service Agency)',
+    publisher: PUBLISHERS[key],
     url: meta.url,
     license: meta.license,
-    licenseNote: '공공데이터포털 이용허락범위 제한 없음 (no usage restrictions); attribution given in the app.',
+    licenseNote: '공공데이터 이용허락범위 제한 없음 (no usage restrictions); attribution given in the app.',
     modified: meta.modified,
     fetched: meta.fetched,
     ...extra,
   };
+}
+
+/** Short stable id from text (FNV-1a), so links survive reordering of a source. */
+function stableId(prefix, text) {
+  let h = 0x811c9dc5;
+  for (const ch of text) {
+    h ^= ch.codePointAt(0);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return `${prefix}-${h.toString(36)}`;
+}
+
+const SEOUL_DIET = { 비건: 'v', 락토: 'l', 오보: 'o', 락토오보: 'lo', 오보락토: 'lo' };
+
+/** "[비건]두부텐더,[락토]리코타 샐러드" -> { mn: [...], mv: ['v', 'l'] } */
+export function parseCertifiedMenu(text, max = 10) {
+  const mn = [];
+  const mv = [];
+  for (let part of String(text || '').split(/[,，]/)) {
+    part = part.trim();
+    if (!part) continue;
+    const m = /^\[([^\]]+)\]\s*(.+)$/.exec(part);
+    const name = dropLostChars(m ? m[2] : part);
+    if (!name || mn.includes(name)) continue;
+    mn.push(name);
+    mv.push(m ? SEOUL_DIET[m[1].replace(/\s+/g, '')] ?? '' : '');
+    if (mn.length >= max) break;
+  }
+  return { mn, mv };
+}
+
+/** Seoul certified vegetarian restaurants (채식전문 = whole menu, 채식가능 = some dishes). */
+export function seoulVegetarian(rows) {
+  const col = (r, prefix) => {
+    const key = Object.keys(r).find((k) => k.startsWith(prefix));
+    return key ? String(r[key] || '').trim() : '';
+  };
+  const out = [];
+  for (const r of rows) {
+    const kind = col(r, '인증구분');
+    if (kind !== '채식전문음식점' && kind !== '채식가능음식점') continue;
+    if (col(r, '사용여부') === 'N' || col(r, '인증여부') === 'N') continue;
+    const y = +col(r, 'y좌표');
+    const x = +col(r, 'x좌표');
+    if (!(y > 37.3 && y < 37.8 && x > 126.6 && x < 127.3)) continue; // inside Seoul
+    const { mn, mv } = parseCertifiedMenu(col(r, '인증메뉴'));
+    const labelled = mv.filter(Boolean);
+    const date = col(r, '인증일자');
+    const sno = col(r, '식품인증업소 관리 일련번호');
+    out.push({
+      id: sno ? `seoul-${sno}` : stableId('seoul', `${col(r, '업소명')}|${col(r, '주소_도로명상세주소')}`),
+      n: dropLostChars(col(r, '업소명')) || col(r, '업소명'),
+      y: roundCoord(y),
+      x: roundCoord(x),
+      k: 'r',
+      s: kind === '채식전문음식점' ? 'V' : 'M',
+      dv: labelled.length && labelled.every((d) => d === 'v') ? 'vegan' : 'vegetarian',
+      a: col(r, '주소_도로명상세주소') || undefined,
+      ph: koreanPhone(col(r, '전화번호')),
+      w: /^https?:\/\//i.test(col(r, '홈페이지')) ? col(r, '홈페이지') : undefined,
+      mn: mn.length ? mn : undefined,
+      mv: mn.length ? mv : undefined,
+      d: /^\d{8}$/.test(date) ? `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6)}` : undefined,
+    });
+  }
+  return out;
+}
+
+const SUWON_CUISINE = { 제과제빵: 'bakery', 한식: 'korean', 카페: 'coffee_shop', 네팔식: 'nepalese', 멕시코식: 'mexican', 인도음식: 'indian', 디저트류: 'dessert' };
+
+/** Suwon restaurants with vegan menus ("전부메뉴" = whole menu, "일부메뉴" = some dishes). */
+export function suwonVegan(rows) {
+  const out = [];
+  for (const r of rows) {
+    const name = String(r['업소명'] || '').trim();
+    const y = +r['위도'];
+    const x = +r['경도'];
+    if (!name || !(y > 37.1 && y < 37.45 && x > 126.85 && x < 127.15)) continue; // inside Suwon
+    const type = String(r['업소종류'] || '');
+    const kind = String(r['식당구분'] || '').trim();
+    const address = String(r['소재지도로명주소'] || '').replace(/^(경기도 수원시)\s+\1/, '$1').replace(/\s+/g, ' ').trim();
+    const dish = String(r['대표비건음식'] || '').trim();
+    out.push({
+      id: stableId('suwon', `${name}|${address}`),
+      n: name,
+      y: roundCoord(y),
+      x: roundCoord(x),
+      k: /베이커리|카페/.test(type) || ['제과제빵', '카페', '디저트류'].includes(kind) ? 'c' : 'r',
+      s: /전부/.test(type) ? 'V' : 'M',
+      dv: 'vegan',
+      cu: SUWON_CUISINE[kind] ? [SUWON_CUISINE[kind]] : undefined,
+      a: address || undefined,
+      ph: koreanPhone(r['전화번호']),
+      mn: dish ? [dish] : undefined,
+      mv: dish ? ['v'] : undefined,
+      d: /^\d{4}-\d{2}-\d{2}$/.test(r['데이터기준일자'] || '') ? r['데이터기준일자'] : undefined,
+    });
+  }
+  return out;
 }
 
 // ---------------------------------------------------------------- main
@@ -336,6 +528,42 @@ async function main() {
   kcisa.sort((a, b) => a.a.localeCompare(b.a, 'ko') || a.n.localeCompare(b.n, 'ko'));
   kcisa.forEach((p, i) => (p.id = `kcisa-${String(i + 1).padStart(3, '0')}`));
   console.log(`KCISA candidates: ${kcisa.length}`);
+  // Restaurants listed for their vegetarian menu (meat-free dishes, normal kitchen).
+  let kcisaVeg = 0;
+  for (const r of worldRows) {
+    if (r['채식메뉴 보유여부'] !== 'Y' || kcisaCandidate(r) || EXCLUDE_NAME.test(r['시설명'])) continue;
+    const y = +r['위도'];
+    const x = +r['경도'];
+    if (!Number.isFinite(y) || !Number.isFinite(x) || !y || !x) continue;
+    const oh = combineKoreanHours(r['평일 운영시간'], r['주말 운영시간']);
+    kcisa.push({
+      id: stableId('kcisa-veg', `${r['시설명']}|${r['도로명주소'] || r['지번주소']}`),
+      n: r['시설명'],
+      y: roundCoord(y),
+      x: roundCoord(x),
+      k: 'r',
+      s: 'M',
+      dv: 'vegetarian',
+      cu: kcisaCuisine(r['카테고리3'], { all: true }),
+      a: r['도로명주소'] || r['지번주소'],
+      ph: koreanPhone(r['전화번호']),
+      oh: oh || undefined,
+      v: 1,
+      d: r['최종작성일'] || undefined,
+    });
+    kcisaVeg++;
+  }
+  console.log(`KCISA restaurants with a vegetarian menu: ${kcisaVeg}`);
+
+  // ---- Seoul certified vegetarian restaurants (coordinates + certified dishes)
+  const seoul = await downloadSeoulFsa();
+  const seoulOut = seoulVegetarian(parseCsvObjects(seoul.text));
+  console.log(`Seoul certified vegetarian restaurants: ${seoulOut.length} (${seoulOut.filter((p) => p.s === 'V').length} whole-menu)`);
+
+  // ---- Suwon restaurants with vegan menus
+  const suwon = await downloadDataset('suwon_vegan');
+  const suwonOut = suwonVegan(parseCsvObjects(suwon.text));
+  console.log(`Suwon vegan-menu places: ${suwonOut.length}`);
 
   // ---- Gyeonggi Muslim-friendly restaurants (address only)
   const gg = await downloadDataset('gg_restaurants');
@@ -433,10 +661,42 @@ async function main() {
       1,
     ) + '\n',
   );
+  await writeFile(
+    path.join(OUT, 'kr-seoul-vegetarian.json'),
+    JSON.stringify(
+      {
+        ...sourceHeader('seoul', seoul.meta, {
+          status: 'V',
+          selection:
+            'Restaurants certified by Seoul City as vegetarian specialists (채식전문음식점, whole menu: V) or vegetarian-friendly (채식가능음식점, some dishes: M), with the certified dishes and their diet labels.',
+        }),
+        places: clean(seoulOut),
+      },
+      null,
+      1,
+    ) + '\n',
+  );
+  await writeFile(
+    path.join(OUT, 'kr-suwon-vegan.json'),
+    JSON.stringify(
+      {
+        ...sourceHeader('suwon', suwon.meta, {
+          status: 'V',
+          selection: 'Places with vegan menus listed by Suwon City: whole menu vegan (V) or some vegan dishes (M), with a representative vegan dish.',
+        }),
+        places: clean(suwonOut),
+      },
+      null,
+      1,
+    ) + '\n',
+  );
   console.log('Wrote data/sources/*.json');
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+// Run only when executed directly (tests import the parsers above).
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}

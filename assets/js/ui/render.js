@@ -7,7 +7,7 @@ import { esc } from '../core/text.js';
 import { formatDistance, isInKorea } from '../core/geo.js';
 import { parseOpeningHours, openState, weekRows, localTime } from '../core/hours.js';
 import { mapApps, osmLink, osmNoteLink, osmEditLink } from '../core/links.js';
-import { cleanUrl, placeCuisineGroup } from '../core/normalize.js';
+import { cleanUrl, placeCuisineGroup, MEAT_FREE } from '../core/normalize.js';
 import { telHref } from './util.js';
 import { ISSUE_REPORT } from '../config.js';
 
@@ -32,13 +32,18 @@ export function statusKey(p) {
   return p.k === 'p' ? 'P' : p.s || 'U';
 }
 
+/** Message key suffix: V/M come in a vegetarian and a vegan wording (VV, MV). */
+function statusVariant(p) {
+  return MEAT_FREE.has(p.s) && p.dv === 'vegan' ? `${p.s}V` : p.s;
+}
+
 export function statusLabel(p) {
-  return p.k === 'p' ? t(`prayer.${p.pt || 'mosque'}`) : t(`status.${p.s}`);
+  return p.k === 'p' ? t(`prayer.${p.pt || 'mosque'}`) : t(`status.${statusVariant(p)}`);
 }
 
 export function statusDesc(p) {
   if (p.s === 'U') return t(p.why === 'name' ? 'status.desc.Uname' : 'status.desc.Ucuisine');
-  return t(`status.desc.${p.s}`);
+  return t(`status.desc.${statusVariant(p)}`);
 }
 
 function prettify(token) {
@@ -63,7 +68,8 @@ export function cuisineLabel(p, max = 2) {
 
 export function markHtml(p, extra = '') {
   const s = statusKey(p);
-  return `<span class="mark s-${s} ${extra}" aria-hidden="true">${icon(CATEGORY_ICON[p.k] || 'other')}</span>`;
+  const glyph = MEAT_FREE.has(s) ? 'leaf' : CATEGORY_ICON[p.k] || 'other';
+  return `<span class="mark s-${s} ${extra}" aria-hidden="true">${icon(glyph)}</span>`;
 }
 
 export function badgeHtml(p) {
@@ -136,13 +142,23 @@ function sourceLines(p) {
   return lines.join('');
 }
 
+const DIET_LABEL = { v: 'diet.v', l: 'diet.l', o: 'diet.o', lo: 'diet.lo' };
+
 function menuHtml(p) {
   const menu = p.ml?.[lang()] || p.mn || [];
   const url = cleanUrl(p.mu);
   if (!menu.length && !url) return '';
+  // Per-dish diet labels (vegan, lacto, ovo, lacto-ovo) line up with the dishes.
+  // Skip them when every dish is vegan and the status already says so.
+  let diet = Array.isArray(p.mv) && p.mv.length === menu.length ? p.mv : [];
+  if (p.dv === 'vegan' && diet.every((d) => d === 'v')) diet = [];
+  const item = (name, i) => {
+    const key = DIET_LABEL[diet[i]];
+    return `<li>${esc(name)}${key ? `<span class="diet-tag">${esc(t(key))}</span>` : ''}</li>`;
+  };
   return `<section class="place-menu">
     <h3>${esc(t('detail.menu'))}</h3>
-    ${menu.length ? `<ul>${menu.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>` : ''}
+    ${menu.length ? `<ul>${menu.map(item).join('')}</ul>` : ''}
     <p class="note">${esc(t('detail.menuNote'))}</p>
     ${url ? `<a class="text-btn" href="${esc(url)}" target="_blank" rel="noopener">${icon('external')}${esc(t('detail.menuLink'))}</a>` : ''}
   </section>`;
@@ -183,7 +199,7 @@ export function detailHtml(p, { dist, tz }) {
   if (p.al === 0) flags.push(['good', 'check', t('detail.noAlcohol')]);
   if (p.nh) flags.push(['warn', 'alert', t('detail.nonHalal')]);
   if (p.pf) flags.push(['good', 'check', t('detail.porkFree')]);
-  if (p.v) flags.push(['', 'check', t('detail.vegetarian')]);
+  if (p.v && !MEAT_FREE.has(p.s)) flags.push(['', 'check', t('detail.vegetarian')]);
   if (p.pr) flags.push(['good', 'prayer', t('detail.prayerSpace')]);
   const isOsm = /^[nwr]\d+$/.test(p.id);
   const reportHref = isOsm

@@ -82,6 +82,10 @@
   },
   "filter": {
     "label": "Filters",
+    "show": "Show",
+    "showAll": "Halal + vegetarian",
+    "showHalal": "Halal only",
+    "showVeg": "Vegetarian & vegan",
     "confirmed": "Confirmed only",
     "openNow": "Open now",
     "prayer": "Prayer places",
@@ -103,6 +107,10 @@
     "F": "Muslim-friendly",
     "L": "Some halal",
     "U": "Not confirmed",
+    "V": "All vegetarian",
+    "VV": "All vegan",
+    "M": "Vegetarian dishes",
+    "MV": "Vegan dishes",
     "desc": {
       "C": "A halal certificate is recorded for this place.",
       "O": "Reported to serve only halal food.",
@@ -110,8 +118,18 @@
       "F": "Listed as Muslim-friendly by an official tourism organisation. Usually offers halal or pork-free dishes; alcohol may be served.",
       "L": "Reported to have a few halal options.",
       "Uname": "Its name or category suggests halal options. Ask the staff before you order.",
-      "Ucuisine": "It is listed because this cuisine is usually halal in Korea (for example Turkish, Uzbek or Pakistani). Ask the staff before you order."
+      "Ucuisine": "It is listed because this cuisine is usually halal in Korea (for example Turkish, Uzbek or Pakistani). Ask the staff before you order.",
+      "V": "Everything on the menu is vegetarian: no meat or fish, though dairy and eggs may be used. Not halal-certified: ask about alcohol in sauces, such as cooking wine.",
+      "VV": "Everything on the menu is vegan: no meat, fish, dairy or eggs. Not halal-certified: ask about alcohol in sauces, such as cooking wine.",
+      "M": "Serves some vegetarian dishes, but meat is cooked here too, so pans and oil may be shared. Not halal-certified.",
+      "MV": "Serves some vegan dishes, but meat is cooked here too, so pans and oil may be shared. Not halal-certified."
     }
+  },
+  "diet": {
+    "v": "Vegan",
+    "l": "Lacto (dairy)",
+    "o": "Ovo (eggs)",
+    "lo": "Lacto-ovo (dairy, eggs)"
   },
   "cat": {
     "r": "Restaurant",
@@ -249,7 +267,9 @@
     "kcisa": "Korea Culture Information Service Agency, world cuisine restaurants",
     "cur": "Muslimfood community list",
     "live": "OpenStreetMap (live)",
-    "kto": "Korea Tourism Organization, Muslim-friendly restaurant guide"
+    "kto": "Korea Tourism Organization, Muslim-friendly restaurant guide",
+    "seoul": "Seoul Metropolitan Government, certified vegetarian restaurants",
+    "suwon": "Suwon City, restaurants with vegan menus"
   },
   "guide": {
     "title": "Eating halal in Korea",
@@ -261,6 +281,9 @@
     "levelsIntro": "Each place on the map shows how sure we are that its food is halal. Always check with the restaurant: menus and owners change.",
     "ktoTitle": "Korea's own ratings",
     "ktoBody": "Korean tourism organisations sort Muslim-friendly restaurants into four levels: Halal certified (certificate from the Korea Muslim Federation, KMF), Self-certified (Muslim owner, no pork or alcohol), Muslim-friendly (halal dishes, alcohol may be served) and Pork-free (no pork, but meat is not halal). Look for these signs at the entrance.",
+    "ktoLink": "Korea Tourism Organization's list of Muslim-friendly restaurants (PDF)",
+    "vegTitle": "Vegetarian and vegan places",
+    "vegIntro": "Square markers show vegetarian and vegan places, useful when there is no halal restaurant nearby. Meat-free food avoids the main halal concern, but it is not certified: sauces can contain alcohol.",
     "foodIntro": "Many Korean dishes contain pork or alcohol even when you cannot see it. Recipes vary between restaurants, so always ask.",
     "avoidTitle": "Usually contain pork",
     "hiddenTitle": "Hidden ingredients to ask about",

@@ -17,7 +17,7 @@ import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { runOverpass, taggedQuery, koreaQuery } from '../assets/js/core/overpass.js';
+import { runOverpass, taggedQuery, koreaQuery, vegQuery } from '../assets/js/core/overpass.js';
 import { compact } from '../assets/js/core/normalize.js';
 import { isInKorea, KOREA_BBOX, CELL_SIZE } from '../assets/js/core/geo.js';
 import { normalizeParts, groupByCell, mergeSources, searchRecords } from './lib/build.mjs';
@@ -127,9 +127,17 @@ async function main() {
       deadline,
       minElements: KOREA_ONLY ? 5 : 5000,
     });
-    // Insertion order sets precedence when an element appears in both parts.
+    // Fully vegan/vegetarian kitchens worldwide (about 8,000).
+    const veg = await overpass('veg', vegQuery(bbox, KOREA_ONLY ? 180 : 600), {
+      required: false,
+      timeoutMs: ((KOREA_ONLY ? 180 : 600) + 60) * 1000,
+      deadline,
+      minElements: KOREA_ONLY ? 5 : 2000,
+    });
+    // Insertion order sets precedence when an element appears in several parts:
+    // a halal tag wins over a meat-free tag.
     // The Korea query covers local names. Bounded live searches cover names elsewhere.
-    Object.assign(parts, { tagged, korea });
+    Object.assign(parts, { tagged, korea, veg });
   }
 
   const { byId, osmBase } = normalizeParts(parts);

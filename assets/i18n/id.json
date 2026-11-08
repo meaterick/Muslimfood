@@ -79,6 +79,10 @@
   },
   "filter": {
     "label": "Filter",
+    "show": "Tampilkan",
+    "showAll": "Halal + vegetarian",
+    "showHalal": "Halal saja",
+    "showVeg": "Vegetarian & vegan",
     "confirmed": "Hanya yang terkonfirmasi",
     "openNow": "Buka sekarang",
     "prayer": "Tempat salat",
@@ -100,6 +104,10 @@
     "F": "Ramah Muslim",
     "L": "Sebagian halal",
     "U": "Belum terkonfirmasi",
+    "V": "Semua vegetarian",
+    "VV": "Semua vegan",
+    "M": "Ada menu vegetarian",
+    "MV": "Ada menu vegan",
     "desc": {
       "C": "Sertifikat halal tercatat untuk tempat ini.",
       "O": "Dilaporkan hanya menyajikan makanan halal.",
@@ -107,8 +115,18 @@
       "F": "Terdaftar sebagai restoran ramah Muslim oleh lembaga pariwisata resmi. Biasanya ada hidangan halal atau tanpa babi; alkohol mungkin disajikan.",
       "L": "Dilaporkan memiliki beberapa pilihan halal.",
       "Uname": "Nama atau kategori tempat ini menunjukkan adanya pilihan halal. Tanyakan kepada staf sebelum memesan.",
-      "Ucuisine": "Ditampilkan karena masakan ini biasanya halal di Korea (misalnya Turki, Uzbekistan, atau Pakistan). Tanyakan kepada staf sebelum memesan."
+      "Ucuisine": "Ditampilkan karena masakan ini biasanya halal di Korea (misalnya Turki, Uzbekistan, atau Pakistan). Tanyakan kepada staf sebelum memesan.",
+      "V": "Semua menu vegetarian: tanpa daging atau ikan, tetapi mungkin memakai susu dan telur. Tidak bersertifikat halal: tanyakan alkohol dalam saus, seperti arak masak.",
+      "VV": "Semua menu vegan: tanpa daging, ikan, susu, atau telur. Tidak bersertifikat halal: tanyakan alkohol dalam saus, seperti arak masak.",
+      "M": "Menyajikan beberapa hidangan vegetarian, tetapi juga memasak daging, jadi peralatan dan minyak mungkin dipakai bersama. Tidak bersertifikat halal.",
+      "MV": "Menyajikan beberapa hidangan vegan, tetapi juga memasak daging, jadi peralatan dan minyak mungkin dipakai bersama. Tidak bersertifikat halal."
     }
+  },
+  "diet": {
+    "v": "Vegan",
+    "l": "Lakto (susu)",
+    "o": "Ovo (telur)",
+    "lo": "Lakto-ovo (susu, telur)"
   },
   "cat": {
     "r": "Restoran",
@@ -246,7 +264,9 @@
     "kcisa": "Badan Layanan Informasi Budaya Korea, restoran masakan dunia",
     "cur": "Daftar komunitas Muslimfood",
     "live": "OpenStreetMap (langsung)",
-    "kto": "Panduan restoran ramah Muslim, Organisasi Pariwisata Korea"
+    "kto": "Panduan restoran ramah Muslim, Organisasi Pariwisata Korea",
+    "seoul": "Pemerintah Kota Seoul, restoran vegetarian bersertifikat",
+    "suwon": "Kota Suwon, restoran dengan menu vegan"
   },
   "guide": {
     "title": "Makan halal di Korea",
@@ -258,6 +278,9 @@
     "levelsIntro": "Setiap tempat di peta menunjukkan seberapa yakin kami bahwa makanannya halal. Selalu tanyakan ke restoran: menu dan pemilik bisa berganti.",
     "ktoTitle": "Penilaian resmi Korea",
     "ktoBody": "Lembaga pariwisata Korea membagi restoran ramah Muslim menjadi empat tingkat: Halal certified (sertifikat dari Federasi Muslim Korea, KMF), Self-certified (pemilik Muslim, tanpa babi dan alkohol), Muslim-friendly (ada hidangan halal, alkohol mungkin disajikan) dan Pork-free (tanpa babi, tetapi dagingnya tidak halal). Cari tanda ini di pintu masuk.",
+    "ktoLink": "Daftar restoran ramah Muslim dari Korea Tourism Organization (PDF)",
+    "vegTitle": "Tempat vegetarian dan vegan",
+    "vegIntro": "Penanda persegi menunjukkan tempat vegetarian dan vegan, berguna jika tidak ada restoran halal di dekat Anda. Makanan tanpa daging menghindari masalah halal yang utama, tetapi tidak bersertifikat: saus bisa mengandung alkohol.",
     "foodIntro": "Banyak masakan Korea mengandung babi atau alkohol meskipun tidak terlihat. Resep berbeda di tiap restoran, jadi selalu tanyakan.",
     "avoidTitle": "Biasanya mengandung babi",
     "hiddenTitle": "Bahan tersembunyi yang perlu ditanyakan",
