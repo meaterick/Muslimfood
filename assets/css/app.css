@@ -320,6 +320,12 @@ a {
   display: none;
 }
 
+/* The clear button only appears with text, so the placeholder can use its space. */
+.search input:placeholder-shown {
+  padding-inline-end: 14px;
+  text-overflow: ellipsis;
+}
+
 .search input:focus-visible {
   border-color: var(--lapis);
   box-shadow: var(--shadow-1), 0 0 0 3px var(--lapis-soft);
