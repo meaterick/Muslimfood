@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { distance, cellKey, cellsForBbox, inBbox, isInKorea, formatDistance } from '../assets/js/core/geo.js';
 import { mapApps, naverLink, kakaoLink, koreanDistrict, googleRouteLink, osmLink, osmEditLink } from '../assets/js/core/links.js';
 import { namesMatch, coreName, matchesQuery, esc } from '../assets/js/core/text.js';
-import { taggedQuery, nameQuery, koreaQuery, bboxString, runOverpass } from '../assets/js/core/overpass.js';
+import { taggedQuery, koreaQuery, liveFoodQuery, prayerQuery, bboxString, runOverpass } from '../assets/js/core/overpass.js';
 
 test('distance', () => {
   // Seoul Station -> Itaewon station is roughly 3 km
@@ -84,10 +84,10 @@ test('overpass queries are well formed', () => {
   assert.match(q, /\[out:json\]/);
   assert.match(q, /nwr\["diet:halal"~"\^\(yes\|only\|limited\)\$"\];/);
   assert.match(q, /out center tags qt;/);
-  assert.match(nameQuery([0, 0, 1, 1]), /\[!"diet:halal"\]\(0\.00000,0\.00000,1\.00000,1\.00000\);/);
+  assert.match(liveFoodQuery([0, 0, 1, 1]), /\[!"diet:halal"\]\(0\.00000,0\.00000,1\.00000,1\.00000\);/);
   assert.match(koreaQuery(), /area\["ISO3166-1"="KR"\]\[admin_level=2\]->\.kr;/);
   // balanced parentheses
-  for (const query of [q, nameQuery(), koreaQuery()]) {
+  for (const query of [q, koreaQuery(), liveFoodQuery([0, 0, 1, 1]), prayerQuery([0, 0, 1, 1])]) {
     const open = (query.match(/\(/g) || []).length;
     const close = (query.match(/\)/g) || []).length;
     assert.equal(open, close, query);

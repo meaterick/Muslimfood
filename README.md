@@ -45,7 +45,7 @@ Overpass 서버가 잠시 안 될 때는 마지막으로 받은 데이터를 그
 
 | 출처 | 내용 | 라이선스 |
 |---|---|---|
-| [OpenStreetMap](https://www.openstreetmap.org/copyright) (Overpass API) | 전 세계 `diet:halal=yes/only/limited` 장소, 이름에 halal·할랄·حلال·清真이 들어간 식당, 한국의 이슬람 성원·기도실과 할랄 가능성이 높은 음식점 | ODbL, © OpenStreetMap contributors |
+| [OpenStreetMap](https://www.openstreetmap.org/copyright) (Overpass API) | 전 세계 `diet:halal=yes/only/limited` 장소, 한국의 이슬람 성원·기도실과 이름·음식 종류로 보아 할랄 가능성이 높은 음식점 (그 밖의 지역에서 이름에 halal·حلال·清真이 들어간 곳은 앱이 실시간으로 조회) | ODbL, © OpenStreetMap contributors |
 | [경기관광공사_경기도 무슬림 친화 음식점](https://www.data.go.kr/data/15099378/fileData.do) | 경기도 무슬림 친화 식당 51곳 (주소를 좌표로 변환) | 공공데이터포털 이용허락범위 제한 없음 |
 | [경기관광공사_경기도 이슬람 예배당 및 예배소 현황](https://www.data.go.kr/data/15099380/fileData.do) | 경기도 성원·기도소 (정확한 위치를 찾은 곳만) | 이용허락범위 제한 없음 |
 | [한국문화정보원_전국 세계 음식점 데이터](https://www.data.go.kr/data/15111398/fileData.do) | 할랄 가능성이 높은 음식 종류의 식당 (미확인으로 표시) | 이용허락범위 제한 없음 |

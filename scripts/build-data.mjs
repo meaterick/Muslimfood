@@ -3,9 +3,9 @@
 //   data/index.json          cell summary + metadata (loaded first)
 //   data/cells/<lat>_<lon>.json  places per 1°x1° cell (loaded on demand)
 //
-// Sources: OpenStreetMap via Overpass (worldwide halal-tagged places, halal
-// names, Korea-specific hints and mosques/prayer rooms) merged with the
-// Korean public datasets in data/sources/*.json.
+// Sources: OpenStreetMap via Overpass (worldwide halal-tagged places, and in
+// Korea also halal names, likely-halal cuisines and mosques/prayer rooms)
+// merged with the Korean public datasets in data/sources/*.json.
 //
 // Usage:
 //   node scripts/build-data.mjs                 # full build (needs Overpass)
@@ -17,7 +17,7 @@ import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { runOverpass, taggedQuery, nameQuery, koreaQuery } from '../assets/js/core/overpass.js';
+import { runOverpass, taggedQuery, koreaQuery } from '../assets/js/core/overpass.js';
 import { compact } from '../assets/js/core/normalize.js';
 import { isInKorea, KOREA_BBOX, CELL_SIZE } from '../assets/js/core/geo.js';
 import { normalizeParts, groupByCell, mergeSources } from './lib/build.mjs';
@@ -110,9 +110,10 @@ async function main() {
     const korea = await overpass('korea', koreaQuery(300), { required: true, timeoutMs: 6 * min, deadline });
     const server = KOREA_ONLY ? 180 : 900; // Overpass [timeout:] in seconds
     const tagged = await overpass('tagged', taggedQuery(bbox, server), { required: true, timeoutMs: (server + 60) * 1000, deadline });
-    const names = await overpass('names', nameQuery(bbox, server), { required: false, timeoutMs: (server + 60) * 1000, deadline });
-    // Insertion order sets precedence when an element appears in several parts.
-    Object.assign(parts, { tagged, korea, names });
+    // Insertion order sets precedence when an element appears in both parts.
+    // (A worldwide "halal in the name" scan is too slow for Overpass; the
+    // Korea query covers names in Korea and the app queries names live elsewhere.)
+    Object.assign(parts, { tagged, korea });
   }
 
   const { byId, osmBase } = normalizeParts(parts);

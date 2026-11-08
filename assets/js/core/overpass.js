@@ -12,9 +12,6 @@ export const OVERPASS_ENDPOINTS = [
 // Names that say "halal" in common scripts: Latin, Arabic, Korean, Chinese, Japanese, Turkish.
 export const HALAL_NAME_PATTERN = 'halal|حلال|할랄|清真|ハラール|ハラル|helal';
 
-const FOOD_AMENITIES = ['restaurant', 'fast_food', 'cafe', 'food_court'];
-const FOOD_SHOPS = ['butcher', 'supermarket', 'convenience', 'deli', 'bakery', 'grocery'];
-
 /** Elements explicitly tagged halal (the core worldwide dataset). */
 export function taggedQuery(bbox, timeout = 900) {
   const b = bbox ? `(${bboxString(bbox)})` : '';
@@ -22,20 +19,6 @@ export function taggedQuery(bbox, timeout = 900) {
 (
   nwr["diet:halal"~"^(yes|only|limited)$"]${b};
   nwr["halal"~"^(yes|only)$"]${b};
-);
-out center tags qt;`;
-}
-
-/** Food places whose name says halal but which have no diet:halal tag yet. */
-export function nameQuery(bbox, timeout = 900) {
-  const b = bbox ? `(${bboxString(bbox)})` : '';
-  const lines = [
-    ...FOOD_AMENITIES.map((a) => `  nwr["amenity"="${a}"]["name"~"${HALAL_NAME_PATTERN}",i][!"diet:halal"]${b};`),
-    ...FOOD_SHOPS.map((s) => `  nwr["shop"="${s}"]["name"~"${HALAL_NAME_PATTERN}",i][!"diet:halal"]${b};`),
-  ];
-  return `[out:json][timeout:${timeout}];
-(
-${lines.join('\n')}
 );
 out center tags qt;`;
 }
