@@ -1,0 +1,543 @@
+// MapLibre GL wrapper: vector map (OpenFreeMap), canvas-drawn markers whose
+// colour/outline encodes the halal level and whose glyph encodes the place type.
+
+import { loadScript, loadStyle } from './util.js';
+import { ICON_PATHS, CATEGORY_ICON } from './icons.js';
+import { STATUS_ORDER } from '../core/normalize.js';
+import { DETAIL_ZOOM } from './store.js';
+
+const STYLES = {
+  light: 'https://tiles.openfreemap.org/styles/positron',
+  dark: 'https://tiles.openfreemap.org/styles/dark',
+};
+const FALLBACK_STYLE = {
+  version: 8,
+  sources: {
+    osm: {
+      type: 'raster',
+      tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+      tileSize: 256,
+      maxzoom: 19,
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+  },
+  layers: [{ id: 'osm', type: 'raster', source: 'osm' }],
+};
+
+// Marker palette (kept in sync with CSS tokens).
+const PIN = {
+  C: { fill: '#1E7B4F', glyph: '#FFFFFF', seal: true },
+  O: { fill: '#1E7B4F', glyph: '#FFFFFF' },
+  Y: { fill: '#1E7B4F', glyph: '#FFFFFF' },
+  F: { fill: '#138D90', glyph: '#FFFFFF' },
+  L: { fill: '#D99A1C', glyph: '#14233F' },
+  U: { fill: '#FFFFFF', glyph: '#5E6573', ring: '#7A808C', dashed: true },
+  P: { fill: '#2346A0', glyph: '#FFFFFF' },
+};
+
+const EMPTY = { type: 'FeatureCollection', features: [] };
+
+const LIB_JS = 'assets/vendor/maplibre-gl/maplibre-gl.js';
+const LIB_CSS = 'assets/vendor/maplibre-gl/maplibre-gl.css';
+
+/** Start downloading MapLibre early; init() reuses the same promise. */
+export function preloadMapLibrary() {
+  if (!webglSupported()) return Promise.resolve(false);
+  loadStyle(LIB_CSS);
+  return loadScript(LIB_JS).then(
+    () => true,
+    () => false,
+  );
+}
+
+function webglSupported() {
+  try {
+    const c = document.createElement('canvas');
+    return Boolean(c.getContext('webgl2') || c.getContext('webgl'));
+  } catch {
+    return false;
+  }
+}
+
+function drawPin(id) {
+  // id = pin-<status>-<category>[-sel]
+  const [, s, k, sel] = id.split('-');
+  const st = PIN[s] || PIN.U;
+  const ratio = 2;
+  const size = sel ? 46 : 32;
+  const c = document.createElement('canvas');
+  c.width = c.height = size * ratio;
+  const ctx = c.getContext('2d');
+  ctx.scale(ratio, ratio);
+  const cx = size / 2;
+  const r = sel ? 15 : 12;
+  if (sel) {
+    ctx.beginPath();
+    ctx.arc(cx, cx, r + 6, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(35, 70, 160, 0.22)';
+    ctx.fill();
+  }
+  // soft shadow
+  ctx.beginPath();
+  ctx.arc(cx, cx + 1.2, r + 1, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(20, 35, 63, 0.28)';
+  ctx.fill();
+  // white rim
+  ctx.beginPath();
+  ctx.arc(cx, cx, r + 1.5, 0, Math.PI * 2);
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fill();
+  // body
+  ctx.beginPath();
+  ctx.arc(cx, cx, r, 0, Math.PI * 2);
+  ctx.fillStyle = st.fill;
+  ctx.fill();
+  if (st.ring) {
+    ctx.setLineDash(st.dashed ? [3.2, 2.4] : []);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = st.ring;
+    ctx.beginPath();
+    ctx.arc(cx, cx, r - 1, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+  // glyph
+  const path = new Path2D(ICON_PATHS[CATEGORY_ICON[k]] || ICON_PATHS.other);
+  const g = r * 1.18;
+  ctx.save();
+  ctx.translate(cx - g / 2, cx - g / 2);
+  ctx.scale(g / 24, g / 24);
+  ctx.lineWidth = 2.4;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.strokeStyle = st.glyph;
+  ctx.stroke(path);
+  ctx.restore();
+  // certificate seal
+  if (st.seal) {
+    const sx = cx + r * 0.72;
+    const sy = cx - r * 0.72;
+    ctx.beginPath();
+    ctx.arc(sx, sy, 5.2, 0, Math.PI * 2);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(sx, sy, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#D99A1C';
+    ctx.fill();
+    ctx.lineWidth = 1.3;
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.beginPath();
+    ctx.moveTo(sx - 1.8, sy + 0.1);
+    ctx.lineTo(sx - 0.4, sy + 1.4);
+    ctx.lineTo(sx + 1.9, sy - 1.3);
+    ctx.stroke();
+  }
+  return { img: ctx.getImageData(0, 0, c.width, c.height), ratio };
+}
+
+function drawCluster(id) {
+  // id = cl-<label>-<g|u|s>
+  const parts = id.split('-');
+  const kind = parts.pop();
+  const label = parts.slice(1).join('-');
+  const ratio = 2;
+  const n = label.length;
+  const r = n <= 1 ? 15 : n === 2 ? 17 : n === 3 ? 20 : 23;
+  const size = (r + 5) * 2;
+  const c = document.createElement('canvas');
+  c.width = c.height = size * ratio;
+  const ctx = c.getContext('2d');
+  ctx.scale(ratio, ratio);
+  const cx = size / 2;
+  ctx.beginPath();
+  ctx.arc(cx, cx, r + 4, 0, Math.PI * 2);
+  ctx.fillStyle = kind === 'u' ? 'rgba(122, 128, 140, 0.30)' : kind === 's' ? 'rgba(35, 70, 160, 0.25)' : 'rgba(30, 123, 79, 0.30)';
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(cx, cx, r, 0, Math.PI * 2);
+  ctx.fillStyle = kind === 'u' ? '#5E6573' : kind === 's' ? '#14233F' : '#1E7B4F';
+  ctx.fill();
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = '#FFFFFF';
+  ctx.stroke();
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = `700 ${n >= 4 ? 11.5 : 13}px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(label, cx, cx + 0.5);
+  return { img: ctx.getImageData(0, 0, c.width, c.height), ratio };
+}
+
+export class MapView {
+  constructor(container, { center, zoom, theme = 'light', lang = 'en', labels = {} }) {
+    this.container = container;
+    this.start = { center, zoom };
+    this.theme = theme;
+    this.lang = lang;
+    this.labels = labels;
+    this.handlers = { move: [], select: [], ready: [] };
+    this.data = { places: EMPTY, prayer: EMPTY, summary: EMPTY, selected: EMPTY, user: EMPTY };
+    this.map = null;
+    this.usingFallback = false;
+  }
+
+  on(evt, fn) {
+    this.handlers[evt].push(fn);
+  }
+
+  emit(evt, ...args) {
+    for (const fn of this.handlers[evt]) fn(...args);
+  }
+
+  async init() {
+    if (!webglSupported()) throw new Error('WebGL is not available');
+    loadStyle(LIB_CSS);
+    await loadScript(LIB_JS);
+    const ml = window.maplibregl;
+    this.ml = ml;
+    try {
+      ml.setRTLTextPlugin('assets/vendor/mapbox-gl-rtl-text/mapbox-gl-rtl-text.js', true)?.catch?.(() => {});
+    } catch {
+      /* plugin already set */
+    }
+    const map = new ml.Map({
+      container: this.container,
+      style: STYLES[this.theme] || STYLES.light,
+      center: [this.start.center.lon, this.start.center.lat],
+      zoom: this.start.zoom,
+      minZoom: 1.2,
+      maxZoom: 19,
+      dragRotate: false,
+      pitchWithRotate: false,
+      touchPitch: false,
+      attributionControl: false,
+      fadeDuration: 150,
+      locale: {
+        'NavigationControl.ZoomIn': this.labels.zoomIn || 'Zoom in',
+        'NavigationControl.ZoomOut': this.labels.zoomOut || 'Zoom out',
+      },
+    });
+    this.map = map;
+    map.touchZoomRotate.disableRotation();
+    map.keyboard.disableRotation?.();
+    map.addControl(new ml.AttributionControl({ compact: true }), 'bottom-left');
+    map.addControl(new ml.NavigationControl({ showCompass: false }), 'top-right');
+
+    map.on('styleimagemissing', (e) => {
+      if (map.hasImage(e.id)) return;
+      let out = null;
+      if (e.id.startsWith('pin-')) out = drawPin(e.id);
+      else if (e.id.startsWith('cl-')) out = drawCluster(e.id);
+      if (out) map.addImage(e.id, out.img, { pixelRatio: out.ratio });
+    });
+    map.on('style.load', () => this.installLayers());
+    map.on('error', (e) => {
+      // Style or tiles from OpenFreeMap unavailable -> raster OpenStreetMap tiles.
+      const msg = String(e?.error?.message || '');
+      if (!this.usingFallback && !map.isStyleLoaded() && /style|Failed to fetch|NetworkError|load/i.test(msg)) {
+        this.usingFallback = true;
+        map.setStyle(FALLBACK_STYLE, { diff: false });
+      }
+    });
+    map.on('moveend', () => this.emit('move'));
+
+    await new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        if (!map.isStyleLoaded()) {
+          this.usingFallback = true;
+          map.setStyle(FALLBACK_STYLE, { diff: false });
+        }
+      }, 8000);
+      map.once('load', () => {
+        clearTimeout(timer);
+        resolve();
+      });
+      setTimeout(() => reject(new Error('map load timeout')), 20000);
+    });
+    this.bindEvents();
+    this.emit('ready');
+  }
+
+  hasGlyphs() {
+    return Boolean(this.map.getStyle()?.glyphs);
+  }
+
+  localizeLabels() {
+    const map = this.map;
+    if (this.usingFallback) return;
+    const style = map.getStyle();
+    if (!this.originalText) this.originalText = {};
+    for (const layer of style.layers) {
+      if (layer.type !== 'symbol' || !layer.layout?.['text-field'] || layer.id.startsWith('mf-')) continue;
+      const original = this.originalText[layer.id] ?? layer.layout['text-field'];
+      this.originalText[layer.id] = original;
+      // Latin-script UI languages keep the default "Latin + local script" labels,
+      // which help visitors match signs. Korean and Arabic prefer their own names.
+      const value = ['ko', 'ar'].includes(this.lang) ? ['coalesce', ['get', `name:${this.lang}`], original] : original;
+      try {
+        map.setLayoutProperty(layer.id, 'text-field', value);
+      } catch {
+        /* layer without name fields */
+      }
+    }
+  }
+
+  installLayers() {
+    const map = this.map;
+    this.originalText = null;
+    this.localizeLabels();
+    const add = (id, src) => {
+      if (!map.getSource(id)) map.addSource(id, src);
+    };
+    add('mf-summary', {
+      type: 'geojson',
+      data: this.data.summary,
+      cluster: true,
+      clusterRadius: 60,
+      clusterMaxZoom: DETAIL_ZOOM,
+      clusterProperties: { total: ['+', ['get', 'count']] },
+    });
+    add('mf-places', {
+      type: 'geojson',
+      data: this.data.places,
+      cluster: true,
+      clusterMaxZoom: 13,
+      clusterRadius: 44,
+      clusterProperties: { conf: ['+', ['case', ['==', ['get', 's'], 'U'], 0, 1]] },
+    });
+    add('mf-prayer', { type: 'geojson', data: this.data.prayer });
+    add('mf-selected', { type: 'geojson', data: this.data.selected });
+    add('mf-user', { type: 'geojson', data: this.data.user });
+
+    const abbrev = (expr) => [
+      'case',
+      ['>=', expr, 10000],
+      ['concat', ['to-string', ['round', ['/', expr, 1000]]], 'k'],
+      ['>=', expr, 1000],
+      ['concat', ['to-string', ['/', ['round', ['/', expr, 100]], 10]], 'k'],
+      ['to-string', expr],
+    ];
+
+    map.addLayer({
+      id: 'mf-summary',
+      type: 'symbol',
+      source: 'mf-summary',
+      maxzoom: DETAIL_ZOOM,
+      layout: {
+        'icon-image': ['concat', 'cl-', abbrev(['coalesce', ['get', 'total'], ['get', 'count']]), '-s'],
+        'icon-allow-overlap': true,
+        'icon-ignore-placement': true,
+      },
+    });
+    map.addLayer({
+      id: 'mf-clusters',
+      type: 'symbol',
+      source: 'mf-places',
+      minzoom: DETAIL_ZOOM,
+      filter: ['has', 'point_count'],
+      layout: {
+        'icon-image': ['concat', 'cl-', abbrev(['get', 'point_count']), ['case', ['>', ['get', 'conf'], 0], '-g', '-u']],
+        'icon-allow-overlap': true,
+        'icon-ignore-placement': true,
+      },
+    });
+    map.addLayer({
+      id: 'mf-pins',
+      type: 'symbol',
+      source: 'mf-places',
+      minzoom: DETAIL_ZOOM,
+      filter: ['!', ['has', 'point_count']],
+      layout: {
+        'icon-image': ['get', 'icon'],
+        'icon-allow-overlap': true,
+        'icon-ignore-placement': true,
+        'symbol-sort-key': ['get', 'sort'],
+      },
+    });
+    map.addLayer({
+      id: 'mf-prayer',
+      type: 'symbol',
+      source: 'mf-prayer',
+      layout: { 'icon-image': ['get', 'icon'], 'icon-allow-overlap': true, 'icon-ignore-placement': true },
+    });
+    if (this.hasGlyphs()) {
+      const dark = this.theme === 'dark';
+      for (const [id, src, filter] of [
+        ['mf-labels', 'mf-places', ['!', ['has', 'point_count']]],
+        ['mf-prayer-labels', 'mf-prayer', ['has', 'label']],
+      ]) {
+        map.addLayer({
+          id,
+          type: 'symbol',
+          source: src,
+          minzoom: 15,
+          filter,
+          layout: {
+            'text-field': ['get', 'label'],
+            'text-font': ['Noto Sans Regular'],
+            'text-size': 12,
+            'text-offset': [0, 1.35],
+            'text-anchor': 'top',
+            'text-max-width': 9,
+            'text-optional': true,
+          },
+          paint: {
+            'text-color': dark ? '#E7ECF5' : '#14233F',
+            'text-halo-color': dark ? '#0E1726' : '#FFFFFF',
+            'text-halo-width': 1.6,
+          },
+        });
+      }
+    }
+    map.addLayer({
+      id: 'mf-user-halo',
+      type: 'circle',
+      source: 'mf-user',
+      paint: { 'circle-radius': 16, 'circle-color': '#2346A0', 'circle-opacity': 0.16 },
+    });
+    map.addLayer({
+      id: 'mf-user',
+      type: 'circle',
+      source: 'mf-user',
+      paint: { 'circle-radius': 7, 'circle-color': '#2346A0', 'circle-stroke-width': 3, 'circle-stroke-color': '#FFFFFF' },
+    });
+    map.addLayer({
+      id: 'mf-selected',
+      type: 'symbol',
+      source: 'mf-selected',
+      layout: { 'icon-image': ['get', 'icon'], 'icon-allow-overlap': true, 'icon-ignore-placement': true },
+    });
+  }
+
+  bindEvents() {
+    const map = this.map;
+    const pick = (e) => {
+      const f = e.features?.[0];
+      if (f) this.emit('select', f.properties.id);
+    };
+    map.on('click', 'mf-pins', pick);
+    map.on('click', 'mf-prayer', pick);
+    map.on('click', 'mf-clusters', async (e) => {
+      const f = e.features[0];
+      try {
+        const zoom = await map.getSource('mf-places').getClusterExpansionZoom(f.properties.cluster_id);
+        map.easeTo({ center: f.geometry.coordinates, zoom: Math.min(zoom + 0.3, 18) });
+      } catch {
+        map.easeTo({ center: f.geometry.coordinates, zoom: map.getZoom() + 2 });
+      }
+    });
+    map.on('click', 'mf-summary', (e) => {
+      const f = e.features[0];
+      map.easeTo({ center: f.geometry.coordinates, zoom: Math.max(map.getZoom() + 2.5, DETAIL_ZOOM + 1) });
+    });
+    for (const id of ['mf-pins', 'mf-prayer', 'mf-clusters', 'mf-summary']) {
+      map.on('mouseenter', id, () => (map.getCanvas().style.cursor = 'pointer'));
+      map.on('mouseleave', id, () => (map.getCanvas().style.cursor = ''));
+    }
+  }
+
+  set(sourceId, key, data) {
+    this.data[key] = data;
+    const src = this.map?.getSource(sourceId);
+    if (src) src.setData(data);
+  }
+
+  setPlaces(places, labelOf) {
+    this.set('mf-places', 'places', {
+      type: 'FeatureCollection',
+      features: places.map((p) => ({
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [p.x, p.y] },
+        properties: { id: p.id, s: p.s, icon: `pin-${p.s}-${p.k}`, sort: 5 - (STATUS_ORDER[p.s] ?? 5), label: labelOf(p) },
+      })),
+    });
+  }
+
+  setPrayer(places, labelOf) {
+    this.set('mf-prayer', 'prayer', {
+      type: 'FeatureCollection',
+      features: places.map((p) => ({
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: [p.x, p.y] },
+        properties: { id: p.id, icon: 'pin-P-p', label: labelOf(p) },
+      })),
+    });
+  }
+
+  setSummary(geojson) {
+    this.set('mf-summary', 'summary', geojson);
+  }
+
+  setSelected(p) {
+    this.set(
+      'mf-selected',
+      'selected',
+      p
+        ? {
+            type: 'FeatureCollection',
+            features: [
+              {
+                type: 'Feature',
+                geometry: { type: 'Point', coordinates: [p.x, p.y] },
+                properties: { id: p.id, icon: `pin-${p.k === 'p' ? 'P' : p.s}-${p.k}-sel` },
+              },
+            ],
+          }
+        : EMPTY,
+    );
+  }
+
+  setUser(pos) {
+    this.set(
+      'mf-user',
+      'user',
+      pos ? { type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'Point', coordinates: [pos.lon, pos.lat] }, properties: {} }] } : EMPTY,
+    );
+  }
+
+  bounds() {
+    const b = this.map.getBounds();
+    return [b.getWest(), b.getSouth(), b.getEast(), b.getNorth()];
+  }
+
+  center() {
+    const c = this.map.getCenter();
+    return { lat: c.lat, lon: c.lng };
+  }
+
+  zoom() {
+    return this.map.getZoom();
+  }
+
+  flyTo({ lat, lon, zoom }, { instant = false } = {}) {
+    const opts = { center: [lon, lat], zoom: zoom ?? Math.max(this.map.getZoom(), 15), essential: true };
+    if (instant || matchMedia('(prefers-reduced-motion: reduce)').matches) this.map.jumpTo(opts);
+    else this.map.flyTo({ ...opts, speed: 1.6, curve: 1.3 });
+  }
+
+  /** Make sure a point is visible (not hidden under the sheet). */
+  reveal({ lat, lon }, minZoom = 15) {
+    const z = Math.max(this.map.getZoom(), minZoom);
+    this.map.easeTo({ center: [lon, lat], zoom: z, duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 450 });
+  }
+
+  setPadding(padding) {
+    if (this.map) this.map.setPadding(padding);
+  }
+
+  setTheme(theme) {
+    if (theme === this.theme || !this.map) return;
+    this.theme = theme;
+    if (!this.usingFallback) this.map.setStyle(STYLES[theme] || STYLES.light, { diff: false });
+  }
+
+  setLang(lang) {
+    this.lang = lang;
+    if (this.map?.isStyleLoaded()) this.localizeLabels();
+  }
+
+  resize() {
+    this.map?.resize();
+  }
+}

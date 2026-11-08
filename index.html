@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Muslimfood — find halal food nearby · 내 주변 할랄 음식점</title>
+  <meta name="description" content="Find halal and Muslim-friendly restaurants near you, anywhere in the world, with extra detail for Korea. 전 세계 어디서나 내 주변 할랄·무슬림 친화 음식점을 빠르게 찾아보세요.">
+  <meta name="theme-color" content="#F4F7F6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0E1726" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <meta name="format-detection" content="telephone=no">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Muslimfood — halal food near you">
+  <meta property="og:description" content="Find halal and Muslim-friendly restaurants nearby. Naver Map and Kakao Map links, a Korean food guide and a card for restaurant staff.">
+  <meta property="og:image" content="assets/img/og.png">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/img/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/img/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/icon-180.png">
+  <link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>
+  <link rel="stylesheet" href="assets/css/app.css">
+  <script>
+    // Apply the saved theme before first paint to avoid a flash.
+    try {
+      var t = JSON.parse(localStorage.getItem('mf:theme') || '"auto"');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Muslimfood",
+    "alternateName": "무슬림푸드",
+    "applicationCategory": "TravelApplication",
+    "operatingSystem": "Any",
+    "description": "Find halal and Muslim-friendly restaurants near you, with extra detail for Korea.",
+    "inLanguage": ["en", "ko", "ar", "id", "ms", "tr"],
+    "offers": { "@type": "Offer", "price": "0" }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#panel" data-i18n="list.label">Places</a>
+
+  <div class="app" id="app">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Muslimfood">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <circle cx="20" cy="20" r="19" fill="#1E7B4F"/>
+          <path d="M14.5 10.5v9M12 10.5v5.8a2.5 2.5 0 0 0 5 0v-5.8M14.5 19.5v10.5M26.5 30V10.5c-2.6 1.4-4.3 4.6-4.3 8.8v2.4h4.3" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="31" cy="9" r="5" fill="#fff"/><circle cx="31" cy="9" r="3.6" fill="#D99A1C"/>
+        </svg>
+        <span class="brand-word">Muslimfood</span>
+      </a>
+      <form class="search" id="search" role="search" autocomplete="off">
+        <label class="visually-hidden" for="q" data-i18n="search.label">Search</label>
+        <svg class="ic search-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 4a6.5 6.5 0 1 1 0 13 6.5 6.5 0 0 1 0-13zM15.3 15.3 20 20"/></svg>
+        <input id="q" name="q" type="search" enterkeyhint="search" spellcheck="false"
+               role="combobox" aria-expanded="false" aria-controls="search-results" aria-autocomplete="list"
+               placeholder="Area or restaurant" data-i18n-attr="placeholder:search.placeholder">
+        <button class="search-clear" id="q-clear" type="button" hidden data-i18n-attr="aria-label:search.clear" aria-label="Clear search">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+        <div class="search-results" id="search-results" role="listbox" hidden></div>
+      </form>
+      <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-haspopup="dialog" aria-controls="menu" data-i18n-attr="aria-label:menu.open" aria-label="Menu">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </header>
+
+    <div class="map" id="map" role="region" aria-label="Map of halal places" data-i18n-attr="aria-label:map.label">
+      <p class="map-status" id="map-status" data-i18n="map.loading">Loading map…</p>
+    </div>
+
+    <button class="locate" id="locate" type="button">
+      <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M12 7.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9z"/></svg>
+      <span data-i18n="locate.button">Near me</span>
+    </button>
+
+    <section class="panel" id="panel" aria-labelledby="list-title" tabindex="-1">
+      <div class="panel-grip" id="panel-grip" role="button" tabindex="0" aria-controls="panel" aria-label="Resize list"><span></span></div>
+
+      <div class="panel-view" id="view-list">
+        <div class="panel-head">
+          <div class="list-heading">
+            <h1 id="list-title" data-i18n="list.titleArea">In this area</h1>
+            <p id="list-count" aria-live="polite"></p>
+            <button class="legend-btn" id="legend-btn" type="button" data-i18n-attr="aria-label:guide.tabLevels;title:guide.tabLevels" aria-label="Halal levels">
+              <span class="legend-dot s-Y"></span><span class="legend-dot s-F"></span><span class="legend-dot s-L"></span><span class="legend-dot s-U"></span>
+            </button>
+          </div>
+          <div class="chips" id="chips" role="toolbar" aria-label="Filters" data-i18n-attr="aria-label:filter.label"></div>
+        </div>
+        <div class="panel-scroll" id="list-scroll">
+          <div id="list-notices"></div>
+          <ol class="results" id="results"></ol>
+          <button class="more-btn" id="more" type="button" hidden data-i18n="list.showMore">Show more</button>
+          <p class="credits" id="credits"></p>
+        </div>
+      </div>
+
+      <div class="panel-view" id="view-detail" hidden></div>
+    </section>
+  </div>
+
+  <dialog class="sheet-dialog menu" id="menu" aria-labelledby="menu-title">
+    <div class="dialog-head">
+      <h2 id="menu-title">Muslimfood</h2>
+      <button class="icon-btn" type="button" data-close data-i18n-attr="aria-label:menu.close" aria-label="Close menu">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="dialog-body" id="menu-body"></div>
+  </dialog>
+
+  <dialog class="sheet-dialog guide" id="guide" aria-labelledby="guide-title">
+    <div class="dialog-head">
+      <h2 id="guide-title" data-i18n="guide.title">Eating halal in Korea</h2>
+      <button class="icon-btn" type="button" data-close data-i18n-attr="aria-label:guide.close" aria-label="Close the guide">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="tabs" role="tablist" id="guide-tabs"></div>
+    <div class="dialog-body" id="guide-body"></div>
+  </dialog>
+
+  <dialog class="sheet-dialog about" id="about" aria-labelledby="about-title">
+    <div class="dialog-head">
+      <h2 id="about-title" data-i18n="about.title">About Muslimfood</h2>
+      <button class="icon-btn" type="button" data-close data-i18n-attr="aria-label:menu.close" aria-label="Close">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="dialog-body" id="about-body"></div>
+  </dialog>
+
+  <div class="bigtext" id="bigtext" role="dialog" aria-modal="true" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <noscript>
+    <p class="noscript">Muslimfood needs JavaScript to show the map and list of halal restaurants. 지도와 식당 목록을 보려면 자바스크립트가 필요합니다.</p>
+  </noscript>
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
