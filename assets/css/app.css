@@ -5,7 +5,7 @@
 :root {
   --ink: #14233f;
   --ink-2: #44526e;
-  --ink-3: #66718a;
+  --ink-3: #5c6780;
   --porcelain: #f4f7f6;
   --paper: #ffffff;
   --paper-2: #f8faf9;
@@ -17,8 +17,10 @@
   --on-lapis: #ffffff;
   --jade: #1e7b4f;
   --jade-soft: #e3f1e9;
+  --jade-ink: #186a43;
   --turq: #138d90;
   --turq-soft: #ddf0f0;
+  --turq-ink: #0b6d70;
   --saffron: #d99a1c;
   --saffron-ink: #8a5d00;
   --saffron-soft: #fbefd6;
@@ -57,8 +59,10 @@
   --on-lapis: #0e1726;
   --jade: #4dbb85;
   --jade-soft: #15362a;
+  --jade-ink: #4dbb85;
   --turq: #3dbfc2;
   --turq-soft: #123a3d;
+  --turq-ink: #3dbfc2;
   --saffron: #e7b149;
   --saffron-ink: #f0c56d;
   --saffron-soft: #3a2e14;
@@ -87,11 +91,12 @@
     --lapis-hover: #9cb4f5;
     --lapis-soft: #1d2d52;
     --on-lapis: #0e1726;
-  --on-lapis: #0e1726;
     --jade: #4dbb85;
     --jade-soft: #15362a;
+    --jade-ink: #4dbb85;
     --turq: #3dbfc2;
     --turq-soft: #123a3d;
+    --turq-ink: #3dbfc2;
     --saffron: #e7b149;
     --saffron-ink: #f0c56d;
     --saffron-soft: #3a2e14;
@@ -781,7 +786,7 @@ a {
   padding-inline: 9px;
   border-radius: 999px;
   background: var(--jade-soft);
-  color: var(--jade);
+  color: var(--jade-ink);
   font-size: 12.5px;
   font-weight: 650;
   white-space: nowrap;
@@ -789,7 +794,7 @@ a {
 
 .badge.s-F {
   background: var(--turq-soft);
-  color: var(--turq);
+  color: var(--turq-ink);
 }
 
 .badge.s-L {
@@ -813,7 +818,7 @@ a {
 }
 
 .open-state.is-open {
-  color: var(--jade);
+  color: var(--jade-ink);
 }
 
 .open-state.is-closed {
@@ -1253,7 +1258,7 @@ a {
 .flag.good {
   background: var(--jade-soft);
   border-color: transparent;
-  color: var(--jade);
+  color: var(--jade-ink);
 }
 
 .note {
