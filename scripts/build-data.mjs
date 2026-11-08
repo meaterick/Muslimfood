@@ -60,8 +60,13 @@ async function overpass(name, query, { required, timeoutMs, deadline }) {
     const json = await runOverpass(query, {
       timeoutMs,
       deadline,
+      // The main server answers 429 when the shared CI runner IP has no free
+      // slot; waiting usually works better than the smaller mirrors.
+      retries: 4,
+      retryDelayMs: 30000,
       userAgent: UA,
-      onAttempt: (url) => log(`${name}: querying ${url}`),
+      onAttempt: (url, attempt) => log(`${name}: querying ${url}${attempt ? ` (retry ${attempt})` : ''}`),
+      onError: (url, err) => log(`${name}: ${url} failed: ${err.message}${err.cause ? ` (${err.cause.code || err.cause.message})` : ''}`),
     });
     log(`${name}: ${json.elements.length} elements in ${((Date.now() - t0) / 1000).toFixed(1)}s`);
     if (cacheFile) {

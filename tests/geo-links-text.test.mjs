@@ -130,3 +130,43 @@ test('runOverpass respects the overall deadline', async () => {
   await assert.rejects(runOverpass('[out:json];', { endpoints: ['https://a/', 'https://b/'], fetchImpl, deadline: Date.now() + 5000 }), /budget/);
   assert.equal(calls, 0);
 });
+
+test('runOverpass waits and retries a busy server before moving on', async () => {
+  const calls = [];
+  const waits = [];
+  let n = 0;
+  const fetchImpl = async (url) => {
+    calls.push(url);
+    n++;
+    if (url === 'https://main/' && n <= 2) return { ok: false, status: 429 };
+    return { ok: true, json: async () => ({ elements: [{ type: 'node', id: 7 }] }) };
+  };
+  const json = await runOverpass('[out:json];', {
+    endpoints: ['https://main/', 'https://mirror/'],
+    fetchImpl,
+    retries: 3,
+    retryDelayMs: 1000,
+    sleep: async (ms) => waits.push(ms),
+  });
+  assert.equal(json.elements[0].id, 7);
+  assert.deepEqual(calls, ['https://main/', 'https://main/', 'https://main/']);
+  assert.deepEqual(waits, [1000, 2000]);
+});
+
+test('runOverpass does not retry errors that are not "busy"', async () => {
+  const calls = [];
+  const fetchImpl = async (url) => {
+    calls.push(url);
+    return url === 'https://main/' ? { ok: false, status: 400 } : { ok: true, json: async () => ({ elements: [] }) };
+  };
+  const errors = [];
+  await runOverpass('[out:json];', {
+    endpoints: ['https://main/', 'https://mirror/'],
+    fetchImpl,
+    retries: 3,
+    sleep: async () => assert.fail('should not wait'),
+    onError: (url, err) => errors.push(err.message),
+  });
+  assert.deepEqual(calls, ['https://main/', 'https://mirror/']);
+  assert.deepEqual(errors, ['HTTP 400 from https://main/']);
+});

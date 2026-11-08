@@ -72,46 +72,64 @@ export function bboxString([w, s, e, n]) {
 
 /**
  * POST a query to the first Overpass endpoint that answers.
- * opts: { endpoints, fetchImpl, signal, timeoutMs (per endpoint), deadline (epoch ms, overall),
- *         onAttempt, userAgent }
+ * opts: { endpoints, fetchImpl, signal, timeoutMs (per attempt), deadline (epoch ms, overall),
+ *         retries (extra attempts per endpoint when it is busy: HTTP 429/503/504),
+ *         retryDelayMs (first wait, doubled each time), sleep, onAttempt, onError, userAgent }
  */
 export async function runOverpass(query, opts = {}) {
   const endpoints = opts.endpoints || OVERPASS_ENDPOINTS;
   const fetchImpl = opts.fetchImpl || globalThis.fetch;
+  const retries = opts.retries ?? 0;
+  const retryDelayMs = opts.retryDelayMs ?? 30000;
+  const sleep = opts.sleep || ((ms) => new Promise((r) => setTimeout(r, ms)));
+  const timeLeft = () => (opts.deadline ? opts.deadline - Date.now() : Infinity);
   let lastErr;
-  for (const url of endpoints) {
-    const left = opts.deadline ? opts.deadline - Date.now() : Infinity;
-    if (left < 20000) {
-      lastErr = lastErr || new Error('Overpass time budget used up');
-      break;
-    }
-    const ctrl = new AbortController();
-    const onAbort = () => ctrl.abort();
-    opts.signal?.addEventListener('abort', onAbort, { once: true });
-    const timer = setTimeout(() => ctrl.abort(), Math.min(opts.timeoutMs || 60000, left));
-    try {
-      opts.onAttempt?.(url);
-      const headers = { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' };
-      if (opts.userAgent) headers['User-Agent'] = opts.userAgent;
-      const res = await fetchImpl(url, {
-        method: 'POST',
-        body: 'data=' + encodeURIComponent(query),
-        headers,
-        signal: ctrl.signal,
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status} from ${url}`);
-      const json = await res.json();
-      if (!json || !Array.isArray(json.elements)) throw new Error(`Bad response from ${url}`);
-      if (json.remark && /runtime error|timed out|out of memory/i.test(json.remark)) {
-        throw new Error(`Overpass remark from ${url}: ${json.remark}`);
+  endpointLoop: for (const url of endpoints) {
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      const left = timeLeft();
+      if (left < 20000) {
+        lastErr = lastErr || new Error('Overpass time budget used up');
+        break endpointLoop;
       }
-      return json;
-    } catch (err) {
-      if (opts.signal?.aborted) throw err;
-      lastErr = err;
-    } finally {
-      clearTimeout(timer);
-      opts.signal?.removeEventListener('abort', onAbort);
+      const ctrl = new AbortController();
+      const onAbort = () => ctrl.abort();
+      opts.signal?.addEventListener('abort', onAbort, { once: true });
+      const timer = setTimeout(() => ctrl.abort(), Math.min(opts.timeoutMs || 60000, left));
+      let busy = false;
+      try {
+        opts.onAttempt?.(url, attempt);
+        const headers = { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' };
+        if (opts.userAgent) headers['User-Agent'] = opts.userAgent;
+        const res = await fetchImpl(url, {
+          method: 'POST',
+          body: 'data=' + encodeURIComponent(query),
+          headers,
+          signal: ctrl.signal,
+        });
+        if (!res.ok) {
+          busy = [429, 503, 504].includes(res.status);
+          throw new Error(`HTTP ${res.status} from ${url}`);
+        }
+        const json = await res.json();
+        if (!json || !Array.isArray(json.elements)) throw new Error(`Bad response from ${url}`);
+        if (json.remark && /runtime error|timed out|out of memory/i.test(json.remark)) {
+          busy = /timed out|out of memory/i.test(json.remark);
+          throw new Error(`Overpass remark from ${url}: ${json.remark}`);
+        }
+        return json;
+      } catch (err) {
+        if (opts.signal?.aborted) throw err;
+        lastErr = err;
+        opts.onError?.(url, err, attempt);
+      } finally {
+        clearTimeout(timer);
+        opts.signal?.removeEventListener('abort', onAbort);
+      }
+      // A busy server (rate limit, overload) often frees a slot within minutes: wait and retry.
+      if (!busy || attempt === retries) break;
+      const wait = Math.min(retryDelayMs * 2 ** attempt, timeLeft() - 30000);
+      if (wait <= 0) break;
+      await sleep(wait);
     }
   }
   throw lastErr || new Error('No Overpass endpoint available');
