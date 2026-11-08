@@ -10,7 +10,7 @@ import { store } from './store.js';
 import { storage } from './util.js';
 import { REPO_URL, ISSUE_NEW_PLACE } from '../config.js';
 
-const LANG_NAMES = { en: 'English', ko: '한국어', ar: 'العربية', id: 'Bahasa Indonesia', ms: 'Bahasa Melayu', tr: 'Türkçe' };
+const LANG_NAMES = { en: 'English', ko: '한국어', ar: 'العربية', id: 'Bahasa Indonesia', ms: 'Bahasa Melayu', tr: 'Türkçe', fr: 'Français' };
 
 let lastFocus = null;
 
@@ -160,7 +160,7 @@ function defaultCardLang(center) {
   if (lat > 21.8 && lat < 25.5 && lon > 119.5 && lon < 122.2) return 'zh-Hant'; // Taiwan
   if (lat > 22.1 && lat < 22.6 && lon > 113.8 && lon < 114.5) return 'zh-Hant'; // Hong Kong, Macau
   if (lat > 22.5 && lat < 42 && lon > 108 && lon < 123) return 'zh-Hans'; // eastern China
-  return 'en';
+  return lang() === 'fr' ? 'fr' : 'en';
 }
 
 export function renderGuide(tab = 'levels', center = null) {

@@ -7,11 +7,11 @@ import { esc } from '../core/text.js';
 import { formatDistance, isInKorea } from '../core/geo.js';
 import { parseOpeningHours, openState, weekRows, localTime } from '../core/hours.js';
 import { mapApps, osmLink, osmNoteLink, osmEditLink } from '../core/links.js';
-import { placeCuisineGroup } from '../core/normalize.js';
+import { cleanUrl, placeCuisineGroup } from '../core/normalize.js';
 import { telHref } from './util.js';
 import { ISSUE_REPORT } from '../config.js';
 
-const LATIN_UI = new Set(['en', 'id', 'ms', 'tr']);
+const LATIN_UI = new Set(['en', 'id', 'ms', 'tr', 'fr']);
 
 /** Name shown as the title: UI-language name, else English for Latin-script UIs, else local. */
 export function displayName(p) {
@@ -128,11 +128,24 @@ function sourceLines(p) {
       if (p.ck) text += ` — ${t('detail.checked', { date: formatDate(p.ck) })}`;
       lines.push(`<li><a href="${esc(osmLink(p))}" target="_blank" rel="noopener">${esc(text)}</a></li>`);
     } else {
-      if (p.d) text += ` (${formatDate(p.d)})`;
-      lines.push(`<li>${esc(text)}</li>`);
+      if (p.d && src !== 'kto') text += ` (${formatDate(p.d)})`;
+      const source = src === 'kto' && cleanUrl(p.su);
+      lines.push(source ? `<li><a href="${esc(source)}" target="_blank" rel="noopener">${esc(text)}</a></li>` : `<li>${esc(text)}</li>`);
     }
   }
   return lines.join('');
+}
+
+function menuHtml(p) {
+  const menu = p.ml?.[lang()] || p.mn || [];
+  const url = cleanUrl(p.mu);
+  if (!menu.length && !url) return '';
+  return `<section class="place-menu">
+    <h3>${esc(t('detail.menu'))}</h3>
+    ${menu.length ? `<ul>${menu.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>` : ''}
+    <p class="note">${esc(t('detail.menuNote'))}</p>
+    ${url ? `<a class="text-btn" href="${esc(url)}" target="_blank" rel="noopener">${icon('external')}${esc(t('detail.menuLink'))}</a>` : ''}
+  </section>`;
 }
 
 function hoursHtml(p, tz) {
@@ -206,6 +219,7 @@ export function detailHtml(p, { dist, tz }) {
     }
     ${p.k === 'p' ? (p.oh ? hoursHtml(p, tz) : '') : hoursHtml(p, tz)}
   </div>
+  ${menuHtml(p)}
   ${flags.length ? `<div class="flags">${flags.map(([cls, ic, text]) => `<span class="flag ${cls}">${icon(ic)}${esc(text)}</span>`).join('')}</div>` : ''}
   ${p.ap ? `<p class="note">${esc(t('detail.approx'))}</p>` : ''}
   <div class="help-links">

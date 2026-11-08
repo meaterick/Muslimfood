@@ -1,0 +1,297 @@
+{
+  "source": "kto",
+  "title": "한국관광공사 무슬림 친화 식당 가이드 / Muslim-friendly restaurants",
+  "publisher": "한국관광공사 (Korea Tourism Organization)",
+  "url": "https://english.visitkorea.or.kr/svc/thingsToDo/subMuslimFriendly.do",
+  "license": "Factual restaurant information with source attribution",
+  "fetched": "2026-11-08",
+  "selection": "Selected listings with a published address, coordinates and menu highlights. Status reflects the source listing.",
+  "places": [
+    {
+      "id": "kto-sultan-kebab",
+      "n": "술탄케밥",
+      "nl": {
+        "en": "Sultan Kebab"
+      },
+      "y": 37.53399,
+      "x": 126.99426,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 용산구 보광로 126",
+      "ph": "02-749-3890",
+      "su": "https://english.visitkorea.or.kr/svc/br/JKToffice",
+      "mn": [
+        "Lamb kebab",
+        "Cheese pide"
+      ],
+      "ml": {
+        "ko": [
+          "양고기 케밥",
+          "치즈 피데"
+        ],
+        "fr": [
+          "Kebab d’agneau",
+          "Pide au fromage"
+        ]
+      }
+    },
+    {
+      "id": "kto-kervan-itaewon",
+      "n": "케르반레스토랑 이태원점",
+      "nl": {
+        "en": "Kervan Turkish Restaurant, Itaewon"
+      },
+      "y": 37.53434,
+      "x": 126.99536,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 용산구 이태원로 190",
+      "ph": "02-792-4767",
+      "su": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=138253",
+      "mn": [
+        "Chicken shish kebab",
+        "Mixed shish kebab",
+        "Lahmacun"
+      ],
+      "ml": {
+        "ko": [
+          "치킨 쉬시 케밥",
+          "모둠 쉬시 케밥",
+          "라흐마준"
+        ],
+        "fr": [
+          "Brochettes de poulet",
+          "Assortiment de brochettes",
+          "Lahmacun"
+        ]
+      }
+    },
+    {
+      "id": "kto-kervan-bakery",
+      "n": "케르반 터키 베이커리",
+      "nl": {
+        "en": "Kervan Turkish Bakery"
+      },
+      "y": 37.53442,
+      "x": 126.99538,
+      "k": "c",
+      "s": "C",
+      "cu": [
+        "bakery"
+      ],
+      "a": "서울 용산구 이태원로 204",
+      "ph": "02-790-5585",
+      "su": "https://english.visitkorea.or.kr/svc/br/JKToffice",
+      "mn": [
+        "Baklava",
+        "Turkish cookies"
+      ],
+      "ml": {
+        "ko": [
+          "바클라바",
+          "튀르키예 쿠키"
+        ],
+        "fr": [
+          "Baklava",
+          "Biscuits turcs"
+        ]
+      }
+    },
+    {
+      "id": "kto-mr-kebab",
+      "n": "미스터케밥 이태원점",
+      "nl": {
+        "en": "Mr. Kebab, Itaewon"
+      },
+      "y": 37.5345,
+      "x": 126.99657,
+      "k": "f",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 용산구 이태원로 192",
+      "ph": "070-7758-1997",
+      "su": "https://english.visitkorea.or.kr/svc/br/JKToffice",
+      "mn": [
+        "Lamb kebab",
+        "Kebab with pilaf"
+      ],
+      "ml": {
+        "ko": [
+          "양고기 케밥",
+          "필라프 케밥"
+        ],
+        "fr": [
+          "Kebab d’agneau",
+          "Kebab au riz pilaf"
+        ]
+      }
+    },
+    {
+      "id": "kto-kervan-coex",
+      "n": "케르반 코엑스점",
+      "nl": {
+        "en": "Kervan, COEX"
+      },
+      "y": 37.51124,
+      "x": 127.06057,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 강남구 영동대로 513",
+      "ph": "02-556-4767",
+      "su": "https://english.visitseoul.net/eat/Kervan-COEX-Branch/ENP029977",
+      "mn": [
+        "Lokman shish kebab",
+        "Mixed steak kebab"
+      ],
+      "ml": {
+        "ko": [
+          "로크만 쉬시 케밥",
+          "모둠 스테이크 케밥"
+        ],
+        "fr": [
+          "Brochettes Lokman",
+          "Assortiment de kebabs de bœuf"
+        ]
+      }
+    },
+    {
+      "id": "kto-kervan-famille",
+      "n": "케르반 파미에스테이션점",
+      "nl": {
+        "en": "Kervan, Famille Station"
+      },
+      "y": 37.5044,
+      "x": 127.00626,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 서초구 사평대로 205",
+      "ph": "02-6282-4767",
+      "su": "https://english.visitkorea.or.kr/svc/br/JKToffice",
+      "mn": [
+        "Mixed shish kebab",
+        "Mixed pide"
+      ],
+      "ml": {
+        "ko": [
+          "모둠 쉬시 케밥",
+          "모둠 피데"
+        ],
+        "fr": [
+          "Assortiment de brochettes",
+          "Assortiment de pides"
+        ]
+      }
+    },
+    {
+      "id": "kto-dongmoon-nami",
+      "n": "아시안 패밀리 레스토랑 동문",
+      "nl": {
+        "en": "Asian Family Restaurant Dongmoon"
+      },
+      "y": 37.7916,
+      "x": 127.52559,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "asian"
+      ],
+      "a": "강원 춘천시 남산면 남이섬길 1",
+      "ph": "031-580-8099",
+      "su": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=138249",
+      "mn": [
+        "Bulgogi with rice",
+        "Spicy octopus bibimbap",
+        "Beef jjajangmyeon"
+      ],
+      "ml": {
+        "ko": [
+          "불고기덮밥",
+          "낙지비빔밥",
+          "소고기짜장면"
+        ],
+        "fr": [
+          "Riz au bulgogi",
+          "Bibimbap au poulpe épicé",
+          "Nouilles au bœuf et aux haricots noirs"
+        ]
+      },
+      "mu": "https://namisum-en.imweb.me/77"
+    },
+    {
+      "id": "kto-cappadocia-busan",
+      "n": "카파도키아",
+      "nl": {
+        "en": "Cappadocia"
+      },
+      "y": 35.26009,
+      "x": 129.09222,
+      "k": "r",
+      "s": "O",
+      "cu": [
+        "turkish"
+      ],
+      "a": "부산 금정구 금단로 123-9",
+      "ph": "051-515-5981",
+      "su": "https://english.visitkorea.or.kr/svc/br/JKToffice",
+      "mn": [
+        "Chicken kebab",
+        "Shish kebab"
+      ],
+      "ml": {
+        "ko": [
+          "치킨 케밥",
+          "쉬시 케밥"
+        ],
+        "fr": [
+          "Kebab de poulet",
+          "Brochettes shish kebab"
+        ]
+      }
+    },
+    {
+      "id": "kto-asalam-jeju",
+      "n": "아살람",
+      "nl": {
+        "en": "Asalam"
+      },
+      "y": 33.51674,
+      "x": 126.52424,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "middle_eastern"
+      ],
+      "a": "제주 제주시 중앙로2길 7",
+      "ph": "064-751-1225",
+      "su": "https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=138554",
+      "mn": [
+        "Lamb kebab",
+        "Lamb mandi"
+      ],
+      "ml": {
+        "ko": [
+          "양고기 케밥",
+          "양고기 만디"
+        ],
+        "fr": [
+          "Kebab d’agneau",
+          "Mandi à l’agneau"
+        ]
+      }
+    }
+  ]
+}

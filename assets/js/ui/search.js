@@ -6,7 +6,7 @@ import { AREAS, areaName } from './content.js';
 import { t, lang } from './i18n.js';
 import { normText, matchesQuery, esc } from '../core/text.js';
 import { distance } from '../core/geo.js';
-import { store } from './store.js';
+import { store, loadSearchCatalog } from './store.js';
 import { icon } from './icons.js';
 import { displayName, altName, statusLabel } from './render.js';
 import { debounce } from './util.js';
@@ -49,8 +49,12 @@ export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPl
   let options = [];
   let active = -1;
   let ctrl = null;
+  let catalog = [];
 
   const close = () => {
+    update.cancel();
+    ctrl?.abort();
+    ctrl = null;
     box.hidden = true;
     input.setAttribute('aria-expanded', 'false');
     input.removeAttribute('aria-activedescendant');
@@ -67,20 +71,28 @@ export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPl
     const areas = [];
     for (const region of ['korea', 'world']) {
       for (const a of AREAS[region]) {
-        if (Object.values(a.n).some((n) => normText(n).includes(nq))) areas.push({ kind: 'area', area: a });
+        if (Object.values(a.n).some((n) => matchesQuery({ n }, q))) areas.push({ kind: 'area', area: a });
       }
     }
     const c = getCenter();
     const places = [];
-    for (const p of store.places.values()) {
+    const seen = new Set();
+    for (const p of [...store.places.values(), ...catalog]) {
+      if (seen.has(p.id)) continue;
+      seen.add(p.id);
       if (p.k === 'p' && !p.n) continue;
-      if (matchesQuery(p, q)) places.push({ kind: 'place', place: p, d: distance(c.lat, c.lon, p.y, p.x) });
+      if (matchesQuery(p, q)) {
+        const exact = [p.n, ...Object.values(p.nl || {})].some((n) => normText(n) === nq);
+        places.push({ kind: 'place', place: p, exact, d: distance(c.lat, c.lon, p.y, p.x) });
+      }
     }
-    places.sort((a, b) => a.d - b.d);
-    return { areas: areas.slice(0, 5), places: places.slice(0, 6) };
+    places.sort((a, b) => Number(b.exact) - Number(a.exact) || a.d - b.d);
+    return { areas: areas.slice(0, 5), places: places.slice(0, 8) };
   }
 
   function render(groups, note) {
+    active = -1;
+    input.removeAttribute('aria-activedescendant');
     options = [];
     let html = '';
     const push = (opt, inner) => {
@@ -105,12 +117,12 @@ export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPl
       for (const o of groups.places) {
         const alt = altName(o.place);
         html += push(o, `${icon('restaurant')}<span><span class="sr-main">${esc(displayName(o.place))}</span><span class="sr-sub">${esc(
-          [statusLabel(o.place), alt].filter(Boolean).join(' — '),
+          [statusLabel(o.place), alt || o.place.a].filter(Boolean).join(' — '),
         )}</span></span>`);
       }
     }
     if (groups.go) {
-      html += push({ kind: 'go' }, `${icon('search')}<span class="sr-main">${esc(t('search.go', { q: groups.go }))}</span>`);
+      html += push({ kind: groups.geocode ? 'geoSearch' : 'go' }, `${icon('search')}<span class="sr-main">${esc(t('search.go', { q: groups.go }))}</span>`);
     }
     if (note) html += `<p class="sr-note">${esc(note)}</p>`;
     box.innerHTML = html;
@@ -119,28 +131,57 @@ export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPl
   }
 
   const update = debounce(() => {
+    if (document.activeElement !== input || (ctrl && !ctrl.signal.aborted)) return;
     const q = input.value.trim();
     clearBtn.hidden = !q;
-    if (!q) return close();
+    if (!q || !normText(q)) return close();
     const m = localMatches(q);
     render({ ...m, go: q });
   }, 120);
 
+  async function runSearch() {
+    const q = input.value.trim();
+    if (!normText(q)) return;
+    update.cancel();
+    ctrl?.abort();
+    const request = new AbortController();
+    ctrl = request;
+    render(localMatches(q), t('search.searching'));
+    catalog = await loadSearchCatalog();
+    if (request.signal.aborted || q !== input.value.trim()) return;
+    ctrl = null;
+    const local = localMatches(q);
+    const exact = local.places.filter((o) => o.exact);
+    if (exact.length === 1 && !local.areas.length) {
+      render({ places: exact });
+      return choose(0);
+    }
+    if (!local.areas.length && !local.places.length) return runGeocode();
+    render({ ...local, go: q, geocode: true });
+    // Restaurant matches are the default after submit, even when an area matches too.
+    setActive(local.places.length ? local.areas.length : 0);
+  }
+
   async function runGeocode() {
     const q = input.value.trim();
     if (!q) return;
+    update.cancel();
     ctrl?.abort();
-    ctrl = new AbortController();
+    const request = new AbortController();
+    ctrl = request;
     const local = localMatches(q);
     render({ places: local.places }, t('search.searching'));
     try {
-      const results = await geocode(q, ctrl.signal);
-      const areas = [...local.areas, ...results.map((geo) => ({ kind: 'geo', geo }))];
+      const results = await geocode(q, request.signal);
+      if (request.signal.aborted || q !== input.value.trim()) return;
+      const areas = [...local.areas, ...results.filter(({ lat, lon }) => Number.isFinite(lat) && Number.isFinite(lon)).map((geo) => ({ kind: 'geo', geo }))];
       if (!areas.length && !local.places.length) render({}, t('search.noResults'));
       else render({ areas, places: local.places });
       setActive(0);
     } catch (err) {
-      if (err.name !== 'AbortError') render({ areas: local.areas, places: local.places }, t('search.error'));
+      if (!request.signal.aborted && q === input.value.trim()) render(local, t('search.error'));
+    } finally {
+      if (ctrl === request) ctrl = null;
     }
   }
 
@@ -156,7 +197,8 @@ export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPl
   function choose(i) {
     const o = options[i];
     if (!o) return;
-    if (o.kind === 'go') return runGeocode();
+    if (o.kind === 'go') return runSearch();
+    if (o.kind === 'geoSearch') return runGeocode();
     close();
     input.blur();
     if (o.kind === 'area') {
@@ -165,14 +207,23 @@ export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPl
     } else if (o.kind === 'geo') {
       input.value = o.geo.name;
       const zoom = o.geo.rank >= 28 ? 17 : o.geo.rank >= 22 ? 15.5 : o.geo.rank >= 16 ? 13 : 11;
-      onArea({ lat: o.geo.lat, lon: o.geo.lon, zoom, bbox: o.geo.rank < 26 ? o.geo.bbox : null });
+      onArea({ lat: o.geo.lat, lon: o.geo.lon, zoom, bbox: o.geo.rank < 26 ? o.geo.bbox : null, marker: o.geo.rank >= 28 ? o.geo : null });
     } else if (o.kind === 'place') {
-      onPlace(o.place);
+      input.value = displayName(o.place);
+      const request = new AbortController();
+      ctrl = request;
+      Promise.resolve(onPlace(o.place, request.signal)).finally(() => {
+        if (ctrl === request) ctrl = null;
+      });
     }
     clearBtn.hidden = !input.value;
   }
 
-  input.addEventListener('input', update);
+  input.addEventListener('input', () => {
+    close();
+    clearBtn.hidden = !input.value.trim();
+    update();
+  });
   input.addEventListener('focus', () => input.value.trim() && update());
   input.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowDown') {
@@ -189,7 +240,7 @@ export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPl
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     if (active >= 0 && !box.hidden) choose(active);
-    else runGeocode();
+    else runSearch();
   });
   box.addEventListener('click', (e) => {
     const b = e.target.closest('.sr-item');

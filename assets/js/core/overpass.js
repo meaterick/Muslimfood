@@ -10,15 +10,27 @@ export const OVERPASS_ENDPOINTS = [
 ];
 
 // Names that say "halal" in common scripts: Latin, Arabic, Korean, Chinese, Japanese, Turkish.
-export const HALAL_NAME_PATTERN = 'halal|حلال|할랄|清真|ハラール|ハラル|helal';
+export const HALAL_NAME_PATTERN = 'halal|حلال|할랄|清真|ハラール|ハラル|helal|ḥalāl';
+const FOOD = '["amenity"~"^(restaurant|fast_food|cafe|food_court|ice_cream|canteen)$"]';
+const FOOD_SHOP = '["shop"~"^(bakery|butcher|convenience|deli|food|grocery|supermarket)$"]';
 
-/** Elements explicitly tagged halal (the core worldwide dataset). */
+function taggedSelectors(b) {
+  return `  nwr["diet:halal"~"^(yes|only|limited|some|halal)$",i]${b};
+  nwr["halal"~"^(yes|only|limited|some|halal)$",i]${b};
+  nwr["halal:certification"]${b};
+  nwr["diet:halal:certification"]${b};
+  nwr["certification:halal"]${b};
+  nwr["cuisine"="halal"]${b};
+  nwr["shop"="halal"]${b};
+  nwr["shop"="butcher"]["butcher"="halal"]${b};`;
+}
+
+/** The worldwide dataset, including halal-specific category tags as unconfirmed leads. */
 export function taggedQuery(bbox, timeout = 900) {
   const b = bbox ? `(${bboxString(bbox)})` : '';
   return `[out:json][timeout:${timeout}];
 (
-  nwr["diet:halal"~"^(yes|only|limited)$"]${b};
-  nwr["halal"~"^(yes|only)$"]${b};
+${taggedSelectors(b)}
 );
 out center tags qt;`;
 }
@@ -35,12 +47,11 @@ const KR_NAMES =
  * results inside South Korea.
  */
 export function koreaQuery(timeout = 600) {
-  const food = '["amenity"~"^(restaurant|fast_food|cafe|food_court)$"]';
   const b = `(${bboxString(KOREA_QUERY_BBOX)})`;
   return `[out:json][timeout:${timeout}];
 (
-  nwr${food}["cuisine"~"${KR_CUISINES}",i]${b};
-  nwr${food}["name"~"${KR_NAMES}",i]${b};
+  nwr${FOOD}["cuisine"~"${KR_CUISINES}",i]${b};
+  nwr${FOOD}["name"~"${KR_NAMES}",i]${b};
   nwr["shop"]["name"~"할랄|halal|حلال",i]${b};
   nwr["amenity"="place_of_worship"]["religion"="muslim"]${b};
 );
@@ -57,14 +68,16 @@ nwr["amenity"="place_of_worship"]["religion"="muslim"](${bboxString(bbox)});
 out center tags qt;`;
 }
 
-/** Live query for a viewport when no prebuilt data exists. */
+/** Live query for a small viewport, including explicit halal claims in local and translated names. */
 export function liveFoodQuery(bbox, timeout = 25) {
   const b = `(${bboxString(bbox)})`;
+  const halalName = `[~"^(name(:[^:]+)?|brand)$"~"${HALAL_NAME_PATTERN}",i]`;
   return `[out:json][timeout:${timeout}];
 (
-  nwr["diet:halal"~"^(yes|only|limited)$"]${b};
-  nwr["halal"~"^(yes|only)$"]${b};
-  nwr["amenity"~"^(restaurant|fast_food|cafe|food_court)$"]["name"~"${HALAL_NAME_PATTERN}",i][!"diet:halal"]${b};
+${taggedSelectors(b)}
+  nwr${FOOD}${halalName}${b};
+  nwr${FOOD_SHOP}${halalName}${b};
+  nwr${FOOD}["cuisine"~"(^|[;,])[[:space:]]*halal[[:space:]]*($|[;,])",i]${b};
 );
 out center tags qt;`;
 }

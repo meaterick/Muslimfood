@@ -8,6 +8,7 @@ import {
   loadIndex,
   ensureArea,
   ensureLive,
+  hasMoreToDiscover,
   placesIn,
   getPlace,
   findPlace,
@@ -48,6 +49,8 @@ const state = {
   loadError: null,
   fitNearest: false,
   pushedDetail: false,
+  discovering: false,
+  searchPin: null,
 };
 
 let map = null;
@@ -103,8 +106,10 @@ function getView() {
   return { ...v, bbox: [v.lon - d * 1.25, v.lat - d, v.lon + d * 1.25, v.lat + d] };
 }
 
-function moveTo({ lat, lon, zoom = 15, bbox = null }) {
+function moveTo({ lat, lon, zoom = 15, bbox = null, marker = null }) {
+  state.searchPin = marker;
   if (map) {
+    map.setSearchPin(marker);
     if (bbox && Math.abs(bbox[2] - bbox[0]) < 30) {
       map.map.fitBounds(
         [
@@ -239,6 +244,11 @@ function render(v) {
     notices.push(noticeHtml({ kind: 'korea', iconName: 'book', text: t('list.koreaPromo'), button: t('list.koreaPromoButton'), buttonAction: 'open-guide' }));
   }
   if (hiddenU) notices.push(noticeHtml({ iconName: 'info', text: t('list.hiddenUnconfirmed', { n: hiddenU }), button: t('list.showUnconfirmed'), buttonAction: 'show-unconfirmed' }));
+  if (navigator.onLine && v.zoom >= 12) {
+    const box = discoveryBox(v);
+    if (state.discovering) notices.push(noticeHtml({ iconName: 'search', text: t('search.searching') }));
+    else if (hasMoreToDiscover(box)) notices.push(noticeHtml({ iconName: 'globe', text: t('list.discoverHint'), button: t('list.discover'), buttonAction: 'discover' }));
+  }
 
   if (!list.length) {
     if (state.loading) {
@@ -311,6 +321,24 @@ async function refresh({ keepLimit = false } = {}) {
   if (state.fitNearest) fitNearest();
 }
 
+function discoveryBox({ lat, lon, bbox: [w, s, e, n] }) {
+  return [Math.max(w, lon - 0.24, -180), Math.max(s, lat - 0.24, -90), Math.min(e, lon + 0.24, 180), Math.min(n, lat + 0.24, 90)];
+}
+
+async function discoverFood(v) {
+  if (state.discovering) return;
+  state.discovering = true;
+  render(v);
+  try {
+    await ensureLive(discoveryBox(v), 'food', { includeKorea: true });
+  } catch {
+    toast(t('list.loadError'));
+  } finally {
+    state.discovering = false;
+    await refresh({ keepLimit: true });
+  }
+}
+
 /** After "Near me": if few places are in view, zoom out to show the closest ones. */
 function fitNearest() {
   state.fitNearest = false;
@@ -342,6 +370,8 @@ function fitNearest() {
 
 function showDetail(p, { push = true, reveal = true } = {}) {
   state.selected = p.id;
+  state.searchPin = null;
+  map?.setSearchPin(null);
   const v = getView();
   const ref = refPoint(v);
   const dist = state.user ? distance(state.user.lat, state.user.lon, p.y, p.x) : ref.isUser ? distance(ref.lat, ref.lon, p.y, p.x) : NaN;
@@ -357,6 +387,10 @@ function showDetail(p, { push = true, reveal = true } = {}) {
   map?.setSelected(p);
   sheet.ensure('half');
   if (reveal && map) map.reveal({ lat: p.y, lon: p.x }, Math.max(15, map.zoom()));
+  else if (reveal) {
+    state.view = { lat: p.y, lon: p.x, zoom: 15 };
+    refresh();
+  }
   if (!reveal || !map) writeHash();
   if (push) {
     history.pushState({ place: p.id }, '', `${location.pathname}${location.search}${hashFor(getView(), p.id)}`);
@@ -528,7 +562,17 @@ async function initMap(start) {
     map.setSummary(summaryGeoJSON());
     applySheetToMap(lastSheet);
     if (state.user) map.setUser(state.user);
-    if (state.selected) map.setSelected(getPlace(state.selected));
+    if (state.selected) {
+      const p = getPlace(state.selected);
+      if (p) {
+        map.setSelected(p);
+        map.reveal({ lat: p.y, lon: p.x }, Math.max(15, map.zoom()));
+      }
+    } else if (state.view.lat !== start.lat || state.view.lon !== start.lon || state.view.zoom !== start.zoom) {
+      moveTo({ ...state.view, marker: state.searchPin });
+    } else if (state.searchPin) {
+      map.setSearchPin(state.searchPin);
+    }
     updateMapPlaces();
     refresh({ keepLimit: true });
   } catch (err) {
@@ -607,6 +651,9 @@ function bindEvents() {
         break;
       case 'retry':
         refresh();
+        break;
+      case 'discover':
+        discoverFood(v);
         break;
       case 'add-place':
       case 'about':
@@ -733,7 +780,13 @@ async function boot() {
       moveTo(a);
       sheet.ensure('half');
     },
-    onPlace: (p) => showDetail(p),
+    onPlace: async (p, signal) => {
+      await indexReady;
+      const place = await findPlace(p.id, { lat: p.y, lon: p.x });
+      if (signal.aborted) return;
+      if (place) showDetail(place);
+      else toast(t('detail.notFound'));
+    },
   });
   initDialogs();
   initGuide(() => getView());

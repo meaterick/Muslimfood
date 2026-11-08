@@ -21,8 +21,8 @@ export function normalizeParts(parts) {
       if (byId.has(id)) continue;
       const lat = el.lat ?? el.center?.lat;
       const lon = el.lon ?? el.center?.lon;
-      // Cuisine-based hints only make sense inside Korea; halal names anywhere.
-      const infer = name === 'korea' && isInKorea(lat, lon) ? true : name === 'names' ? 'name' : false;
+      // Only the Korea extras use generic cuisine-based hints.
+      const infer = name === 'korea' ? isInKorea(lat, lon) : 'name';
       const place = fromOsmElement(el, { infer });
       if (!place) continue;
       // Prayer places are prebuilt for Korea only (elsewhere the app queries live).
@@ -58,19 +58,25 @@ export function mergeInto(byCell, place, sourceKey) {
     (o) =>
       (o.k === 'p') === (place.k === 'p') &&
       distance(o.y, o.x, place.y, place.x) < MERGE_RADIUS_M &&
-      (place.k === 'p' || [o.n, ...Object.values(o.nl || {})].some((n) => namesMatch(n, place.n))),
+      // Nearby branches can share a brand while serving different menus.
+      ((sourceKey !== 'kto' && o.src !== 'kto') || o.k === place.k ||
+        (['r', 'f'].includes(o.k) && ['r', 'f'].includes(place.k))) &&
+      (place.k === 'p' || [o.n, ...Object.values(o.nl || {})].some((n) =>
+        [place.n, ...Object.values(place.nl || {})].some((alt) => namesMatch(n, alt)))),
   );
   if (same) {
     same.srcs = [...new Set([...(same.srcs || [same.src]), sourceKey])];
+    if (place.id !== same.id) same.ids = [...new Set([...(same.ids || []), place.id])];
     const s = betterStatus(same.s, place.s);
     if (s !== same.s) {
       same.s = s;
       if (s !== 'U') delete same.why;
     }
-    for (const f of ['a', 'ph', 'oh', 'ohx', 'w', 'ig', 'pt']) if (!same[f] && place[f]) same[f] = place[f];
+    for (const f of ['a', 'ph', 'oh', 'ohx', 'w', 'ig', 'pt', 'mu', 'mn', 'ml', 'su']) if (!same[f] && place[f]) same[f] = place[f];
     if (!same.cu?.length && place.cu?.length) same.cu = place.cu;
+    if (place.nl) same.nl = { ...place.nl, ...same.nl };
     if (!same.n && place.n) same.n = place.n;
-    if (place.d && !same.d) same.d = place.d;
+    if (place.d && !same.d && same.src !== 'kto') same.d = place.d;
     return false;
   }
   if (!byCell.has(key)) byCell.set(key, []);
@@ -88,4 +94,10 @@ export function mergeSources(byCell, sources) {
     stats.push({ source: src.source, file: src.file, records: src.places.length, added });
   }
   return stats;
+}
+
+/** Compact search rows with coordinates for loading the matching cell on selection. */
+export function searchRecords(places) {
+  return places.filter((p) => p.n && p.k !== 'p').map(({ id, n, nl, y, x, k, s, a, cu, mn, ml }) =>
+    ({ id, n, nl, y, x, k, s, a, cu, mn, ml }));
 }

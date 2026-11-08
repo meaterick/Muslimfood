@@ -84,6 +84,19 @@ export const STAFF_CARDS = {
     yes: 'I can eat seafood, fish, vegetables, eggs, tofu, rice and dairy.',
     ask: 'Could you recommend a dish I can eat? Thank you!',
   },
+  fr: {
+    label: 'Français',
+    lang: 'fr',
+    hello: 'Bonjour. Pour des raisons religieuses, je ne peux pas consommer les aliments suivants.',
+    no: [
+      'Porc, y compris le jambon, les saucisses, le bacon, le bouillon de porc et le saindoux',
+      'Alcool, y compris le vin de cuisine et le mirin',
+      'Bœuf, poulet ou agneau sans certification halal, ainsi que leurs bouillons',
+      'Gélatine de porc',
+    ],
+    yes: 'Je peux manger des fruits de mer, du poisson, des légumes, des œufs, du tofu, du riz et des produits laitiers.',
+    ask: 'Pourriez-vous me conseiller un plat adapté ? Merci !',
+  },
   ja: {
     label: '日本語',
     lang: 'ja',

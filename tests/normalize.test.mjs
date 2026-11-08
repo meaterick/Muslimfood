@@ -1,5 +1,16 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+
+test('discovery uses halal category hints conservatively and keeps safe menu URLs', () => {
+  const place = (tags) => fromOsmElement({ type: 'node', id: 42, lat: 48.85, lon: 2.35, tags: {
+    amenity: 'restaurant', name: 'Chez Amine', ...tags,
+  } }, { infer: 'name' });
+  assert.equal(place({ cuisine: 'french;halal' }).s, 'U');
+  assert.equal(place({ cuisine: 'french;halal', 'diet:halal': 'No' }), null);
+  assert.equal(place({ cuisine: 'halal', name: 'Chez Amine, pas halal' }), null);
+  assert.equal(place({ 'halal:certification': 'yes' }).s, 'C');
+  assert.equal(place({ 'name:fr': 'Chez Amine halal', 'website:menu': 'javascript:alert(1)', 'contact:menu': 'https://example.com/menu' }).mu, 'https://example.com/menu');
+});
 import {
   fromOsmElement,
   taggedStatus,

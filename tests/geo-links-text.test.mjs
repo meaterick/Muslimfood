@@ -82,9 +82,11 @@ test('overpass queries are well formed', () => {
   assert.equal(bboxString([126.9, 37.5, 127.1, 37.6]), '37.50000,126.90000,37.60000,127.10000');
   const q = taggedQuery();
   assert.match(q, /\[out:json\]/);
-  assert.match(q, /nwr\["diet:halal"~"\^\(yes\|only\|limited\)\$"\];/);
+  assert.match(q, /nwr\["diet:halal"~"\^\(yes\|only\|limited\|some\|halal\)\$",i\];/);
+  assert.match(q, /nwr\["halal:certification"\];/);
+  assert.match(q, /nwr\["cuisine"="halal"\];/);
   assert.match(q, /out center tags qt;/);
-  assert.match(liveFoodQuery([0, 0, 1, 1]), /\[!"diet:halal"\]\(0\.00000,0\.00000,1\.00000,1\.00000\);/);
+  assert.match(liveFoodQuery([0, 0, 1, 1]), /\[~"\^\(name\(:\[\^:\]\+\)\?\|brand\)\$"~"[^"]+",i\]\(0\.00000,0\.00000,1\.00000,1\.00000\);/);
   // bounding box (works on every Overpass server), not an area lookup
   assert.match(koreaQuery(), /\["religion"="muslim"\]\(33\.00000,124\.50000,38\.65000,131\.95000\);/);
   assert.doesNotMatch(koreaQuery(), /area/);

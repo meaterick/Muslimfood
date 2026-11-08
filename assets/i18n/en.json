@@ -9,7 +9,7 @@
     "tagline": "Halal food near you"
   },
   "search": {
-    "placeholder": "Area or restaurant",
+    "placeholder": "Area, restaurant or dish",
     "label": "Search",
     "clear": "Clear search",
     "areas": "Areas",
@@ -76,7 +76,9 @@
     },
     "showUnconfirmed": "Show them",
     "koreaPromo": "New to Korean food? See which dishes usually contain pork or alcohol.",
-    "koreaPromoButton": "Open the guide"
+    "koreaPromoButton": "Open the guide",
+    "discover": "Find more nearby",
+    "discoverHint": "Look for additional places in OpenStreetMap around the map centre."
   },
   "filter": {
     "label": "Filters",
@@ -107,7 +109,7 @@
       "Y": "Reported to serve halal food. Non-halal food may also be served.",
       "F": "Listed as Muslim-friendly by an official tourism organisation. Usually offers halal or pork-free dishes; alcohol may be served.",
       "L": "Reported to have a few halal options.",
-      "Uname": "It is listed because its name mentions halal. Ask the staff before you order.",
+      "Uname": "Its name or category suggests halal options. Ask the staff before you order.",
       "Ucuisine": "It is listed because this cuisine is usually halal in Korea (for example Turkish, Uzbek or Pakistani). Ask the staff before you order."
     }
   },
@@ -236,14 +238,18 @@
     "report": "Report a problem",
     "edit": "Edit on OpenStreetMap",
     "staffCard": "Show the staff card",
-    "notFound": "This place is no longer in the data."
+    "notFound": "This place is no longer in the data.",
+    "menu": "Menu highlights",
+    "menuLink": "View menu",
+    "menuNote": "Menu availability and halal options may vary. Ask the restaurant about the dish you want."
   },
   "source": {
     "osm": "OpenStreetMap contributors",
     "gg": "Gyeonggi Tourism Organization, Muslim-friendly restaurants",
     "kcisa": "Korea Culture Information Service Agency, world cuisine restaurants",
     "cur": "Muslimfood community list",
-    "live": "OpenStreetMap (live)"
+    "live": "OpenStreetMap (live)",
+    "kto": "Korea Tourism Organization, Muslim-friendly restaurant guide"
   },
   "guide": {
     "title": "Eating halal in Korea",
@@ -321,7 +327,7 @@
     "sourcesTitle": "Data sources",
     "osm": "Restaurants, mosques and prayer rooms worldwide from OpenStreetMap, © OpenStreetMap contributors (ODbL).",
     "map": "Map tiles: OpenFreeMap, OpenMapTiles, © OpenStreetMap contributors.",
-    "kr": "Korean public data from data.go.kr (free to use):",
+    "kr": "Korean data sources:",
     "updated": "Data updated {date}",
     "privacyTitle": "Privacy",
     "privacy": "Your location is used only on your device to sort places by distance. This site sets no cookies and has no tracking or ads.",
