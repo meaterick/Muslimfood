@@ -292,7 +292,8 @@ export function compact(obj) {
 
 /**
  * Convert one Overpass JSON element into a place record.
- * opts.infer: allow heuristic (unconfirmed) status when there is no halal tag.
+ * opts.infer: allow an unconfirmed status when there is no halal tag:
+ *   'name' = only when the name says halal, true = also from the cuisine (Korea).
  * Returns null for elements that should not be shown.
  */
 export function fromOsmElement(el, opts = {}) {
@@ -315,7 +316,8 @@ export function fromOsmElement(el, opts = {}) {
       if (String(tags['diet:halal'] || tags.halal || '').toLowerCase() === 'no') return null;
       if (!opts.infer) return null;
       const inf = inferStatus(tags);
-      if (!inf) return null;
+      // infer: 'name' allows only "halal" in the name; true also allows cuisine hints.
+      if (!inf || (opts.infer === 'name' && inf.why !== 'name')) return null;
       s = inf.s;
       why = inf.why;
     }

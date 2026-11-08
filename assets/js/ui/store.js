@@ -119,7 +119,7 @@ export async function ensureLive(bbox, kind) {
       const query = kind === 'prayer' ? prayerQuery(box) : liveFoodQuery(box);
       const json = await runOverpass(query, { signal: ctrl.signal, timeoutMs: 12000 });
       for (const el of json.elements) {
-        const p = fromOsmElement(el, { infer: true });
+        const p = fromOsmElement(el, { infer: 'name' });
         if (!p) continue;
         if (kind === 'prayer' ? p.k !== 'p' : p.k === 'p') continue;
         p.src = 'live';

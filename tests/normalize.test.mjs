@@ -129,3 +129,10 @@ test('address formats by region', () => {
   assert.equal(addressOf({ 'addr:full': '서울 용산구 이태원로 1' }, 37.5, 127), '서울 용산구 이태원로 1');
   assert.equal(addressOf({}, 0, 0), undefined);
 });
+
+test("infer: 'name' accepts halal names but not cuisine hints", () => {
+  const turkish = node(20, { amenity: 'restaurant', name: 'Ottoman Grill', cuisine: 'turkish' });
+  assert.equal(fromOsmElement(turkish, { infer: 'name' }), null);
+  assert.equal(fromOsmElement(turkish, { infer: true }).why, 'cuisine');
+  assert.equal(fromOsmElement(node(21, { amenity: 'fast_food', name: 'Halal Bites' }), { infer: 'name' }).why, 'name');
+});

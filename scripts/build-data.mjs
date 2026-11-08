@@ -18,9 +18,9 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runOverpass, taggedQuery, nameQuery, koreaQuery } from '../assets/js/core/overpass.js';
-import { fromOsmElement, betterStatus, compact } from '../assets/js/core/normalize.js';
-import { cellKey, distance, isInKorea, KOREA_BBOX, CELL_SIZE } from '../assets/js/core/geo.js';
-import { namesMatch } from '../assets/js/core/text.js';
+import { compact } from '../assets/js/core/normalize.js';
+import { isInKorea, KOREA_BBOX, CELL_SIZE } from '../assets/js/core/geo.js';
+import { normalizeParts, groupByCell, mergeSources } from './lib/build.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -78,46 +78,6 @@ async function overpass(name, query, { required }) {
   }
 }
 
-// ------------------------------------------------------------------ merge
-
-const MERGE_RADIUS_M = 120;
-
-/** Merge a non-OSM place into the list (dedupe against nearby OSM places). */
-function mergeInto(byCell, place, sourceKey) {
-  const key = cellKey(place.y, place.x);
-  const candidates = [];
-  // look in this and neighbouring cells (places near a cell border)
-  const [cy, cx] = key.split('_').map(Number);
-  for (const dy of [-CELL_SIZE, 0, CELL_SIZE]) {
-    for (const dx of [-CELL_SIZE, 0, CELL_SIZE]) {
-      const list = byCell.get(`${cy + dy}_${cx + dx}`);
-      if (list) candidates.push(...list);
-    }
-  }
-  const same = candidates.find(
-    (o) =>
-      (o.k === 'p') === (place.k === 'p') &&
-      distance(o.y, o.x, place.y, place.x) < MERGE_RADIUS_M &&
-      (place.k === 'p' ? true : [o.n, ...Object.values(o.nl || {})].some((n) => namesMatch(n, place.n))),
-  );
-  if (same) {
-    same.srcs = [...new Set([...(same.srcs || [same.src]), sourceKey])];
-    const s = betterStatus(same.s, place.s);
-    if (s !== same.s) {
-      same.s = s;
-      if (s !== 'U') delete same.why;
-    }
-    for (const f of ['a', 'ph', 'oh', 'ohx', 'w', 'ig', 'pt']) if (!same[f] && place[f]) same[f] = place[f];
-    if (!same.cu?.length && place.cu?.length) same.cu = place.cu;
-    if (!same.n && place.n) same.n = place.n;
-    if (place.d && !same.d) same.d = place.d;
-    return false;
-  }
-  if (!byCell.has(key)) byCell.set(key, []);
-  byCell.get(key).push({ ...place, src: sourceKey });
-  return true;
-}
-
 // ------------------------------------------------------------------ time zones
 
 async function tzLookupFn() {
@@ -146,43 +106,11 @@ async function main() {
     parts.names = await overpass('names', nameQuery(bbox), { required: false });
   }
 
-  // Normalise OSM elements (dedupe by id; tagged results win because they come first)
-  const byId = new Map();
-  let osmBase = null;
-  for (const [name, part] of Object.entries(parts)) {
-    if (part.osmBase && (!osmBase || part.osmBase > osmBase)) osmBase = part.osmBase;
-    for (const el of part.elements) {
-      const id = `${el.type[0]}${el.id}`;
-      if (byId.has(id)) continue;
-      // Korea hints (cuisine-based) only make sense inside Korea.
-      const lat = el.lat ?? el.center?.lat;
-      const lon = el.lon ?? el.center?.lon;
-      const infer = name === 'names' || (name === 'korea' && isInKorea(lat, lon));
-      const place = fromOsmElement(el, { infer });
-      if (!place) continue;
-      if (place.k === 'p' && !(name === 'korea' && isInKorea(place.y, place.x))) continue;
-      byId.set(id, place);
-    }
-  }
+  const { byId, osmBase } = normalizeParts(parts);
   log(`OSM places: ${byId.size}`);
-
-  const byCell = new Map();
-  for (const p of byId.values()) {
-    const key = cellKey(p.y, p.x);
-    if (!byCell.has(key)) byCell.set(key, []);
-    byCell.get(key).push(p);
-  }
-
-  // Merge local sources. Official lists first, unconfirmed hints last.
-  const order = (s) => (s.status === 'U' ? 2 : s.status === 'F' ? 0 : 1);
-  sources.sort((a, b) => order(a) - order(b));
-  const sourceStats = [];
-  for (const src of sources) {
-    let added = 0;
-    for (const p of src.places) if (mergeInto(byCell, p, src.source)) added++;
-    sourceStats.push({ source: src.source, file: src.file, records: src.places.length, added });
-    log(`${src.file}: ${src.places.length} records, ${added} new, ${src.places.length - added} merged`);
-  }
+  const byCell = groupByCell(byId.values());
+  const sourceStats = mergeSources(byCell, sources);
+  for (const st of sourceStats) log(`${st.file}: ${st.records} records, ${st.added} new, ${st.records - st.added} merged`);
 
   // Write output
   const tzOf = await tzLookupFn();
