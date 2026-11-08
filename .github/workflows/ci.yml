@@ -1,0 +1,50 @@
+# Tests and a quick data build for pull requests and feature branches.
+# The data build only covers Korea to keep the load on Overpass small; put
+# "[full-data]" in a commit message to run the worldwide build instead.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches-ignore: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build data (Korea only)
+        if: ${{ !contains(github.event.head_commit.message, '[full-data]') }}
+        run: node scripts/build-data.mjs --korea-only --out _ci/data
+
+      - name: Build data (worldwide)
+        if: ${{ contains(github.event.head_commit.message, '[full-data]') }}
+        run: node scripts/build-data.mjs --out _ci/data
+
+      - name: Summarise data
+        run: |
+          node -e "
+            const i = require('./_ci/data/index.json');
+            console.log('mode', i.mode, 'osmBase', i.osmBase);
+            console.log('overpass', JSON.stringify(i.overpass));
+            console.log('stats', JSON.stringify(i.stats));
+            console.log('cells', Object.keys(i.cells).length);
+          "
+
+      - name: Assemble site
+        run: node scripts/assemble.mjs _ci/site https://example.github.io/Muslimfood/ --data _ci/data

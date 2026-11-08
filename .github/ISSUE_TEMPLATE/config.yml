@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Edit OpenStreetMap directly / 오픈스트리트맵에서 직접 수정
+    url: https://www.openstreetmap.org/
+    about: Places from OpenStreetMap update on Muslimfood within a day. 오픈스트리트맵의 수정 사항은 하루 안에 반영됩니다.

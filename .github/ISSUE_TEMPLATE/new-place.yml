@@ -1,0 +1,59 @@
+name: Add a halal place / 할랄 식당 추가
+description: Suggest a halal or Muslim-friendly restaurant, shop or prayer room that is missing from the map.
+title: "[New place] "
+labels: ["new place"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you! The fastest way is to add the place on [OpenStreetMap](https://www.openstreetmap.org) with the tag `diet:halal=yes` (or `only`); it appears on Muslimfood within a day.
+        If you can't edit OpenStreetMap, fill in this form and a maintainer will add it.
+
+        감사합니다! 가장 빠른 방법은 [오픈스트리트맵](https://www.openstreetmap.org)에 식당을 추가하고 `diet:halal=yes`(또는 `only`) 태그를 다는 것입니다. 하루 안에 무슬림푸드에 반영됩니다.
+  - type: input
+    id: name
+    attributes:
+      label: Name / 상호
+      placeholder: "e.g. Salam Restaurant / 살람"
+    validations:
+      required: true
+  - type: input
+    id: address
+    attributes:
+      label: Address or map link / 주소 또는 지도 링크
+      description: A Naver Map, Kakao Map, Google Maps or OpenStreetMap link is best.
+    validations:
+      required: true
+  - type: dropdown
+    id: status
+    attributes:
+      label: Halal status / 할랄 수준
+      options:
+        - Halal certified (certificate on display) / 할랄 인증 (인증서 있음)
+        - Everything is halal (Muslim owner) / 전 메뉴 할랄 (무슬림 운영)
+        - Some halal dishes / 일부 할랄 메뉴
+        - Pork-free, meat not halal / 돼지고기 없음 (고기는 할랄 아님)
+        - Mosque or prayer room / 모스크·기도실
+        - Not sure / 잘 모르겠음
+    validations:
+      required: true
+  - type: input
+    id: certificate
+    attributes:
+      label: Certificate (if any) / 인증 기관
+      placeholder: "e.g. KMF, JAKIM, MUI"
+  - type: dropdown
+    id: alcohol
+    attributes:
+      label: Alcohol served? / 주류 판매
+      options:
+        - "No / 아니요"
+        - "Yes / 예"
+        - "Don't know / 모름"
+  - type: textarea
+    id: notes
+    attributes:
+      label: How do you know? / 확인 방법
+      description: e.g. visited on 2026-11-01 and saw the certificate, owner told me, ...
+    validations:
+      required: true

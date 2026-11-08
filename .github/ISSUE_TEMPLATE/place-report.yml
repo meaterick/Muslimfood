@@ -1,0 +1,35 @@
+name: Report a problem with a place / 잘못된 정보 신고
+description: A place is closed, not halal, in the wrong location or has wrong details.
+title: "[Report] "
+labels: ["data report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For places from OpenStreetMap you can also leave a note directly on [openstreetmap.org](https://www.openstreetmap.org) (no account needed).
+        오픈스트리트맵에서 온 장소는 [openstreetmap.org](https://www.openstreetmap.org)에 바로 메모를 남길 수도 있습니다(계정 불필요).
+  - type: input
+    id: place
+    attributes:
+      label: Place / 장소
+      description: Name and id as shown in the app (filled in automatically when you use the app's "Report a problem" button).
+    validations:
+      required: true
+  - type: dropdown
+    id: problem
+    attributes:
+      label: Problem / 문제
+      options:
+        - Closed permanently / 폐업
+        - Not halal / 할랄 아님
+        - Wrong location / 위치가 틀림
+        - Wrong opening hours or phone / 영업시간·전화번호 오류
+        - Other / 기타
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details / 자세한 내용
+    validations:
+      required: true

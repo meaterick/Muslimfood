@@ -1,0 +1,77 @@
+# Builds fresh data from OpenStreetMap every day and deploys the site to
+# GitHub Pages. One-time setup: Settings → Pages → Build and deployment →
+# Source: "GitHub Actions".
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Every day at 04:17 KST (19:17 UTC): picks up new halal places added to OpenStreetMap.
+    - cron: '17 19 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Unit tests
+        run: npm test
+
+      # Keep the last good OpenStreetMap download so a temporary Overpass
+      # outage does not remove places from the site.
+      - name: Restore previous OpenStreetMap download
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache/osm
+          key: osm-${{ github.run_id }}
+          restore-keys: osm-
+
+      - name: Build data (OpenStreetMap + Korean public data)
+        run: node scripts/build-data.mjs --osm-cache .cache/osm
+
+      - name: Save OpenStreetMap download
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .cache/osm
+          key: osm-${{ github.run_id }}
+
+      - id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Assemble site
+        run: node scripts/assemble.mjs _site "${{ steps.pages.outputs.base_url }}"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
