@@ -1,0 +1,21 @@
+{
+  "name": "muslimfood",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Find halal and Muslim-friendly restaurants worldwide, with extra care for Korea. Static site for GitHub Pages.",
+  "type": "module",
+  "scripts": {
+    "build:data": "node scripts/build-data.mjs",
+    "build:data:offline": "node scripts/build-data.mjs --offline",
+    "import:kr": "node scripts/import-kr.mjs",
+    "serve": "node scripts/serve.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@photostructure/tz-lookup": "11.7.0"
+  }
+}
