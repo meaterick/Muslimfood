@@ -31,6 +31,8 @@ const OFFLINE = flag('--offline');
 const KOREA_ONLY = flag('--korea-only');
 const OUT = path.resolve(ROOT, opt('--out', 'data'));
 const OSM_CACHE = opt('--osm-cache', null);
+// Overall time for all Overpass queries, so a hanging server cannot hit the workflow timeout.
+const BUDGET_MS = Number(opt('--budget-min', 45)) * 60 * 1000;
 const UA = 'MuslimfoodDataBuild/1.0 (+https://github.com/meaterick/Muslimfood)';
 
 const log = (...a) => console.log('[build-data]', ...a);
@@ -51,12 +53,13 @@ async function loadSources() {
 
 // ------------------------------------------------------------------ overpass
 
-async function overpass(name, query, { required }) {
+async function overpass(name, query, { required, timeoutMs, deadline }) {
   const cacheFile = OSM_CACHE ? path.join(OSM_CACHE, `${name}.json`) : null;
   const t0 = Date.now();
   try {
     const json = await runOverpass(query, {
-      timeoutMs: 15 * 60 * 1000,
+      timeoutMs,
+      deadline,
       userAgent: UA,
       onAttempt: (url) => log(`${name}: querying ${url}`),
     });
@@ -101,9 +104,15 @@ async function main() {
   const parts = {};
   if (!OFFLINE) {
     const bbox = KOREA_ONLY ? KOREA_BBOX : null;
-    parts.tagged = await overpass('tagged', taggedQuery(bbox), { required: true });
-    parts.korea = await overpass('korea', koreaQuery(), { required: true });
-    parts.names = await overpass('names', nameQuery(bbox), { required: false });
+    const deadline = started + BUDGET_MS;
+    const min = 60 * 1000;
+    // Korea first: it matters most for this site and is the quickest.
+    const korea = await overpass('korea', koreaQuery(300), { required: true, timeoutMs: 6 * min, deadline });
+    const server = KOREA_ONLY ? 180 : 900; // Overpass [timeout:] in seconds
+    const tagged = await overpass('tagged', taggedQuery(bbox, server), { required: true, timeoutMs: (server + 60) * 1000, deadline });
+    const names = await overpass('names', nameQuery(bbox, server), { required: false, timeoutMs: (server + 60) * 1000, deadline });
+    // Insertion order sets precedence when an element appears in several parts.
+    Object.assign(parts, { tagged, korea, names });
   }
 
   const { byId, osmBase } = normalizeParts(parts);

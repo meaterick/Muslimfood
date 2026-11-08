@@ -89,17 +89,23 @@ export function bboxString([w, s, e, n]) {
 
 /**
  * POST a query to the first Overpass endpoint that answers.
- * opts: { endpoints, fetchImpl, signal, timeoutMs, onAttempt, userAgent }
+ * opts: { endpoints, fetchImpl, signal, timeoutMs (per endpoint), deadline (epoch ms, overall),
+ *         onAttempt, userAgent }
  */
 export async function runOverpass(query, opts = {}) {
   const endpoints = opts.endpoints || OVERPASS_ENDPOINTS;
   const fetchImpl = opts.fetchImpl || globalThis.fetch;
   let lastErr;
   for (const url of endpoints) {
+    const left = opts.deadline ? opts.deadline - Date.now() : Infinity;
+    if (left < 20000) {
+      lastErr = lastErr || new Error('Overpass time budget used up');
+      break;
+    }
     const ctrl = new AbortController();
     const onAbort = () => ctrl.abort();
     opts.signal?.addEventListener('abort', onAbort, { once: true });
-    const timer = setTimeout(() => ctrl.abort(), opts.timeoutMs || 60000);
+    const timer = setTimeout(() => ctrl.abort(), Math.min(opts.timeoutMs || 60000, left));
     try {
       opts.onAttempt?.(url);
       const headers = { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' };

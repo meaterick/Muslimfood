@@ -120,3 +120,13 @@ test('approximate or unnamed places link by address', () => {
   assert.equal(naverLink(unnamed), 'https://map.naver.com/p/search/' + encodeURIComponent(unnamed.a));
   assert.equal(googleRouteLink(approx), 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(approx.a));
 });
+
+test('runOverpass respects the overall deadline', async () => {
+  let calls = 0;
+  const fetchImpl = async () => {
+    calls++;
+    return { ok: false, status: 504 };
+  };
+  await assert.rejects(runOverpass('[out:json];', { endpoints: ['https://a/', 'https://b/'], fetchImpl, deadline: Date.now() + 5000 }), /budget/);
+  assert.equal(calls, 0);
+});
