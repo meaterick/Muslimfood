@@ -85,7 +85,9 @@ test('overpass queries are well formed', () => {
   assert.match(q, /nwr\["diet:halal"~"\^\(yes\|only\|limited\)\$"\];/);
   assert.match(q, /out center tags qt;/);
   assert.match(liveFoodQuery([0, 0, 1, 1]), /\[!"diet:halal"\]\(0\.00000,0\.00000,1\.00000,1\.00000\);/);
-  assert.match(koreaQuery(), /area\["ISO3166-1"="KR"\]\[admin_level=2\]->\.kr;/);
+  // bounding box (works on every Overpass server), not an area lookup
+  assert.match(koreaQuery(), /\["religion"="muslim"\]\(33\.00000,124\.50000,38\.65000,131\.95000\);/);
+  assert.doesNotMatch(koreaQuery(), /area/);
   // balanced parentheses
   for (const query of [q, koreaQuery(), liveFoodQuery([0, 0, 1, 1]), prayerQuery([0, 0, 1, 1])]) {
     const open = (query.match(/\(/g) || []).length;
@@ -169,4 +171,23 @@ test('runOverpass does not retry errors that are not "busy"', async () => {
   });
   assert.deepEqual(calls, ['https://main/', 'https://mirror/']);
   assert.deepEqual(errors, ['HTTP 400 from https://main/']);
+});
+
+test('runOverpass treats implausible results as a failure and tries the next server', async () => {
+  const calls = [];
+  const fetchImpl = async (url) => {
+    calls.push(url);
+    const elements = url === 'https://mirror/' ? [] : [{ type: 'node', id: 1 }, { type: 'node', id: 2 }];
+    return { ok: true, json: async () => ({ elements }) };
+  };
+  const accept = (json) => (json.elements.length < 2 ? 'too few' : null);
+  const json = await runOverpass('[out:json];', { endpoints: ['https://mirror/', 'https://main/'], fetchImpl, accept });
+  assert.equal(json.elements.length, 2);
+  assert.deepEqual(calls, ['https://mirror/', 'https://main/']);
+  // 502 Bad Gateway is retried like 429/503/504
+  let n = 0;
+  const flaky = async () => (++n === 1 ? { ok: false, status: 502 } : { ok: true, json: async () => ({ elements: [{}, {}] }) });
+  const waits = [];
+  await runOverpass('[out:json];', { endpoints: ['https://main/'], fetchImpl: flaky, retries: 2, retryDelayMs: 5, sleep: async (ms) => waits.push(ms), accept });
+  assert.deepEqual(waits, [5]);
 });

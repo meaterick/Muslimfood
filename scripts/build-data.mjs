@@ -53,13 +53,15 @@ async function loadSources() {
 
 // ------------------------------------------------------------------ overpass
 
-async function overpass(name, query, { required, timeoutMs, deadline }) {
+async function overpass(name, query, { required, timeoutMs, deadline, minElements = 0 }) {
   const cacheFile = OSM_CACHE ? path.join(OSM_CACHE, `${name}.json`) : null;
   const t0 = Date.now();
+  const accept = (json) => (json.elements.length < minElements ? `only ${json.elements.length} elements (expected at least ${minElements})` : null);
   try {
     const json = await runOverpass(query, {
       timeoutMs,
       deadline,
+      accept,
       // The main server answers 429 when the shared CI runner IP has no free
       // slot; waiting usually works better than the smaller mirrors.
       retries: 4,
@@ -77,9 +79,12 @@ async function overpass(name, query, { required, timeoutMs, deadline }) {
   } catch (err) {
     log(`${name}: FAILED (${err.message})`);
     if (cacheFile && existsSync(cacheFile)) {
-      log(`${name}: using cached copy ${cacheFile}`);
       const json = JSON.parse(await readFile(cacheFile, 'utf8'));
-      return { ok: false, stale: true, elements: json.elements, osmBase: json.osm3s?.timestamp_osm_base };
+      if (!accept(json)) {
+        log(`${name}: using cached copy from ${json.osm3s?.timestamp_osm_base || 'an earlier run'}`);
+        return { ok: false, stale: true, elements: json.elements, osmBase: json.osm3s?.timestamp_osm_base };
+      }
+      log(`${name}: cached copy ignored (${accept(json)})`);
     }
     if (required) log(`${name}: no data available for this part`);
     return { ok: false, elements: [] };
@@ -112,9 +117,16 @@ async function main() {
     const deadline = started + BUDGET_MS;
     const min = 60 * 1000;
     // Korea first: it matters most for this site and is the quickest.
-    const korea = await overpass('korea', koreaQuery(300), { required: true, timeoutMs: 6 * min, deadline });
+    // Minimum sizes catch servers that answer "successfully" with missing data
+    // (Korea returns ~120 elements, the worldwide query ~19,000).
+    const korea = await overpass('korea', koreaQuery(300), { required: true, timeoutMs: 6 * min, deadline, minElements: 20 });
     const server = KOREA_ONLY ? 180 : 900; // Overpass [timeout:] in seconds
-    const tagged = await overpass('tagged', taggedQuery(bbox, server), { required: true, timeoutMs: (server + 60) * 1000, deadline });
+    const tagged = await overpass('tagged', taggedQuery(bbox, server), {
+      required: true,
+      timeoutMs: (server + 60) * 1000,
+      deadline,
+      minElements: KOREA_ONLY ? 5 : 5000,
+    });
     // Insertion order sets precedence when an element appears in both parts.
     // (A worldwide "halal in the name" scan is too slow for Overpass; the
     // Korea query covers names in Korea and the app queries names live elsewhere.)

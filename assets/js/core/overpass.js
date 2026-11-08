@@ -30,20 +30,25 @@ const KR_NAMES =
 
 /**
  * Korea-only extras: likely-halal cuisines, halal-ish names (unconfirmed hints)
- * and mosques / prayer rooms.
+ * and mosques / prayer rooms. Uses a bounding box rather than an area lookup
+ * because not every Overpass server has area data; the build keeps only
+ * results inside South Korea.
  */
 export function koreaQuery(timeout = 600) {
   const food = '["amenity"~"^(restaurant|fast_food|cafe|food_court)$"]';
+  const b = `(${bboxString(KOREA_QUERY_BBOX)})`;
   return `[out:json][timeout:${timeout}];
-area["ISO3166-1"="KR"][admin_level=2]->.kr;
 (
-  nwr(area.kr)${food}["cuisine"~"${KR_CUISINES}",i];
-  nwr(area.kr)${food}["name"~"${KR_NAMES}",i];
-  nwr(area.kr)["shop"]["name"~"할랄|halal|حلال",i];
-  nwr(area.kr)["amenity"="place_of_worship"]["religion"="muslim"];
+  nwr${food}["cuisine"~"${KR_CUISINES}",i]${b};
+  nwr${food}["name"~"${KR_NAMES}",i]${b};
+  nwr["shop"]["name"~"할랄|halal|حلال",i]${b};
+  nwr["amenity"="place_of_worship"]["religion"="muslim"]${b};
 );
 out center tags qt;`;
 }
+
+// South Korea incl. Jeju, Ulleungdo and Dokdo, [w, s, e, n].
+const KOREA_QUERY_BBOX = [124.5, 33.0, 131.95, 38.65];
 
 /** Mosques and prayer rooms in a bounding box (browser, outside Korea). */
 export function prayerQuery(bbox, timeout = 25) {
@@ -73,8 +78,9 @@ export function bboxString([w, s, e, n]) {
 /**
  * POST a query to the first Overpass endpoint that answers.
  * opts: { endpoints, fetchImpl, signal, timeoutMs (per attempt), deadline (epoch ms, overall),
- *         retries (extra attempts per endpoint when it is busy: HTTP 429/503/504),
- *         retryDelayMs (first wait, doubled each time), sleep, onAttempt, onError, userAgent }
+ *         retries (extra attempts per endpoint when it is busy: HTTP 429/502/503/504),
+ *         retryDelayMs (first wait, doubled each time), sleep, onAttempt, onError, userAgent,
+ *         accept(json) -> error message when the result is not plausible }
  */
 export async function runOverpass(query, opts = {}) {
   const endpoints = opts.endpoints || OVERPASS_ENDPOINTS;
@@ -107,7 +113,7 @@ export async function runOverpass(query, opts = {}) {
           signal: ctrl.signal,
         });
         if (!res.ok) {
-          busy = [429, 503, 504].includes(res.status);
+          busy = [429, 502, 503, 504].includes(res.status);
           throw new Error(`HTTP ${res.status} from ${url}`);
         }
         const json = await res.json();
@@ -116,6 +122,9 @@ export async function runOverpass(query, opts = {}) {
           busy = /timed out|out of memory/i.test(json.remark);
           throw new Error(`Overpass remark from ${url}: ${json.remark}`);
         }
+        // e.g. a mirror without complete data answers with far too few elements
+        const problem = opts.accept?.(json);
+        if (problem) throw new Error(`${problem} from ${url}`);
         return json;
       } catch (err) {
         if (opts.signal?.aborted) throw err;
