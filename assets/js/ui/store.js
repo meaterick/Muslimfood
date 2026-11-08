@@ -14,6 +14,7 @@ export const store = {
   index: null,
   mode: 'loading', // 'static' | 'live'
   places: new Map(),
+  aliases: new Map(),
   cells: new Map(), // key -> Promise
   tz: new Map(),
   liveTiles: new Set(),
@@ -26,6 +27,7 @@ export const store = {
 function add(place) {
   const prev = store.places.get(place.id);
   if (!prev || (prev.src === 'live' && place.src !== 'live')) store.places.set(place.id, place);
+  for (const id of place.ids || []) store.aliases.set(id, place.id);
 }
 
 export async function loadIndex() {
@@ -44,6 +46,25 @@ export async function loadIndex() {
     store.mode = 'live';
   }
   return store.mode;
+}
+
+let searchCatalog;
+/** Download the small search projection only when the user submits a search. */
+export function loadSearchCatalog() {
+  searchCatalog ??= fetch('data/search.json')
+    .then((r) => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.json();
+    })
+    .then((rows) => {
+      if (!Array.isArray(rows)) throw new Error('bad search catalog');
+      return rows;
+    })
+    .catch(() => {
+      searchCatalog = null; // try again on the next search, including after going online
+      return [];
+    });
+  return searchCatalog;
 }
 
 function loadCell(key) {
@@ -92,14 +113,18 @@ function tilesFor(bbox) {
   return out;
 }
 
+export function hasMoreToDiscover(bbox) {
+  return tilesFor(bbox).some(([y, x]) => !store.liveTiles.has(`${y}_${x}`));
+}
+
 const inflight = { food: null, prayer: null }; // { tiles: Set, promise, ctrl }
 
 /** Live Overpass query for the missing 0.25° tiles in bbox. kind: 'food' | 'prayer'. */
-export async function ensureLive(bbox, kind) {
+export async function ensureLive(bbox, kind, { includeKorea = false } = {}) {
   const done = kind === 'prayer' ? store.prayerTiles : store.liveTiles;
   let tiles = tilesFor(bbox).filter(([y, x]) => !done.has(`${y}_${x}`));
-  // Korea has prebuilt food and prayer data.
-  if (store.mode === 'static') {
+  // Korea has prebuilt data. An explicit food search can still add places.
+  if (!includeKorea && store.mode === 'static') {
     tiles = tiles.filter(([y, x]) => !isInKorea((y + 0.5) * LIVE_TILE, (x + 0.5) * LIVE_TILE));
   }
   if (!tiles.length || tiles.length > 16) return;
@@ -151,17 +176,18 @@ export function placesIn(bbox) {
 }
 
 export function getPlace(id) {
-  return store.places.get(id) || null;
+  return store.places.get(id) || store.places.get(store.aliases.get(id)) || null;
 }
 
 /** Find a place by id, loading its cell if needed (for shared links). */
 export async function findPlace(id, hint) {
-  if (store.places.has(id)) return store.places.get(id);
+  const cached = getPlace(id);
+  if (cached) return cached;
   if (hint && store.mode === 'static') {
     const key = cellKey(hint.lat, hint.lon);
     if (store.index.cells[key]) await loadCell(key).catch(() => {});
   }
-  return store.places.get(id) || null;
+  return getPlace(id);
 }
 
 /** Time zone for a place (from the build), Asia/Seoul inside Korea, else the device's. */

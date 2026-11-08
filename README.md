@@ -22,9 +22,11 @@ GitHub Pages에서 동작하는 정적 사이트이며, 특히 **한국**에서 
   - 공공데이터(경기관광공사 무슬림 친화 음식점, 한국문화정보원 세계 음식점) 반영, 이슬람 성원·기도실 표시
   - **무슬림을 위한 한식 가이드**: 돼지고기가 보통 들어가는 음식, 숨어 있는 재료(맛술·주정·젤라틴·라드), 비교적 안심할 수 있는 음식
   - **필요한 한국어 문장** (발음 표기, 크게 보기, 한국어 음성 재생)
-  - **식당 직원용 안내 카드** (한국어·日本語·中文·English, 전체 화면)
+  - **식당 직원용 안내 카드** (한국어·日本語·中文·English·Français, 전체 화면)
+- **검색과 메뉴** — 지역, 식당명, 주소 또는 메뉴를 검색하고 결과를 선택하면 지도로 이동합니다. 상세 화면에 출처가 있는 대표 메뉴나 메뉴 링크가 표시됩니다.
+- **주변 식당 더 찾기** — 지도를 확대하고 버튼을 누르면 지도 중심 주변의 식당을 OpenStreetMap에서 추가로 찾습니다.
 - **필터**: 확인된 곳만, 영업 중, 음식 종류, 식당/패스트푸드/카페/마트, 기도 장소
-- **6개 언어**: 한국어, English, العربية(오른쪽→왼쪽), Bahasa Indonesia, Bahasa Melayu, Türkçe — 지도 글자도 언어에 맞게 표시
+- **7개 언어**: 한국어, English, العربية(오른쪽→왼쪽), Bahasa Indonesia, Bahasa Melayu, Türkçe, Français — 지도 글자도 언어에 맞게 표시
 - **빠르고 가벼움**: 프레임워크 없는 순수 JS, 목록이 지도보다 먼저 뜸, 미리 만든 데이터 파일을 지역별로 나눠 필요한 것만 받음
 - **앱처럼 설치 + 오프라인**: PWA, 본 지역의 지도와 데이터는 인터넷이 약해도 계속 보임
 - 다크 모드, 키보드·스크린리더 접근성, 쿠키·추적·광고 없음
@@ -45,10 +47,11 @@ Overpass 서버가 잠시 안 될 때는 마지막으로 받은 데이터를 그
 
 | 출처 | 내용 | 라이선스 |
 |---|---|---|
-| [OpenStreetMap](https://www.openstreetmap.org/copyright) (Overpass API) | 전 세계 `diet:halal=yes/only/limited` 장소, 한국의 이슬람 성원·기도실과 이름·음식 종류로 보아 할랄 가능성이 높은 음식점 (그 밖의 지역에서 이름에 halal·حلال·清真이 들어간 곳은 앱이 실시간으로 조회) | ODbL, © OpenStreetMap contributors |
+| [OpenStreetMap](https://www.openstreetmap.org/copyright) (Overpass API) | 전 세계 `diet:halal=yes/only/limited` 장소, 한국의 이슬람 성원·기도실과 이름·음식 종류로 보아 할랄 가능성이 높은 음식점 (할랄 인증 태그와 할랄 관련 분류도 검색하고, 실시간 검색에서는 이름·브랜드의 할랄 표시도 확인) | ODbL, © OpenStreetMap contributors |
 | [경기관광공사_경기도 무슬림 친화 음식점](https://www.data.go.kr/data/15099378/fileData.do) | 경기도 무슬림 친화 식당 51곳 (주소를 좌표로 변환) | 공공데이터포털 이용허락범위 제한 없음 |
 | [경기관광공사_경기도 이슬람 예배당 및 예배소 현황](https://www.data.go.kr/data/15099380/fileData.do) | 경기도 성원·기도소 (정확한 위치를 찾은 곳만) | 이용허락범위 제한 없음 |
 | [한국문화정보원_전국 세계 음식점 데이터](https://www.data.go.kr/data/15111398/fileData.do) | 할랄 가능성이 높은 음식 종류의 식당 (미확인으로 표시) | 이용허락범위 제한 없음 |
+| [한국관광공사 무슬림 친화 식당 가이드](https://english.visitkorea.or.kr/svc/thingsToDo/subMuslimFriendly.do) | 식당 9곳의 위치, 분류, 대표 메뉴 | 사실 정보 요약, 출처 표시 |
 | [OpenFreeMap](https://openfreemap.org) | 지도 타일 | © OpenMapTiles, © OpenStreetMap contributors |
 
 공공데이터는 `scripts/import-kr.mjs`로 내려받아 `data/sources/*.json`에 저장합니다(출처·날짜 포함).
@@ -56,7 +59,7 @@ Overpass 서버가 잠시 안 될 때는 마지막으로 받은 데이터를 그
 
 ### 장소 추가·수정하기
 
-- 가장 좋은 방법: [오픈스트리트맵](https://www.openstreetmap.org)에서 식당을 추가하고 `diet:halal=yes`(일부 할랄) 또는 `diet:halal=only`(전부 할랄) 태그를 답니다. 인증 기관은 `halal:certification=KMF` 처럼 적습니다. 다음 날 사이트에 반영됩니다.
+- 가장 좋은 방법: [오픈스트리트맵](https://www.openstreetmap.org)에서 식당을 추가하고 `diet:halal=yes`(일부 할랄) 또는 `diet:halal=only`(전부 할랄) 태그를 답니다. 식당 메뉴 주소는 `website:menu`에 추가할 수 있습니다. 인증 기관은 `halal:certification=KMF` 처럼 적습니다. 다음 날 사이트에 반영됩니다.
 - 또는 이 저장소의 이슈 양식 **Add a halal place / 할랄 식당 추가**, **Report a problem / 잘못된 정보 신고** 를 사용합니다.
 
 ## 개발
@@ -74,10 +77,11 @@ npm run import:kr              # data.go.kr 공공데이터 다시 받기 + 좌�
 index.html, sw.js, manifest.webmanifest   앱 셸 / 서비스 워커 / PWA 설정
 assets/js/core/      브라우저와 Node가 함께 쓰는 순수 로직 (정규화, 영업시간, 지도 링크, Overpass)
 assets/js/ui/        화면 (지도, 목록·상세, 검색, 가이드, 다국어)
-assets/i18n/         번역 (en, ko, ar, id, ms, tr)
+assets/i18n/         번역 (en, ko, ar, id, ms, tr, fr)
 assets/vendor/       MapLibre GL JS 5.24.0, RTL 텍스트 플러그인 (라이선스 파일 포함)
 data/sources/        한국 공공데이터 (가공본)
 data/index.json, data/cells/   배포용 데이터 (1°×1° 구역별 파일)
+data/search.json              검색을 실행할 때만 받는 전체 식당 검색 데이터
 scripts/             데이터 빌드·가져오기·배포 조립 스크립트
 .github/workflows/   pages.yml (매일 데이터 갱신 + 배포), ci.yml (테스트 + 한국 데이터 빌드)
 ```
@@ -98,9 +102,10 @@ scripts/             데이터 빌드·가져오기·배포 조립 스크립트
 **Muslimfood** is a fast, static website (GitHub Pages) for finding halal and Muslim-friendly food anywhere in the world, with extra depth for Korea.
 
 - Map + list sorted by distance, "Near me", filters (confirmed only, open now, cuisine, category, prayer places)
+- Search the full catalog by restaurant, address, cuisine or published dishes. Choose a result to see its pin and details. Use **Find more nearby** to look for additional OpenStreetMap listings around the map centre.
 - Every place shows *how we know* it is halal (certified / 100% halal / halal menu / Muslim-friendly list / some halal / not confirmed) and its source and date
-- Korea: Naver Map and Kakao Map directions first, Korean public datasets, mosques and prayer rooms, a guide to Korean dishes that usually contain pork or alcohol, key Korean phrases with audio, and a card to show restaurant staff (Korean, Japanese, Chinese, English)
-- 6 UI languages (en, ko, ar with RTL, id, ms, tr), localized map labels, dark mode, installable PWA with offline support, no tracking
+- Korea: Naver Map and Kakao Map directions first, Korean public datasets, mosques and prayer rooms, a guide to Korean dishes that usually contain pork or alcohol, key Korean phrases with audio, and a card to show restaurant staff (Korean, Japanese, Chinese, English, French)
+- 7 UI languages (en, ko, ar with RTL, id, ms, tr, fr), localized map labels, dark mode, installable PWA with offline support, no tracking
 
 **Deploy:** merge to `main`, then set *Settings → Pages → Source* to **GitHub Actions**. The `pages.yml` workflow rebuilds the data from OpenStreetMap every day and deploys.
 

@@ -273,8 +273,8 @@ export class MapView {
       const original = this.originalText[layer.id] ?? layer.layout['text-field'];
       this.originalText[layer.id] = original;
       // Latin-script UI languages keep the default "Latin + local script" labels,
-      // which help visitors match signs. Korean and Arabic prefer their own names.
-      const value = ['ko', 'ar'].includes(this.lang) ? ['coalesce', ['get', `name:${this.lang}`], original] : original;
+      // which help visitors match signs. Prefer localized Korean, Arabic and French where present.
+      const value = ['ko', 'ar', 'fr'].includes(this.lang) ? ['coalesce', ['get', `name:${this.lang}`], original] : original;
       try {
         map.setLayoutProperty(layer.id, 'text-field', value);
       } catch {
@@ -486,6 +486,14 @@ export class MapView {
           }
         : EMPTY,
     );
+  }
+
+  setSearchPin(place) {
+    this.searchMarker?.remove();
+    this.searchMarker = null;
+    if (!place) return;
+    this.searchMarker = new this.ml.Marker().setLngLat([place.lon, place.lat]).addTo(this.map);
+    this.searchMarker.getElement().setAttribute('aria-label', place.name);
   }
 
   setUser(pos) {

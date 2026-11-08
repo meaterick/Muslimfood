@@ -9,7 +9,7 @@
     "tagline": "Makanan halal di dekat Anda"
   },
   "search": {
-    "placeholder": "Daerah atau restoran",
+    "placeholder": "Wilayah, restoran, atau hidangan",
     "label": "Cari",
     "clear": "Hapus pencarian",
     "areas": "Daerah",
@@ -73,7 +73,9 @@
     },
     "showUnconfirmed": "Tampilkan",
     "koreaPromo": "Baru mengenal makanan Korea? Lihat hidangan yang biasanya mengandung babi atau alkohol.",
-    "koreaPromoButton": "Buka panduan"
+    "koreaPromoButton": "Buka panduan",
+    "discover": "Temukan lebih banyak tempat di sekitar",
+    "discoverHint": "Cari tempat tambahan di OpenStreetMap di sekitar pusat peta."
   },
   "filter": {
     "label": "Filter",
@@ -104,7 +106,7 @@
       "Y": "Dilaporkan menyajikan makanan halal. Makanan nonhalal mungkin juga disajikan.",
       "F": "Terdaftar sebagai restoran ramah Muslim oleh lembaga pariwisata resmi. Biasanya ada hidangan halal atau tanpa babi; alkohol mungkin disajikan.",
       "L": "Dilaporkan memiliki beberapa pilihan halal.",
-      "Uname": "Ditampilkan karena namanya menyebut halal. Tanyakan kepada staf sebelum memesan.",
+      "Uname": "Nama atau kategori tempat ini menunjukkan adanya pilihan halal. Tanyakan kepada staf sebelum memesan.",
       "Ucuisine": "Ditampilkan karena masakan ini biasanya halal di Korea (misalnya Turki, Uzbekistan, atau Pakistan). Tanyakan kepada staf sebelum memesan."
     }
   },
@@ -233,14 +235,18 @@
     "report": "Laporkan masalah",
     "edit": "Ubah di OpenStreetMap",
     "staffCard": "Tunjukkan kartu untuk staf",
-    "notFound": "Tempat ini sudah tidak ada di data."
+    "notFound": "Tempat ini sudah tidak ada di data.",
+    "menu": "Hidangan pilihan",
+    "menuLink": "Lihat menu",
+    "menuNote": "Ketersediaan menu dan pilihan halal dapat berubah. Tanyakan hidangan yang Anda inginkan kepada pihak restoran."
   },
   "source": {
     "osm": "Kontributor OpenStreetMap",
     "gg": "Organisasi Pariwisata Gyeonggi, restoran ramah Muslim",
     "kcisa": "Badan Layanan Informasi Budaya Korea, restoran masakan dunia",
     "cur": "Daftar komunitas Muslimfood",
-    "live": "OpenStreetMap (langsung)"
+    "live": "OpenStreetMap (langsung)",
+    "kto": "Panduan restoran ramah Muslim, Organisasi Pariwisata Korea"
   },
   "guide": {
     "title": "Makan halal di Korea",
@@ -318,7 +324,7 @@
     "sourcesTitle": "Sumber data",
     "osm": "Restoran, masjid, dan musala di seluruh dunia dari OpenStreetMap, © kontributor OpenStreetMap (ODbL).",
     "map": "Ubin peta: OpenFreeMap, OpenMapTiles, © kontributor OpenStreetMap.",
-    "kr": "Data publik Korea dari data.go.kr (bebas digunakan):",
+    "kr": "Sumber data Korea:",
     "updated": "Data diperbarui {date}",
     "privacyTitle": "Privasi",
     "privacy": "Lokasi Anda hanya dipakai di perangkat Anda untuk mengurutkan tempat berdasarkan jarak. Situs ini tidak memakai cookie, pelacakan, atau iklan.",

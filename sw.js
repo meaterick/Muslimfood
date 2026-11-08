@@ -1,7 +1,7 @@
 // Service worker: app shell offline, data stale-while-revalidate, visited map
 // tiles cached so the map keeps working with a weak connection.
 // Bump VERSION when the app shell changes.
-const VERSION = 'v1';
+const VERSION = 'v2';
 const SHELL = `mf-shell-${VERSION}`;
 const DATA = 'mf-data-v1';
 const TILES = 'mf-tiles-v1';
@@ -36,6 +36,7 @@ const SHELL_FILES = [
   'assets/i18n/id.json',
   'assets/i18n/ms.json',
   'assets/i18n/tr.json',
+  'assets/i18n/fr.json',
   'assets/img/icon.svg',
   'assets/img/icon-192.png',
   'assets/vendor/maplibre-gl/maplibre-gl.js',
@@ -119,7 +120,7 @@ self.addEventListener('fetch', (event) => {
     const rel = url.pathname.slice(scope.pathname.length);
     if (request.mode === 'navigate') {
       event.respondWith(networkFirst(request, SHELL, scopeUrl('index.html')));
-    } else if (rel === 'data/index.json') {
+    } else if (rel === 'data/index.json' || rel === 'data/search.json') {
       event.respondWith(networkFirst(request, DATA));
     } else if (rel.startsWith('data/')) {
       event.respondWith(staleWhileRevalidate(request, DATA, event));

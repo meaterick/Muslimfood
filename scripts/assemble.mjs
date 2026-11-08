@@ -5,6 +5,7 @@ import { cp, mkdir, rm, writeFile, readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { UI_LANGS } from '../assets/js/core/normalize.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -23,12 +24,13 @@ for (const f of FILES) if (existsSync(path.join(ROOT, f))) await cp(path.join(RO
 await cp(path.join(ROOT, 'assets'), path.join(out, 'assets'), { recursive: true });
 await mkdir(path.join(out, 'data'), { recursive: true });
 await cp(path.join(dataDir, 'index.json'), path.join(out, 'data', 'index.json'));
+await cp(path.join(dataDir, 'search.json'), path.join(out, 'data', 'search.json'));
 await cp(path.join(dataDir, 'cells'), path.join(out, 'data', 'cells'), { recursive: true });
 
 const robots = ['User-agent: *', 'Allow: /'];
 if (base) {
   robots.push(`Sitemap: ${base}sitemap.xml`);
-  const langs = ['en', 'ko', 'ar', 'id', 'ms', 'tr'];
+  const langs = UI_LANGS;
   const alt = langs.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${base}?lang=${l}"/>`).join('\n');
   await writeFile(
     path.join(out, 'sitemap.xml'),

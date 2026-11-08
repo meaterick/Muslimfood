@@ -4,6 +4,7 @@
 //
 // Place record (all fields optional except id, n, y, x, k):
 //   id   "n123" / "w123" / "r123" for OSM, "<source>-<n>" for other sources
+//   ids  aliases for links to records merged into this place
 //   n    display name (local language)
 //   nl   { en, ko, ar, ... } localized names that differ from `n`
 //   y,x  latitude, longitude
@@ -13,6 +14,7 @@
 //   why  for s=U: "name" (name says halal) or "cuisine" (cuisine usually halal)
 //   cu   cuisine tokens, e.g. ["turkish","kebab"]
 //   a    address, ph phone, w website, ig instagram url, oh opening_hours (OSM syntax)
+//   mu   menu URL, mn menu item names, ml localized menu item names, su source page URL
 //   ohx  free-text opening hours when it could not be converted
 //   ck   date the halal status was last checked (YYYY-MM-DD)
 //   ce   certification body / note
@@ -28,8 +30,8 @@
 
 import { roundCoord, isInKorea } from './geo.js';
 
-export const UI_LANGS = ['en', 'ko', 'ar', 'id', 'ms', 'tr'];
-const NAME_LANGS = ['en', 'ko', 'ar', 'id', 'ms', 'tr', 'ja', 'zh'];
+export const UI_LANGS = ['en', 'ko', 'ar', 'id', 'ms', 'tr', 'fr'];
+const NAME_LANGS = [...UI_LANGS, 'ja', 'zh'];
 
 export const STATUS_ORDER = { C: 0, O: 1, Y: 2, F: 3, L: 4, U: 5 };
 
@@ -114,7 +116,7 @@ export function taggedStatus(tags) {
 }
 
 export const HALAL_NAME_RE = /halal|حلال|할랄|清真|ハラール|ハラル|helal|ḥalāl/i;
-const NON_HALAL_NAME_RE = /non[\s-]?halal|not\s+halal|비할랄|非清真/i;
+const NON_HALAL_NAME_RE = /non[\s-]?halal|not\s+halal|pas\s+halal|비할랄|非清真/i;
 
 // Cuisines that are, in practice, almost always prepared halal in
 // non-Muslim-majority countries (e.g. Korea). Used only for *unconfirmed* hints.
@@ -179,11 +181,12 @@ export function placeCuisineGroup(place) {
 
 /** Heuristic for elements without an explicit halal tag. */
 export function inferStatus(tags) {
-  const names = [tags.name, tags['name:en'], tags['name:ko'], tags.brand].filter(Boolean).join(' ');
-  if (names && HALAL_NAME_RE.test(names) && !NON_HALAL_NAME_RE.test(names)) {
+  const names = [tags.name, tags.brand, ...Object.entries(tags).filter(([key]) => key.startsWith('name:')).map(([, value]) => value)].filter(Boolean).join(' ');
+  if (NON_HALAL_NAME_RE.test(names)) return null;
+  const cu = cuisineTokens(tags);
+  if (HALAL_NAME_RE.test(names) || cu.includes('halal') || tags.shop === 'halal' || tags.butcher === 'halal') {
     return { s: 'U', why: 'name' };
   }
-  const cu = cuisineTokens(tags);
   if (cu.some((t) => LIKELY_HALAL_CUISINES.has(t))) return { s: 'U', why: 'cuisine' };
   if (names && LIKELY_NAME_RE.test(names)) return { s: 'U', why: 'cuisine' };
   return null;
@@ -213,13 +216,17 @@ function firstOf(tags, keys) {
   return undefined;
 }
 
-function cleanUrl(u) {
-  if (!u) return undefined;
+export function cleanUrl(u) {
+  if (typeof u !== 'string') return undefined;
   u = u.split(';')[0].trim();
   if (!u) return undefined;
   if (/^www\./i.test(u)) u = 'https://' + u;
   if (!/^https?:\/\//i.test(u)) return undefined;
-  return u;
+  try {
+    return new URL(u).hostname ? u : undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 function instagramOf(tags) {
@@ -293,7 +300,8 @@ export function compact(obj) {
 /**
  * Convert one Overpass JSON element into a place record.
  * opts.infer: allow an unconfirmed status when there is no halal tag:
- *   'name' = only when the name says halal, true = also from the cuisine (Korea).
+ *   'name' = only when there is a halal claim in the name or category,
+ *   true = also from a likely cuisine (Korea).
  * Returns null for elements that should not be shown.
  */
 export function fromOsmElement(el, opts = {}) {
@@ -309,11 +317,11 @@ export function fromOsmElement(el, opts = {}) {
   if (k === 'p') {
     s = undefined;
   } else {
-    const nonHalalOnly = String(tags['diet:non-halal'] || '') === 'only';
+    const nonHalalOnly = String(tags['diet:non-halal'] || '').trim().toLowerCase() === 'only';
     if (nonHalalOnly) return null;
     s = taggedStatus(tags);
     if (!s) {
-      if (String(tags['diet:halal'] || tags.halal || '').toLowerCase() === 'no') return null;
+      if (String(tags['diet:halal'] ?? tags.halal ?? '').trim().toLowerCase() === 'no') return null;
       if (!opts.infer) return null;
       const inf = inferStatus(tags);
       // infer: 'name' allows only "halal" in the name; true also allows cuisine hints.
@@ -324,7 +332,7 @@ export function fromOsmElement(el, opts = {}) {
   }
 
   // Prayer places may be unnamed (the UI then shows "Mosque" / "Prayer room").
-  const name = firstOf(tags, ['name', 'name:en', 'brand', 'name:ko', 'operator']);
+  const name = firstOf(tags, ['name', 'name:en', 'brand', 'name:ko', 'name:fr', 'operator']);
   if (!name && k !== 'p') return null;
 
   const typeChar = el.type === 'node' ? 'n' : el.type === 'way' ? 'w' : 'r';
@@ -343,6 +351,7 @@ export function fromOsmElement(el, opts = {}) {
     a: addressOf(tags, lat, lon),
     ph: firstOf(tags, ['phone', 'contact:phone', 'contact:mobile']),
     w: cleanUrl(firstOf(tags, ['website', 'contact:website', 'url'])),
+    mu: k === 'p' ? undefined : ['website:menu', 'contact:menu', 'menu:url', 'menu'].map((key) => cleanUrl(tags[key])).find(Boolean),
     ig: instagramOf(tags),
     oh: firstOf(tags, ['opening_hours']),
     ck: checked && /^\d{4}-\d{2}(-\d{2})?$/.test(checked.slice(0, 10)) ? checked.slice(0, 10) : undefined,

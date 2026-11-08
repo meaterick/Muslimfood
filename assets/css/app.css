@@ -1177,6 +1177,22 @@ a {
   margin-top: 6px;
 }
 
+.place-menu {
+  margin: 14px 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.place-menu h3 {
+  margin: 0 0 6px;
+}
+
+.place-menu ul {
+  margin: 0;
+  padding-inline-start: 20px;
+}
+
 .fact {
   display: flex;
   gap: 12px;

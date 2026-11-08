@@ -12,6 +12,11 @@ export function normText(s) {
     .replace(PUNCT_RE, '');
 }
 
+// Fold accents on Latin letters for French and other Latin-script searches.
+function searchText(s) {
+  return normText(s).normalize('NFD').replace(/(\p{Script=Latin})\p{M}+/gu, '$1').normalize('NFC');
+}
+
 /** normText without generic words such as "restaurant" / "식당" (for matching). */
 export function coreName(s) {
   const n = normText(s).replace(GENERIC_RE, '');
@@ -35,17 +40,13 @@ export function allNames(p) {
   return out.filter(Boolean);
 }
 
-/** Simple search match: every query token appears in some name/address/cuisine. */
+/** Every query token appears in a name, address, cuisine or listed dish. */
 export function matchesQuery(p, query) {
-  const tokens = String(query || '')
-    .normalize('NFKC')
-    .toLowerCase()
-    .split(/\s+/)
-    .map((t) => t.replace(PUNCT_RE, ''))
-    .filter(Boolean);
+  const tokens = String(query || '').normalize('NFKC').split(/\s+/).map(searchText).filter(Boolean);
   if (!tokens.length) return true;
-  const hay = normText([...allNames(p), p.a || '', ...(p.cu || [])].join(' '));
-  return tokens.every((t) => hay.includes(t));
+  const fields = [...allNames(p), p.a, ...(p.cu || []), ...(p.mn || []), ...Object.values(p.ml || {}).flat()].map(searchText);
+  if (p.s && p.s !== 'U') fields.push('halal');
+  return tokens.every((t) => fields.some((value) => value.includes(t)));
 }
 
 /** Escape text for safe insertion into HTML. */

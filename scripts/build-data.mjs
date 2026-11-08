@@ -20,7 +20,7 @@ import { fileURLToPath } from 'node:url';
 import { runOverpass, taggedQuery, koreaQuery } from '../assets/js/core/overpass.js';
 import { compact } from '../assets/js/core/normalize.js';
 import { isInKorea, KOREA_BBOX, CELL_SIZE } from '../assets/js/core/geo.js';
-import { normalizeParts, groupByCell, mergeSources } from './lib/build.mjs';
+import { normalizeParts, groupByCell, mergeSources, searchRecords } from './lib/build.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -99,7 +99,7 @@ async function tzLookupFn() {
     const fn = mod.default || mod;
     return typeof fn === 'function' ? fn : null;
   } catch {
-    log('time zones: @photostructure/tz-lookup not installed; cells get no tz (Korea defaults to Asia/Seoul in the app)');
+    log('time zones: @photostructure/tz-lookup not installed; using Asia/Seoul for Korean cells');
     return null;
   }
 }
@@ -128,8 +128,7 @@ async function main() {
       minElements: KOREA_ONLY ? 5 : 5000,
     });
     // Insertion order sets precedence when an element appears in both parts.
-    // (A worldwide "halal in the name" scan is too slow for Overpass; the
-    // Korea query covers names in Korea and the app queries names live elsewhere.)
+    // The Korea query covers local names. Bounded live searches cover names elsewhere.
     Object.assign(parts, { tagged, korea });
   }
 
@@ -168,13 +167,11 @@ async function main() {
     }
     const meanY = list.reduce((a, p) => a + p.y, 0) / list.length;
     const meanX = list.reduce((a, p) => a + p.x, 0) / list.length;
-    let tz = null;
+    let tz = isInKorea(meanY, meanX) ? 'Asia/Seoul' : null;
     if (tzOf) {
       try {
         tz = tzOf(meanY, meanX);
-      } catch {
-        tz = null;
-      }
+      } catch { /* keep the geographic fallback */ }
     }
     const json = JSON.stringify(list);
     bytes += json.length;
@@ -205,6 +202,7 @@ async function main() {
     cells: index,
   };
   await writeFile(path.join(OUT, 'index.json'), JSON.stringify(out));
+  await writeFile(path.join(OUT, 'search.json'), JSON.stringify(searchRecords([...byCell.values()].flat())));
   log(
     `wrote ${Object.keys(index).length} cells, ${stats.food} food places, ${stats.prayer} prayer places ` +
       `(${(bytes / 1024).toFixed(0)} KiB) in ${((Date.now() - started) / 1000).toFixed(1)}s`,

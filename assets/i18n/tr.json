@@ -9,7 +9,7 @@
     "tagline": "Yakınınızdaki helal yemekler"
   },
   "search": {
-    "placeholder": "Bölge veya restoran",
+    "placeholder": "Bölge, restoran veya yemek",
     "label": "Ara",
     "clear": "Aramayı temizle",
     "areas": "Bölgeler",
@@ -76,7 +76,9 @@
     },
     "showUnconfirmed": "Göster",
     "koreaPromo": "Kore yemeklerine yeni misiniz? Genellikle domuz eti veya alkol içeren yemeklere göz atın.",
-    "koreaPromoButton": "Rehberi aç"
+    "koreaPromoButton": "Rehberi aç",
+    "discover": "Yakında daha fazla yer bul",
+    "discoverHint": "Haritanın merkezi çevresinde OpenStreetMap üzerinden başka yerler ara."
   },
   "filter": {
     "label": "Filtreler",
@@ -107,7 +109,7 @@
       "Y": "Helal yemek sunduğu bildirildi. Helal olmayan yemekler de sunulabilir.",
       "F": "Resmî bir turizm kuruluşu tarafından Müslüman dostu olarak listelendi. Genellikle helal veya domuz etsiz yemekler sunar; alkol servis edilebilir.",
       "L": "Birkaç helal seçeneği olduğu bildirildi.",
-      "Uname": "Adında helal geçtiği için listelendi. Sipariş vermeden önce çalışanlara sorun.",
+      "Uname": "Adı veya kategorisi helal seçenekler olabileceğini gösteriyor. Sipariş vermeden önce personele sorun.",
       "Ucuisine": "Bu mutfak Kore'de genellikle helal olduğu için listelendi (örneğin Türk, Özbek veya Pakistan mutfağı). Sipariş vermeden önce çalışanlara sorun."
     }
   },
@@ -236,14 +238,18 @@
     "report": "Sorun bildir",
     "edit": "OpenStreetMap'te düzenle",
     "staffCard": "Çalışan kartını göster",
-    "notFound": "Bu yer artık verilerde yok."
+    "notFound": "Bu yer artık verilerde yok.",
+    "menu": "Öne çıkan yemekler",
+    "menuLink": "Menüyü görüntüle",
+    "menuNote": "Menüdeki yemekler ve helal seçenekler değişebilir. İstediğiniz yemeği restorana sorun."
   },
   "source": {
     "osm": "OpenStreetMap katkıcıları",
     "gg": "Gyeonggi Turizm Kurumu, Müslüman dostu restoranlar",
     "kcisa": "Kore Kültür Bilgi Hizmetleri Ajansı, dünya mutfağı restoranları",
     "cur": "Muslimfood topluluk listesi",
-    "live": "OpenStreetMap (canlı)"
+    "live": "OpenStreetMap (canlı)",
+    "kto": "Kore Turizm Örgütü, Müslüman dostu restoran rehberi"
   },
   "guide": {
     "title": "Kore'de helal beslenme",
@@ -321,7 +327,7 @@
     "sourcesTitle": "Veri kaynakları",
     "osm": "Dünya genelindeki restoranlar, camiler ve mescitler OpenStreetMap'ten, © OpenStreetMap katkıcıları (ODbL).",
     "map": "Harita karoları: OpenFreeMap, OpenMapTiles, © OpenStreetMap katkıcıları.",
-    "kr": "data.go.kr'den Kore kamu verileri (kullanımı serbest):",
+    "kr": "Kore veri kaynakları:",
     "updated": "Veriler {date} tarihinde güncellendi",
     "privacyTitle": "Gizlilik",
     "privacy": "Konumunuz yalnızca cihazınızda, yerleri mesafeye göre sıralamak için kullanılır. Bu site çerez, izleme veya reklam kullanmaz.",
