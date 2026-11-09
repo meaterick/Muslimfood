@@ -52,6 +52,26 @@ out center tags qt;`;
 
 const VEG_SOME = '"^(only|yes|limited)$"';
 
+/**
+ * Shops of the chains in brands.js in Korea, by brand:wikidata or by name.
+ * They fill gaps in the store registry (shops inside stations, airports and
+ * malls are often registered under the operator of the building).
+ */
+export function chainsQuery(brands, timeout = 300) {
+  const b = `(${bboxString(KOREA_QUERY_BBOX)})`;
+  const kr = brands.filter((x) => x.countries.includes('KR'));
+  const ids = kr.map((x) => x.wikidata).filter(Boolean);
+  // Korean and Latin spellings; drop names that contain a shorter one ("본죽카페" -> "본죽").
+  const all = [...new Map(kr.flatMap((x) => [x.name.ko, x.name.en, ...x.match]).map((m) => [m.toLowerCase(), m.replace(/['’]/g, '.')])).values()];
+  const names = all.filter((n) => /^[가-힣A-Za-z .]+$/.test(n) && !all.some((o) => o !== n && n.toLowerCase().includes(o.toLowerCase())));
+  return `[out:json][timeout:${timeout}];
+(
+  nwr["brand:wikidata"~"^(${ids.join('|')})$"]${b};
+  nwr["amenity"~"^(fast_food|restaurant|cafe)$"]["name"~"${names.join('|')}",i]${b};
+);
+out center tags qt;`;
+}
+
 const KR_CUISINES =
   'turkish|kebab|doner|uzbek|pakistani|arab|lebanese|middle_eastern|persian|iranian|afghan|indonesian|malaysian|egyptian|moroccan|bangladeshi|syrian|iraqi|yemeni|saudi|kazakh|kyrgyz|uyghur|uighur|tajik|turkmen|kurdish|palestinian|jordanian|tunisian|algerian|sudanese|somali|emirati|azerbaijani|shawarma|falafel|halal|central_asian';
 const KR_NAMES =

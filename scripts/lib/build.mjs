@@ -1,13 +1,18 @@
 // Pure merge/normalisation steps of the data build (tested in tests/build.test.mjs).
 
-import { fromOsmElement, betterStatus, MEAT_FREE } from '../../assets/js/core/normalize.js';
+import { fromOsmElement, betterStatus, MEAT_FREE, addressOf } from '../../assets/js/core/normalize.js';
 import { cellKey, distance, isInKorea, CELL_SIZE } from '../../assets/js/core/geo.js';
 import { namesMatch } from '../../assets/js/core/text.js';
-import { BRAND_BY_ID, brandDiet, matchBrand } from '../../assets/js/core/brands.js';
+import { BRAND_BY_ID, brandDiet, matchBrand, chainOfTags, branchName } from '../../assets/js/core/brands.js';
 
 export const MERGE_RADIUS_M = 120;
 // The same chain shop from two sources (OpenStreetMap and the store registry).
 export const CHAIN_MERGE_M = 80;
+// OpenStreetMap chain shops that only fill gaps in the store registry: one this
+// close to a registry branch of the chain, or with the same branch name within
+// CHAIN_SAME_NAME_M (shops that moved, or positions that differ), is skipped.
+export const CHAIN_GAP_M = 150;
+export const CHAIN_SAME_NAME_M = 1500;
 
 /**
  * Normalise Overpass results. parts = { tagged, korea, names } each with
@@ -16,12 +21,19 @@ export const CHAIN_MERGE_M = 80;
  */
 export function normalizeParts(parts) {
   const byId = new Map();
+  const chainShops = new Map();
   let osmBase = null;
   for (const [name, part] of Object.entries(parts)) {
     if (part.osmBase && (!osmBase || part.osmBase > osmBase)) osmBase = part.osmBase;
     for (const el of part.elements || []) {
       const id = `${el.type[0]}${el.id}`;
       if (byId.has(id)) continue;
+      // Plain chain shops (no diet tags): kept aside to fill registry gaps.
+      if (name === 'chains') {
+        const shop = chainFromOsm(el);
+        if (shop) chainShops.set(id, shop);
+        continue;
+      }
       const lat = el.lat ?? el.center?.lat;
       const lon = el.lon ?? el.center?.lon;
       // Only the Korea extras use generic cuisine-based hints and meat-free dishes;
@@ -42,7 +54,67 @@ export function normalizeParts(parts) {
       byId.set(id, place);
     }
   }
-  return { byId, osmBase };
+  for (const id of byId.keys()) chainShops.delete(id);
+  return { byId, osmBase, chainShops: [...chainShops.values()] };
+}
+
+/** A place for an OpenStreetMap shop of a listed chain in Korea, or null. */
+export function chainFromOsm(el) {
+  const t = el.tags || {};
+  const y = el.lat ?? el.center?.lat;
+  const x = el.lon ?? el.center?.lon;
+  if (!Number.isFinite(y) || !Number.isFinite(x) || !isInKorea(y, x)) return null;
+  const brand = chainOfTags(t);
+  if (!brand) return null;
+  const name = /[가-힣]/.test(t.name || '') ? t.name : t['name:ko'] || t.name || brand.name.ko;
+  return applyBrand({
+    id: `${el.type[0]}${el.id}`,
+    n: branchName(brand, name, t.branch || t['branch:ko'] || ''),
+    b: brand.id,
+    y: Math.round(y * 1e5) / 1e5,
+    x: Math.round(x * 1e5) / 1e5,
+    k: brand.k,
+    a: addressOf(t, y, x),
+    src: 'osm',
+  });
+}
+
+/** Branch part of a chain place's title, for matching: "도미노피자 염창점" -> "염창". */
+function branchKey(p) {
+  const brand = BRAND_BY_ID.get(p.b);
+  if (!brand) return '';
+  return String(p.n || '')
+    .replace(brand.name.ko, '')
+    .replace(/\s+/g, '')
+    .replace(/점$/, '');
+}
+
+/**
+ * Add OpenStreetMap chain shops that the other sources do not have (for
+ * example the Lotteria inside Seoul Station). Returns how many were added.
+ */
+export function supplementChains(byCell, shops) {
+  let added = 0;
+  for (const shop of shops) {
+    const key = cellKey(shop.y, shop.x);
+    const [cy, cx] = key.split('_').map(Number);
+    let known = false;
+    for (const dy of [-CELL_SIZE, 0, CELL_SIZE]) {
+      for (const dx of [-CELL_SIZE, 0, CELL_SIZE]) {
+        for (const o of byCell.get(`${cy + dy}_${cx + dx}`) || []) {
+          if (o.b !== shop.b) continue;
+          const d = distance(o.y, o.x, shop.y, shop.x);
+          const k = branchKey(shop);
+          if (d < CHAIN_GAP_M || (k && k === branchKey(o) && d < CHAIN_SAME_NAME_M)) known = true;
+        }
+      }
+    }
+    if (known) continue;
+    if (!byCell.has(key)) byCell.set(key, []);
+    byCell.get(key).push(shop);
+    added++;
+  }
+  return added;
 }
 
 export function groupByCell(places) {

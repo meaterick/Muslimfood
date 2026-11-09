@@ -16,6 +16,7 @@
 //   distinctive the name is a trademark nobody else uses: a shop whose name
 //               starts with it counts even when the registry files it under
 //               retail instead of food (registry mistakes)
+//   wikidata    the chain's Wikidata id, as in OpenStreetMap's brand:wikidata
 //   countries   where the rule applies (ISO 3166-1 alpha-2)
 //   k           category of the branches (r restaurant, f fast food, c café)
 //   cu          cuisine tokens, as in OpenStreetMap
@@ -28,6 +29,7 @@ export const BRANDS = [
     id: 'lotteria',
     name: { ko: '롯데리아', en: 'Lotteria' },
     match: ['롯데리아', 'LOTTERIA'],
+    wikidata: 'Q249525',
     distinctive: true,
     countries: ['KR'],
     k: 'f',
@@ -40,6 +42,7 @@ export const BRANDS = [
     id: 'papajohns',
     name: { ko: '파파존스', en: "Papa John's" },
     match: ['한국파파존스', '파파존스피자', '파파존스', 'PAPAJOHNS', "PAPA JOHN'S"],
+    wikidata: 'Q2759586',
     distinctive: true,
     countries: ['KR'],
     k: 'f',
@@ -57,6 +60,7 @@ export const BRANDS = [
     id: 'subway',
     name: { ko: '써브웨이', en: 'Subway' },
     match: ['써브웨이', '서브웨이', 'SUBWAY'],
+    wikidata: 'Q244457',
     countries: ['KR'],
     k: 'f',
     cu: ['sandwich'],
@@ -70,13 +74,49 @@ export const BRANDS = [
   {
     id: 'dominos',
     name: { ko: '도미노피자', en: "Domino's Pizza" },
-    match: ['도미노피자', "DOMINO'S PIZZA", 'DOMINOS PIZZA'],
+    match: ['도미노피자', "DOMINO'S PIZZA", 'DOMINOS PIZZA', "DOMINO'S"],
+    wikidata: 'Q839466',
     distinctive: true,
     countries: ['KR'],
     k: 'f',
     cu: ['pizza'],
     items: [{ n: '치즈 피자', en: 'Cheese Pizza', d: 'l' }],
     url: 'https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101',
+    checked: '2026-11-09',
+  },
+  {
+    id: 'pizzaschool',
+    name: { ko: '피자스쿨', en: 'Pizza School' },
+    match: ['피자스쿨', 'PIZZASCHOOL', 'PIZZA SCHOOL'],
+    distinctive: true,
+    countries: ['KR'],
+    k: 'f',
+    cu: ['pizza'],
+    // Allergen lists on each menu page: milk, soy, wheat, tomato, egg; no meat.
+    items: [
+      { n: '콘치즈피자', en: 'Corn Cheese Pizza', d: 'lo' },
+      { n: '야채퀘사디아피자', en: 'Vegetable Quesadilla Pizza', d: 'lo' },
+      { n: '트러플머쉬룸피자', en: 'Truffle Mushroom Pizza', d: 'lo' },
+    ],
+    // The site answers on http only.
+    url: 'http://pizzaschool.net/menu/',
+    checked: '2026-11-09',
+  },
+  {
+    id: 'pizzamaru',
+    name: { ko: '피자마루', en: 'Pizza Maru' },
+    match: ['피자마루', 'PIZZAMARU', 'PIZZA MARU'],
+    distinctive: true,
+    countries: ['KR'],
+    k: 'f',
+    cu: ['pizza'],
+    // Allergen list (January 2026): milk, soy, wheat, tomato; no meat.
+    items: [
+      { n: '이탈리안 치즈 피자', en: 'Italian Cheese Pizza', d: 'l' },
+      { n: '트리플 치즈 폭탄 피자', en: 'Triple Cheese Bomb Pizza', d: 'l' },
+      { n: '트러플 치즈 피자', en: 'Truffle Cheese Pizza', d: 'l' },
+    ],
+    url: 'https://www.pizzamaru.co.kr/information/03',
     checked: '2026-11-09',
   },
   {
@@ -115,6 +155,7 @@ export const BRANDS = [
     ],
     // "본앤본" is another porridge brand; "본죽리" is a village name.
     exclude: /본앤본|본죽\s?\d*리|경로당/,
+    wikidata: 'Q131375113',
     // Sub-brand words left in front of the location: "본죽 비빔밥CAFE 화랑대역점".
     noise: /^(?:[\s&,.·]|앤드|앤|엔|본?비[빔빕]밥|카페|까페|cafe)+/i,
     distinctive: true,
@@ -158,6 +199,22 @@ export function matchBrand(name, country = 'KR') {
   for (const b of BRANDS) {
     if (!b.countries.includes(country) || b.exclude?.test(name)) continue;
     if (brandIndex(b, n) >= 0) return b;
+  }
+  return null;
+}
+
+/**
+ * The chain of an OpenStreetMap shop in a country, from brand:wikidata or its
+ * brand / name tags. Only places where food is served count.
+ */
+export function chainOfTags(tags = {}, country = 'KR') {
+  if (!/^(fast_food|restaurant|cafe|food_court)$/.test(tags.amenity || '')) return null;
+  const wd = tags['brand:wikidata'];
+  const byId = wd && BRANDS.find((b) => b.wikidata === wd && b.countries.includes(country));
+  if (byId) return byId;
+  for (const k of ['brand', 'brand:ko', 'name', 'name:ko', 'name:en', 'brand:en']) {
+    const b = tags[k] && matchBrand(tags[k], country);
+    if (b) return b;
   }
   return null;
 }

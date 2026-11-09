@@ -27,7 +27,8 @@ GitHub Pages에서 동작하는 정적 사이트이며, 특히 **한국**에서 
 - **프랜차이즈의 고기 없는 메뉴** — 롯데리아 미라클버거(100% 식물성 패티)처럼 체인 공통 메뉴에 비건·채식 메뉴가 있으면
   그 체인의 전국 지점을 모두 지도에 표시합니다. 체인과 메뉴는 `assets/js/core/brands.js` 한 곳에 공식 메뉴 링크·확인 날짜와 함께 적어 두고,
   지점 위치는 소상공인시장진흥공단 상가(상권)정보에서 가져옵니다(운영 회사 이름이 앞에 붙은 매장, 업종이 잘못 등록된 매장도 찾음).
-  지금은 다음 6개 체인의 지점 약 4,600곳이 나옵니다. 목록에서는 할랄 식당을 먼저, 채식 메뉴가 있는 곳을 그다음에 보여 줍니다.
+  상가정보에 없는 역·공항·쇼핑몰 안 매장(예: 서울역 롯데리아)은 오픈스트리트맵에서 채웁니다(같은 체인 150m 안, 같은 지점명 1.5km 안이면 같은 매장으로 봄).
+  지금은 다음 8개 체인의 지점 약 5,900곳이 나옵니다. 목록에서는 할랄 식당을 먼저, 채식 메뉴가 있는 곳을 그다음에 보여 줍니다.
 
   | 체인 | 고기 없는 메뉴 (공식 메뉴·알레르기 정보로 확인) |
   |---|---|
@@ -35,6 +36,8 @@ GitHub Pages에서 동작하는 정적 사이트이며, 특히 **한국**에서 
   | 파파존스 | 그린잇 식물성 마가리타·가든스페셜 (비건 치즈), 마가리타, 가든 스페셜 |
   | 써브웨이 | 베지, 에그마요 |
   | 도미노피자 | 치즈 피자 |
+  | 피자스쿨 | 콘치즈피자, 야채퀘사디아피자, 트러플머쉬룸피자 (메뉴별 알레르기 정보에 고기 없음) |
+  | 피자마루 | 이탈리안 치즈 피자, 트리플 치즈 폭탄 피자, 트러플 치즈 피자 (알레르기 정보에 고기 없음) |
   | 샐러디 | 단호박 노릇두부 샐러디, 청양간장 두부 비빔밥 (공식 메뉴의 VEGAN 표시) |
   | 본죽 | 단팥죽, 단호박죽, 녹두죽, 명품잣죽, 흑임자죽 (알레르기 정보상 고기·우유·달걀 없음, 교차 오염 항목도 없음) |
 - **한국 특화**
@@ -136,7 +139,7 @@ scripts/             데이터 빌드·가져오기·배포 조립 스크립트
 - Map + list sorted by distance, "Near me", filters (show, confirmed only, open now, cuisine, category, prayer places)
 - Search the full catalog by restaurant, address, cuisine or published dishes. Choose a result to see its pin and details. Use **Find more nearby** to look for additional OpenStreetMap listings around the map centre.
 - Every place shows *how we know* it is halal (certified / 100% halal / halal menu / Muslim-friendly list / some halal / not confirmed) and its source and date
-- Chains whose standard menu has a meat-free dish appear at every branch in Korea, about 4,600 places: Lotteria (plant-based Miracle Burger), Papa John's (plant-based and cheese pizzas), Subway (Veggie, Egg Mayo), Domino's (cheese pizza), Salady (dishes marked vegan) and Bonjuk (porridges with no meat, milk or egg in the official allergen list). The chains, dishes, official menu links and check dates live in `assets/js/core/brands.js`; branch locations come from the national store registry and refresh each quarter. Halal places stay first in the list
+- Chains whose standard menu has a meat-free dish appear at every branch in Korea, about 5,900 places: Lotteria (plant-based Miracle Burger), Papa John's (plant-based and cheese pizzas), Subway (Veggie, Egg Mayo), Domino's (cheese pizza), Pizza School and Pizza Maru (cheese and vegetable pizzas with no meat in their allergen lists), Salady (dishes marked vegan) and Bonjuk (porridges with no meat, milk or egg in the official allergen list). Shops the store registry misses, such as the Lotteria inside Seoul Station, come from OpenStreetMap. The chains, dishes, official menu links and check dates live in `assets/js/core/brands.js`; branch locations come from the national store registry and refresh each quarter. Halal places stay first in the list
 - Vegetarian and vegan places as a fallback when there is no halal option nearby: square leaf markers (filled = whole menu meat-free, outlined = some dishes), with certified dishes and their diet labels (vegan, lacto, ovo) from Seoul City, Suwon City and OpenStreetMap. A **Show** filter switches between halal + vegetarian, halal only and vegetarian only
 - Korea: Naver Map and Kakao Map directions first, Korean public datasets, mosques and prayer rooms, a guide to Korean dishes that usually contain pork or alcohol, key Korean phrases with audio, and a card to show restaurant staff (Korean, Japanese, Chinese, English, French)
 - 7 UI languages (en, ko, ar with RTL, id, ms, tr, fr), localized map labels, dark mode, installable PWA with offline support, no tracking

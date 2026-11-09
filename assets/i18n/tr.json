@@ -139,7 +139,9 @@
     "subway": "Veggie, ekmek ve yedi çeşit sebzedir; Egg Mayo yumurta ve mayonez içerir. İkisinde de et yoktur. Süt ürünlerinden kaçınıyorsanız peyniri ve kremalı sosları çıkarmalarını isteyin.",
     "dominos": "Domates sosu ve mozzarella; üzerinde et yoktur.",
     "salady": "Resmî menüde vegan olarak işaretlenmiştir.",
-    "bonjuk": "Resmî alerjen listesine (Ekim 2026) göre bu lapalarda et, süt ve yumurta yoktur; çapraz bulaşma da belirtilmemiştir. Sebze lapası gibi diğer lapalarda sığır eti vardır."
+    "bonjuk": "Resmî alerjen listesine (Ekim 2026) göre bu lapalarda et, süt ve yumurta yoktur; çapraz bulaşma da belirtilmemiştir. Sebze lapası gibi diğer lapalarda sığır eti vardır.",
+    "pizzaschool": "Resmî menü sayfalarındaki alerjen bilgisinde süt, soya, buğday, domates ve yumurta var; et yok. Trüflü patatesli gibi diğer pizzalarda jambon vardır.",
+    "pizzamaru": "Resmî alerjen listesine (Ocak 2026) göre normal hamurlu bu pizzalarda süt, soya, buğday ve domates var; et yok. Özel hamurlara yumurta veya karides eklenebilir."
   },
   "cat": {
     "r": "Restoran",

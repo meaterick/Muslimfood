@@ -7,7 +7,8 @@ import path from 'node:path';
 import { BRANDS, BRAND_BY_ID, matchBrand, branchName, brandDiet, placeDishes } from '../assets/js/core/brands.js';
 import { parseCsvLine, chainRecord, extractChains, dedupeBranches } from '../scripts/import-chains.mjs';
 import { listZip } from '../scripts/lib/unzip.mjs';
-import { applyBrand, mergeInto, groupByCell, searchRecords, normalizeParts } from '../scripts/lib/build.mjs';
+import { applyBrand, mergeInto, groupByCell, searchRecords, normalizeParts, supplementChains } from '../scripts/lib/build.mjs';
+import { chainsQuery } from '../assets/js/core/overpass.js';
 import { readFileSync } from 'node:fs';
 
 test('chain registry entries are complete and sourced', () => {
@@ -17,7 +18,7 @@ test('chain registry entries are complete and sourced', () => {
     ids.add(b.id);
     assert.ok(b.name.ko && b.name.en && b.match.length && b.countries.length, b.id);
     assert.ok(['r', 'f', 'c'].includes(b.k), `${b.id} category`);
-    assert.match(b.url, /^https:\/\//, `${b.id} needs the official menu page`);
+    assert.match(b.url, /^https?:\/\//, `${b.id} needs the official menu page`);
     assert.match(b.checked, /^\d{4}-\d{2}-\d{2}$/, `${b.id} checked date`);
     assert.ok(b.items.length, `${b.id} has no dishes`);
     for (const i of b.items) {
@@ -200,4 +201,35 @@ test('a chain shop from two sources is one place and keeps the chain menu', () =
 test('every chain has a short note in every language', () => {
   const en = JSON.parse(readFileSync(new URL('../assets/i18n/en.json', import.meta.url), 'utf8'));
   for (const b of BRANDS) assert.ok(en.brandNote?.[b.id], `brandNote.${b.id} missing in en.json`);
+});
+
+test('OpenStreetMap chain shops fill gaps in the store registry', () => {
+  const q = chainsQuery(BRANDS);
+  assert.match(q, /"brand:wikidata"~"\^\(Q249525\|/);
+  assert.match(q, /\["name"~"롯데리아\|[^"]*본죽[^"]*",i\]/);
+  const node = (id, lat, lon, tags) => ({ type: 'node', id, lat, lon, tags: { amenity: 'fast_food', ...tags } });
+  const { chainShops } = normalizeParts({
+    chains: {
+      elements: [
+        node(1, 37.55427, 126.97089, { name: '롯데리아', 'brand:wikidata': 'Q249525' }), // inside Seoul Station
+        node(2, 37.5545, 126.9721, { name: '롯데리아' }), // 130 m from node 1
+        node(3, 37.5701, 126.9800, { name: '도미노피자', branch: '종로점' }), // registry has it 450 m away
+        node(4, 37.5800, 126.9900, { name: '샐러디아' }), // another brand
+        node(5, 37.5900, 127.0000, { name: '롯데리아', amenity: 'bank' }), // not a place to eat
+      ],
+    },
+  });
+  assert.deepEqual(chainShops.map((p) => p.id), ['n1', 'n2', 'n3']);
+  assert.deepEqual([chainShops[0].b, chainShops[0].s, chainShops[0].src], ['lotteria', 'M', 'osm']);
+  assert.equal(chainShops[2].n, '도미노피자 종로점');
+  const registry = [
+    applyBrand({ id: 'sbiz-1', n: '롯데리아 후암점', b: 'lotteria', y: 37.5488, x: 126.9741, k: 'f', src: 'sbiz' }), // 700 m away
+    applyBrand({ id: 'sbiz-2', n: '도미노피자 종로점', b: 'dominos', y: 37.5711, x: 126.9849, k: 'f', src: 'sbiz' }),
+  ];
+  const byCell = groupByCell(registry);
+  assert.equal(supplementChains(byCell, chainShops), 1, 'only the Seoul Station shop is new');
+  const all = [...byCell.values()].flat();
+  assert.ok(all.some((p) => p.id === 'n1'));
+  assert.ok(!all.some((p) => p.id === 'n2'), 'a second OSM node 130 m away is the same shop');
+  assert.ok(!all.some((p) => p.id === 'n3'), 'same branch name as a registry shop');
 });

@@ -1,7 +1,7 @@
 // Service worker: app shell offline, data stale-while-revalidate, visited map
 // tiles cached so the map keeps working with a weak connection.
 // Bump VERSION when the app shell changes.
-const VERSION = 'v5';
+const VERSION = 'v6';
 const SHELL = `mf-shell-${VERSION}`;
 const DATA = 'mf-data-v1';
 const TILES = 'mf-tiles-v1';

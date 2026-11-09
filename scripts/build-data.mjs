@@ -20,10 +20,10 @@ import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { runOverpass, taggedQuery, koreaQuery, vegQuery } from '../assets/js/core/overpass.js';
+import { runOverpass, taggedQuery, koreaQuery, vegQuery, chainsQuery } from '../assets/js/core/overpass.js';
 import { compact } from '../assets/js/core/normalize.js';
 import { isInKorea, KOREA_BBOX, CELL_SIZE } from '../assets/js/core/geo.js';
-import { normalizeParts, groupByCell, mergeSources, searchRecords } from './lib/build.mjs';
+import { normalizeParts, groupByCell, mergeSources, searchRecords, supplementChains } from './lib/build.mjs';
 import { BRANDS } from '../assets/js/core/brands.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -152,17 +152,27 @@ async function main() {
       deadline,
       minElements: KOREA_ONLY ? 5 : 2000,
     });
+    // Shops of the chains in brands.js: they fill gaps in the store registry,
+    // which misses shops inside stations, airports and malls.
+    const chains = await overpass('chains', chainsQuery(BRANDS, 300), {
+      required: false,
+      timeoutMs: 6 * min,
+      deadline,
+      minElements: 100,
+    });
     // Insertion order sets precedence when an element appears in several parts:
     // a halal tag wins over a meat-free tag.
     // The Korea query covers local names. Bounded live searches cover names elsewhere.
-    Object.assign(parts, { tagged, korea, veg });
+    Object.assign(parts, { tagged, korea, veg, chains });
   }
 
-  const { byId, osmBase } = normalizeParts(parts);
+  const { byId, osmBase, chainShops } = normalizeParts(parts);
   log(`OSM places: ${byId.size}`);
   const byCell = groupByCell(byId.values());
   const sourceStats = mergeSources(byCell, sources);
   for (const st of sourceStats) log(`${st.file}: ${st.records} records, ${st.added} new, ${st.records - st.added} merged`);
+  const chainsAdded = supplementChains(byCell, chainShops);
+  log(`OSM chain shops: ${chainShops.length}, ${chainsAdded} not in the store registry added`);
 
   // Write output
   const tzOf = await tzLookupFn();
