@@ -37,6 +37,34 @@ jobs:
       - name: Unit tests
         run: npm test
 
+      # Chain branches come from Korea's national store registry, which is
+      # updated every quarter. Download it (about 350 MB) only when a new
+      # edition is out or the chain list changed; otherwise reuse the extract.
+      - name: Check the store registry edition
+        id: stores
+        run: echo "edition=$(node scripts/import-chains.mjs --modified || echo unknown)" >> "$GITHUB_OUTPUT"
+
+      - name: Restore chain branches
+        id: stores-cache
+        if: steps.stores.outputs.edition != 'unknown'
+        uses: actions/cache/restore@v4
+        with:
+          path: data/sources/kr-chains.json
+          key: kr-chains-${{ steps.stores.outputs.edition }}-${{ hashFiles('assets/js/core/brands.js', 'scripts/import-chains.mjs') }}
+
+      - name: Import chain branches
+        id: stores-import
+        if: steps.stores.outputs.edition != 'unknown' && steps.stores-cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        run: node scripts/import-chains.mjs
+
+      - name: Save chain branches
+        if: steps.stores-import.outcome == 'success'
+        uses: actions/cache/save@v4
+        with:
+          path: data/sources/kr-chains.json
+          key: kr-chains-${{ steps.stores.outputs.edition }}-${{ hashFiles('assets/js/core/brands.js', 'scripts/import-chains.mjs') }}
+
       # Keep the last good OpenStreetMap download so a temporary Overpass
       # outage does not remove places from the site.
       - name: Restore previous OpenStreetMap download

@@ -21,6 +21,7 @@ import { runOverpass, taggedQuery, koreaQuery, vegQuery } from '../assets/js/cor
 import { compact } from '../assets/js/core/normalize.js';
 import { isInKorea, KOREA_BBOX, CELL_SIZE } from '../assets/js/core/geo.js';
 import { normalizeParts, groupByCell, mergeSources, searchRecords } from './lib/build.mjs';
+import { BRANDS } from '../assets/js/core/brands.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -110,6 +111,11 @@ async function main() {
   const started = Date.now();
   const sources = await loadSources();
   log(`local sources: ${sources.map((s) => `${s.file} (${s.places.length})`).join(', ') || 'none'}`);
+  // Chain menus change; ask for a re-check of dishes checked more than six months ago.
+  for (const b of BRANDS) {
+    const days = (Date.now() - Date.parse(b.checked)) / 86400000;
+    if (days > 183) console.warn(`::warning::${b.name.en} dishes were last checked on ${b.checked}; please re-check ${b.url} (assets/js/core/brands.js)`);
+  }
 
   const parts = {};
   if (!OFFLINE) {

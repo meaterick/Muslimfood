@@ -1,6 +1,8 @@
 # Tests and a quick data build for pull requests and feature branches.
 # The data build only covers Korea to keep the load on Overpass small; put
-# "[full-data]" in a commit message to run the worldwide build instead.
+# "[full-data]" in a commit message to run the worldwide build instead, and
+# "[import-chains]" to re-extract chain branches from the Korean store
+# registry (kept as the "kr-chains" artifact for committing).
 name: CI
 
 on:
@@ -31,6 +33,17 @@ jobs:
 
       - name: Unit tests
         run: npm test
+
+      - name: Import chain branches (Korean store registry)
+        if: ${{ contains(github.event.head_commit.message, '[import-chains]') }}
+        run: node scripts/import-chains.mjs
+
+      - name: Keep chain branches
+        if: ${{ contains(github.event.head_commit.message, '[import-chains]') }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: kr-chains
+          path: data/sources/kr-chains.json
 
       - name: Build data (Korea only)
         if: ${{ !contains(github.event.head_commit.message, '[full-data]') }}

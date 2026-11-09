@@ -3,6 +3,7 @@
 import { fromOsmElement, betterStatus, MEAT_FREE } from '../../assets/js/core/normalize.js';
 import { cellKey, distance, isInKorea, CELL_SIZE } from '../../assets/js/core/geo.js';
 import { namesMatch } from '../../assets/js/core/text.js';
+import { BRAND_BY_ID, brandDiet } from '../../assets/js/core/brands.js';
 
 export const MERGE_RADIUS_M = 120;
 
@@ -60,6 +61,8 @@ export function mergeInto(byCell, place, sourceKey) {
   const same = candidates.find(
     (o) =>
       (o.k === 'p') === (place.k === 'p') &&
+      // Branches of chains are separate shops even when they are next to each other.
+      !(o.b && place.b) &&
       distance(o.y, o.x, place.y, place.x) < MERGE_RADIUS_M &&
       // Nearby branches can share a brand while serving different menus.
       ((sourceKey !== 'kto' && o.src !== 'kto') || o.k === place.k ||
@@ -96,6 +99,26 @@ export function mergeInto(byCell, place, sourceKey) {
   return true;
 }
 
+/**
+ * A chain branch (place.b) gets the chain's meat-free dishes from
+ * assets/js/core/brands.js; branches of chains no longer listed are dropped.
+ */
+export function applyBrand(place) {
+  const brand = BRAND_BY_ID.get(place.b);
+  if (!brand) return null;
+  return {
+    ...place,
+    k: place.k || brand.k,
+    s: 'M',
+    dv: brandDiet(brand),
+    nl: { en: brand.name.en, ...place.nl },
+    cu: place.cu || brand.cu,
+    mn: brand.items.map((i) => i.n),
+    ml: { en: brand.items.map((i) => i.en) },
+    mv: brand.items.map((i) => i.d),
+  };
+}
+
 /** Merge local source files: official lists first, unconfirmed hints last. */
 export function mergeSources(byCell, sources) {
   // Halal lists first, then meat-free lists, unconfirmed hints last.
@@ -103,14 +126,20 @@ export function mergeSources(byCell, sources) {
   const stats = [];
   for (const src of [...sources].sort((a, b) => order(a) - order(b))) {
     let added = 0;
-    for (const p of src.places) if (mergeInto(byCell, p, src.source)) added++;
-    stats.push({ source: src.source, file: src.file, records: src.places.length, added });
+    let records = 0;
+    for (const raw of src.places) {
+      const p = raw.b ? applyBrand(raw) : raw;
+      if (!p) continue;
+      records++;
+      if (mergeInto(byCell, p, src.source)) added++;
+    }
+    stats.push({ source: src.source, file: src.file, records, added });
   }
   return stats;
 }
 
 /** Compact search rows with coordinates for loading the matching cell on selection. */
 export function searchRecords(places) {
-  return places.filter((p) => p.n && p.k !== 'p').map(({ id, n, nl, y, x, k, s, dv, a, cu, mn, ml }) =>
-    ({ id, n, nl, y, x, k, s, dv, a, cu, mn, ml }));
+  return places.filter((p) => p.n && p.k !== 'p').map(({ id, n, nl, y, x, k, s, dv, a, cu, mn, ml, b }) =>
+    ({ id, n, nl, y, x, k, s, dv, a, cu, mn, ml, b }));
 }
