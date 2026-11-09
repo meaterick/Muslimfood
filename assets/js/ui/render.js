@@ -8,6 +8,7 @@ import { formatDistance, isInKorea } from '../core/geo.js';
 import { parseOpeningHours, openState, weekRows, localTime } from '../core/hours.js';
 import { mapApps, osmLink, osmNoteLink, osmEditLink } from '../core/links.js';
 import { cleanUrl, placeCuisineGroup, MEAT_FREE } from '../core/normalize.js';
+import { BRAND_BY_ID } from '../core/brands.js';
 import { telHref } from './util.js';
 import { ISSUE_REPORT } from '../config.js';
 
@@ -139,26 +140,60 @@ function sourceLines(p) {
       lines.push(source ? `<li><a href="${esc(source)}" target="_blank" rel="noopener">${esc(text)}</a></li>` : `<li>${esc(text)}</li>`);
     }
   }
+  const brand = BRAND_BY_ID.get(p.b);
+  if (brand) {
+    const text = `${t('source.brand', { brand: brandName(brand) })} — ${t('detail.menuChecked', { date: formatDate(brand.checked) })}`;
+    lines.push(`<li><a href="${esc(brand.url)}" target="_blank" rel="noopener">${esc(text)}</a></li>`);
+  }
   return lines.join('');
 }
 
-const DIET_LABEL = { v: 'diet.v', l: 'diet.l', o: 'diet.o', lo: 'diet.lo' };
+/** A chain's name in the UI language (Korean or English). */
+export function brandName(brand) {
+  return lang() === 'ko' ? brand.name.ko : brand.name.en;
+}
+
+const DIET_LABEL = { v: 'diet.v', l: 'diet.l', o: 'diet.o', lo: 'diet.lo', veg: 'diet.veg' };
+
+/** Dish names in the UI language; English beats Korean for every other language. */
+function menuNames(p) {
+  const l = lang();
+  return p.ml?.[l] || (l !== 'ko' && p.ml?.en) || p.mn || [];
+}
+
+/** A dish list with diet labels (shared by place details and the guide). */
+export function dishItemsHtml(names, diets = []) {
+  return names
+    .map((name, i) => {
+      const key = DIET_LABEL[diets[i]];
+      return `<li>${esc(name)}${key ? `<span class="diet-tag">${esc(t(key))}</span>` : ''}</li>`;
+    })
+    .join('');
+}
 
 function menuHtml(p) {
-  const menu = p.ml?.[lang()] || p.mn || [];
+  const menu = menuNames(p);
   const url = cleanUrl(p.mu);
   if (!menu.length && !url) return '';
   // Per-dish diet labels (vegan, lacto, ovo, lacto-ovo) line up with the dishes.
   // Skip them when every dish is vegan and the status already says so.
   let diet = Array.isArray(p.mv) && p.mv.length === menu.length ? p.mv : [];
   if (p.dv === 'vegan' && diet.every((d) => d === 'v')) diet = [];
-  const item = (name, i) => {
-    const key = DIET_LABEL[diet[i]];
-    return `<li>${esc(name)}${key ? `<span class="diet-tag">${esc(t(key))}</span>` : ''}</li>`;
-  };
+  // A chain branch: the chain's standard dishes, with where and when they were checked.
+  const brand = BRAND_BY_ID.get(p.b);
+  if (brand) {
+    const note = `brandNote.${brand.id}`;
+    return `<section class="place-menu">
+    <h3>${esc(t('detail.chainMenu', { brand: brandName(brand) }))}</h3>
+    <ul>${dishItemsHtml(menu, diet)}</ul>
+    ${has(note) ? `<p>${esc(t(note))}</p>` : ''}
+    <p class="note">${esc(t('detail.chainNote', { brand: brandName(brand), date: formatDate(brand.checked) }))}</p>
+    <a class="text-btn" href="${esc(brand.url)}" target="_blank" rel="noopener">${icon('external')}${esc(t('detail.officialMenu'))}</a>
+  </section>`;
+  }
   return `<section class="place-menu">
     <h3>${esc(t('detail.menu'))}</h3>
-    ${menu.length ? `<ul>${menu.map(item).join('')}</ul>` : ''}
+    ${menu.length ? `<ul>${dishItemsHtml(menu, diet)}</ul>` : ''}
     <p class="note">${esc(t('detail.menuNote'))}</p>
     ${url ? `<a class="text-btn" href="${esc(url)}" target="_blank" rel="noopener">${icon('external')}${esc(t('detail.menuLink'))}</a>` : ''}
   </section>`;

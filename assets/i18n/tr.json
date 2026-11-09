@@ -65,6 +65,7 @@
     "emptyHint": "Uzaklaştırın, filtreleri temizleyin veya başka bir bölge arayın.",
     "emptyMuslimCountries": "Müslüman nüfusun çoğunlukta olduğu ülkelerde yemeklerin çoğu helaldir; bu yüzden ayrıca işaretlenen yer azdır.",
     "showMore": "Daha fazla göster",
+    "vegSection": "Vejetaryen ve vegan seçenekler",
     "loading": "Yerler yükleniyor…",
     "loadError": "Yerler yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin.",
     "retry": "Tekrar dene",
@@ -129,7 +130,13 @@
     "v": "Vegan",
     "l": "Lakto (süt ürünü)",
     "o": "Ovo (yumurta)",
-    "lo": "Lakto-ovo (süt, yumurta)"
+    "lo": "Lakto-ovo (süt, yumurta)",
+    "veg": "Vejetaryen"
+  },
+  "brandNote": {
+    "lotteria": "Köftesi %100 bitkiseldir. Belirtilen alerjenler buğday, soya ve domatestir; yumurta ve süt yoktur.",
+    "papajohns": "Vegan peynirle yapılır. Yalnızca büyük boy, orijinal hamur.",
+    "subway": "Ekmek ve yedi çeşit sebze, et yok. Süt ürünleri ve yumurtadan kaçınıyorsanız peyniri ve kremalı sosları çıkarmalarını isteyin."
   },
   "cat": {
     "r": "Restoran",
@@ -259,7 +266,11 @@
     "notFound": "Bu yer artık verilerde yok.",
     "menu": "Öne çıkan yemekler",
     "menuLink": "Menüyü görüntüle",
-    "menuNote": "Menüdeki yemekler ve helal seçenekler değişebilir. İstediğiniz yemeği restorana sorun."
+    "menuNote": "Menüdeki yemekler ve helal seçenekler değişebilir. İstediğiniz yemeği restorana sorun.",
+    "chainMenu": "{brand} menüsündeki etsiz yemekler",
+    "chainNote": "{brand} resmî menüsünden, {date} tarihinde kontrol edildi. Her şube satmayabilir; sipariş vermeden önce sorun.",
+    "officialMenu": "Resmî menü",
+    "menuChecked": "{date} tarihinde kontrol edildi"
   },
   "source": {
     "osm": "OpenStreetMap katkıcıları",
@@ -269,7 +280,9 @@
     "live": "OpenStreetMap (canlı)",
     "kto": "Kore Turizm Örgütü, Müslüman dostu restoran rehberi",
     "seoul": "Seul Büyükşehir Belediyesi, sertifikalı vejetaryen restoranlar",
-    "suwon": "Suwon Belediyesi, vegan menüsü olan restoranlar"
+    "suwon": "Suwon Belediyesi, vegan menüsü olan restoranlar",
+    "sbiz": "Küçük İşletmeler ve Pazar Hizmeti, ulusal işletme kaydı",
+    "brand": "{brand} resmî menüsü"
   },
   "guide": {
     "title": "Kore'de helal beslenme",
@@ -289,6 +302,9 @@
     "hiddenTitle": "Sorulması gereken gizli malzemeler",
     "saferTitle": "Genellikle daha güvenli seçenekler (yine de sorun)",
     "meatNote": "Sığır, tavuk ve kuzu eti yalnızca helal sertifikalı veya Müslümanlara ait restoranlarda helaldir. Kore usulü kızarmış tavuk, bulgogi ve galbi genellikle helal değildir.",
+    "chainsTitle": "Etsiz yemekleri olan zincirler",
+    "chainsIntro": "Bu zincirlerin Kore'deki tüm şubeleri haritada vejetaryen işaretiyle görünür. Yemeklerde et yoktur ama helal sertifikalı değildir: ızgara ve kızartma yağı ortak kullanılabilir.",
+    "officialMenu": "Resmî menü ({date} tarihinde kontrol edildi)",
     "phrasesIntro": "Büyük harflerle göstermek için bir ifadeye dokunun.",
     "cardIntro": "Sipariş verirken bu kartı çalışanlara gösterin.",
     "cardLanguage": "Kart dili",

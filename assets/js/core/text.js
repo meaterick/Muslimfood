@@ -40,12 +40,17 @@ export function allNames(p) {
   return out.filter(Boolean);
 }
 
+const HALAL = new Set(['C', 'O', 'Y', 'F', 'L']);
+// Words people type when they look for meat-free food, in the UI languages.
+const VEG_WORDS = ['vegetarian', 'vegan', 'veggie', 'plant based', '채식', '비건', '식물성', 'végétarien', 'végane', 'vejetaryen', 'نباتي'];
+
 /** Every query token appears in a name, address, cuisine or listed dish. */
 export function matchesQuery(p, query) {
   const tokens = String(query || '').normalize('NFKC').split(/\s+/).map(searchText).filter(Boolean);
   if (!tokens.length) return true;
   const fields = [...allNames(p), p.a, ...(p.cu || []), ...(p.mn || []), ...Object.values(p.ml || {}).flat()].map(searchText);
-  if (p.s && p.s !== 'U') fields.push('halal');
+  if (HALAL.has(p.s)) fields.push('halal');
+  if (p.s === 'V' || p.s === 'M') fields.push(...VEG_WORDS.map(searchText));
   return tokens.every((t) => fields.some((value) => value.includes(t)));
 }
 

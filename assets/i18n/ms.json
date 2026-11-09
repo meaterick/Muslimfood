@@ -63,6 +63,7 @@
     "emptyHint": "Zum keluar, kosongkan penapis, atau cari kawasan lain.",
     "emptyMuslimCountries": "Di negara majoriti Muslim, kebanyakan makanan adalah halal, jadi hanya sedikit tempat ditanda secara khusus.",
     "showMore": "Tunjuk lagi",
+    "vegSection": "Pilihan vegetarian dan vegan",
     "loading": "Memuatkan tempat…",
     "loadError": "Tempat tidak dapat dimuatkan. Semak sambungan anda dan cuba lagi.",
     "retry": "Cuba lagi",
@@ -126,7 +127,13 @@
     "v": "Vegan",
     "l": "Lakto (susu)",
     "o": "Ovo (telur)",
-    "lo": "Lakto-ovo (susu, telur)"
+    "lo": "Lakto-ovo (susu, telur)",
+    "veg": "Vegetarian"
+  },
+  "brandNote": {
+    "lotteria": "Patinya 100% berasaskan tumbuhan. Alergen yang disenaraikan ialah gandum, soya dan tomato, tanpa telur atau susu.",
+    "papajohns": "Dibuat dengan keju vegan. Saiz besar dengan kerak asal sahaja.",
+    "subway": "Roti dengan tujuh jenis sayur, tanpa daging. Minta tanpa keju dan sos berkrim jika anda mengelak tenusu dan telur."
   },
   "cat": {
     "r": "Restoran",
@@ -256,7 +263,11 @@
     "notFound": "Tempat ini tiada lagi dalam data.",
     "menu": "Hidangan utama",
     "menuLink": "Lihat menu",
-    "menuNote": "Ketersediaan menu dan pilihan halal mungkin berubah. Tanya pihak restoran tentang hidangan yang anda inginkan."
+    "menuNote": "Ketersediaan menu dan pilihan halal mungkin berubah. Tanya pihak restoran tentang hidangan yang anda inginkan.",
+    "chainMenu": "Hidangan tanpa daging di {brand}",
+    "chainNote": "Daripada menu rasmi {brand}, disemak {date}. Bukan semua cawangan menjualnya, jadi tanya sebelum memesan.",
+    "officialMenu": "Menu rasmi",
+    "menuChecked": "disemak {date}"
   },
   "source": {
     "osm": "Penyumbang OpenStreetMap",
@@ -266,7 +277,9 @@
     "live": "OpenStreetMap (langsung)",
     "kto": "Panduan restoran mesra Muslim, Pertubuhan Pelancongan Korea",
     "seoul": "Kerajaan Metropolitan Seoul, restoran vegetarian diperakui",
-    "suwon": "Bandar Suwon, restoran dengan menu vegan"
+    "suwon": "Bandar Suwon, restoran dengan menu vegan",
+    "sbiz": "Small Enterprise and Market Service, daftar perniagaan kebangsaan",
+    "brand": "Menu rasmi {brand}"
   },
   "guide": {
     "title": "Makan halal di Korea",
@@ -286,6 +299,9 @@
     "hiddenTitle": "Bahan tersembunyi yang perlu ditanya",
     "saferTitle": "Pilihan yang biasanya lebih selamat (tetap bertanya)",
     "meatNote": "Daging lembu, ayam dan kambing hanya halal di restoran yang diperakui halal atau milik Muslim. Ayam goreng Korea, bulgogi dan galbi biasanya tidak halal.",
+    "chainsTitle": "Rangkaian restoran dengan hidangan tanpa daging",
+    "chainsIntro": "Semua cawangan rangkaian ini di Korea dipaparkan pada peta dengan penanda vegetarian. Hidangannya tanpa daging tetapi tidak diperakui halal: pemanggang dan minyak menggoreng mungkin dikongsi.",
+    "officialMenu": "Menu rasmi (disemak {date})",
     "phrasesIntro": "Ketik ungkapan untuk memaparkannya dalam huruf besar.",
     "cardIntro": "Tunjukkan kad ini kepada pekerja semasa memesan.",
     "cardLanguage": "Bahasa kad",

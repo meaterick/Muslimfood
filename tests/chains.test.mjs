@@ -5,7 +5,7 @@ import { deflateRawSync, crc32 } from 'node:zlib';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { BRANDS, BRAND_BY_ID, matchBrand, branchName, brandDiet } from '../assets/js/core/brands.js';
-import { parseCsvLine, chainRecord, extractChains } from '../scripts/import-chains.mjs';
+import { parseCsvLine, chainRecord, extractChains, dedupeBranches } from '../scripts/import-chains.mjs';
 import { listZip } from '../scripts/lib/unzip.mjs';
 import { applyBrand, mergeInto, groupByCell, searchRecords } from '../scripts/lib/build.mjs';
 
@@ -56,6 +56,15 @@ test('store registry rows: food businesses of listed chains only', () => {
   assert.equal(chainRecord({ ...row, 상호명: '써브웨이헤어', 상권업종대분류코드: 'G2' }), null, 'a hair salon is not a Subway');
   assert.equal(chainRecord({ ...row, 상호명: '김밥천국' }), null);
   assert.equal(chainRecord({ ...row, 위도: '0', 경도: '0' }), null);
+});
+
+test('a shop listed twice in the registry becomes one branch', () => {
+  const a = { id: 'sbiz-A1', n: '써브웨이', b: 'subway', y: 37.5, x: 127.0, a: '서울특별시 구로구 경인로 661' };
+  const b = { id: 'sbiz-A2', n: '써브웨이 신도림', b: 'subway', y: 37.5001, x: 127.0001, a: '서울특별시 구로구  경인로 661' };
+  const c = { id: 'sbiz-A3', n: '써브웨이 신도림', b: 'subway', y: 37.5002, x: 127.0, a: '서울특별시 구로구 경인로 662' };
+  const other = { id: 'sbiz-B1', n: '롯데리아 신도림', b: 'lotteria', y: 37.5, x: 127.0, a: '서울특별시 구로구 경인로 661' };
+  const far = { id: 'sbiz-A4', n: '써브웨이 신도림', b: 'subway', y: 37.51, x: 127.0, a: '서울특별시 구로구 경인로 700' };
+  assert.deepEqual(dedupeBranches([a, b, c, other, far]).map((p) => p.id), ['sbiz-A3', 'sbiz-A4', 'sbiz-B1']);
 });
 
 /** A tiny ZIP writer for the test (deflated entries, central directory). */

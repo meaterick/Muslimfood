@@ -17,7 +17,7 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { listZip, openEntry } from './lib/unzip.mjs';
 import { BRANDS, matchBrand, branchName } from '../assets/js/core/brands.js';
-import { isInKorea, roundCoord } from '../assets/js/core/geo.js';
+import { isInKorea, roundCoord, distance } from '../assets/js/core/geo.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PK = '15083033';
@@ -164,6 +164,32 @@ export function chainRecord(row) {
   };
 }
 
+/**
+ * One record per shop. The registry sometimes lists a shop twice (an old and a
+ * new registration at the same address, or the same name a few metres apart);
+ * keep the more descriptive name, then the newer registration.
+ */
+export function dedupeBranches(places) {
+  const pick = (a, b) => (b.n.length > a.n.length || (b.n.length === a.n.length && b.id > a.id) ? b : a);
+  const byAddress = new Map();
+  const noAddress = [];
+  for (const p of places) {
+    if (!p.a) {
+      noAddress.push(p);
+      continue;
+    }
+    const key = `${p.b}|${p.a.replace(/\s+/g, '')}`;
+    byAddress.set(key, byAddress.has(key) ? pick(byAddress.get(key), p) : p);
+  }
+  const out = [];
+  for (const p of [...byAddress.values(), ...noAddress]) {
+    const twin = out.findIndex((o) => o.b === p.b && o.n === p.n && distance(o.y, o.x, p.y, p.x) < 30);
+    if (twin >= 0) out[twin] = pick(out[twin], p);
+    else out.push(p);
+  }
+  return out.sort((a, b) => (a.id < b.id ? -1 : 1));
+}
+
 /** Chain branches in every CSV of the registry archive. */
 export async function extractChains(zipFile) {
   const places = new Map();
@@ -176,7 +202,7 @@ export async function extractChains(zipFile) {
     }
     console.log(`${entry.name}: ${n} branches`);
   }
-  return [...places.values()].sort((a, b) => (a.id < b.id ? -1 : 1));
+  return dedupeBranches([...places.values()]);
 }
 
 async function main() {

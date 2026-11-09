@@ -65,6 +65,7 @@
     "emptyHint": "Zoom out, clear the filters, or search another area.",
     "emptyMuslimCountries": "In Muslim-majority countries most food is halal, so few places are marked separately.",
     "showMore": "Show more",
+    "vegSection": "Vegetarian and vegan options",
     "loading": "Loading places…",
     "loadError": "Places could not be loaded. Check your connection and try again.",
     "retry": "Try again",
@@ -129,7 +130,13 @@
     "v": "Vegan",
     "l": "Lacto (dairy)",
     "o": "Ovo (eggs)",
-    "lo": "Lacto-ovo (dairy, eggs)"
+    "lo": "Lacto-ovo (dairy, eggs)",
+    "veg": "Vegetarian"
+  },
+  "brandNote": {
+    "lotteria": "The patty is 100% plant-based. The listed allergens are wheat, soy and tomato, with no egg or milk.",
+    "papajohns": "Made with vegan cheese. Large size with the original crust only.",
+    "subway": "Bread with seven vegetables and no meat. Leave out the cheese and creamy sauces if you avoid dairy and egg."
   },
   "cat": {
     "r": "Restaurant",
@@ -259,7 +266,11 @@
     "notFound": "This place is no longer in the data.",
     "menu": "Menu highlights",
     "menuLink": "View menu",
-    "menuNote": "Menu availability and halal options may vary. Ask the restaurant about the dish you want."
+    "menuNote": "Menu availability and halal options may vary. Ask the restaurant about the dish you want.",
+    "chainMenu": "Meat-free dishes at {brand}",
+    "chainNote": "From the official {brand} menu, checked {date}. Not every branch may sell them, so ask before you order.",
+    "officialMenu": "Official menu",
+    "menuChecked": "checked {date}"
   },
   "source": {
     "osm": "OpenStreetMap contributors",
@@ -269,7 +280,9 @@
     "live": "OpenStreetMap (live)",
     "kto": "Korea Tourism Organization, Muslim-friendly restaurant guide",
     "seoul": "Seoul Metropolitan Government, certified vegetarian restaurants",
-    "suwon": "Suwon City, restaurants with vegan menus"
+    "suwon": "Suwon City, restaurants with vegan menus",
+    "sbiz": "Small Enterprise and Market Service, national store registry",
+    "brand": "{brand} official menu"
   },
   "guide": {
     "title": "Eating halal in Korea",
@@ -289,6 +302,9 @@
     "hiddenTitle": "Hidden ingredients to ask about",
     "saferTitle": "Often safer choices (ask anyway)",
     "meatNote": "Beef, chicken and lamb are only halal at halal-certified or Muslim-owned restaurants. Korean fried chicken, bulgogi and galbi are usually not halal.",
+    "chainsTitle": "Chains with meat-free dishes",
+    "chainsIntro": "Every branch of these chains in Korea is on the map with a vegetarian marker. The dishes have no meat but are not halal-certified: grills and frying oil may be shared.",
+    "officialMenu": "Official menu (checked {date})",
     "phrasesIntro": "Tap a phrase to show it in large letters.",
     "cardIntro": "Show this card to the staff when you order.",
     "cardLanguage": "Card language",

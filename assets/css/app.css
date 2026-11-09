@@ -1245,6 +1245,12 @@ a {
   margin-top: 3px;
 }
 
+.place-menu ul + p:not(.note) {
+  margin-top: 8px;
+  color: var(--ink-2);
+  font-size: 14px;
+}
+
 .diet-tag {
   display: inline-block;
   margin-inline-start: 6px;
@@ -1643,6 +1649,46 @@ a {
 
 .dish-group.safer .dot {
   background: var(--jade);
+}
+
+.dish-group.chains .dot {
+  background: var(--leaf);
+  border-radius: 3px;
+}
+
+.chain-list > li {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.chain-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--ink);
+}
+
+.chain-head span {
+  color: var(--ink-3);
+  font-size: 14px;
+}
+
+.chain-list .dish-list li:last-child {
+  border-bottom: 0;
+}
+
+.chain-list a {
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.list-divider {
+  padding: 18px 8px 6px;
+  color: var(--leaf-ink);
+  font-size: 13px;
+  font-weight: 700;
+  border-top: 1px solid var(--line);
 }
 
 .phrase {

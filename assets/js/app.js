@@ -248,7 +248,10 @@ function render(v) {
   let list = food.filter((p) => passes(p, now));
   if (state.filters.prayer) list = list.concat(inView.filter((p) => p.k === 'p'));
   for (const p of list) p._d = distance(ref.lat, ref.lon, p.y, p.x);
-  list.sort((a, b) => a._d - b._d);
+  // Halal places first, then vegetarian ones (the fallback), each by distance,
+  // so chain branches nearby never push a halal restaurant out of view.
+  const group = (p) => (MEAT_FREE.has(p.s) ? 1 : 0);
+  list.sort((a, b) => group(a) - group(b) || a._d - b._d);
   const hiddenU = state.filters.confirmed ? food.filter((p) => p.s === 'U' && passes(p, now, { ignoreConfirmed: true })).length : 0;
 
   setHeader(t(ref.isUser ? 'list.titleNear' : 'list.titleArea'), list.length || !state.loading ? t('list.count', { n: list.length }) : '');
@@ -285,7 +288,13 @@ function render(v) {
   }
   $('#list-notices').innerHTML = notices.join('');
   const shown = list.slice(0, state.limit);
-  results.innerHTML = shown.map((p) => listItemHtml(p, { dist: p._d, tz: tzFor(p), selected: p.id === state.selected })).join('');
+  results.innerHTML = shown
+    .map((p, i) => {
+      const item = listItemHtml(p, { dist: p._d, tz: tzFor(p), selected: p.id === state.selected });
+      const divider = i > 0 && group(p) && !group(shown[i - 1]);
+      return divider ? `<li class="list-divider" aria-hidden="true">${esc(t('list.vegSection'))}</li>${item}` : item;
+    })
+    .join('');
   $('#more').hidden = list.length <= state.limit;
 }
 
@@ -763,9 +772,13 @@ function registerServiceWorker() {
       });
     })
     .catch((err) => console.warn('Service worker not registered', err));
+  // Reload only when a new version replaces the one this page runs on (after
+  // "Reload" in the update toast). On a first visit the worker takes control
+  // of an uncontrolled page; reloading then would wipe what the visitor typed.
+  const hadController = Boolean(navigator.serviceWorker.controller);
   let reloading = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (reloading || !swReg?.active) return;
+    if (reloading || !hadController) return;
     reloading = true;
     location.reload();
   });

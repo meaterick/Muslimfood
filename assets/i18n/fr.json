@@ -65,6 +65,7 @@
     "emptyHint": "Dézoomez, réinitialisez les filtres ou recherchez une autre zone.",
     "emptyMuslimCountries": "Dans les pays à majorité musulmane, la plupart des plats sont halal et peu d’établissements l’indiquent spécifiquement.",
     "showMore": "Afficher plus",
+    "vegSection": "Options végétariennes et vegan",
     "loading": "Chargement des lieux…",
     "loadError": "Impossible de charger les lieux. Vérifiez votre connexion et réessayez.",
     "retry": "Réessayer",
@@ -129,7 +130,13 @@
     "v": "Vegan",
     "l": "Lacto (laitages)",
     "o": "Ovo (œufs)",
-    "lo": "Lacto-ovo (laitages, œufs)"
+    "lo": "Lacto-ovo (laitages, œufs)",
+    "veg": "Végétarien"
+  },
+  "brandNote": {
+    "lotteria": "Le steak est 100 % végétal. Les allergènes indiqués sont le blé, le soja et la tomate, sans œuf ni lait.",
+    "papajohns": "Préparée avec un fromage vegan. Uniquement en grande taille, pâte originale.",
+    "subway": "Pain et sept légumes, sans viande. Demandez sans fromage ni sauce crémeuse si vous évitez les produits laitiers et les œufs."
   },
   "cat": {
     "r": "Restaurant",
@@ -259,7 +266,11 @@
     "notFound": "Ce lieu ne figure plus dans les données.",
     "menu": "Plats à la carte",
     "menuLink": "Voir le menu",
-    "menuNote": "Les plats disponibles et les options halal peuvent changer. Demandez au restaurant si le plat qui vous intéresse est halal."
+    "menuNote": "Les plats disponibles et les options halal peuvent changer. Demandez au restaurant si le plat qui vous intéresse est halal.",
+    "chainMenu": "Plats sans viande chez {brand}",
+    "chainNote": "D’après la carte officielle de {brand}, vérifiée le {date}. Tous les restaurants ne les proposent pas forcément : demandez avant de commander.",
+    "officialMenu": "Carte officielle",
+    "menuChecked": "vérifiée le {date}"
   },
   "source": {
     "osm": "Contributeurs OpenStreetMap",
@@ -269,7 +280,9 @@
     "live": "OpenStreetMap (en direct)",
     "kto": "Office national du tourisme coréen, guide des restaurants adaptés aux musulmans",
     "seoul": "Ville de Séoul, restaurants végétariens certifiés",
-    "suwon": "Ville de Suwon, restaurants avec menu vegan"
+    "suwon": "Ville de Suwon, restaurants avec menu vegan",
+    "sbiz": "Small Enterprise and Market Service, registre national des commerces",
+    "brand": "Carte officielle de {brand}"
   },
   "guide": {
     "title": "Manger halal en Corée",
@@ -289,6 +302,9 @@
     "hiddenTitle": "Ingrédients à vérifier",
     "saferTitle": "Options souvent adaptées, à vérifier sur place",
     "meatNote": "Pour le bœuf, le poulet et l’agneau, vérifiez que la viande est halal. Le poulet frit coréen, le bulgogi et le galbi sont généralement préparés avec de la viande non halal.",
+    "chainsTitle": "Chaînes proposant des plats sans viande",
+    "chainsIntro": "Tous les restaurants de ces chaînes en Corée figurent sur la carte avec un marqueur végétarien. Les plats sont sans viande mais pas certifiés halal : grill et huile de friture peuvent être partagés.",
+    "officialMenu": "Carte officielle (vérifiée le {date})",
     "phrasesIntro": "Touchez une phrase pour l’afficher en grand.",
     "cardIntro": "Montrez cette carte au personnel au moment de commander.",
     "cardLanguage": "Langue de la carte",

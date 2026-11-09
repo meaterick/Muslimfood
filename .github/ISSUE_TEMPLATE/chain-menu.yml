@@ -1,0 +1,54 @@
+name: Add a chain's meat-free dish / 프랜차이즈 비건·채식 메뉴 추가
+description: A restaurant chain sells a vegan or vegetarian dish at its branches (for example a plant-based burger).
+title: "[Chain menu] "
+labels: ["chain menu"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        One checked dish puts every branch of the chain on the map, so please link the chain's **official** menu page or allergen table.
+        Chains are listed in [`assets/js/core/brands.js`](../blob/main/assets/js/core/brands.js).
+
+        메뉴 하나로 그 체인의 모든 지점이 지도에 표시되므로, 체인의 **공식** 메뉴 페이지나 알레르기 정보 링크를 꼭 적어 주세요.
+  - type: input
+    id: chain
+    attributes:
+      label: Chain / 브랜드
+      placeholder: "e.g. 롯데리아 (Lotteria)"
+    validations:
+      required: true
+  - type: input
+    id: dish
+    attributes:
+      label: Dish name as on the menu / 메뉴 이름 (메뉴판 그대로)
+      placeholder: "e.g. 미라클버거"
+    validations:
+      required: true
+  - type: dropdown
+    id: diet
+    attributes:
+      label: Diet / 식단
+      options:
+        - Vegan (no meat, fish, egg or milk) / 비건
+        - Vegetarian with dairy or egg / 락토·오보 채식
+        - Vegetarian, not sure about dairy or egg / 채식 (유제품·달걀 여부 모름)
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Official menu or allergen page / 공식 메뉴·알레르기 정보 링크
+    validations:
+      required: true
+  - type: input
+    id: country
+    attributes:
+      label: Country / 국가
+      placeholder: "e.g. Korea / 한국"
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes / 참고 사항
+      description: e.g. only at some branches, limited time, ask for no mayonnaise, ...

@@ -1,7 +1,7 @@
 // Menu, About, Korea guide (levels / dishes / phrases / staff card) and the
 // full-screen "show this to the staff" view.
 
-import { t, lang, LANGS, formatDate, applyDom } from './i18n.js';
+import { t, has, lang, LANGS, formatDate, applyDom } from './i18n.js';
 import { icon } from './icons.js';
 import { esc } from '../core/text.js';
 import { isInKorea } from '../core/geo.js';
@@ -9,6 +9,8 @@ import { DISHES, PHRASES, STAFF_CARDS } from './content.js';
 import { store } from './store.js';
 import { storage } from './util.js';
 import { REPO_URL, ISSUE_NEW_PLACE } from '../config.js';
+import { BRANDS } from '../core/brands.js';
+import { brandName } from './render.js';
 
 // The Korea Tourism Organization's own list is linked, not copied (all rights reserved).
 const KTO_PDF = 'https://english.visitkorea.or.kr/public/asis/upload/Muslim-friendly_restaurants.pdf';
@@ -144,6 +146,24 @@ function dishList(items) {
     .join('')}</ul>`;
 }
 
+const DIET_KEY = { v: 'diet.v', l: 'diet.l', o: 'diet.o', lo: 'diet.lo', veg: 'diet.veg' };
+
+/** A chain with its meat-free dishes: Korean names to point at, English below. */
+function chainHtml(b) {
+  const other = lang() === 'ko' ? b.name.en : b.name.ko;
+  const note = `brandNote.${b.id}`;
+  return `<li class="chain">
+    <p class="chain-head"><strong>${esc(brandName(b))}</strong><span${lang() === 'ko' ? ' lang="en"' : ' lang="ko"'}>${esc(other)}</span></p>
+    <ul class="dish-list">${b.items
+      .map(
+        (i) => `<li><span class="dish-ko" lang="ko">${esc(i.n)}<span class="dish-rr" lang="en">${esc(i.en)}</span></span><span class="dish-desc"><span class="diet-tag">${esc(t(DIET_KEY[i.d]))}</span></span></li>`,
+      )
+      .join('')}</ul>
+    ${has(note) ? `<p class="note">${esc(t(note))}</p>` : ''}
+    <a href="${esc(b.url)}" target="_blank" rel="noopener">${esc(t('guide.officialMenu', { date: formatDate(b.checked) }))}</a>
+  </li>`;
+}
+
 export function staffCardHtml(code) {
   const c = STAFF_CARDS[code] || STAFF_CARDS.ko;
   return `<div class="staff-card" lang="${esc(c.lang)}">
@@ -195,7 +215,10 @@ export function renderGuide(tab = 'levels', center = null) {
       <h3 class="dish-group avoid"><span class="dot" aria-hidden="true"></span>${esc(t('guide.avoidTitle'))}</h3>${dishList(DISHES.avoid)}
       <h3 class="dish-group hidden-ing"><span class="dot" aria-hidden="true"></span>${esc(t('guide.hiddenTitle'))}</h3>${dishList(DISHES.hidden)}
       <h3 class="dish-group safer"><span class="dot" aria-hidden="true"></span>${esc(t('guide.saferTitle'))}</h3>${dishList(DISHES.safer)}
-      <p class="note">${esc(t('guide.meatNote'))}</p>`;
+      <p class="note">${esc(t('guide.meatNote'))}</p>
+      <h3 class="dish-group chains"><span class="dot" aria-hidden="true"></span>${esc(t('guide.chainsTitle'))}</h3>
+      <p>${esc(t('guide.chainsIntro'))}</p>
+      <ul class="chain-list">${BRANDS.filter((b) => b.countries.includes('KR')).map(chainHtml).join('')}</ul>`;
   } else if (tab === 'phrases') {
     html = `<p>${esc(t('guide.phrasesIntro'))}</p><ul>${PHRASES.map(
       (p) => `<li class="phrase"><button type="button" class="phrase-main" data-phrase="${p.id}"><span class="phrase-ko" lang="ko">${esc(p.ko)}</span><span class="phrase-rr" lang="en">${esc(

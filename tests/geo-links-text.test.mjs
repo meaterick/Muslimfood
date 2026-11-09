@@ -72,6 +72,15 @@ test('search query matching', () => {
   assert.ok(matchesQuery(p, '용산 turkish'));
   assert.ok(!matchesQuery(p, 'pizza'));
   assert.ok(matchesQuery(p, ''));
+  // "halal" finds halal places only; diet words find vegetarian places and chain dishes
+  assert.ok(matchesQuery({ ...p, s: 'Y' }, 'halal'));
+  assert.ok(!matchesQuery({ ...p, s: 'U' }, 'halal'));
+  const branch = { n: '롯데리아 강남역점', nl: { en: 'Lotteria' }, s: 'M', mn: ['미라클버거'], ml: { en: ['Miracle Burger'] } };
+  assert.ok(!matchesQuery(branch, 'halal'));
+  assert.ok(matchesQuery(branch, '비건 버거'));
+  assert.ok(matchesQuery(branch, 'vegan burger'));
+  assert.ok(matchesQuery(branch, 'Végétarien'));
+  assert.ok(matchesQuery(branch, 'plant-based lotteria'));
 });
 
 test('html escaping', () => {

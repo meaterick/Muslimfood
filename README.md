@@ -24,6 +24,10 @@ GitHub Pages에서 동작하는 정적 사이트이며, 특히 **한국**에서 
   오픈스트리트맵의 `diet:vegan`·`diet:vegetarian` 태그를 할랄과 구분되는 네모 마커로 보여 주고, 인증된 메뉴는 비건·락토·오보 같은
   식단 표시와 함께 보여 줍니다. 할랄 인증은 아니므로 소스의 술(맛술·주정) 등은 확인하라고 안내합니다.
   "보기" 필터로 **할랄 + 채식 / 할랄만 / 채식·비건만** 을 고를 수 있습니다.
+- **프랜차이즈의 고기 없는 메뉴** — 롯데리아 미라클버거(100% 식물성 패티)처럼 체인 공통 메뉴에 비건·채식 메뉴가 있으면
+  그 체인의 전국 지점을 모두 지도에 표시합니다. 체인과 메뉴는 `assets/js/core/brands.js` 한 곳에 공식 메뉴 링크·확인 날짜와 함께 적어 두고,
+  지점 위치는 소상공인시장진흥공단 상가(상권)정보에서 가져옵니다. 지금은 롯데리아(미라클버거), 파파존스(그린잇 식물성 피자 2종),
+  써브웨이(베지) 지점 약 2,100곳이 나옵니다. 목록에서는 할랄 식당을 먼저, 채식 메뉴가 있는 곳을 그다음에 보여 줍니다.
 - **한국 특화**
   - 길찾기 버튼이 **네이버 지도 → 카카오맵 → 구글 지도** 순서 (한국에서는 구글 지도 도보·자동차 길찾기가 안 되기 때문)
   - 공공데이터(경기관광공사 무슬림 친화 음식점, 한국문화정보원 세계 음식점, 서울시 채식 인증 음식점, 수원시 비건 메뉴 업소) 반영, 이슬람 성원·기도실 표시
@@ -60,6 +64,8 @@ Overpass 서버가 잠시 안 될 때는 마지막으로 받은 데이터를 그
 | [한국문화정보원_전국 세계 음식점 데이터](https://www.data.go.kr/data/15111398/fileData.do) | 할랄 가능성이 높은 음식 종류의 식당 (미확인으로 표시), 채식 메뉴가 있다고 등록된 식당 | 이용허락범위 제한 없음 |
 | [서울특별시_식품안전정보 서비스_먹거리 지도정보 (채식음식점)](https://data.seoul.go.kr/dataList/OA-23126/S/1/datasetView.do) | 서울시 채식 인증 음식점 300곳: 채식전문(전 메뉴)·채식가능(일부 메뉴), 인증 메뉴와 비건·락토·오보 구분 | 이용허락범위 제한 없음 |
 | [경기도 수원시_비건메뉴취급업소](https://www.data.go.kr/data/15129222/fileData.do) | 수원시 비건 메뉴 업소 26곳과 대표 비건 메뉴 | 이용허락범위 제한 없음 |
+| [소상공인시장진흥공단_상가(상권)정보](https://www.data.go.kr/data/15083033/fileData.do) | `brands.js`에 있는 체인의 전국 지점 위치 (음식점 업종만, 분기마다 갱신) | 이용허락범위 제한 없음 |
+| 각 체인의 공식 메뉴 페이지 | 체인 공통 메뉴 가운데 고기 없는 메뉴와 식단 구분 (`brands.js`에 확인 날짜와 링크 기록) | 사실 정보, 출처 링크 |
 | [한국관광공사 무슬림 친화 식당 가이드](https://english.visitkorea.or.kr/svc/thingsToDo/subMuslimFriendly.do) | 식당 9곳의 위치, 분류, 대표 메뉴 | 사실 정보 요약, 출처 표시 |
 | [OpenFreeMap](https://openfreemap.org) | 지도 타일 | © OpenMapTiles, © OpenStreetMap contributors |
 
@@ -70,6 +76,9 @@ Overpass 서버가 잠시 안 될 때는 마지막으로 받은 데이터를 그
 
 - 가장 좋은 방법: [오픈스트리트맵](https://www.openstreetmap.org)에서 식당을 추가하고 `diet:halal=yes`(일부 할랄) 또는 `diet:halal=only`(전부 할랄) 태그를 답니다. 식당 메뉴 주소는 `website:menu`에 추가할 수 있습니다. 인증 기관은 `halal:certification=KMF` 처럼 적습니다. 다음 날 사이트에 반영됩니다.
 - 또는 이 저장소의 이슈 양식 **Add a halal place / 할랄 식당 추가**, **Report a problem / 잘못된 정보 신고** 를 사용합니다.
+- **프랜차이즈 메뉴 추가**: `assets/js/core/brands.js`에 체인 이름, 상호명 앞부분, 메뉴(이름·영문명·식단), 공식 메뉴 링크와 확인 날짜를 추가하면
+  다음 배포 때 전국 지점이 나타납니다(새 체인이 생기면 상가정보를 자동으로 다시 받습니다). 직접 고치기 어렵다면 이슈 양식
+  **Add a chain's meat-free dish / 프랜차이즈 비건·채식 메뉴 추가** 를 사용하세요. 확인한 지 6개월이 지난 메뉴는 빌드 로그에 경고가 나옵니다.
 
 ## 개발
 
@@ -80,6 +89,7 @@ npm run build:data:offline     # 한국 공공데이터만으로 data/ 생성 (�
 npm run build:data             # 오픈스트리트맵 포함 전체 데이터 생성 (Overpass 필요, 수 분 소요)
 npm run serve                  # http://localhost:8080
 npm run import:kr              # data.go.kr 공공데이터 다시 받기 + 좌표 변환
+npm run import:chains          # 상가(상권)정보(약 350MB)에서 체인 지점 다시 뽑기 → data/sources/kr-chains.json
 ```
 
 ```
@@ -114,6 +124,7 @@ scripts/             데이터 빌드·가져오기·배포 조립 스크립트
 - Map + list sorted by distance, "Near me", filters (show, confirmed only, open now, cuisine, category, prayer places)
 - Search the full catalog by restaurant, address, cuisine or published dishes. Choose a result to see its pin and details. Use **Find more nearby** to look for additional OpenStreetMap listings around the map centre.
 - Every place shows *how we know* it is halal (certified / 100% halal / halal menu / Muslim-friendly list / some halal / not confirmed) and its source and date
+- Chains whose standard menu has a meat-free dish (Lotteria's plant-based Miracle Burger, Papa John's plant-based pizzas, Subway's Veggie) appear at every branch in Korea, about 2,100 places. The chains, dishes, official menu links and check dates live in `assets/js/core/brands.js`; branch locations come from the national store registry and refresh each quarter. Halal places stay first in the list
 - Vegetarian and vegan places as a fallback when there is no halal option nearby: square leaf markers (filled = whole menu meat-free, outlined = some dishes), with certified dishes and their diet labels (vegan, lacto, ovo) from Seoul City, Suwon City and OpenStreetMap. A **Show** filter switches between halal + vegetarian, halal only and vegetarian only
 - Korea: Naver Map and Kakao Map directions first, Korean public datasets, mosques and prayer rooms, a guide to Korean dishes that usually contain pork or alcohol, key Korean phrases with audio, and a card to show restaurant staff (Korean, Japanese, Chinese, English, French)
 - 7 UI languages (en, ko, ar with RTL, id, ms, tr, fr), localized map labels, dark mode, installable PWA with offline support, no tracking
