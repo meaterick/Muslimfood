@@ -410,6 +410,7 @@ export class MapView {
         });
       }
     }
+    this.hideSelectedLabel();
     map.addLayer({
       id: 'mf-user-halo',
       type: 'circle',
@@ -428,6 +429,31 @@ export class MapView {
       source: 'mf-selected',
       layout: { 'icon-image': ['get', 'icon'], 'icon-allow-overlap': true, 'icon-ignore-placement': true },
     });
+    // The selected place always shows its name, at any zoom.
+    if (this.hasGlyphs()) {
+      const dark = this.theme === 'dark';
+      map.addLayer({
+        id: 'mf-selected-label',
+        type: 'symbol',
+        source: 'mf-selected',
+        filter: ['has', 'label'],
+        layout: {
+          'text-field': ['get', 'label'],
+          'text-font': ['Noto Sans Bold'],
+          'text-size': 13.5,
+          'text-offset': [0, 1.7],
+          'text-anchor': 'top',
+          'text-max-width': 11,
+          'text-allow-overlap': true,
+          'text-ignore-placement': true,
+        },
+        paint: {
+          'text-color': dark ? '#FFFFFF' : '#14233F',
+          'text-halo-color': dark ? '#0E1726' : '#FFFFFF',
+          'text-halo-width': 2,
+        },
+      });
+    }
   }
 
   bindEvents() {
@@ -489,7 +515,9 @@ export class MapView {
     this.set('mf-summary', 'summary', geojson);
   }
 
-  setSelected(p) {
+  setSelected(p, label = '') {
+    this.selectedId = p?.id || null;
+    this.hideSelectedLabel();
     this.set(
       'mf-selected',
       'selected',
@@ -500,7 +528,7 @@ export class MapView {
               {
                 type: 'Feature',
                 geometry: { type: 'Point', coordinates: [p.x, p.y] },
-                properties: { id: p.id, icon: `pin-${p.k === 'p' ? 'P' : p.s}-${p.k}-sel` },
+                properties: { id: p.id, icon: `pin-${p.k === 'p' ? 'P' : p.s}-${p.k}-sel`, ...(label ? { label } : {}) },
               },
             ],
           }
@@ -508,12 +536,31 @@ export class MapView {
     );
   }
 
+  /** The selected place has its own bold label; drop its regular one. */
+  hideSelectedLabel() {
+    if (!this.map?.getLayer('mf-labels')) return;
+    const base = ['!', ['has', 'point_count']];
+    this.map.setFilter('mf-labels', this.selectedId ? ['all', base, ['!=', ['get', 'id'], this.selectedId]] : base);
+  }
+
+  /** A labelled pin for a searched area or address (not one of our places). */
   setSearchPin(place) {
     this.searchMarker?.remove();
     this.searchMarker = null;
-    if (!place) return;
-    this.searchMarker = new this.ml.Marker().setLngLat([place.lon, place.lat]).addTo(this.map);
-    this.searchMarker.getElement().setAttribute('aria-label', place.name);
+    if (!place || !this.map) return;
+    const el = document.createElement('div');
+    el.className = 'search-pin';
+    el.setAttribute('role', 'img');
+    el.setAttribute('aria-label', place.name || '');
+    el.innerHTML =
+      '<svg viewBox="0 0 30 40" aria-hidden="true"><path d="M15 39s13-13.2 13-23.6A13 13 0 0 0 2 15.4C2 25.8 15 39 15 39z" fill="#B02E43" stroke="#fff" stroke-width="2.4"/><circle cx="15" cy="15.5" r="5" fill="#fff"/></svg>';
+    if (place.name) {
+      const label = document.createElement('span');
+      label.className = 'search-pin-label';
+      label.textContent = place.name;
+      el.prepend(label);
+    }
+    this.searchMarker = new this.ml.Marker({ element: el, anchor: 'bottom' }).setLngLat([place.lon, place.lat]).addTo(this.map);
   }
 
   setUser(pos) {

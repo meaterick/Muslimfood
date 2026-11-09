@@ -914,6 +914,64 @@ a {
   color: var(--turq);
 }
 
+/* first-visit marker key */
+.legend-card {
+  margin: 10px 16px 2px;
+  padding: 14px 16px;
+  border-radius: var(--r-m);
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow-1);
+}
+
+.legend-card h2 {
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.legend-card ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+.legend-card li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.legend-card .mark {
+  flex: none;
+  width: 26px;
+  height: 26px;
+}
+
+.legend-card .mark .ic {
+  width: 15px;
+  height: 15px;
+}
+
+.legend-card .mark.s-V,
+.legend-card .mark.s-M {
+  border-radius: 8px;
+}
+
+.legend-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.place-near {
+  white-space: nowrap;
+}
+
 .text-btn {
   display: inline-flex;
   align-items: center;
@@ -1498,13 +1556,153 @@ a {
   color: var(--ink-2);
 }
 
-.field select {
+.field select,
+.field input,
+.field textarea {
   height: 46px;
   padding: 0 12px;
   border: 1px solid var(--line-strong);
   border-radius: var(--r-s);
   background: var(--paper);
+  color: var(--ink);
+  font: inherit;
   font-size: 16px;
+  font-weight: 400;
+}
+
+.field textarea {
+  height: auto;
+  min-height: 72px;
+  padding: 10px 12px;
+  resize: vertical;
+}
+
+.field :is(input, select, textarea):focus-visible {
+  outline: 2px solid var(--lapis);
+  outline-offset: 1px;
+}
+
+.field .req {
+  color: var(--pome);
+}
+
+.field-hint {
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+/* owner form */
+.form {
+  margin-top: 12px;
+}
+
+.form .field {
+  margin: 0 0 14px;
+}
+
+.check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 4px 0 14px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+.check input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 1px 0 0;
+  accent-color: var(--jade);
+}
+
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-error {
+  margin: 0 0 12px;
+  color: var(--pome);
+  font-size: 14px;
+}
+
+.text-btn.wide {
+  width: 100%;
+  justify-content: center;
+  min-height: 48px;
+}
+
+.form-done {
+  margin-top: 16px;
+  padding: 18px;
+  border-radius: var(--r-m);
+  background: var(--jade-soft);
+  color: var(--ink);
+}
+
+.form-done .ic {
+  color: var(--jade);
+}
+
+/* "is this right?" */
+.vote {
+  margin: 14px 0 4px;
+  padding: 12px 14px;
+  border-radius: var(--r-m);
+  border: 1px solid var(--line);
+  background: var(--paper-2);
+}
+
+.vote h3 {
+  font-size: 14.5px;
+  margin: 0 0 8px;
+}
+
+.vote-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vote-reasons {
+  margin: 0 0 6px;
+  padding: 0;
+  border: 0;
+}
+
+.vote-reasons legend {
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+.vote-reasons .check {
+  margin: 0 0 6px;
+}
+
+.vote .field {
+  margin: 4px 0 10px;
+}
+
+.vote-done {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--jade-ink);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.vote-counts {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--ink-3);
 }
 
 .segmented {
@@ -1896,6 +2094,36 @@ a {
 
 .maplibregl-ctrl-top-right .maplibregl-ctrl-group {
   display: none; /* zoom buttons: desktop only */
+}
+
+/* searched spot: a pomegranate pin with its name above */
+.search-pin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.search-pin svg {
+  width: 30px;
+  height: 40px;
+  filter: drop-shadow(0 2px 3px rgba(20, 35, 63, 0.35));
+}
+
+.search-pin-label {
+  max-width: 180px;
+  margin-bottom: 3px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: var(--shadow-1);
 }
 
 .maplibregl-ctrl-attrib {

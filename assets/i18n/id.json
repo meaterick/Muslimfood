@@ -76,7 +76,8 @@
     "koreaPromo": "Baru mengenal makanan Korea? Lihat hidangan yang biasanya mengandung babi atau alkohol.",
     "koreaPromoButton": "Buka panduan",
     "discover": "Temukan lebih banyak tempat di sekitar",
-    "discoverHint": "Cari tempat tambahan di OpenStreetMap di sekitar pusat peta."
+    "discoverHint": "Cari tempat tambahan di OpenStreetMap di sekitar pusat peta.",
+    "titleAround": "Sekitar “{name}”"
   },
   "filter": {
     "label": "Filter",
@@ -372,12 +373,15 @@
     "kr": "Sumber data Korea:",
     "updated": "Data diperbarui {date}",
     "privacyTitle": "Privasi",
-    "privacy": "Lokasi Anda hanya dipakai di perangkat Anda untuk mengurutkan tempat berdasarkan jarak. Situs ini tidak memakai cookie, pelacakan, atau iklan.",
+    "privacy": "Lokasi Anda hanya dipakai di perangkat Anda untuk mengurutkan tempat berdasarkan jarak. Situs ini tidak memakai cookie atau iklan.",
     "addTitle": "Tambah atau perbaiki tempat",
     "addBody": "Peta ini dibuat dari OpenStreetMap yang bisa diedit siapa saja. Tambahkan restorannya dan beri tag diet:halal=yes (sebagian hidangan halal) atau diet:halal=only (semua halal). Perubahan Anda muncul di sini dalam sehari.",
     "addOsm": "Tambahkan di OpenStreetMap",
     "addIssue": "Atau kirimkan kepada kami",
-    "code": "Kode sumber di GitHub"
+    "code": "Kode sumber di GitHub",
+    "addForm": "Isi formulir",
+    "privacyCounts": "Untuk tahu apa yang berguna, kami menghitung kunjungan dan ketukan tombol secara anonim dengan GoatCounter: tanpa cookie dan tanpa data yang mengenali Anda. Pengaturan “Do Not Track” dihormati. Suara dan formulir yang Anda kirim dibaca pengelola; kontak tidak pernah dipublikasikan.",
+    "privacyNoCounts": "Tidak ada statistik penggunaan yang dikumpulkan. Suara dan formulir yang Anda kirim dibaca pengelola; kontak tidak pernah dipublikasikan."
   },
   "toast": {
     "offline": "Anda sedang offline",
@@ -392,5 +396,79 @@
   "areas": {
     "korea": "Korea",
     "world": "Dunia"
+  },
+  "place": {
+    "nearStation": "Dekat Stasiun {station}"
+  },
+  "legend": {
+    "title": "Cara membaca peta",
+    "cert": "Lingkaran bertitik emas: sertifikat halal",
+    "halal": "Lingkaran hijau: makanan halal (pemilik atau dinas pariwisata)",
+    "unconfirmed": "Lingkaran putus-putus: belum pasti, tanyakan staf",
+    "veg": "Kotak berdaun: pilihan vegetarian atau vegan, bukan halal",
+    "ok": "Mengerti",
+    "more": "Arti tiap tingkat"
+  },
+  "owner": {
+    "title": "Tambah restoran",
+    "intro": "Punya restoran halal, atau tahu restoran yang belum ada? Kirim di sini. Setiap kiriman kami periksa sebelum tampil di peta, biasanya dalam beberapa hari.",
+    "name": "Nama restoran",
+    "address": "Alamat atau tautan peta",
+    "addressHint": "Tautan Naver, Kakao atau Google Maps",
+    "phone": "Telepon",
+    "level": "Tingkat halal",
+    "choose": "Pilih…",
+    "levels": {
+      "C": "Bersertifikat halal (sertifikat dipajang)",
+      "O": "Semua halal (pemilik Muslim)",
+      "Y": "Sebagian menu halal",
+      "P": "Tanpa babi, daging tidak halal",
+      "V": "Vegetarian atau vegan",
+      "X": "Tidak yakin"
+    },
+    "cert": "Lembaga sertifikasi (jika ada)",
+    "alcohol": "Menyajikan alkohol?",
+    "alcohols": {
+      "no": "Tidak",
+      "yes": "Ya",
+      "unknown": "Tidak tahu"
+    },
+    "relation": "Anda adalah",
+    "relations": {
+      "owner": "Pemilik atau manajer",
+      "staff": "Staf",
+      "visitor": "Pelanggan"
+    },
+    "contact": "Email atau telepon Anda (opsional)",
+    "contactHint": "Hanya untuk bertanya bila perlu. Tidak pernah ditampilkan.",
+    "notes": "Info lain",
+    "notesHint": "Tempat salat, menu halal, jam buka…",
+    "consent": "Saya setuju data restoran (bukan kontak saya) dipublikasikan di Muslimfood dan OpenStreetMap.",
+    "missing": "Isi nama, alamat dan tingkat halal, lalu centang kotaknya.",
+    "send": "Kirim",
+    "sendGithub": "Lanjut di GitHub",
+    "error": "Gagal mengirim. Periksa koneksi lalu coba lagi, atau:",
+    "thanks": "Terima kasih!",
+    "thanksBody": "Kami akan memeriksa datanya dan menambahkan restoran, biasanya dalam beberapa hari.",
+    "thanksGithub": "Halaman GitHub terbuka dengan data Anda. Tekan “Create” di sana untuk mengirim."
+  },
+  "vote": {
+    "title": "Apakah info ini benar?",
+    "yes": "Ya, benar",
+    "no": "Ada yang salah",
+    "why": "Apa yang salah?",
+    "reasons": {
+      "closed": "Tutup atau pindah",
+      "notHalal": "Tidak halal (lagi)",
+      "alcohol": "Menyajikan alkohol",
+      "location": "Lokasi di peta salah",
+      "other": "Lainnya"
+    },
+    "note": "Detail (opsional)",
+    "send": "Kirim",
+    "cancel": "Batal",
+    "thanksYes": "Terima kasih sudah memastikan!",
+    "thanksNo": "Terima kasih, akan kami periksa.",
+    "counts": "Pengunjung: {yes} memastikan · {no} melaporkan masalah"
   }
 }

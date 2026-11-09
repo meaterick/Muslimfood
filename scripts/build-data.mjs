@@ -2,6 +2,7 @@
 // Build the static dataset served with the site:
 //   data/index.json          cell summary + metadata (loaded first)
 //   data/cells/<lat>_<lon>.json  places per 1°x1° cell (loaded on demand)
+//   data/stations.json       railway and subway stations in Korea (place labels)
 //
 // Sources: OpenStreetMap via Overpass (worldwide halal-tagged places, and in
 // Korea also halal names, likely-halal cuisines and mosques/prayer rooms)
@@ -20,7 +21,8 @@ import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { runOverpass, taggedQuery, koreaQuery, vegQuery, chainsQuery } from '../assets/js/core/overpass.js';
+import { runOverpass, taggedQuery, koreaQuery, vegQuery, chainsQuery, stationsQuery } from '../assets/js/core/overpass.js';
+import { stationsFromOsm } from '../assets/js/core/stations.js';
 import { compact } from '../assets/js/core/normalize.js';
 import { isInKorea, KOREA_BBOX, CELL_SIZE } from '../assets/js/core/geo.js';
 import { normalizeParts, groupByCell, mergeSources, searchRecords, supplementChains } from './lib/build.mjs';
@@ -130,6 +132,7 @@ async function main() {
   }
 
   const parts = {};
+  let stations = null;
   if (!OFFLINE) {
     const bbox = KOREA_ONLY ? KOREA_BBOX : null;
     const deadline = started + BUDGET_MS;
@@ -164,6 +167,8 @@ async function main() {
     // a halal tag wins over a meat-free tag.
     // The Korea query covers local names. Bounded live searches cover names elsewhere.
     Object.assign(parts, { tagged, korea, veg, chains });
+    // Stations are not places; they only label them ("near Yeoksam Stn.").
+    stations = await overpass('stations', stationsQuery(180), { required: false, timeoutMs: 4 * min, deadline, minElements: 500 });
   }
 
   const { byId, osmBase, chainShops } = normalizeParts(parts);
@@ -238,6 +243,12 @@ async function main() {
     cells: index,
   };
   await writeFile(path.join(OUT, 'index.json'), JSON.stringify(out));
+  // Keep the previous station list when this run could not download one.
+  if (stations?.elements.length) {
+    const rows = stationsFromOsm(stations.elements);
+    await writeFile(path.join(OUT, 'stations.json'), JSON.stringify({ v: 1, osmBase: stations.osmBase, s: rows }));
+    log(`stations: ${rows.length} in Korea`);
+  }
   await writeFile(path.join(OUT, 'search.json'), JSON.stringify(searchRecords([...byCell.values()].flat())));
   log(
     `wrote ${Object.keys(index).length} cells, ${stats.food} food places, ${stats.prayer} prayer places ` +

@@ -2,6 +2,7 @@
 // Path2D, inside the canvas-drawn map markers.
 
 export const ICON_PATHS = {
+  train: 'M7 3.5h10a2 2 0 0 1 2 2V15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5.5a2 2 0 0 1 2-2zM5 11h14M8.5 14h.01M15.5 14h.01M8.5 17 6.5 20.5M15.5 17l2 3.5',
   search: 'M10.5 4a6.5 6.5 0 1 1 0 13 6.5 6.5 0 0 1 0-13zM15.3 15.3 20 20',
   locate: 'M12 3v3M12 18v3M3 12h3M18 12h3M12 7.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9z',
   menu: 'M4 7h16M4 12h16M4 17h16',

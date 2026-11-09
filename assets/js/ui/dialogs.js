@@ -11,6 +11,7 @@ import { storage } from './util.js';
 import { REPO_URL, ISSUE_NEW_PLACE } from '../config.js';
 import { BRANDS } from '../core/brands.js';
 import { brandName } from './render.js';
+import { track, analyticsEnabled } from './analytics.js';
 
 // The Korea Tourism Organization's own list is linked, not copied (all rights reserved).
 const KTO_PDF = 'https://english.visitkorea.or.kr/public/asis/upload/Muslim-friendly_restaurants.pdf';
@@ -35,7 +36,7 @@ export function initDialogs() {
 
 // ------------------------------------------------------------------ menu
 
-export function renderMenu({ onLang, onTheme, theme, onGuide, onAbout, installAvailable, onInstall }) {
+export function renderMenu({ onLang, onTheme, theme, onGuide, onAbout, onAdd, installAvailable, onInstall }) {
   const body = document.getElementById('menu-body');
   body.innerHTML = `
     <label class="field">${esc(t('menu.language'))}
@@ -70,7 +71,7 @@ export function renderMenu({ onLang, onTheme, theme, onGuide, onAbout, installAv
     if (what === 'guide') onGuide('food');
     else if (what === 'card') onGuide('card');
     else if (what === 'about') onAbout();
-    else if (what === 'add') onAbout('add');
+    else if (what === 'add') onAdd();
     else if (what === 'install') onInstall();
   });
 }
@@ -89,7 +90,8 @@ export function renderAbout(center) {
     <h3 id="about-add">${esc(t('about.addTitle'))}</h3>
     <p>${esc(t('about.addBody'))}</p>
     <div class="help-links">
-      <a class="text-btn primary" href="${esc(osmEdit)}" target="_blank" rel="noopener">${icon('plus')}${esc(t('about.addOsm'))}</a>
+      <button type="button" class="text-btn primary" data-action="owner-form">${icon('plus')}${esc(t('about.addForm'))}</button>
+      <a class="text-btn" href="${esc(osmEdit)}" target="_blank" rel="noopener">${icon('edit')}${esc(t('about.addOsm'))}</a>
       <a class="text-btn" href="${esc(ISSUE_NEW_PLACE)}" target="_blank" rel="noopener">${icon('external')}${esc(t('about.addIssue'))}</a>
     </div>
     <h3>${esc(t('about.sourcesTitle'))}</h3>
@@ -103,6 +105,7 @@ export function renderAbout(center) {
     ${updated}
     <h3>${esc(t('about.privacyTitle'))}</h3>
     <p>${esc(t('about.privacy'))}</p>
+    <p>${esc(t(analyticsEnabled ? 'about.privacyCounts' : 'about.privacyNoCounts'))}</p>
     <p><a href="${REPO_URL}" target="_blank" rel="noopener">${esc(t('about.code'))}</a></p>`;
 }
 
@@ -191,6 +194,7 @@ export function renderGuide(tab = 'levels', center = null) {
   const tabs = document.getElementById('guide-tabs');
   const body = document.getElementById('guide-body');
   if (!TABS.includes(tab)) tab = 'levels';
+  track(`guide/${tab}`, { once: true });
   cardLang = cardLang || defaultCardLang(center);
   const tabKey = { levels: 'tabLevels', food: 'tabFood', phrases: 'tabPhrases', card: 'tabCard' };
   tabs.innerHTML = TABS.map(
@@ -277,6 +281,7 @@ export function initGuide(getCenter) {
       const p = PHRASES.find((x) => x.id === phrase.dataset.phrase);
       if (p) showBig(`<p class="bigtext-ko" lang="ko">${esc(p.ko)}</p><p class="bigtext-sub">${esc(p.rr)}<br>${esc(t(`phrase.${p.id}`))}</p>`);
     } else if (e.target.closest('[data-action="card-full"]')) {
+      track('staff-card/full', { title: cardLang });
       showBig(staffCardHtml(cardLang));
     }
   });

@@ -79,7 +79,8 @@
     "koreaPromo": "Kore yemeklerine yeni misiniz? Genellikle domuz eti veya alkol içeren yemeklere göz atın.",
     "koreaPromoButton": "Rehberi aç",
     "discover": "Yakında daha fazla yer bul",
-    "discoverHint": "Haritanın merkezi çevresinde OpenStreetMap üzerinden başka yerler ara."
+    "discoverHint": "Haritanın merkezi çevresinde OpenStreetMap üzerinden başka yerler ara.",
+    "titleAround": "“{name}” çevresi"
   },
   "filter": {
     "label": "Filtreler",
@@ -375,12 +376,15 @@
     "kr": "Kore veri kaynakları:",
     "updated": "Veriler {date} tarihinde güncellendi",
     "privacyTitle": "Gizlilik",
-    "privacy": "Konumunuz yalnızca cihazınızda, yerleri mesafeye göre sıralamak için kullanılır. Bu site çerez, izleme veya reklam kullanmaz.",
+    "privacy": "Konumunuz yalnızca cihazınızda, yerleri mesafeye göre sıralamak için kullanılır. Bu site çerez veya reklam kullanmaz.",
     "addTitle": "Yer ekleyin veya düzeltin",
     "addBody": "Harita, herkesin düzenleyebildiği OpenStreetMap üzerine kuruludur. Restoranı ekleyin ve diet:halal=yes (bazı yemekler helal) veya diet:halal=only (her şey helal) etiketini verin. Değişikliğiniz bir gün içinde burada görünür.",
     "addOsm": "OpenStreetMap'te ekleyin",
     "addIssue": "Veya bize gönderin",
-    "code": "GitHub'daki kaynak kodu"
+    "code": "GitHub'daki kaynak kodu",
+    "addForm": "Formu doldur",
+    "privacyCounts": "Neyin işe yaradığını öğrenmek için ziyaretleri ve düğme dokunuşlarını GoatCounter ile anonim olarak sayıyoruz: çerez yok, sizi tanımlayan bilgi yok. “Do Not Track” ayarına uyulur. Gönderdiğiniz oylar ve formlar yöneticiler tarafından okunur; iletişim bilgileri asla yayımlanmaz.",
+    "privacyNoCounts": "Kullanım istatistiği toplanmaz. Gönderdiğiniz oylar ve formlar yöneticiler tarafından okunur; iletişim bilgileri asla yayımlanmaz."
   },
   "toast": {
     "offline": "Çevrimdışısınız",
@@ -395,5 +399,79 @@
   "areas": {
     "korea": "Kore",
     "world": "Dünya"
+  },
+  "place": {
+    "nearStation": "{station} İstasyonu yakını"
+  },
+  "legend": {
+    "title": "Harita nasıl okunur",
+    "cert": "Altın noktalı daire: helal sertifikası",
+    "halal": "Yeşil daire: helal yemek (işletme sahibi veya turizm ofisi)",
+    "unconfirmed": "Kesik çizgili daire: doğrulanmadı, personele sorun",
+    "veg": "Yapraklı kare: vejetaryen veya vegan seçenek, helal değil",
+    "ok": "Anladım",
+    "more": "Seviyelerin anlamı"
+  },
+  "owner": {
+    "title": "Restoran ekle",
+    "intro": "Helal bir restoranınız mı var, ya da haritada olmayan birini mi biliyorsunuz? Buradan gönderin. Her kaydı haritada göstermeden önce kontrol ederiz, genellikle birkaç gün içinde.",
+    "name": "Restoran adı",
+    "address": "Adres veya harita bağlantısı",
+    "addressHint": "Naver, Kakao veya Google Haritalar bağlantısı",
+    "phone": "Telefon",
+    "level": "Helal düzeyi",
+    "choose": "Seçin…",
+    "levels": {
+      "C": "Helal sertifikalı (sertifika asılı)",
+      "O": "Her şey helal (Müslüman işletmeci)",
+      "Y": "Bazı yemekler helal",
+      "P": "Domuz eti yok, et helal değil",
+      "V": "Vejetaryen veya vegan",
+      "X": "Emin değilim"
+    },
+    "cert": "Sertifika kuruluşu (varsa)",
+    "alcohol": "Alkol servis ediliyor mu?",
+    "alcohols": {
+      "no": "Hayır",
+      "yes": "Evet",
+      "unknown": "Bilmiyorum"
+    },
+    "relation": "Siz",
+    "relations": {
+      "owner": "İşletme sahibi veya yöneticisi",
+      "staff": "Çalışan",
+      "visitor": "Müşteri"
+    },
+    "contact": "E-posta veya telefonunuz (isteğe bağlı)",
+    "contactHint": "Yalnızca gerekirse soru sormak için. Sitede asla gösterilmez.",
+    "notes": "Diğer bilgiler",
+    "notesHint": "Namaz alanı, helal yemekler, çalışma saatleri…",
+    "consent": "Restoran bilgilerinin (iletişim bilgilerim hariç) Muslimfood ve OpenStreetMap’te yayımlanmasını kabul ediyorum.",
+    "missing": "Lütfen adı, adresi ve helal düzeyini girin ve kutuyu işaretleyin.",
+    "send": "Gönder",
+    "sendGithub": "GitHub’da devam et",
+    "error": "Gönderilemedi. Bağlantınızı kontrol edip tekrar deneyin veya:",
+    "thanks": "Teşekkürler!",
+    "thanksBody": "Bilgileri kontrol edip restoranı ekleyeceğiz, genellikle birkaç gün içinde.",
+    "thanksGithub": "Bilgilerinizle doldurulmuş bir GitHub sayfası açıldı. Göndermek için orada “Create”e basın."
+  },
+  "vote": {
+    "title": "Bu bilgi doğru mu?",
+    "yes": "Evet, doğru",
+    "no": "Yanlış bir şey var",
+    "why": "Ne yanlış?",
+    "reasons": {
+      "closed": "Kapandı veya taşındı",
+      "notHalal": "Helal değil (artık)",
+      "alcohol": "Alkol servis ediliyor",
+      "location": "Haritadaki yer yanlış",
+      "other": "Başka bir şey"
+    },
+    "note": "Ayrıntılar (isteğe bağlı)",
+    "send": "Gönder",
+    "cancel": "Vazgeç",
+    "thanksYes": "Onayladığınız için teşekkürler!",
+    "thanksNo": "Teşekkürler, kontrol edeceğiz.",
+    "counts": "Ziyaretçiler: {yes} onayladı · {no} sorun bildirdi"
   }
 }

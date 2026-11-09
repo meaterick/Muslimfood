@@ -45,7 +45,7 @@ async function geocode(q, signal) {
   }
 }
 
-export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPlace }) {
+export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPlace, onClear = () => {}, onNoResults = () => {} }) {
   let options = [];
   let active = -1;
   let ctrl = null;
@@ -175,7 +175,10 @@ export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPl
       const results = await geocode(q, request.signal);
       if (request.signal.aborted || q !== input.value.trim()) return;
       const areas = [...local.areas, ...results.filter(({ lat, lon }) => Number.isFinite(lat) && Number.isFinite(lon)).map((geo) => ({ kind: 'geo', geo }))];
-      if (!areas.length && !local.places.length) render({}, t('search.noResults'));
+      if (!areas.length && !local.places.length) {
+        render({}, t('search.noResults'));
+        onNoResults(q);
+      }
       else render({ areas, places: local.places });
       setActive(0);
     } catch (err) {
@@ -203,11 +206,12 @@ export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPl
     input.blur();
     if (o.kind === 'area') {
       input.value = areaName(o.area, lang());
-      onArea({ lat: o.area.y, lon: o.area.x, zoom: o.area.z });
+      onArea({ lat: o.area.y, lon: o.area.x, zoom: o.area.z, marker: { lat: o.area.y, lon: o.area.x, name: input.value } });
     } else if (o.kind === 'geo') {
       input.value = o.geo.name;
       const zoom = o.geo.rank >= 28 ? 17 : o.geo.rank >= 22 ? 15.5 : o.geo.rank >= 16 ? 13 : 11;
-      onArea({ lat: o.geo.lat, lon: o.geo.lon, zoom, bbox: o.geo.rank < 26 ? o.geo.bbox : null, marker: o.geo.rank >= 28 ? o.geo : null });
+      // Every searched spot gets a labelled pin, so it is clear where "here" is.
+      onArea({ lat: o.geo.lat, lon: o.geo.lon, zoom, bbox: o.geo.rank < 26 ? o.geo.bbox : null, marker: { lat: o.geo.lat, lon: o.geo.lon, name: o.geo.name } });
     } else if (o.kind === 'place') {
       input.value = displayName(o.place);
       const request = new AbortController();
@@ -251,6 +255,7 @@ export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPl
     input.value = '';
     clearBtn.hidden = true;
     close();
+    onClear();
     input.focus();
   });
   document.addEventListener('pointerdown', (e) => {

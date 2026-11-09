@@ -79,7 +79,8 @@
     "koreaPromo": "Vous découvrez la cuisine coréenne ? Voyez quels plats contiennent généralement du porc ou de l’alcool.",
     "koreaPromoButton": "Ouvrir le guide",
     "discover": "Trouver plus de lieux à proximité",
-    "discoverHint": "Recherchez d’autres établissements dans OpenStreetMap autour du centre de la carte."
+    "discoverHint": "Recherchez d’autres établissements dans OpenStreetMap autour du centre de la carte.",
+    "titleAround": "Autour de « {name} »"
   },
   "filter": {
     "label": "Filtres",
@@ -375,12 +376,15 @@
     "kr": "Sources de données coréennes :",
     "updated": "Données mises à jour le {date}",
     "privacyTitle": "Confidentialité",
-    "privacy": "Votre position est utilisée uniquement sur votre appareil pour trier les lieux par distance. Le site ne contient ni cookies, ni suivi, ni publicité.",
+    "privacy": "Votre position est utilisée uniquement sur votre appareil pour trier les lieux par distance. Le site ne contient ni cookies ni publicité.",
     "addTitle": "Ajouter ou corriger un lieu",
     "addBody": "La carte repose sur OpenStreetMap, que chacun peut modifier. Ajoutez le restaurant avec diet:halal=yes pour quelques plats halal ou diet:halal=only si tout est halal. Votre modification apparaîtra ici sous un jour.",
     "addOsm": "Ajouter sur OpenStreetMap",
     "addIssue": "Ou nous envoyer l’information",
-    "code": "Code source sur GitHub"
+    "code": "Code source sur GitHub",
+    "addForm": "Remplir le formulaire",
+    "privacyCounts": "Pour savoir ce qui est utile, nous comptons les visites et les appuis sur les boutons de façon anonyme avec GoatCounter : sans cookies ni rien qui vous identifie. Le réglage « Do Not Track » est respecté. Les votes et formulaires envoyés sont lus par les responsables ; les coordonnées ne sont jamais publiées.",
+    "privacyNoCounts": "Aucune statistique d’utilisation n’est collectée. Les votes et formulaires envoyés sont lus par les responsables ; les coordonnées ne sont jamais publiées."
   },
   "toast": {
     "offline": "Vous êtes hors ligne",
@@ -395,5 +399,79 @@
   "areas": {
     "korea": "Corée",
     "world": "Monde"
+  },
+  "place": {
+    "nearStation": "Près de la station {station}"
+  },
+  "legend": {
+    "title": "Lire la carte",
+    "cert": "Cercle avec un point doré : certificat halal",
+    "halal": "Cercle vert : cuisine halal (restaurant ou office du tourisme)",
+    "unconfirmed": "Cercle en pointillés : non confirmé, demandez au personnel",
+    "veg": "Carré avec une feuille : option végétarienne ou végane, pas halal",
+    "ok": "Compris",
+    "more": "Signification des niveaux"
+  },
+  "owner": {
+    "title": "Ajouter un restaurant",
+    "intro": "Vous tenez un restaurant halal ou en connaissez un qui manque ? Envoyez-le ici. Chaque proposition est vérifiée avant d’apparaître sur la carte, en général sous quelques jours.",
+    "name": "Nom du restaurant",
+    "address": "Adresse ou lien de carte",
+    "addressHint": "Lien Naver, Kakao ou Google Maps",
+    "phone": "Téléphone",
+    "level": "Niveau halal",
+    "choose": "Choisir…",
+    "levels": {
+      "C": "Certifié halal (certificat affiché)",
+      "O": "Tout est halal (gérant musulman)",
+      "Y": "Quelques plats halal",
+      "P": "Sans porc, viande non halal",
+      "V": "Végétarien ou végane",
+      "X": "Je ne sais pas"
+    },
+    "cert": "Organisme de certification (le cas échéant)",
+    "alcohol": "Alcool servi ?",
+    "alcohols": {
+      "no": "Non",
+      "yes": "Oui",
+      "unknown": "Je ne sais pas"
+    },
+    "relation": "Vous êtes",
+    "relations": {
+      "owner": "Le gérant ou propriétaire",
+      "staff": "Employé",
+      "visitor": "Client"
+    },
+    "contact": "Votre e-mail ou téléphone (facultatif)",
+    "contactHint": "Uniquement pour vous poser une question. Jamais affiché sur le site.",
+    "notes": "Autres informations",
+    "notesHint": "Salle de prière, plats halal, horaires…",
+    "consent": "J’accepte que les informations du restaurant (pas mes coordonnées) soient publiées sur Muslimfood et OpenStreetMap.",
+    "missing": "Indiquez le nom, l’adresse et le niveau halal, puis cochez la case.",
+    "send": "Envoyer",
+    "sendGithub": "Continuer sur GitHub",
+    "error": "L’envoi a échoué. Vérifiez la connexion et réessayez, ou :",
+    "thanks": "Merci !",
+    "thanksBody": "Nous vérifierons les informations et ajouterons le restaurant, en général sous quelques jours.",
+    "thanksGithub": "Une page GitHub s’est ouverte avec vos informations. Appuyez sur « Create » pour les envoyer."
+  },
+  "vote": {
+    "title": "Ces informations sont-elles justes ?",
+    "yes": "Oui, c’est juste",
+    "no": "Quelque chose est faux",
+    "why": "Qu’est-ce qui est faux ?",
+    "reasons": {
+      "closed": "Fermé ou déménagé",
+      "notHalal": "Pas (ou plus) halal",
+      "alcohol": "De l’alcool est servi",
+      "location": "Mauvais emplacement sur la carte",
+      "other": "Autre chose"
+    },
+    "note": "Détails (facultatif)",
+    "send": "Envoyer",
+    "cancel": "Annuler",
+    "thanksYes": "Merci pour la confirmation !",
+    "thanksNo": "Merci, nous allons vérifier.",
+    "counts": "Visiteurs : {yes} ont confirmé · {no} ont signalé un problème"
   }
 }

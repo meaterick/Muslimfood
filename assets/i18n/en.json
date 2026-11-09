@@ -79,7 +79,8 @@
     "koreaPromo": "New to Korean food? See which dishes usually contain pork or alcohol.",
     "koreaPromoButton": "Open the guide",
     "discover": "Find more nearby",
-    "discoverHint": "Look for additional places in OpenStreetMap around the map centre."
+    "discoverHint": "Look for additional places in OpenStreetMap around the map centre.",
+    "titleAround": "Around “{name}”"
   },
   "filter": {
     "label": "Filters",
@@ -375,12 +376,15 @@
     "kr": "Korean data sources:",
     "updated": "Data updated {date}",
     "privacyTitle": "Privacy",
-    "privacy": "Your location is used only on your device to sort places by distance. This site sets no cookies and has no tracking or ads.",
+    "privacy": "Your location is used only on your device to sort places by distance. This site sets no cookies and shows no ads.",
     "addTitle": "Add or fix a place",
     "addBody": "The map is built on OpenStreetMap, which anyone can edit. Add the restaurant and tag it diet:halal=yes (some halal dishes) or diet:halal=only (everything halal). Your change appears here within a day.",
     "addOsm": "Add it on OpenStreetMap",
     "addIssue": "Or send it to us",
-    "code": "Source code on GitHub"
+    "code": "Source code on GitHub",
+    "addForm": "Fill in the form",
+    "privacyCounts": "To learn what helps, we count visits and button taps anonymously with GoatCounter: no cookies and nothing that identifies you. “Do Not Track” is respected. Votes and forms you send are read by the maintainers; contact details are never published.",
+    "privacyNoCounts": "No usage statistics are collected. Votes and forms you send are read by the maintainers; contact details are never published."
   },
   "toast": {
     "offline": "You are offline",
@@ -395,5 +399,79 @@
   "areas": {
     "korea": "Korea",
     "world": "World"
+  },
+  "place": {
+    "nearStation": "Near {station} Stn."
+  },
+  "legend": {
+    "title": "How to read the map",
+    "cert": "Circle with a gold dot: halal certificate",
+    "halal": "Green circle: halal food (owner or tourism office)",
+    "unconfirmed": "Dashed circle: not confirmed, ask the staff",
+    "veg": "Square with a leaf: vegetarian or vegan option, not halal",
+    "ok": "Got it",
+    "more": "What the levels mean"
+  },
+  "owner": {
+    "title": "Add a restaurant",
+    "intro": "Run a halal restaurant, or know one that is missing? Send it here. We check every entry before it appears on the map, usually within a few days.",
+    "name": "Restaurant name",
+    "address": "Address or map link",
+    "addressHint": "Naver, Kakao or Google Maps link",
+    "phone": "Phone",
+    "level": "Halal level",
+    "choose": "Choose…",
+    "levels": {
+      "C": "Halal certified (certificate on display)",
+      "O": "Everything is halal (Muslim owner)",
+      "Y": "Some halal dishes",
+      "P": "Pork-free, meat not halal",
+      "V": "Vegetarian or vegan",
+      "X": "Not sure"
+    },
+    "cert": "Certificate body (if any)",
+    "alcohol": "Alcohol served?",
+    "alcohols": {
+      "no": "No",
+      "yes": "Yes",
+      "unknown": "Don't know"
+    },
+    "relation": "You are",
+    "relations": {
+      "owner": "The owner or manager",
+      "staff": "Staff",
+      "visitor": "A customer"
+    },
+    "contact": "Your email or phone (optional)",
+    "contactHint": "Only to ask you a question. Never shown on the site.",
+    "notes": "Anything else",
+    "notesHint": "Prayer space, halal menu items, opening hours…",
+    "consent": "I agree that the restaurant details (not my contact) are published on Muslimfood and OpenStreetMap.",
+    "missing": "Please fill in the name, address and halal level, and tick the box.",
+    "send": "Send",
+    "sendGithub": "Continue on GitHub",
+    "error": "Sending failed. Check your connection and try again, or:",
+    "thanks": "Thank you!",
+    "thanksBody": "We will check the details and add the restaurant, usually within a few days.",
+    "thanksGithub": "A GitHub page opened with your details filled in. Press “Create” there to send them."
+  },
+  "vote": {
+    "title": "Is this information right?",
+    "yes": "Yes, it is right",
+    "no": "Something is wrong",
+    "why": "What is wrong?",
+    "reasons": {
+      "closed": "Closed or moved",
+      "notHalal": "Not halal (any more)",
+      "alcohol": "Alcohol is served",
+      "location": "Wrong place on the map",
+      "other": "Something else"
+    },
+    "note": "Details (optional)",
+    "send": "Send",
+    "cancel": "Cancel",
+    "thanksYes": "Thanks for confirming!",
+    "thanksNo": "Thanks, we will check it.",
+    "counts": "Visitors: {yes} confirmed · {no} reported a problem"
   }
 }

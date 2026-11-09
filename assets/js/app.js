@@ -15,13 +15,14 @@ import {
   tzFor,
   summaryGeoJSON,
   countInView,
+  loadStations,
   DETAIL_ZOOM,
   LIVE_ZOOM,
 } from './ui/store.js';
 import { MapView, preloadMapLibrary } from './ui/mapview.js';
 import { Sheet } from './ui/sheet.js';
 import { initSearch } from './ui/search.js';
-import { listItemHtml, detailHtml, noticeHtml, skeletonHtml, displayName } from './ui/render.js';
+import { listItemHtml, detailHtml, noticeHtml, skeletonHtml, displayName, nearText } from './ui/render.js';
 import { initDialogs, renderMenu, renderAbout, openGuide, initGuide, openDialog, initBig, hideBig } from './ui/dialogs.js';
 import { AREAS, areaName, SEOUL_DEFAULT, TZ_START } from './ui/content.js';
 import { distance, padBbox, isInKorea, inBbox } from './core/geo.js';
@@ -29,6 +30,8 @@ import { isOpenNow } from './core/hours.js';
 import { cuisineGroupOf, CUISINE_GROUP_KEYS, MEAT_FREE } from './core/normalize.js';
 import { esc } from './core/text.js';
 import { icon } from './ui/icons.js';
+import { track, trackPageview, initTracking } from './ui/analytics.js';
+import { renderOwnerForm, voteHtml, handleVoteAction, refreshVoteCounts } from './ui/feedback.js';
 
 const PAGE = 40;
 // "Show" choices: halal and vegetarian places, halal only, or vegetarian only.
@@ -113,10 +116,10 @@ function getView() {
   return { ...v, bbox: [v.lon - d * 1.25, v.lat - d, v.lon + d * 1.25, v.lat + d] };
 }
 
-function moveTo({ lat, lon, zoom = 15, bbox = null, marker = null }) {
-  state.searchPin = marker;
+/** Move the map. `marker` (a searched spot) replaces the search pin; leave it out to keep the pin. */
+function moveTo({ lat, lon, zoom = 15, bbox = null, marker }) {
+  if (marker !== undefined) setSearchPin(marker);
   if (map) {
-    map.setSearchPin(marker);
     if (bbox && Math.abs(bbox[2] - bbox[0]) < 30) {
       map.map.fitBounds(
         [
@@ -132,7 +135,15 @@ function moveTo({ lat, lon, zoom = 15, bbox = null, marker = null }) {
   }
 }
 
+function setSearchPin(marker) {
+  state.searchPin = marker || null;
+  map?.setSearchPin(state.searchPin);
+}
+
+/** Where distances are measured from: a searched spot in view, else the visitor nearby, else the map centre. */
 function refPoint(v) {
+  const pin = state.searchPin;
+  if (pin && inBbox(pin.lat, pin.lon, padBbox(v.bbox, 0.01))) return { lat: pin.lat, lon: pin.lon, pin };
   if (state.user && distance(state.user.lat, state.user.lon, v.lat, v.lon) < 30000) return { lat: state.user.lat, lon: state.user.lon, isUser: true };
   return { lat: v.lat, lon: v.lon, isUser: false };
 }
@@ -203,9 +214,38 @@ function updateCuisineOptions(food) {
 
 // ------------------------------------------------------------------ rendering
 
+/** "Near Yeoksam Stn." for places in Korea, once the station list is loaded. */
+function nearOf(p) {
+  return store.nearStation && isInKorea(p.y, p.x) ? nearText(store.nearStation(p.y, p.x)) : '';
+}
+
 function setHeader(title, count) {
   $('#list-title').textContent = title;
   $('#list-count').textContent = count;
+}
+
+/** First-visit key to the markers; hidden for good once dismissed or the level guide is opened. */
+function legendHtml() {
+  const row = (cls, glyph, key) => `<li><span class="mark ${cls}" aria-hidden="true">${icon(glyph)}</span><span>${esc(t(key))}</span></li>`;
+  return `<section class="legend-card" aria-labelledby="legend-title">
+    <h2 id="legend-title">${esc(t('legend.title'))}</h2>
+    <ul>${[
+      row('s-C', 'restaurant', 'legend.cert'),
+      row('s-Y', 'restaurant', 'legend.halal'),
+      row('s-U', 'restaurant', 'legend.unconfirmed'),
+      row('s-M', 'leaf', 'legend.veg'),
+    ].join('')}</ul>
+    <div class="legend-actions">
+      <button type="button" class="text-btn primary" data-action="legend-ok" data-track="legend/ok">${esc(t('legend.ok'))}</button>
+      <button type="button" class="text-btn" data-action="legend-more" data-track="legend/more">${esc(t('legend.more'))}</button>
+    </div>
+  </section>`;
+}
+
+function dismissLegend() {
+  if (storage.get('legendSeen')) return;
+  storage.set('legendSeen', true);
+  $('.legend-card')?.remove();
 }
 
 function areaButtons() {
@@ -222,6 +262,7 @@ function render(v) {
   const now = new Date();
 
   if (!navigator.onLine) notices.push(noticeHtml({ iconName: 'alert', text: t('list.offline') }));
+  if (!storage.get('legendSeen')) notices.push(legendHtml());
 
   // Zoomed out: summary only. Areas served by live Overpass queries (no
   // prebuilt data) need a closer zoom before anything can be listed.
@@ -242,6 +283,9 @@ function render(v) {
   }
 
   const ref = refPoint(v);
+  if (!store.nearStation && isInKorea(v.lat, v.lon)) {
+    loadStations().then((ok) => ok && $('#view-detail').hidden && render(getView()));
+  }
   const inView = placesIn(padBbox(v.bbox, 0.02));
   const food = inView.filter((p) => p.k !== 'p');
   updateCuisineOptions(food);
@@ -254,7 +298,7 @@ function render(v) {
   list.sort((a, b) => group(a) - group(b) || a._d - b._d);
   const hiddenU = state.filters.confirmed ? food.filter((p) => p.s === 'U' && passes(p, now, { ignoreConfirmed: true })).length : 0;
 
-  setHeader(t(ref.isUser ? 'list.titleNear' : 'list.titleArea'), list.length || !state.loading ? t('list.count', { n: list.length }) : '');
+  setHeader(ref.pin ? t('list.titleAround', { name: ref.pin.name }) : t(ref.isUser ? 'list.titleNear' : 'list.titleArea'), list.length || !state.loading ? t('list.count', { n: list.length }) : '');
 
   if (store.mode === 'live' || (store.hybrid && !isInKorea(v.lat, v.lon))) notices.push(noticeHtml({ iconName: 'globe', text: t('list.live') }));
   if (isInKorea(v.lat, v.lon) && !storage.get('guideSeen')) {
@@ -290,7 +334,7 @@ function render(v) {
   const shown = list.slice(0, state.limit);
   results.innerHTML = shown
     .map((p, i) => {
-      const item = listItemHtml(p, { dist: p._d, tz: tzFor(p), selected: p.id === state.selected });
+      const item = listItemHtml(p, { dist: p._d, tz: tzFor(p), selected: p.id === state.selected, near: nearOf(p) });
       const divider = i > 0 && group(p) && !group(shown[i - 1]);
       return divider ? `<li class="list-divider" aria-hidden="true">${esc(t('list.vegSection'))}</li>${item}` : item;
     })
@@ -393,21 +437,17 @@ function fitNearest() {
 
 function showDetail(p, { push = true, reveal = true } = {}) {
   state.selected = p.id;
-  state.searchPin = null;
-  map?.setSearchPin(null);
-  const v = getView();
-  const ref = refPoint(v);
-  const dist = state.user ? distance(state.user.lat, state.user.lon, p.y, p.x) : ref.isUser ? distance(ref.lat, ref.lon, p.y, p.x) : NaN;
+  const dist = state.user ? distance(state.user.lat, state.user.lon, p.y, p.x) : NaN;
   const view = $('#view-detail');
   view.innerHTML = `<div class="detail-bar">
       <button type="button" class="icon-btn" data-action="back" aria-label="${esc(t('detail.back'))}">${icon('back', 'ic-flip')}</button>
       <button type="button" class="icon-btn" data-action="share" aria-label="${esc(t('detail.share'))}">${icon('share')}</button>
     </div>
-    <div class="panel-scroll">${detailHtml(p, { dist, tz: tzFor(p) })}</div>`;
+    <div class="panel-scroll">${detailHtml(p, { dist, tz: tzFor(p), near: nearOf(p), vote: p.k === 'p' ? '' : voteHtml(p) })}</div>`;
   $('#view-list').hidden = true;
   view.hidden = false;
   view.dataset.id = p.id;
-  map?.setSelected(p);
+  map?.setSelected(p, displayName(p));
   sheet.ensure('half');
   if (reveal && map) map.reveal({ lat: p.y, lon: p.x }, Math.max(15, map.zoom()));
   else if (reveal) {
@@ -415,7 +455,9 @@ function showDetail(p, { push = true, reveal = true } = {}) {
     refresh();
   }
   if (!reveal || !map) writeHash();
+  if (p.k !== 'p') refreshVoteCounts(p);
   if (push) {
+    track(p.b ? `view/chain-${p.b}` : `view/${p.k === 'p' ? 'P' : p.s}`);
     history.pushState({ place: p.id }, '', `${location.pathname}${location.search}${hashFor(getView(), p.id)}`);
     state.pushedDetail = true;
   }
@@ -471,6 +513,7 @@ function locate({ auto = false } = {}) {
     return;
   }
   const btn = $('#locate');
+  if (!auto) track('locate');
   btn.setAttribute('aria-busy', 'true');
   if (!auto) toast(t('locate.locating'), { duration: 0 });
   navigator.geolocation.getCurrentPosition(
@@ -481,7 +524,7 @@ function locate({ auto = false } = {}) {
       map?.setUser(state.user);
       state.fitNearest = true;
       if ($('#view-detail').hidden === false) closeDetail();
-      moveTo({ lat: state.user.lat, lon: state.user.lon, zoom: 15 });
+      moveTo({ lat: state.user.lat, lon: state.user.lon, zoom: 15, marker: null });
       if (!map) refresh();
     },
     (err) => {
@@ -524,6 +567,7 @@ function applyMeta() {
 
 async function switchLang(l) {
   storage.set('lang', l);
+  track(`lang/${l}`);
   await setLang(l);
   applyDom();
   applyMeta();
@@ -541,6 +585,13 @@ async function switchLang(l) {
   openMenu();
 }
 
+function openOwnerForm() {
+  renderOwnerForm(getView());
+  document.querySelector('dialog[open]')?.close();
+  openDialog($('#owner'));
+  track('owner-form/open', { once: true });
+}
+
 function openMenu() {
   renderMenu({
     theme: state.theme,
@@ -552,8 +603,10 @@ function openMenu() {
       openDialog($('#about'));
       if (section === 'add') $('#about-add')?.scrollIntoView();
     },
+    onAdd: openOwnerForm,
     installAvailable: Boolean(deferredInstall),
     onInstall: async () => {
+      track('install');
       deferredInstall?.prompt();
       deferredInstall = null;
     },
@@ -588,7 +641,7 @@ async function initMap(start) {
     if (state.selected) {
       const p = getPlace(state.selected);
       if (p) {
-        map.setSelected(p);
+        map.setSelected(p, displayName(p));
         map.reveal({ lat: p.y, lon: p.x }, Math.max(15, map.zoom()));
       }
     } else if (state.view.lat !== start.lat || state.view.lon !== start.lon || state.view.zoom !== start.zoom) {
@@ -627,16 +680,19 @@ function bindEvents() {
       const k = key.slice(4);
       f.cats.has(k) ? f.cats.delete(k) : f.cats.add(k);
     }
+    track(`filter/${key}`);
     b.setAttribute('aria-pressed', String(key === 'confirmed' ? f.confirmed : key === 'open' ? f.open : key === 'prayer' ? f.prayer : f.cats.has(key.slice(4))));
     refresh();
   });
   $('#chips').addEventListener('change', (e) => {
     if (e.target.id === 'cuisine-select') {
       state.filters.cuisine = e.target.value;
+      track('filter/cuisine', { title: e.target.value });
       refresh();
     } else if (e.target.id === 'show-select') {
       state.filters.show = SHOW.includes(e.target.value) ? e.target.value : 'all';
       storage.set('show', state.filters.show);
+      track(`filter/show-${state.filters.show}`);
       const chipEl = e.target.closest('.chip');
       chipEl.dataset.active = String(state.filters.show !== 'all');
       chipEl.querySelector('.ic').outerHTML = icon(SHOW_ICON[state.filters.show]);
@@ -662,6 +718,13 @@ function bindEvents() {
     }
     const v = getView();
     switch (b.dataset.action) {
+      case 'legend-ok':
+        dismissLegend();
+        break;
+      case 'legend-more':
+        dismissLegend();
+        openGuide('levels', v);
+        break;
       case 'open-guide':
         openGuide('food', v);
         render(v);
@@ -687,10 +750,11 @@ function bindEvents() {
         discoverFood(v);
         break;
       case 'add-place':
+        openOwnerForm();
+        break;
       case 'about':
         renderAbout(v);
         openDialog($('#about'));
-        if (b.dataset.action === 'add-place') $('#about-add')?.scrollIntoView();
         break;
       default:
         break;
@@ -698,6 +762,9 @@ function bindEvents() {
   };
   $('#list-notices').addEventListener('click', onAction);
   $('#credits').addEventListener('click', onAction);
+  $('#about-body').addEventListener('click', (e) => {
+    if (e.target.closest('[data-action="owner-form"]')) openOwnerForm();
+  });
 
   $('#more').addEventListener('click', () => {
     state.limit += PAGE;
@@ -709,6 +776,7 @@ function bindEvents() {
     if (!b) return;
     const p = getPlace($('#view-detail').dataset.id);
     if (!p) return;
+    if (handleVoteAction(b.dataset.action, p)) return;
     if (b.dataset.action === 'back') closeDetail();
     else if (b.dataset.action === 'share') sharePlace(p);
     else if (b.dataset.action === 'copy-address') {
@@ -718,7 +786,10 @@ function bindEvents() {
 
   $('#locate').addEventListener('click', () => locate());
   $('#menu-btn').addEventListener('click', openMenu);
-  $('#legend-btn').addEventListener('click', () => openGuide('levels', getView()));
+  $('#legend-btn').addEventListener('click', () => {
+    dismissLegend();
+    openGuide('levels', getView());
+  });
 
   addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !$('#view-detail').hidden && !document.querySelector('dialog[open]') && $('#bigtext').hidden) closeDetail();
@@ -790,6 +861,8 @@ async function boot() {
   await setLang(detectLang());
   applyDom();
   applyMeta();
+  initTracking();
+  trackPageview();
   if (state.theme !== 'auto') applyTheme(state.theme);
 
   const start = startView();
@@ -811,16 +884,25 @@ async function boot() {
     box: $('#search-results'),
     getCenter: () => getView(),
     onArea: (a) => {
+      track('search/area');
       if (!$('#view-detail').hidden) closeDetail();
       moveTo(a);
       sheet.ensure('half');
     },
     onPlace: async (p, signal) => {
+      setSearchPin(null); // the place itself is highlighted
+      track('search/place');
       await indexReady;
       const place = await findPlace(p.id, { lat: p.y, lon: p.x });
       if (signal.aborted) return;
       if (place) showDetail(place);
       else toast(t('detail.notFound'));
+    },
+    onNoResults: (q) => track('search/none', { title: q }),
+    onClear: () => {
+      if (!state.searchPin) return;
+      setSearchPin(null);
+      render(getView());
     },
   });
   initDialogs();

@@ -5,6 +5,7 @@
 import { cellsForBbox, cellKey, inBbox, isInKorea, KOREA_BBOX } from '../core/geo.js';
 import { runOverpass, liveFoodQuery, prayerQuery } from '../core/overpass.js';
 import { fromOsmElement } from '../core/normalize.js';
+import { stationIndex } from '../core/stations.js';
 
 export const DETAIL_ZOOM = 8; // below this the map shows cell summaries
 export const LIVE_ZOOM = 10; // live Overpass queries only when zoomed in this far
@@ -22,6 +23,7 @@ export const store = {
   version: 0, // bumps whenever places change
   liveBusy: false,
   liveError: null,
+  nearStation: null, // (lat, lon) -> station within walking distance, once loaded
 };
 
 function add(place) {
@@ -65,6 +67,26 @@ export function loadSearchCatalog() {
       return [];
     });
   return searchCatalog;
+}
+
+let stationsLoad;
+/** Station lookup for Korea ("near ... Stn."), downloaded once when first needed. */
+export function loadStations() {
+  stationsLoad ??= fetch('data/stations.json')
+    .then((r) => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.json();
+    })
+    .then((j) => {
+      store.nearStation = stationIndex(j.s);
+      store.version++;
+      return true;
+    })
+    .catch(() => {
+      stationsLoad = null; // e.g. offline; try again later
+      return false;
+    });
+  return stationsLoad;
 }
 
 function loadCell(key) {

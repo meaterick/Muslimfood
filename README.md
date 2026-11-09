@@ -47,13 +47,38 @@ GitHub Pages에서 동작하는 정적 사이트이며, 특히 **한국**에서 
   - **무슬림을 위한 한식 가이드**: 돼지고기가 보통 들어가는 음식, 숨어 있는 재료(맛술·주정·젤라틴·라드), 비교적 안심할 수 있는 음식
   - **필요한 한국어 문장** (발음 표기, 크게 보기, 한국어 음성 재생)
   - **식당 직원용 안내 카드** (한국어·日本語·中文·English·Français, 전체 화면)
-- **검색과 메뉴** — 지역, 식당명, 주소 또는 메뉴를 검색하고 결과를 선택하면 지도로 이동합니다. 상세 화면에 출처가 있는 대표 메뉴나 메뉴 링크가 표시됩니다.
+- **검색과 메뉴** — 지역, 식당명, 주소 또는 메뉴를 검색하고 결과를 선택하면 지도로 이동합니다. 검색한 지역·주소에는 이름이 붙은 핀이 꽂히고,
+  목록 제목이 "‘명동’ 주변"으로 바뀌며 거리도 그 핀에서 잽니다. 식당을 고르면 지도에 그 식당 이름이 함께 표시됩니다.
+  상세 화면에 출처가 있는 대표 메뉴나 메뉴 링크가 표시됩니다.
+- **역 기준 위치·지점 이름** — 한국의 장소에는 "역삼역 근처 / Near Yeoksam Stn." 처럼 600m 안의 가장 가까운 기차·지하철역을 보여 줍니다(오픈스트리트맵 역 정보, `data/stations.json`).
+  한국어가 아닌 화면에서는 체인 지점 이름을 "Starbucks · 역삼역점" 처럼 영문 체인명과 간판의 지점명으로 보여 줘 지점을 구별할 수 있습니다.
+- **처음 방문 안내** — 첫 방문 때 목록 위에 마커 읽는 법(인증·할랄·미확인·채식)을 보여 주고, 닫으면 다시 나오지 않습니다.
+- **식당 등록 양식과 "이 정보가 맞나요?"** — 사장님이나 손님이 GitHub 계정 없이 메뉴의 "지도에 없는 장소 추가"로 식당을 보낼 수 있고,
+  상세 화면에서 방문자가 정보가 맞는지(아니면 무엇이 틀렸는지) 알려 줄 수 있습니다. 구글 시트에 저장됩니다([설정 방법](docs/feedback/README.md)).
 - **주변 식당 더 찾기** — 지도를 확대하고 버튼을 누르면 지도 중심 주변의 식당을 OpenStreetMap에서 추가로 찾습니다.
 - **필터**: 보기(할랄 + 채식 / 할랄만 / 채식·비건만), 확인된 곳만, 영업 중, 음식 종류, 식당/패스트푸드/카페/마트, 기도 장소
 - **7개 언어**: 한국어, English, العربية(오른쪽→왼쪽), Bahasa Indonesia, Bahasa Melayu, Türkçe, Français — 지도 글자도 언어에 맞게 표시
 - **빠르고 가벼움**: 프레임워크 없는 순수 JS, 목록이 지도보다 먼저 뜸, 미리 만든 데이터 파일을 지역별로 나눠 필요한 것만 받음
 - **앱처럼 설치 + 오프라인**: PWA, 본 지역의 지도와 데이터는 인터넷이 약해도 계속 보임
-- 다크 모드, 키보드·스크린리더 접근성, 쿠키·추적·광고 없음
+- 다크 모드, 키보드·스크린리더 접근성, 쿠키·광고 없음 (이용 통계는 쿠키 없는 익명 집계만, 설정할 때만)
+
+## 설정: 이용 통계와 의견 받기
+
+`assets/js/config.js`의 두 값만 채우면 됩니다. 비워 두면 해당 기능은 꺼진 상태로 동작합니다.
+
+| 값 | 무엇 | 만드는 법 |
+|---|---|---|
+| `ANALYTICS.goatcounter` | 쿠키 없는 익명 이용 통계 ([GoatCounter](https://www.goatcounter.com), 비영리 무료) | goatcounter.com에서 가입하고 코드(예: `muslimfood`)를 정해 넣기 |
+| `FEEDBACK_URL` | 식당 등록 양식과 "이 정보가 맞나요?" 투표를 받을 구글 시트 | [docs/feedback/README.md](docs/feedback/README.md) (Apps Script 웹 앱, 5분) |
+
+### 측정 지표
+
+- **핵심 지표**: 길찾기 클릭 `directions/naver|kakao|google|apple` (제목에 할랄 등급 또는 `chain-<체인>`) — 사이트가 실제로 식당 방문으로 이어진 횟수
+- 보조 지표: 상세 보기 `view/<등급>`·`view/chain-<체인>`, `call`, `website`, `share`, `staff-card`, `official-menu`, `report`
+- 검색: `search/place`, `search/area`, 결과 없음 `search/none` (제목에 검색어, 빠진 지역·식당을 찾는 데 사용)
+- 참여: `owner-form/open`, `owner-form/sent`, `vote/yes`, `vote/no` (제목에 이유), `locate`, `filter/...`, `guide/<탭>`, `lang/<언어>`, `install`, `legend/ok|more`
+
+브라우저의 "추적 안 함(Do Not Track/GPC)" 설정이 켜져 있거나 localhost에서는 아무것도 보내지 않습니다.
 
 ## GitHub Pages 배포 (처음 한 번)
 
@@ -117,6 +142,8 @@ assets/vendor/       MapLibre GL JS 5.24.0, RTL 텍스트 플러그인 (라이�
 data/sources/        한국 공공데이터 (가공본)
 data/index.json, data/cells/   배포용 데이터 (1°×1° 구역별 파일)
 data/search.json              검색을 실행할 때만 받는 전체 식당 검색 데이터
+data/stations.json            한국의 기차·지하철역 ("○○역 근처" 표시용, 빌드할 때 생성)
+docs/feedback/       식당 등록·투표를 받는 구글 Apps Script (Code.gs)와 설정 방법
 scripts/             데이터 빌드·가져오기·배포 조립 스크립트
 .github/workflows/   pages.yml (매일 데이터 갱신 + 배포), ci.yml (테스트 + 한국 데이터 빌드)
 ```
@@ -138,12 +165,16 @@ scripts/             데이터 빌드·가져오기·배포 조립 스크립트
 **Muslimfood** is a fast, static website (GitHub Pages) for finding halal and Muslim-friendly food anywhere in the world, with extra depth for Korea.
 
 - Map + list sorted by distance, "Near me", filters (show, confirmed only, open now, cuisine, category, prayer places)
-- Search the full catalog by restaurant, address, cuisine or published dishes. Choose a result to see its pin and details. Use **Find more nearby** to look for additional OpenStreetMap listings around the map centre.
+- Search the full catalog by restaurant, address, cuisine or published dishes. A searched area or address gets a labelled pin, the list becomes "Around ‘Myeongdong’" with distances from the pin, and a chosen restaurant is shown on the map with its name. Use **Find more nearby** to look for additional OpenStreetMap listings around the map centre.
 - Every place shows *how we know* it is halal (certified / 100% halal / halal menu / Muslim-friendly list / some halal / not confirmed) and its source and date
 - Chains whose standard menu has a meat-free dish appear at every branch in Korea, about 8,100 places: Lotteria (plant-based Miracle Burger), Papa John's (plant-based and cheese pizzas), Subway (Veggie, Egg Mayo), Domino's (cheese pizza), Pizza School and Pizza Maru (cheese and vegetable pizzas with no meat in their allergen lists), Starbucks (a cream cheese bagel sandwich and a cheese bagel), Salady (dishes marked vegan) and Bonjuk (porridges with no meat, milk or egg in the official allergen list). Shops the store registry misses, such as the Lotteria inside Seoul Station, come from OpenStreetMap. The chains, dishes, official menu links and check dates live in `assets/js/core/brands.js`; branch locations come from the national store registry and refresh each quarter. Halal places stay first in the list
 - Vegetarian and vegan places as a fallback when there is no halal option nearby: square leaf markers (filled = whole menu meat-free, outlined = some dishes), with certified dishes and their diet labels (vegan, lacto, ovo) from Seoul City, Suwon City and OpenStreetMap. A **Show** filter switches between halal + vegetarian, halal only and vegetarian only
 - Korea: Naver Map and Kakao Map directions first, Korean public datasets, mosques and prayer rooms, a guide to Korean dishes that usually contain pork or alcohol, key Korean phrases with audio, and a card to show restaurant staff (Korean, Japanese, Chinese, English, French)
-- 7 UI languages (en, ko, ar with RTL, id, ms, tr, fr), localized map labels, dark mode, installable PWA with offline support, no tracking
+- Places in Korea say which railway or subway station is within 600 m ("Near Yeoksam Stn."); outside the Korean UI, chain branches read "Starbucks · 역삼역점" so branches can be told apart and matched to the sign
+- A first-visit key to the markers, an **Add a restaurant** form for owners and visitors (no GitHub account needed) and an **Is this information right?** vote on every place, both stored in a Google Sheet you own ([setup](docs/feedback/README.md))
+- 7 UI languages (en, ko, ar with RTL, id, ms, tr, fr), localized map labels, dark mode, installable PWA with offline support, no cookies or ads
+
+**Settings** (`assets/js/config.js`): `ANALYTICS.goatcounter` turns on cookie-free, anonymous counts with GoatCounter (main KPI: `directions/<app>` clicks; also `view/…`, `search/none`, `vote/…`, `owner-form/sent`; Do Not Track is respected). `FEEDBACK_URL` is the Apps Script web app for the form and votes. Both are off when empty.
 
 **Deploy:** merge to `main`, then set *Settings → Pages → Source* to **GitHub Actions**. A push deploys in about two minutes from the last downloads; the daily run refreshes OpenStreetMap and, once a quarter, the Korean store registry.
 

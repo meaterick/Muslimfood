@@ -282,6 +282,14 @@ function tidy(s) {
  * ("에스엠디롯데리아귀인점", "") -> "롯데리아 귀인점",
  * ("시흥하늘휴게소롯데리아", "") -> "롯데리아 시흥하늘휴게소".
  */
+/** The branch part of a chain place's title: "롯데리아 서울역점" -> "서울역점". */
+export function branchOf(p) {
+  const brand = BRAND_BY_ID.get(p?.b);
+  const n = String(p?.n || '');
+  if (!brand || !n.startsWith(brand.name.ko)) return '';
+  return n.slice(brand.name.ko.length).trim();
+}
+
 export function branchName(brand, name, branch = '') {
   const raw = String(name || '').normalize('NFKC');
   const lower = raw.toLowerCase();

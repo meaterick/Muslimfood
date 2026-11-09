@@ -8,7 +8,7 @@ import { formatDistance, isInKorea } from '../core/geo.js';
 import { parseOpeningHours, openState, weekRows, localTime } from '../core/hours.js';
 import { mapApps, osmLink, osmNoteLink, osmEditLink } from '../core/links.js';
 import { cleanUrl, placeCuisineGroup, MEAT_FREE } from '../core/normalize.js';
-import { BRAND_BY_ID, placeDishes } from '../core/brands.js';
+import { BRAND_BY_ID, placeDishes, branchOf } from '../core/brands.js';
 import { telHref } from './util.js';
 import { ISSUE_REPORT } from '../config.js';
 
@@ -18,6 +18,13 @@ const LATIN_UI = new Set(['en', 'id', 'ms', 'tr', 'fr']);
 export function displayName(p) {
   if (!p.n && p.k === 'p') return t(`prayer.${p.pt || 'mosque'}`);
   const l = lang();
+  // Chain branches: the chain's English name plus the branch as written on the
+  // sign ("Starbucks · 역삼역점"), so branches can be told apart.
+  const brand = l !== 'ko' && BRAND_BY_ID.get(p.b);
+  if (brand) {
+    const branch = branchOf(p);
+    return branch ? `${brand.name.en} · ${branch}` : brand.name.en;
+  }
   return (p.nl && p.nl[l]) || (LATIN_UI.has(l) || l === 'ar' ? p.nl?.en : null) || p.n;
 }
 
@@ -91,7 +98,14 @@ export function openText(p, tz, now = new Date()) {
   return { cls: 'is-closed', text: t('detail.opensDay', { day, time: formatTime(st.opensAt) }) };
 }
 
-export function listItemHtml(p, { dist, tz, selected }) {
+/** "Near Yeoksam Stn." for a station from core/stations.js, or ''. */
+export function nearText(station) {
+  if (!station) return '';
+  const name = lang() === 'ko' || !station.en ? station.ko : station.en;
+  return t('place.nearStation', { station: name });
+}
+
+export function listItemHtml(p, { dist, tz, selected, near = '' }) {
   const alt = altName(p);
   const cuisine = p.k === 'p' ? '' : cuisineLabel(p);
   const open = openText(p, tz);
@@ -99,7 +113,7 @@ export function listItemHtml(p, { dist, tz, selected }) {
   ${markHtml(p)}
   <span class="place-body">
     <span class="place-name">${esc(displayName(p))}</span>
-    ${alt ? `<span class="place-alt">${esc(alt)}</span>` : ''}
+    ${alt || near ? `<span class="place-alt">${esc(alt)}${alt && near ? ' · ' : ''}${near ? `<span class="place-near">${esc(near)}</span>` : ''}</span>` : ''}
     <span class="place-meta">${badgeHtml(p)}${cuisine ? `<span>${esc(cuisine)}</span>` : ''}${
       open ? `<span class="open-state ${open.cls}">${esc(open.text)}</span>` : ''
     }${p.al === 1 ? `<span class="warn-text">${esc(t('detail.alcohol'))}</span>` : ''}</span>
@@ -182,7 +196,7 @@ function menuHtml(p) {
     <ul>${dishItemsHtml(menu, diet)}</ul>
     ${has(note) ? `<p>${esc(t(note))}</p>` : ''}
     <p class="note">${esc(t('detail.chainNote', { brand: brandName(brand), date: formatDate(brand.checked) }))}</p>
-    <a class="text-btn" href="${esc(brand.url)}" target="_blank" rel="noopener">${icon('external')}${esc(t('detail.officialMenu'))}</a>
+    <a class="text-btn" href="${esc(brand.url)}" target="_blank" rel="noopener" data-track="official-menu" data-track-title="${esc(brand.id)}">${icon('external')}${esc(t('detail.officialMenu'))}</a>
   </section>`;
   }
   return `<section class="place-menu">
@@ -215,7 +229,7 @@ function hoursHtml(p, tz) {
   return `<div class="fact">${icon('clock')}<div class="fact-body"><span class="open-state ${open.cls || ''}">${esc(open.text || '')}</span>${table}</div></div>`;
 }
 
-export function detailHtml(p, { dist, tz }) {
+export function detailHtml(p, { dist, tz, near = '', vote = '' }) {
   const l = lang();
   const alt = altName(p);
   const kind = [p.k === 'p' ? t('cat.p') : t(`cat.${p.k}`), p.k === 'p' ? '' : cuisineLabel(p, 3), Number.isFinite(dist) ? t('detail.away', { d: formatDistance(dist, l === 'ar' ? 'ar-u-nu-latn' : l) }) : '']
@@ -242,7 +256,7 @@ export function detailHtml(p, { dist, tz }) {
   </header>
   <h3 class="visually-hidden">${esc(t('detail.directions'))}</h3>
   <div class="apps">${apps
-    .map((a) => `<a class="app-btn" href="${esc(a.route)}" target="_blank" rel="noopener">${appLogo(a.id)}<span>${esc(a.label)}</span></a>`)
+    .map((a) => `<a class="app-btn" href="${esc(a.route)}" target="_blank" rel="noopener" data-track="directions/${esc(a.id)}" data-track-title="${esc(p.b ? `chain-${p.b}` : statusKey(p))}">${appLogo(a.id)}<span>${esc(a.label)}</span></a>`)
     .join('')}</div>
   <section class="status-card s-${statusKey(p)}">
     <div class="status-title">${markHtml(p)}<span>${esc(statusLabel(p))}</span></div>
@@ -250,11 +264,12 @@ export function detailHtml(p, { dist, tz }) {
     ${p.ce ? `<p>${esc(t('detail.cert', { cert: p.ce }))}</p>` : ''}
     ${p.d && !isOsm ? `<p class="src">${esc(t('detail.dataDate', { date: formatDate(p.d) }))}</p>` : ''}
   </section>
+  ${vote}
   <div class="actions">
-    ${p.ph ? `<a class="text-btn" href="${esc(telHref(p.ph, inKr))}">${icon('phone')}${esc(t('detail.call'))}</a>` : ''}
-    ${p.w ? `<a class="text-btn" href="${esc(p.w)}" target="_blank" rel="noopener">${icon('globe')}${esc(t('detail.website'))}</a>` : ''}
-    ${p.ig ? `<a class="text-btn" href="${esc(p.ig)}" target="_blank" rel="noopener">${icon('instagram')}${esc(t('detail.instagram'))}</a>` : ''}
-    <button type="button" class="text-btn" data-action="share">${icon('share')}${esc(t('detail.share'))}</button>
+    ${p.ph ? `<a class="text-btn" href="${esc(telHref(p.ph, inKr))}" data-track="call">${icon('phone')}${esc(t('detail.call'))}</a>` : ''}
+    ${p.w ? `<a class="text-btn" href="${esc(p.w)}" target="_blank" rel="noopener" data-track="website">${icon('globe')}${esc(t('detail.website'))}</a>` : ''}
+    ${p.ig ? `<a class="text-btn" href="${esc(p.ig)}" target="_blank" rel="noopener" data-track="instagram">${icon('instagram')}${esc(t('detail.instagram'))}</a>` : ''}
+    <button type="button" class="text-btn" data-action="share" data-track="share">${icon('share')}${esc(t('detail.share'))}</button>
   </div>
   <div class="facts">
     ${
@@ -262,14 +277,15 @@ export function detailHtml(p, { dist, tz }) {
         ? `<div class="fact">${icon('pin')}<div class="fact-body">${esc(p.a)}${p.ph ? `<span class="fact-sub">${esc(p.ph)}</span>` : ''}</div><button type="button" class="text-btn" data-action="copy-address" aria-label="${esc(t('detail.copyAddress'))}">${icon('copy')}</button></div>`
         : ''
     }
+    ${near ? `<div class="fact">${icon('train')}<div class="fact-body">${esc(near)}</div></div>` : ''}
     ${p.k === 'p' ? (p.oh ? hoursHtml(p, tz) : '') : hoursHtml(p, tz)}
   </div>
   ${menuHtml(p)}
   ${flags.length ? `<div class="flags">${flags.map(([cls, ic, text]) => `<span class="flag ${cls}">${icon(ic)}${esc(text)}</span>`).join('')}</div>` : ''}
   ${p.ap ? `<p class="note">${esc(t('detail.approx'))}</p>` : ''}
   <div class="help-links">
-    ${p.k === 'p' ? '' : `<button type="button" class="text-btn primary" data-action="staff-card">${icon('card')}${esc(t('detail.staffCard'))}</button>`}
-    <a class="text-btn" href="${esc(reportHref)}" target="_blank" rel="noopener">${icon('flag')}${esc(t('detail.report'))}</a>
+    ${p.k === 'p' ? '' : `<button type="button" class="text-btn primary" data-action="staff-card" data-track="staff-card">${icon('card')}${esc(t('detail.staffCard'))}</button>`}
+    <a class="text-btn" href="${esc(reportHref)}" target="_blank" rel="noopener" data-track="report">${icon('flag')}${esc(t('detail.report'))}</a>
     ${isOsm ? `<a class="text-btn" href="${esc(osmEditLink(p))}" target="_blank" rel="noopener">${icon('edit')}${esc(t('detail.edit'))}</a>` : ''}
   </div>
   <div class="sources"><p>${esc(t('detail.sources'))}</p><ul>${sourceLines(p)}</ul></div>

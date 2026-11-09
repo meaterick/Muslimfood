@@ -97,6 +97,17 @@ export function koreaQuery(timeout = 600) {
 out center tags qt;`;
 }
 
+/** Railway and subway stations in Korea, for "near ... Station" labels. */
+export function stationsQuery(timeout = 180) {
+  const b = `(${bboxString(KOREA_QUERY_BBOX)})`;
+  return `[out:json][timeout:${timeout}];
+(
+  nwr["railway"~"^(station|halt)$"]["name"]${b};
+  nwr["public_transport"="station"]["name"]${b};
+);
+out center tags qt;`;
+}
+
 // South Korea incl. Jeju, Ulleungdo and Dokdo, [w, s, e, n].
 const KOREA_QUERY_BBOX = [124.5, 33.0, 131.95, 38.65];
 
