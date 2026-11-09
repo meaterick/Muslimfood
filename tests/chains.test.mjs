@@ -43,6 +43,8 @@ test('business names map to chains and branch titles read naturally', () => {
   assert.equal(matchBrand('카페삼내음샐러디아'), null);
   assert.equal(matchBrand('대한노인회율면분회본죽2리경로당'), null);
   assert.equal(matchBrand('본앤본죽원주'), null);
+  assert.equal(matchBrand('스타벅스캡슐무인카페용봉점'), null);
+  assert.equal(matchBrand('스타벅스 사가정역')?.id, 'starbucks');
   const L = BRAND_BY_ID.get('lotteria');
   const S = BRAND_BY_ID.get('subway');
   const P = BRAND_BY_ID.get('papajohns');

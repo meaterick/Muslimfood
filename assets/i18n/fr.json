@@ -135,13 +135,14 @@
   },
   "brandNote": {
     "lotteria": "Le steak est 100 % végétal. Les allergènes indiqués sont le blé, le soja et la tomate, sans œuf ni lait.",
-    "papajohns": "Les pizzas Green Eat sont faites avec un fromage vegan (grande taille, pâte originale). La Margherita et la Garden Special ont du fromage et des légumes, sans viande.",
+    "papajohns": "Les pizzas Green Eat sont faites avec un fromage vegan (grande taille, pâte originale). La Margherita et la Garden Special ne figurent pas sur la liste officielle des plats contenant de la viande.",
     "subway": "Le Veggie, c’est du pain et sept légumes ; l’Egg Mayo contient de l’œuf et de la mayonnaise. Aucun des deux ne contient de viande. Demandez sans fromage ni sauce crémeuse si vous évitez les produits laitiers.",
-    "dominos": "Sauce tomate et mozzarella, sans viande.",
+    "dominos": "Le tableau officiel des allergènes indique tomate, soja et lait, sans viande.",
     "salady": "Indiqué vegan sur la carte officielle.",
     "bonjuk": "Selon la liste officielle des allergènes (octobre 2026), ces bouillies ne contiennent ni viande, ni lait, ni œuf, même par contact croisé. D’autres, comme la bouillie aux légumes, contiennent du bœuf.",
     "pizzaschool": "Les allergènes indiqués sur les pages de la carte officielle sont le lait, le soja, le blé, la tomate et l’œuf, sans viande. D’autres pizzas, comme la truffe-pommes de terre, contiennent du jambon.",
-    "pizzamaru": "Selon la liste officielle des allergènes (janvier 2026), ces pizzas à pâte classique contiennent lait, soja, blé et tomate, sans viande. Les pâtes spéciales peuvent ajouter de l’œuf ou des crevettes."
+    "pizzamaru": "Selon la liste officielle des allergènes (janvier 2026), ces pizzas à pâte classique contiennent lait, soja, blé et tomate, sans viande. Les pâtes spéciales peuvent ajouter de l’œuf ou des crevettes.",
+    "starbucks": "Les allergènes indiqués sur les pages produits officielles sont le soja, le lait et le blé (et la tomate), sans viande. D’autres sandwichs, même aux noms de légumes, contiennent du jambon."
   },
   "cat": {
     "r": "Restaurant",

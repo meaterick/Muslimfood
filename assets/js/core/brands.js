@@ -80,8 +80,9 @@ export const BRANDS = [
     countries: ['KR'],
     k: 'f',
     cu: ['pizza'],
+    // Allergen table: tomato, soy, milk; no meat.
     items: [{ n: '치즈 피자', en: 'Cheese Pizza', d: 'l' }],
-    url: 'https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101',
+    url: 'https://web.dominos.co.kr/contents/ingredient',
     checked: '2026-11-09',
   },
   {
@@ -117,6 +118,26 @@ export const BRANDS = [
       { n: '트러플 치즈 피자', en: 'Truffle Cheese Pizza', d: 'l' },
     ],
     url: 'https://www.pizzamaru.co.kr/information/03',
+    checked: '2026-11-09',
+  },
+  {
+    id: 'starbucks',
+    name: { ko: '스타벅스', en: 'Starbucks' },
+    match: ['스타벅스', 'STARBUCKS'],
+    // Unmanned capsule cafés use the name but are not Starbucks shops.
+    exclude: /무인|캡슐/,
+    wikidata: 'Q37158',
+    distinctive: true,
+    countries: ['KR'],
+    k: 'c',
+    cu: ['coffee_shop'],
+    // Allergens on each product page: soy, milk, wheat (and tomato); no meat.
+    // Other sandwiches, even "당근 산도롱" and "프렌치 어니언", contain ham.
+    items: [
+      { n: '바질 토마토 탕종 베이글 샌드', en: 'Basil Tomato Cream Cheese Bagel Sandwich', d: 'l' },
+      { n: '트리플 치즈 베이글', en: 'Triple Cheese Bagel', d: 'l' },
+    ],
+    url: 'https://www.starbucks.co.kr/menu/food_list.do',
     checked: '2026-11-09',
   },
   {

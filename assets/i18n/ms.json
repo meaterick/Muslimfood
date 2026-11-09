@@ -132,13 +132,14 @@
   },
   "brandNote": {
     "lotteria": "Patinya 100% berasaskan tumbuhan. Alergen yang disenaraikan ialah gandum, soya dan tomato, tanpa telur atau susu.",
-    "papajohns": "Piza Green Eat menggunakan keju vegan (saiz besar, kerak asal). Margherita dan Garden Special berisi keju dan sayur, tanpa topping daging.",
+    "papajohns": "Piza Green Eat menggunakan keju vegan (saiz besar, kerak asal). Margherita dan Garden Special tiada dalam senarai rasmi hidangan yang mengandungi daging.",
     "subway": "Veggie ialah roti dengan tujuh jenis sayur; Egg Mayo berisi telur dan mayonis. Kedua-duanya tanpa daging. Minta tanpa keju dan sos berkrim jika anda mengelak tenusu.",
-    "dominos": "Sos tomato dan mozzarella, tanpa topping daging.",
+    "dominos": "Jadual alergen rasmi menyenaraikan tomato, soya dan susu, tanpa daging.",
     "salady": "Ditandakan vegan dalam menu rasmi.",
     "bonjuk": "Senarai alergen rasmi (Oktober 2026) menunjukkan bubur ini tiada daging, susu atau telur, malah tiada pencemaran silang. Bubur lain seperti bubur sayur mengandungi daging lembu.",
     "pizzaschool": "Maklumat alergen di halaman menu rasmi menunjukkan susu, soya, gandum, tomato dan telur, tanpa daging. Piza lain seperti truffle potato mengandungi ham.",
-    "pizzamaru": "Senarai alergen rasmi (Januari 2026) menunjukkan susu, soya, gandum dan tomato, tanpa daging, untuk piza ini dengan kerak biasa. Kerak istimewa mungkin menambah telur atau udang."
+    "pizzamaru": "Senarai alergen rasmi (Januari 2026) menunjukkan susu, soya, gandum dan tomato, tanpa daging, untuk piza ini dengan kerak biasa. Kerak istimewa mungkin menambah telur atau udang.",
+    "starbucks": "Maklumat alergen di halaman produk rasmi menyenaraikan soya, susu dan gandum (dan tomato), tanpa daging. Sandwic lain, walaupun bernama sayur, mengandungi ham."
   },
   "cat": {
     "r": "Restoran",

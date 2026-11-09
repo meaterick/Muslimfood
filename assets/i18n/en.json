@@ -135,13 +135,14 @@
   },
   "brandNote": {
     "lotteria": "The patty is 100% plant-based. The listed allergens are wheat, soy and tomato, with no egg or milk.",
-    "papajohns": "The Green Eat pizzas use vegan cheese (large size, original crust). The Margherita and the Garden Special have cheese and vegetables, with no meat in the toppings.",
+    "papajohns": "The Green Eat pizzas use vegan cheese (large size, original crust). The Margherita and the Garden Special are not on the official list of dishes that contain meat.",
     "subway": "The Veggie is bread with seven vegetables; the Egg Mayo has egg and mayonnaise. Neither has meat. Skip cheese and creamy sauces if you avoid dairy.",
-    "dominos": "Tomato sauce and mozzarella, with no meat in the toppings.",
+    "dominos": "The official allergen table lists tomato, soy and milk, and no meat.",
     "salady": "Marked vegan on the official menu.",
     "bonjuk": "The official allergen list (October 2026) shows no meat, milk or egg in these porridges, not even as cross-contact. Other porridges such as the vegetable porridge contain beef.",
     "pizzaschool": "The allergen lists on the official menu pages show milk, soy, wheat, tomato and egg, and no meat. Other pizzas, such as the truffle potato, contain ham.",
-    "pizzamaru": "The official allergen list (January 2026) shows milk, soy, wheat and tomato and no meat for these pizzas with the regular crust. Special crusts can add egg or shrimp."
+    "pizzamaru": "The official allergen list (January 2026) shows milk, soy, wheat and tomato and no meat for these pizzas with the regular crust. Special crusts can add egg or shrimp.",
+    "starbucks": "The allergen information on the official product pages lists soy, milk and wheat (and tomato), and no meat. Other sandwiches, even ones with vegetable names, contain ham."
   },
   "cat": {
     "r": "Restaurant",

@@ -135,13 +135,14 @@
   },
   "brandNote": {
     "lotteria": "Köftesi %100 bitkiseldir. Belirtilen alerjenler buğday, soya ve domatestir; yumurta ve süt yoktur.",
-    "papajohns": "Green Eat pizzalarında vegan peynir kullanılır (büyük boy, orijinal hamur). Margherita ve Garden Special peynir ve sebzeli olup et içermez.",
+    "papajohns": "Green Eat pizzalarında vegan peynir kullanılır (büyük boy, orijinal hamur). Margherita ve Garden Special, et içeren yemeklerin resmî listesinde yer almaz.",
     "subway": "Veggie, ekmek ve yedi çeşit sebzedir; Egg Mayo yumurta ve mayonez içerir. İkisinde de et yoktur. Süt ürünlerinden kaçınıyorsanız peyniri ve kremalı sosları çıkarmalarını isteyin.",
-    "dominos": "Domates sosu ve mozzarella; üzerinde et yoktur.",
+    "dominos": "Resmî alerjen tablosunda domates, soya ve süt var; et yok.",
     "salady": "Resmî menüde vegan olarak işaretlenmiştir.",
     "bonjuk": "Resmî alerjen listesine (Ekim 2026) göre bu lapalarda et, süt ve yumurta yoktur; çapraz bulaşma da belirtilmemiştir. Sebze lapası gibi diğer lapalarda sığır eti vardır.",
     "pizzaschool": "Resmî menü sayfalarındaki alerjen bilgisinde süt, soya, buğday, domates ve yumurta var; et yok. Trüflü patatesli gibi diğer pizzalarda jambon vardır.",
-    "pizzamaru": "Resmî alerjen listesine (Ocak 2026) göre normal hamurlu bu pizzalarda süt, soya, buğday ve domates var; et yok. Özel hamurlara yumurta veya karides eklenebilir."
+    "pizzamaru": "Resmî alerjen listesine (Ocak 2026) göre normal hamurlu bu pizzalarda süt, soya, buğday ve domates var; et yok. Özel hamurlara yumurta veya karides eklenebilir.",
+    "starbucks": "Resmî ürün sayfalarındaki alerjen bilgisinde soya, süt ve buğday (ve domates) var; et yok. Sebze adı taşıyanlar dahil diğer sandviçlerde jambon vardır."
   },
   "cat": {
     "r": "Restoran",
