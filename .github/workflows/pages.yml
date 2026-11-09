@@ -94,7 +94,7 @@ jobs:
         run: node scripts/build-data.mjs --osm-cache .cache/osm ${{ steps.mode.outputs.refresh != 'true' && '--osm-reuse' || '' }}
 
       - name: Save OpenStreetMap download
-        if: always() && steps.mode.outputs.refresh == 'true'
+        if: always()
         uses: actions/cache/save@v4
         with:
           path: .cache/osm
