@@ -26,8 +26,17 @@ GitHub Pages에서 동작하는 정적 사이트이며, 특히 **한국**에서 
   "보기" 필터로 **할랄 + 채식 / 할랄만 / 채식·비건만** 을 고를 수 있습니다.
 - **프랜차이즈의 고기 없는 메뉴** — 롯데리아 미라클버거(100% 식물성 패티)처럼 체인 공통 메뉴에 비건·채식 메뉴가 있으면
   그 체인의 전국 지점을 모두 지도에 표시합니다. 체인과 메뉴는 `assets/js/core/brands.js` 한 곳에 공식 메뉴 링크·확인 날짜와 함께 적어 두고,
-  지점 위치는 소상공인시장진흥공단 상가(상권)정보에서 가져옵니다. 지금은 롯데리아(미라클버거), 파파존스(그린잇 식물성 피자 2종),
-  써브웨이(베지) 지점 약 2,100곳이 나옵니다. 목록에서는 할랄 식당을 먼저, 채식 메뉴가 있는 곳을 그다음에 보여 줍니다.
+  지점 위치는 소상공인시장진흥공단 상가(상권)정보에서 가져옵니다(운영 회사 이름이 앞에 붙은 매장, 업종이 잘못 등록된 매장도 찾음).
+  지금은 다음 6개 체인의 지점 약 4,600곳이 나옵니다. 목록에서는 할랄 식당을 먼저, 채식 메뉴가 있는 곳을 그다음에 보여 줍니다.
+
+  | 체인 | 고기 없는 메뉴 (공식 메뉴·알레르기 정보로 확인) |
+  |---|---|
+  | 롯데리아 | 미라클버거 (식물성 패티, 달걀·우유 없음) |
+  | 파파존스 | 그린잇 식물성 마가리타·가든스페셜 (비건 치즈), 마가리타, 가든 스페셜 |
+  | 써브웨이 | 베지, 에그마요 |
+  | 도미노피자 | 치즈 피자 |
+  | 샐러디 | 단호박 노릇두부 샐러디, 청양간장 두부 비빔밥 (공식 메뉴의 VEGAN 표시) |
+  | 본죽 | 단팥죽, 단호박죽, 녹두죽, 명품잣죽, 흑임자죽 (알레르기 정보상 고기·우유·달걀 없음, 교차 오염 항목도 없음) |
 - **한국 특화**
   - 길찾기 버튼이 **네이버 지도 → 카카오맵 → 구글 지도** 순서 (한국에서는 구글 지도 도보·자동차 길찾기가 안 되기 때문)
   - 공공데이터(경기관광공사 무슬림 친화 음식점, 한국문화정보원 세계 음식점, 서울시 채식 인증 음식점, 수원시 비건 메뉴 업소) 반영, 이슬람 성원·기도실 표시
@@ -48,8 +57,11 @@ GitHub Pages에서 동작하는 정적 사이트이며, 특히 **한국**에서 
 2. 저장소 **Settings → Pages → Build and deployment → Source** 를 **GitHub Actions** 로 바꿉니다.
 3. **Actions** 탭에서 *Deploy to GitHub Pages* 워크플로가 끝나면 사이트가 열립니다. (바로 실행하려면 *Run workflow*)
 
-이후에는 매일 04:17(KST)에 오픈스트리트맵 데이터를 새로 받아 자동 배포합니다.
+이후에는 매일 04:17(KST)에 오픈스트리트맵 데이터를 새로 받아 자동 배포합니다(5~10분, 대부분 공용 Overpass 서버를 기다리는 시간).
 Overpass 서버가 잠시 안 될 때는 마지막으로 받은 데이터를 그대로 씁니다.
+`main`에 코드를 푸시하면 마지막으로 받은 오픈스트리트맵·상가 데이터로 바로 다시 빌드해 약 2분 안에 배포합니다.
+상가(상권)정보 원본(약 350MB)은 분기마다 새 판이 나올 때 한 번만 받고 GitHub Actions 캐시에 보관하므로,
+`brands.js`에 체인을 추가해도 다시 받지 않고 30초 안에 지점을 다시 뽑습니다.
 
 > "Deploy from a branch" 방식으로도 동작하지만, 그 경우 저장소에 들어 있는 한국 공공데이터만 미리 들어가고
 > 그 밖의 지역은 브라우저가 오픈스트리트맵에 실시간으로 조회합니다(조금 느림).
@@ -124,12 +136,12 @@ scripts/             데이터 빌드·가져오기·배포 조립 스크립트
 - Map + list sorted by distance, "Near me", filters (show, confirmed only, open now, cuisine, category, prayer places)
 - Search the full catalog by restaurant, address, cuisine or published dishes. Choose a result to see its pin and details. Use **Find more nearby** to look for additional OpenStreetMap listings around the map centre.
 - Every place shows *how we know* it is halal (certified / 100% halal / halal menu / Muslim-friendly list / some halal / not confirmed) and its source and date
-- Chains whose standard menu has a meat-free dish (Lotteria's plant-based Miracle Burger, Papa John's plant-based pizzas, Subway's Veggie) appear at every branch in Korea, about 2,100 places. The chains, dishes, official menu links and check dates live in `assets/js/core/brands.js`; branch locations come from the national store registry and refresh each quarter. Halal places stay first in the list
+- Chains whose standard menu has a meat-free dish appear at every branch in Korea, about 4,600 places: Lotteria (plant-based Miracle Burger), Papa John's (plant-based and cheese pizzas), Subway (Veggie, Egg Mayo), Domino's (cheese pizza), Salady (dishes marked vegan) and Bonjuk (porridges with no meat, milk or egg in the official allergen list). The chains, dishes, official menu links and check dates live in `assets/js/core/brands.js`; branch locations come from the national store registry and refresh each quarter. Halal places stay first in the list
 - Vegetarian and vegan places as a fallback when there is no halal option nearby: square leaf markers (filled = whole menu meat-free, outlined = some dishes), with certified dishes and their diet labels (vegan, lacto, ovo) from Seoul City, Suwon City and OpenStreetMap. A **Show** filter switches between halal + vegetarian, halal only and vegetarian only
 - Korea: Naver Map and Kakao Map directions first, Korean public datasets, mosques and prayer rooms, a guide to Korean dishes that usually contain pork or alcohol, key Korean phrases with audio, and a card to show restaurant staff (Korean, Japanese, Chinese, English, French)
 - 7 UI languages (en, ko, ar with RTL, id, ms, tr, fr), localized map labels, dark mode, installable PWA with offline support, no tracking
 
-**Deploy:** merge to `main`, then set *Settings → Pages → Source* to **GitHub Actions**. The `pages.yml` workflow rebuilds the data from OpenStreetMap every day and deploys.
+**Deploy:** merge to `main`, then set *Settings → Pages → Source* to **GitHub Actions**. A push deploys in about two minutes from the last downloads; the daily run refreshes OpenStreetMap and, once a quarter, the Korean store registry.
 
 **Contribute data:** add the place on OpenStreetMap with `diet:halal=yes|only` (it shows up within a day), or open an issue with the *Add a halal place* form.
 

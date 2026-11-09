@@ -135,8 +135,11 @@
   },
   "brandNote": {
     "lotteria": "Le steak est 100 % végétal. Les allergènes indiqués sont le blé, le soja et la tomate, sans œuf ni lait.",
-    "papajohns": "Préparée avec un fromage vegan. Uniquement en grande taille, pâte originale.",
-    "subway": "Pain et sept légumes, sans viande. Demandez sans fromage ni sauce crémeuse si vous évitez les produits laitiers et les œufs."
+    "papajohns": "Les pizzas Green Eat sont faites avec un fromage vegan (grande taille, pâte originale). La Margherita et la Garden Special ont du fromage et des légumes, sans viande.",
+    "subway": "Le Veggie, c’est du pain et sept légumes ; l’Egg Mayo contient de l’œuf et de la mayonnaise. Aucun des deux ne contient de viande. Demandez sans fromage ni sauce crémeuse si vous évitez les produits laitiers.",
+    "dominos": "Sauce tomate et mozzarella, sans viande.",
+    "salady": "Indiqué vegan sur la carte officielle.",
+    "bonjuk": "Selon la liste officielle des allergènes (octobre 2026), ces bouillies ne contiennent ni viande, ni lait, ni œuf, même par contact croisé. D’autres, comme la bouillie aux légumes, contiennent du bœuf."
   },
   "cat": {
     "r": "Restaurant",

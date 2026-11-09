@@ -135,8 +135,11 @@
   },
   "brandNote": {
     "lotteria": "Köftesi %100 bitkiseldir. Belirtilen alerjenler buğday, soya ve domatestir; yumurta ve süt yoktur.",
-    "papajohns": "Vegan peynirle yapılır. Yalnızca büyük boy, orijinal hamur.",
-    "subway": "Ekmek ve yedi çeşit sebze, et yok. Süt ürünleri ve yumurtadan kaçınıyorsanız peyniri ve kremalı sosları çıkarmalarını isteyin."
+    "papajohns": "Green Eat pizzalarında vegan peynir kullanılır (büyük boy, orijinal hamur). Margherita ve Garden Special peynir ve sebzeli olup et içermez.",
+    "subway": "Veggie, ekmek ve yedi çeşit sebzedir; Egg Mayo yumurta ve mayonez içerir. İkisinde de et yoktur. Süt ürünlerinden kaçınıyorsanız peyniri ve kremalı sosları çıkarmalarını isteyin.",
+    "dominos": "Domates sosu ve mozzarella; üzerinde et yoktur.",
+    "salady": "Resmî menüde vegan olarak işaretlenmiştir.",
+    "bonjuk": "Resmî alerjen listesine (Ekim 2026) göre bu lapalarda et, süt ve yumurta yoktur; çapraz bulaşma da belirtilmemiştir. Sebze lapası gibi diğer lapalarda sığır eti vardır."
   },
   "cat": {
     "r": "Restoran",

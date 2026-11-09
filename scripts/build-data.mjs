@@ -12,6 +12,9 @@
 //   node scripts/build-data.mjs --offline       # only data/sources (no network)
 //   node scripts/build-data.mjs --korea-only    # Overpass, but Korea only (fast CI check)
 //   node scripts/build-data.mjs --osm-cache DIR # reuse/keep raw Overpass JSON in DIR
+//   node scripts/build-data.mjs --osm-cache DIR --osm-reuse
+//                                               # use the copy in DIR without asking Overpass
+//                                               # (fast rebuilds after code changes)
 
 import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
@@ -32,6 +35,7 @@ const OFFLINE = flag('--offline');
 const KOREA_ONLY = flag('--korea-only');
 const OUT = path.resolve(ROOT, opt('--out', 'data'));
 const OSM_CACHE = opt('--osm-cache', null);
+const OSM_REUSE = flag('--osm-reuse');
 // Overall time for all Overpass queries, so a hanging server cannot hit the workflow timeout.
 const BUDGET_MS = Number(opt('--budget-min', 45)) * 60 * 1000;
 const UA = 'MuslimfoodDataBuild/1.0 (+https://github.com/meaterick/Muslimfood)';
@@ -58,6 +62,14 @@ async function overpass(name, query, { required, timeoutMs, deadline, minElement
   const cacheFile = OSM_CACHE ? path.join(OSM_CACHE, `${name}.json`) : null;
   const t0 = Date.now();
   const accept = (json) => (json.elements.length < minElements ? `only ${json.elements.length} elements (expected at least ${minElements})` : null);
+  // Code deploys rebuild from the last download; the daily run refreshes it.
+  if (OSM_REUSE && cacheFile && existsSync(cacheFile)) {
+    const json = JSON.parse(await readFile(cacheFile, 'utf8'));
+    if (!accept(json)) {
+      log(`${name}: reusing the download from ${json.osm3s?.timestamp_osm_base || 'an earlier run'} (${json.elements.length} elements)`);
+      return { ok: true, reused: true, elements: json.elements, osmBase: json.osm3s?.timestamp_osm_base };
+    }
+  }
   try {
     const json = await runOverpass(query, {
       timeoutMs,
@@ -194,7 +206,7 @@ async function main() {
   }
 
   const partInfo = Object.fromEntries(
-    Object.entries(parts).map(([k, v]) => [k, { ok: v.ok, stale: !!v.stale, elements: v.elements.length }]),
+    Object.entries(parts).map(([k, v]) => [k, { ok: v.ok, stale: !!v.stale, reused: !!v.reused, elements: v.elements.length }]),
   );
   const out = {
     v: 1,

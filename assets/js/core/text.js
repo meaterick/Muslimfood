@@ -1,5 +1,7 @@
 // Text helpers for search and de-duplication (Hangul / Latin / Arabic aware).
 
+import { BRAND_BY_ID } from './brands.js';
+
 const PUNCT_RE = /[\s\-_.,'"`’‘“”·•・()（）[\]{}<>&!?/\\|:;@#*+~^=]+/g;
 const GENERIC_RE =
   /(restaurant|restoran|restaurante|resto|kitchen|cafe|café|coffee|halal|food|foods|house|grill|the|레스토랑|식당|음식점|카페|할랄|푸드|본점|점$|مطعم|حلال|lokantası|lokanta|kafe)/g;
@@ -48,7 +50,9 @@ const VEG_WORDS = ['vegetarian', 'vegan', 'veggie', 'plant based', '채식', '�
 export function matchesQuery(p, query) {
   const tokens = String(query || '').normalize('NFKC').split(/\s+/).map(searchText).filter(Boolean);
   if (!tokens.length) return true;
-  const fields = [...allNames(p), p.a, ...(p.cu || []), ...(p.mn || []), ...Object.values(p.ml || {}).flat()].map(searchText);
+  const brand = !p.mn?.length && BRAND_BY_ID.get(p.b);
+  const dishes = brand ? brand.items.flatMap((i) => [i.n, i.en]) : [...(p.mn || []), ...Object.values(p.ml || {}).flat()];
+  const fields = [...allNames(p), p.a, ...(p.cu || []), ...dishes].map(searchText);
   if (HALAL.has(p.s)) fields.push('halal');
   if (p.s === 'V' || p.s === 'M') fields.push(...VEG_WORDS.map(searchText));
   return tokens.every((t) => fields.some((value) => value.includes(t)));

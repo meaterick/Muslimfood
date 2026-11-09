@@ -81,6 +81,11 @@ test('search query matching', () => {
   assert.ok(matchesQuery(branch, 'vegan burger'));
   assert.ok(matchesQuery(branch, 'Végétarien'));
   assert.ok(matchesQuery(branch, 'plant-based lotteria'));
+  // chain branches without their own dish list match the chain's dishes
+  const chainRow = { n: '본죽 역삼점', nl: { en: 'Bonjuk' }, s: 'M', b: 'bonjuk' };
+  assert.ok(matchesQuery(chainRow, '단호박죽'));
+  assert.ok(matchesQuery(chainRow, 'pumpkin porridge'));
+  assert.ok(!matchesQuery(chainRow, '쇠고기'));
 });
 
 test('html escaping', () => {

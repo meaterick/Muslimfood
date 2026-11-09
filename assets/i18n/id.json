@@ -132,8 +132,11 @@
   },
   "brandNote": {
     "lotteria": "Patty-nya 100% nabati. Alergen yang tercantum adalah gandum, kedelai, dan tomat, tanpa telur atau susu.",
-    "papajohns": "Dibuat dengan keju vegan. Hanya ukuran besar dengan kulit original.",
-    "subway": "Roti dengan tujuh jenis sayuran, tanpa daging. Minta tanpa keju dan saus krim jika Anda menghindari susu dan telur."
+    "papajohns": "Pizza Green Eat memakai keju vegan (ukuran besar, kulit original). Margherita dan Garden Special berisi keju dan sayuran, tanpa topping daging.",
+    "subway": "Veggie berisi roti dan tujuh jenis sayuran; Egg Mayo berisi telur dan mayones. Keduanya tanpa daging. Minta tanpa keju dan saus krim jika Anda menghindari susu.",
+    "dominos": "Saus tomat dan mozzarella, tanpa topping daging.",
+    "salady": "Ditandai vegan di menu resmi.",
+    "bonjuk": "Daftar alergen resmi (Oktober 2026) menunjukkan bubur ini tanpa daging, susu, atau telur, bahkan dari kontaminasi silang. Bubur lain seperti bubur sayur berisi daging sapi."
   },
   "cat": {
     "r": "Restoran",

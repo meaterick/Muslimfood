@@ -3,9 +3,11 @@
 import { fromOsmElement, betterStatus, MEAT_FREE } from '../../assets/js/core/normalize.js';
 import { cellKey, distance, isInKorea, CELL_SIZE } from '../../assets/js/core/geo.js';
 import { namesMatch } from '../../assets/js/core/text.js';
-import { BRAND_BY_ID, brandDiet } from '../../assets/js/core/brands.js';
+import { BRAND_BY_ID, brandDiet, matchBrand } from '../../assets/js/core/brands.js';
 
 export const MERGE_RADIUS_M = 120;
+// The same chain shop from two sources (OpenStreetMap and the store registry).
+export const CHAIN_MERGE_M = 80;
 
 /**
  * Normalise Overpass results. parts = { tagged, korea, names } each with
@@ -27,8 +29,14 @@ export function normalizeParts(parts) {
       const inKorea = isInKorea(lat, lon);
       const infer = name === 'korea' ? inKorea : name === 'veg' ? false : 'name';
       const veg = name === 'korea' ? inKorea : name === 'veg' ? 'only' : false;
-      const place = fromOsmElement(el, { infer, veg });
+      let place = fromOsmElement(el, { infer, veg });
       if (!place) continue;
+      // A chain shop in Korea also gets the chain's meat-free dishes.
+      if (inKorea && place.k !== 'p') {
+        const t = el.tags || {};
+        const brand = matchBrand(t.brand) || matchBrand(t['brand:ko']) || matchBrand(t.name) || matchBrand(t['name:ko']) || matchBrand(t['name:en']);
+        if (brand) place = withBrand(place, brand);
+      }
       // Prayer places are prebuilt for Korea only (elsewhere the app queries live).
       if (place.k === 'p' && !(name === 'korea' && isInKorea(place.y, place.x))) continue;
       byId.set(id, place);
@@ -58,20 +66,25 @@ export function mergeInto(byCell, place, sourceKey) {
       if (list) candidates.push(...list);
     }
   }
+  const sameChain = (o) => o.b === place.b && o.src !== sourceKey && distance(o.y, o.x, place.y, place.x) < CHAIN_MERGE_M;
   const same = candidates.find(
     (o) =>
+      // Branches of a chain from one source are separate shops even when they
+      // are next to each other; from two sources they are the same shop,
+      // whatever each source calls it ("Lotteria" / "롯데리아 강남역점").
+      (o.b && place.b ? sameChain(o) : true) &&
+      (o.b && place.b ? true :
       (o.k === 'p') === (place.k === 'p') &&
-      // Branches of chains are separate shops even when they are next to each other.
-      !(o.b && place.b) &&
       distance(o.y, o.x, place.y, place.x) < MERGE_RADIUS_M &&
       // Nearby branches can share a brand while serving different menus.
       ((sourceKey !== 'kto' && o.src !== 'kto') || o.k === place.k ||
         (['r', 'f'].includes(o.k) && ['r', 'f'].includes(place.k))) &&
       (place.k === 'p' || [o.n, ...Object.values(o.nl || {})].some((n) =>
-        [place.n, ...Object.values(place.nl || {})].some((alt) => namesMatch(n, alt)))),
+        [place.n, ...Object.values(place.nl || {})].some((alt) => namesMatch(n, alt))))),
   );
   if (same) {
     same.srcs = [...new Set([...(same.srcs || [same.src]), sourceKey])];
+    if (place.b && !same.b) Object.assign(same, withBrand(same, BRAND_BY_ID.get(place.b)));
     if (place.id !== same.id) same.ids = [...new Set([...(same.ids || []), place.id])];
     const s = betterStatus(same.s, place.s);
     if (s !== same.s) {
@@ -100,6 +113,23 @@ export function mergeInto(byCell, place, sourceKey) {
 }
 
 /**
+ * Mark a place as a branch of a chain: keep what the place already says
+ * (a halal status, its own dishes) and fill in the chain's dishes otherwise.
+ */
+export function withBrand(place, brand) {
+  if (!brand) return place;
+  const chain = applyBrand({ ...place, b: brand.id });
+  return {
+    ...place,
+    b: brand.id,
+    s: betterStatus(place.s, chain.s),
+    dv: place.dv || chain.dv,
+    nl: chain.nl,
+    cu: place.cu?.length ? place.cu : chain.cu,
+  };
+}
+
+/**
  * A chain branch (place.b) gets the chain's meat-free dishes from
  * assets/js/core/brands.js; branches of chains no longer listed are dropped.
  */
@@ -113,9 +143,6 @@ export function applyBrand(place) {
     dv: brandDiet(brand),
     nl: { en: brand.name.en, ...place.nl },
     cu: place.cu || brand.cu,
-    mn: brand.items.map((i) => i.n),
-    ml: { en: brand.items.map((i) => i.en) },
-    mv: brand.items.map((i) => i.d),
   };
 }
 

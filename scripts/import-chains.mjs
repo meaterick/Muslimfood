@@ -8,6 +8,7 @@
 //   node scripts/import-chains.mjs --zip FILE   # use an archive that is already downloaded
 //   node scripts/import-chains.mjs --out FILE   # write somewhere else
 //   node scripts/import-chains.mjs --modified   # print the dataset's last update date and exit
+//   node scripts/import-chains.mjs --download-only FILE  # only download the archive (for caching)
 
 import { createWriteStream } from 'node:fs';
 import { mkdir, rename, rm, writeFile } from 'node:fs/promises';
@@ -16,7 +17,7 @@ import { pipeline } from 'node:stream/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { listZip, openEntry } from './lib/unzip.mjs';
-import { BRANDS, matchBrand, branchName } from '../assets/js/core/brands.js';
+import { BRANDS, matchBrand, branchName, startsWithBrand } from '../assets/js/core/brands.js';
 import { isInKorea, roundCoord, distance } from '../assets/js/core/geo.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -147,15 +148,20 @@ export async function* chainRows(stream) {
 
 /** A place record for one registry row, or null when it is not a chain restaurant. */
 export function chainRecord(row) {
-  if (row['상권업종대분류코드'] !== 'I2') return null; // food businesses only
-  const brand = matchBrand(row['상호명']);
+  const name = row['상호명'];
+  const brand = matchBrand(name);
   if (!brand) return null;
+  // Food businesses only ("써브웨이헤어" is a hair salon). A few chain shops are
+  // filed under retail by mistake; trust those only for trademark names.
+  const food = row['상권업종대분류코드'] === 'I2';
+  const misfiled = row['상권업종대분류명'] === '소매' && brand.distinctive && startsWithBrand(brand, name);
+  if (!food && !misfiled) return null;
   const y = Number(row['위도']);
   const x = Number(row['경도']);
   if (!isInKorea(y, x)) return null;
   return {
     id: `sbiz-${row['상가업소번호']}`,
-    n: branchName(brand, row['상호명'], row['지점명']),
+    n: branchName(brand, name, row['지점명']),
     b: brand.id,
     y: roundCoord(y),
     x: roundCoord(x),
@@ -211,6 +217,13 @@ async function main() {
   const info = await datasetInfo();
   if (args.includes('--modified')) {
     console.log(info.modified || info.edition || 'unknown');
+    return;
+  }
+  if (args.includes('--download-only')) {
+    const file = path.resolve(ROOT, opt('--download-only'));
+    await mkdir(path.dirname(file), { recursive: true });
+    console.log(`downloading ${info.title} (${info.edition || info.modified}) to ${path.relative(ROOT, file)}…`);
+    await download(info, file);
     return;
   }
   let zip = opt('--zip', null);

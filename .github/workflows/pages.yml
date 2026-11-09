@@ -1,6 +1,8 @@
-# Builds fresh data from OpenStreetMap every day and deploys the site to
-# GitHub Pages. One-time setup: Settings → Pages → Build and deployment →
-# Source: "GitHub Actions".
+# Deploys the site to GitHub Pages. A push to main rebuilds the data from the
+# last downloads and is live in about two minutes; the daily run refreshes
+# OpenStreetMap (5-10 minutes, mostly waiting for the shared Overpass server)
+# and the quarterly Korean store registry. One-time setup: Settings → Pages →
+# Build and deployment → Source: "GitHub Actions".
 name: Deploy to GitHub Pages
 
 on:
@@ -37,36 +39,50 @@ jobs:
       - name: Unit tests
         run: npm test
 
-      # Chain branches come from Korea's national store registry, which is
-      # updated every quarter. Download it (about 350 MB) only when a new
-      # edition is out or the chain list changed; otherwise reuse the extract.
+      # A push only changes the code: rebuild the data from the last downloads
+      # and deploy within about two minutes. The daily run (and "Run workflow")
+      # refreshes OpenStreetMap and picks up a new edition of the store registry.
+      - name: Fast rebuild or full refresh
+        id: mode
+        run: echo "refresh=${{ github.event_name != 'push' }}" >> "$GITHUB_OUTPUT"
+
+      # Chain branches come from Korea's national store registry: a 350 MB
+      # archive with a new edition every quarter. The archive stays in the
+      # cache and branches are re-extracted from it in about 30 seconds, so
+      # adding a chain to brands.js does not need a new download.
       - name: Check the store registry edition
         id: stores
         run: echo "edition=$(node scripts/import-chains.mjs --modified || echo unknown)" >> "$GITHUB_OUTPUT"
 
-      - name: Restore chain branches
+      - name: Restore the store registry
         id: stores-cache
-        if: steps.stores.outputs.edition != 'unknown'
         uses: actions/cache/restore@v4
         with:
-          path: data/sources/kr-chains.json
-          key: kr-chains-${{ steps.stores.outputs.edition }}-${{ hashFiles('assets/js/core/brands.js', 'scripts/import-chains.mjs') }}
+          path: .cache/stores.zip
+          key: stores-${{ steps.stores.outputs.edition }}
+          restore-keys: stores-
 
-      - name: Import chain branches
-        id: stores-import
-        if: steps.stores.outputs.edition != 'unknown' && steps.stores-cache.outputs.cache-hit != 'true'
+      - name: Download a new store registry edition
+        id: stores-download
+        if: steps.mode.outputs.refresh == 'true' && steps.stores.outputs.edition != 'unknown' && steps.stores-cache.outputs.cache-hit != 'true'
         continue-on-error: true
-        run: node scripts/import-chains.mjs
+        timeout-minutes: 30
+        run: node scripts/import-chains.mjs --download-only .cache/stores.zip
 
-      - name: Save chain branches
-        if: steps.stores-import.outcome == 'success'
+      - name: Save the store registry
+        if: steps.stores-download.outcome == 'success'
         uses: actions/cache/save@v4
         with:
-          path: data/sources/kr-chains.json
-          key: kr-chains-${{ steps.stores.outputs.edition }}-${{ hashFiles('assets/js/core/brands.js', 'scripts/import-chains.mjs') }}
+          path: .cache/stores.zip
+          key: stores-${{ steps.stores.outputs.edition }}
 
-      # Keep the last good OpenStreetMap download so a temporary Overpass
-      # outage does not remove places from the site.
+      - name: Extract chain branches
+        if: hashFiles('.cache/stores.zip') != ''
+        continue-on-error: true
+        run: node scripts/import-chains.mjs --zip .cache/stores.zip
+
+      # Keep the last good OpenStreetMap download: pushes reuse it, and a
+      # temporary Overpass outage on the daily run does not remove places.
       - name: Restore previous OpenStreetMap download
         uses: actions/cache/restore@v4
         with:
@@ -75,10 +91,10 @@ jobs:
           restore-keys: osm-
 
       - name: Build data (OpenStreetMap + Korean public data)
-        run: node scripts/build-data.mjs --osm-cache .cache/osm
+        run: node scripts/build-data.mjs --osm-cache .cache/osm ${{ steps.mode.outputs.refresh != 'true' && '--osm-reuse' || '' }}
 
       - name: Save OpenStreetMap download
-        if: always()
+        if: always() && steps.mode.outputs.refresh == 'true'
         uses: actions/cache/save@v4
         with:
           path: .cache/osm

@@ -8,7 +8,7 @@ import { formatDistance, isInKorea } from '../core/geo.js';
 import { parseOpeningHours, openState, weekRows, localTime } from '../core/hours.js';
 import { mapApps, osmLink, osmNoteLink, osmEditLink } from '../core/links.js';
 import { cleanUrl, placeCuisineGroup, MEAT_FREE } from '../core/normalize.js';
-import { BRAND_BY_ID } from '../core/brands.js';
+import { BRAND_BY_ID, placeDishes } from '../core/brands.js';
 import { telHref } from './util.js';
 import { ISSUE_REPORT } from '../config.js';
 
@@ -155,12 +155,6 @@ export function brandName(brand) {
 
 const DIET_LABEL = { v: 'diet.v', l: 'diet.l', o: 'diet.o', lo: 'diet.lo', veg: 'diet.veg' };
 
-/** Dish names in the UI language; English beats Korean for every other language. */
-function menuNames(p) {
-  const l = lang();
-  return p.ml?.[l] || (l !== 'ko' && p.ml?.en) || p.mn || [];
-}
-
 /** A dish list with diet labels (shared by place details and the guide). */
 export function dishItemsHtml(names, diets = []) {
   return names
@@ -172,12 +166,12 @@ export function dishItemsHtml(names, diets = []) {
 }
 
 function menuHtml(p) {
-  const menu = menuNames(p);
+  const { names: menu, diets } = placeDishes(p, lang());
   const url = cleanUrl(p.mu);
   if (!menu.length && !url) return '';
   // Per-dish diet labels (vegan, lacto, ovo, lacto-ovo) line up with the dishes.
   // Skip them when every dish is vegan and the status already says so.
-  let diet = Array.isArray(p.mv) && p.mv.length === menu.length ? p.mv : [];
+  let diet = diets;
   if (p.dv === 'vegan' && diet.every((d) => d === 'v')) diet = [];
   // A chain branch: the chain's standard dishes, with where and when they were checked.
   const brand = BRAND_BY_ID.get(p.b);
