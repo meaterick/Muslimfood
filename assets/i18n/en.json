@@ -9,7 +9,7 @@
     "tagline": "Halal food near you"
   },
   "search": {
-    "placeholder": "Area, restaurant or dish",
+    "placeholder": "Area, station, restaurant or dish",
     "label": "Search",
     "clear": "Clear search",
     "areas": "Areas",
@@ -17,7 +17,8 @@
     "searching": "Searching…",
     "noResults": "No matches. Try a city or neighbourhood name.",
     "error": "Area search is unavailable right now. Try again in a moment.",
-    "go": "Search the map for “{q}”"
+    "go": "Show “{q}” on the map",
+    "stationName": "{station} Station"
   },
   "locate": {
     "button": "Near me",
@@ -80,7 +81,14 @@
     "koreaPromoButton": "Open the guide",
     "discover": "Find more nearby",
     "discoverHint": "Look for additional places in OpenStreetMap around the map centre.",
-    "titleAround": "Around “{name}”"
+    "titleAround": "Around “{name}”",
+    "titleQuery": "Results for “{q}”",
+    "queryNotice": "Matching places only, nearest first.",
+    "queryClear": "Clear",
+    "queryGeocode": "Search as address",
+    "queryEmpty": "No results for “{q}” in this part of the map.",
+    "queryNearest": "Show the nearest results",
+    "showNearest": "Show the nearest places"
   },
   "filter": {
     "label": "Filters",

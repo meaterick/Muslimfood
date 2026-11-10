@@ -12,6 +12,7 @@ import {
   placesIn,
   getPlace,
   findPlace,
+  loadSearchCatalog,
   tzFor,
   summaryGeoJSON,
   countInView,
@@ -28,7 +29,7 @@ import { AREAS, areaName, SEOUL_DEFAULT, TZ_START } from './ui/content.js';
 import { distance, padBbox, isInKorea, inBbox } from './core/geo.js';
 import { isOpenNow } from './core/hours.js';
 import { cuisineGroupOf, CUISINE_GROUP_KEYS, MEAT_FREE } from './core/normalize.js';
-import { esc } from './core/text.js';
+import { esc, matchesQuery } from './core/text.js';
 import { icon } from './ui/icons.js';
 import { track, trackPageview, initTracking } from './ui/analytics.js';
 import { renderOwnerForm, voteHtml, handleVoteAction, refreshVoteCounts } from './ui/feedback.js';
@@ -61,12 +62,14 @@ const state = {
   pushedDetail: false,
   discovering: false,
   searchPin: null,
+  query: null, // keyword search: { text, typed, rows, ids } — only matching places are shown
 };
 
 let map = null;
 let sheet = null;
 let deferredInstall = null;
 let swReg = null;
+let search = null;
 
 // ------------------------------------------------------------------ URL state
 
@@ -154,8 +157,15 @@ function inCuisine(p, g) {
   return (p.cu || []).some((tok) => cuisineGroupOf(tok) === g);
 }
 
+/** During a keyword search, is this one of the matches? */
+function inQuery(p) {
+  const q = state.query;
+  return !q || q.ids.has(p.id) || (p.src === 'live' && matchesQuery(p, q.text));
+}
+
 function passes(p, now, { ignoreConfirmed = false } = {}) {
   const f = state.filters;
+  if (!inQuery(p)) return false;
   if (f.show === 'halal' && MEAT_FREE.has(p.s)) return false;
   // vegetarian: meat-free kitchens, places with vegetarian dishes, and halal places that have some
   if (f.show === 'veg' && !MEAT_FREE.has(p.s) && !p.v) return false;
@@ -163,6 +173,18 @@ function passes(p, now, { ignoreConfirmed = false } = {}) {
   if (f.cats.size && !f.cats.has(p.k)) return false;
   if (f.cuisine && !inCuisine(p, f.cuisine)) return false;
   if (f.open && isOpenNow(p.oh, now, tzFor(p)) !== true) return false;
+  return true;
+}
+
+/** The same filters for rows of the search catalog (no opening hours there). */
+function rowPasses(r) {
+  const f = state.filters;
+  if (r.k === 'p') return f.prayer;
+  if (f.show === 'halal' && MEAT_FREE.has(r.s)) return false;
+  if (f.show === 'veg' && !MEAT_FREE.has(r.s)) return false;
+  if (f.confirmed && r.s === 'U') return false;
+  if (f.cats.size && !f.cats.has(r.k)) return false;
+  if (f.cuisine && !inCuisine(r, f.cuisine)) return false;
   return true;
 }
 
@@ -290,7 +312,7 @@ function render(v) {
   const food = inView.filter((p) => p.k !== 'p');
   updateCuisineOptions(food);
   let list = food.filter((p) => passes(p, now));
-  if (state.filters.prayer) list = list.concat(inView.filter((p) => p.k === 'p'));
+  if (state.filters.prayer) list = list.concat(inView.filter((p) => p.k === 'p' && inQuery(p)));
   for (const p of list) p._d = distance(ref.lat, ref.lon, p.y, p.x);
   // Halal places first, then vegetarian ones (the fallback), each by distance,
   // so chain branches nearby never push a halal restaurant out of view.
@@ -298,14 +320,24 @@ function render(v) {
   list.sort((a, b) => group(a) - group(b) || a._d - b._d);
   const hiddenU = state.filters.confirmed ? food.filter((p) => p.s === 'U' && passes(p, now, { ignoreConfirmed: true })).length : 0;
 
-  setHeader(ref.pin ? t('list.titleAround', { name: ref.pin.name }) : t(ref.isUser ? 'list.titleNear' : 'list.titleArea'), list.length || !state.loading ? t('list.count', { n: list.length }) : '');
+  const title = state.query
+    ? t('list.titleQuery', { q: state.query.typed })
+    : ref.pin
+      ? t('list.titleAround', { name: ref.pin.name })
+      : t(ref.isUser ? 'list.titleNear' : 'list.titleArea');
+  setHeader(title, list.length || !state.loading ? t('list.count', { n: list.length }) : '');
 
+  if (state.query) {
+    notices.push(`<div class="notice query">${icon('search')}<div class="notice-body"><p>${esc(t('list.queryNotice'))}</p>
+      <button type="button" class="text-btn" data-action="query-clear">${icon('close')}${esc(t('list.queryClear'))}</button>
+      <button type="button" class="text-btn" data-action="query-geocode">${icon('pin')}${esc(t('list.queryGeocode'))}</button></div></div>`);
+  }
   if (store.mode === 'live' || (store.hybrid && !isInKorea(v.lat, v.lon))) notices.push(noticeHtml({ iconName: 'globe', text: t('list.live') }));
-  if (isInKorea(v.lat, v.lon) && !storage.get('guideSeen')) {
+  if (!state.query && isInKorea(v.lat, v.lon) && !storage.get('guideSeen')) {
     notices.push(noticeHtml({ kind: 'korea', iconName: 'book', text: t('list.koreaPromo'), button: t('list.koreaPromoButton'), buttonAction: 'open-guide' }));
   }
   if (hiddenU) notices.push(noticeHtml({ iconName: 'info', text: t('list.hiddenUnconfirmed', { n: hiddenU }), button: t('list.showUnconfirmed'), buttonAction: 'show-unconfirmed' }));
-  if (navigator.onLine && v.zoom >= 12) {
+  if (!state.query && navigator.onLine && v.zoom >= 12) {
     const box = discoveryBox(v);
     if (state.discovering) notices.push(noticeHtml({ iconName: 'search', text: t('search.searching') }));
     else if (hasMoreToDiscover(box)) notices.push(noticeHtml({ iconName: 'globe', text: t('list.discoverHint'), button: t('list.discover'), buttonAction: 'discover' }));
@@ -318,13 +350,20 @@ function render(v) {
       $('#more').hidden = true;
       return;
     }
-    if (state.loadError) {
+    const nearestBtn = `<button type="button" class="text-btn primary" data-action="nearest">${icon('locate')}${esc(t(state.query ? 'list.queryNearest' : 'list.showNearest'))}</button>`;
+    if (state.query && !state.loadError) {
+      notices.push(
+        `<div class="empty"><strong>${esc(t('list.queryEmpty', { q: state.query.typed }))}</strong>${nearestBtn}${
+          filtersActive() ? `<button type="button" class="text-btn" data-action="reset-filters">${esc(t('filter.reset'))}</button>` : ''
+        }</div>`,
+      );
+    } else if (state.loadError) {
       notices.push(`<div class="empty"><strong>${esc(t('list.loadError'))}</strong><button type="button" class="text-btn primary" data-action="retry">${esc(t('list.retry'))}</button></div>`);
     } else if (filtersActive()) {
       notices.push(`<div class="empty"><strong>${esc(t('list.empty'))}</strong><button type="button" class="text-btn primary" data-action="reset-filters">${esc(t('filter.reset'))}</button></div>`);
     } else {
       notices.push(
-        `<div class="empty"><strong>${esc(t('list.empty'))}</strong><p>${esc(t('list.emptyHint'))}</p><p>${esc(t('list.emptyMuslimCountries'))}</p><button type="button" class="text-btn" data-action="add-place">${icon(
+        `<div class="empty"><strong>${esc(t('list.empty'))}</strong><p>${esc(t('list.emptyHint'))}</p><p>${esc(t('list.emptyMuslimCountries'))}</p>${store.mode === 'static' ? nearestBtn : ''}<button type="button" class="text-btn" data-action="add-place">${icon(
           'plus',
         )}${esc(t('menu.add'))}</button></div>`,
       );
@@ -355,7 +394,7 @@ function updateMapPlaces() {
   const prayer = [];
   for (const p of store.places.values()) {
     if (p.k === 'p') {
-      if (state.filters.prayer) prayer.push(p);
+      if (state.filters.prayer && inQuery(p)) prayer.push(p);
     } else if (passes(p, now)) food.push(p);
   }
   map.setPlaces(food, displayName);
@@ -431,6 +470,70 @@ function fitNearest() {
     ],
     { padding: 60, maxZoom: 16, duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 900 },
   );
+}
+
+// ------------------------------------------------------------------ keyword search
+
+/**
+ * Show the rows nearest to `ref` on the map: the closest one and whatever lies
+ * within 2.5 times its distance (at least 1.2 km), six at most.
+ */
+function fitRows(rows, ref, { includeRef = false } = {}) {
+  const near = rows.map((r) => ({ r, d: distance(ref.lat, ref.lon, r.y, r.x) })).sort((a, b) => a.d - b.d);
+  if (!near.length) return false;
+  const limit = Math.max(near[0].d * 2.5, 1200);
+  const pick = near.filter((x) => x.d <= limit).slice(0, 6);
+  const pts = pick.map((x) => [x.r.x, x.r.y]);
+  if (includeRef || near[0].d < 3000) pts.push([ref.lon, ref.lat]);
+  if (!map) {
+    state.view = { lat: pick[0].r.y, lon: pick[0].r.x, zoom: 15 };
+    refresh();
+  } else if (pts.length === 1) {
+    map.flyTo({ lat: pts[0][1], lon: pts[0][0], zoom: 16 });
+  } else {
+    const lons = pts.map((c) => c[0]);
+    const lats = pts.map((c) => c[1]);
+    map.map.fitBounds(
+      [
+        [Math.min(...lons), Math.min(...lats)],
+        [Math.max(...lons), Math.max(...lats)],
+      ],
+      { padding: 70, maxZoom: 16, duration: matchMedia('(prefers-reduced-motion: reduce)').matches || near[0].d > 80000 ? 0 : 900 },
+    );
+  }
+  return true;
+}
+
+/** Move the map to the nearest matches of the keyword search (or, without one, the nearest places). */
+async function showNearest() {
+  const v = getView();
+  const ref = state.searchPin || refPoint(v);
+  const all = state.query ? state.query.rows : (await loadSearchCatalog()).filter((r) => r.k !== 'p');
+  const rows = all.filter(rowPasses);
+  if (!fitRows(rows.length ? rows : all, ref, { includeRef: Boolean(state.searchPin) })) toast(t('search.noResults'));
+}
+
+/** Enter on a keyword ("케밥", "starbucks", "halal" near a station): only the matches stay on the map and in the list. */
+function applyQuery({ text, query, matches, loc }) {
+  if (!$('#view-detail').hidden) closeDetail();
+  state.query = { text, typed: query, rows: matches, ids: new Set(matches.map((m) => m.id)) };
+  // Mosques and prayer rooms only show with their own filter.
+  if (matches.every((m) => m.k === 'p') && !state.filters.prayer) {
+    state.filters.prayer = true;
+    renderChips();
+  }
+  setSearchPin(loc);
+  track('search/keyword', { title: text });
+  sheet.ensure('half');
+  $('#list-scroll').scrollTop = 0;
+  showNearest();
+  refresh();
+}
+
+function clearQuery() {
+  if (!state.query) return false;
+  state.query = null;
+  return true;
 }
 
 // ------------------------------------------------------------------ detail
@@ -522,6 +625,7 @@ function locate({ auto = false } = {}) {
       $('#toast').hidden = true;
       state.user = { lat: pos.coords.latitude, lon: pos.coords.longitude, acc: pos.coords.accuracy };
       map?.setUser(state.user);
+      watchUser();
       state.fitNearest = true;
       if ($('#view-detail').hidden === false) closeDetail();
       moveTo({ lat: state.user.lat, lon: state.user.lon, zoom: 15, marker: null });
@@ -534,6 +638,30 @@ function locate({ auto = false } = {}) {
     },
     { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 },
   );
+}
+
+// After the first fix the blue dot follows the visitor (while the page is
+// visible); the map itself only moves when "Near me" is pressed.
+let watchId = null;
+function watchUser() {
+  if (watchId !== null || !navigator.geolocation?.watchPosition || document.visibilityState !== 'visible') return;
+  watchId = navigator.geolocation.watchPosition(
+    (pos) => {
+      const prev = state.user;
+      state.user = { lat: pos.coords.latitude, lon: pos.coords.longitude, acc: pos.coords.accuracy };
+      map?.setUser(state.user);
+      // Re-sort the list once the visitor has walked a little.
+      if (prev && distance(prev.lat, prev.lon, state.user.lat, state.user.lon) > 25 && $('#view-detail').hidden) render(getView());
+    },
+    () => {},
+    { enableHighAccuracy: true, maximumAge: 10000, timeout: 30000 },
+  );
+}
+
+function pauseWatch() {
+  if (watchId === null) return;
+  navigator.geolocation.clearWatch(watchId);
+  watchId = null;
 }
 
 async function maybeAutoLocate() {
@@ -631,6 +759,10 @@ async function initMap(start) {
     refresh();
   });
   mv.on('select', (id) => openPlaceById(id));
+  mv.on('hover', (id) => {
+    for (const el of document.querySelectorAll('#results .place.is-hover')) el.classList.remove('is-hover');
+    if (id) $(`#results .place[data-id="${CSS.escape(id)}"]`)?.classList.add('is-hover');
+  });
   try {
     await mv.init();
     map = mv;
@@ -718,6 +850,22 @@ function bindEvents() {
     }
     const v = getView();
     switch (b.dataset.action) {
+      case 'nearest':
+        showNearest();
+        break;
+      case 'query-clear':
+        clearQuery();
+        setSearchPin(null);
+        search.setText('');
+        refresh();
+        break;
+      case 'query-geocode': {
+        const typed = state.query.typed;
+        clearQuery();
+        refresh();
+        search.geocode(typed);
+        break;
+      }
       case 'legend-ok':
         dismissLegend();
         break;
@@ -784,6 +932,24 @@ function bindEvents() {
     } else if (b.dataset.action === 'staff-card') openGuide('card', { lat: p.y, lon: p.x });
   });
 
+  // Desktop: pointing at a row shows where it is on the map, and the other way round.
+  if (matchMedia('(hover: hover)').matches) {
+    const hoverRow = (e) => {
+      const row = e.target.closest?.('.place');
+      const p = row && getPlace(row.dataset.id);
+      map?.setHover(p && p.id !== state.selected ? p : null, p ? displayName(p) : '');
+    };
+    $('#results').addEventListener('mouseover', hoverRow);
+    $('#results').addEventListener('focusin', hoverRow);
+    $('#results').addEventListener('mouseleave', () => map?.setHover(null));
+    $('#results').addEventListener('focusout', () => map?.setHover(null));
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible') pauseWatch();
+    else if (state.user) watchUser();
+  });
+
   $('#locate').addEventListener('click', () => locate());
   $('#menu-btn').addEventListener('click', openMenu);
   $('#legend-btn').addEventListener('click', () => {
@@ -792,6 +958,13 @@ function bindEvents() {
   });
 
   addEventListener('keydown', (e) => {
+    // "/" jumps to the search box, as on most map sites.
+    if (e.key === '/' && !e.ctrlKey && !e.metaKey && !e.altKey && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || '') && !document.querySelector('dialog[open]')) {
+      e.preventDefault();
+      $('#q').focus();
+      $('#q').select();
+      return;
+    }
     if (e.key === 'Escape' && !$('#view-detail').hidden && !document.querySelector('dialog[open]') && $('#bigtext').hidden) closeDetail();
   });
 
@@ -877,7 +1050,7 @@ async function boot() {
   });
   sheet.snap('half', false);
 
-  initSearch({
+  search = initSearch({
     form: $('#search'),
     input: $('#q'),
     clearBtn: $('#q-clear'),
@@ -885,12 +1058,17 @@ async function boot() {
     getCenter: () => getView(),
     onArea: (a) => {
       track('search/area');
+      clearQuery();
       if (!$('#view-detail').hidden) closeDetail();
+      $('#list-scroll').scrollTop = 0;
       moveTo(a);
       sheet.ensure('half');
+      if (!map) return;
+      refresh(); // the view may not change (already there), but the pin and title do
     },
     onPlace: async (p, signal) => {
       setSearchPin(null); // the place itself is highlighted
+      clearQuery();
       track('search/place');
       await indexReady;
       const place = await findPlace(p.id, { lat: p.y, lon: p.x });
@@ -899,10 +1077,12 @@ async function boot() {
       else toast(t('detail.notFound'));
     },
     onNoResults: (q) => track('search/none', { title: q }),
+    onKeyword: applyQuery,
     onClear: () => {
-      if (!state.searchPin) return;
+      const had = clearQuery();
+      if (!had && !state.searchPin) return;
       setSearchPin(null);
-      render(getView());
+      refresh();
     },
   });
   initDialogs();

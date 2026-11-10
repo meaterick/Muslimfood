@@ -46,15 +46,29 @@ const HALAL = new Set(['C', 'O', 'Y', 'F', 'L']);
 // Words people type when they look for meat-free food, in the UI languages.
 const VEG_WORDS = ['vegetarian', 'vegan', 'veggie', 'plant based', '채식', '비건', '식물성', 'végétarien', 'végane', 'vejetaryen', 'نباتي'];
 
+// "halal" in the UI languages, so "할랄" or "حلال" finds every halal place.
+const HALAL_WORDS = ['halal', '할랄', 'حلال', 'helal'];
+
+// Searchable text per place, built once: typing checks thousands of places per keystroke.
+const FIELDS = new WeakMap();
+
+function searchFields(p) {
+  let fields = FIELDS.get(p);
+  if (fields) return fields;
+  const brand = !p.mn?.length && BRAND_BY_ID.get(p.b);
+  const dishes = brand ? brand.items.flatMap((i) => [i.n, i.en]) : [...(p.mn || []), ...Object.values(p.ml || {}).flat()];
+  fields = [...allNames(p), p.a, ...(p.cu || []), ...dishes].map(searchText).filter(Boolean);
+  if (HALAL.has(p.s)) fields.push(...HALAL_WORDS.map(searchText));
+  if (p.s === 'V' || p.s === 'M') fields.push(...VEG_WORDS.map(searchText));
+  FIELDS.set(p, fields);
+  return fields;
+}
+
 /** Every query token appears in a name, address, cuisine or listed dish. */
 export function matchesQuery(p, query) {
   const tokens = String(query || '').normalize('NFKC').split(/\s+/).map(searchText).filter(Boolean);
   if (!tokens.length) return true;
-  const brand = !p.mn?.length && BRAND_BY_ID.get(p.b);
-  const dishes = brand ? brand.items.flatMap((i) => [i.n, i.en]) : [...(p.mn || []), ...Object.values(p.ml || {}).flat()];
-  const fields = [...allNames(p), p.a, ...(p.cu || []), ...dishes].map(searchText);
-  if (HALAL.has(p.s)) fields.push('halal');
-  if (p.s === 'V' || p.s === 'M') fields.push(...VEG_WORDS.map(searchText));
+  const fields = searchFields(p);
   return tokens.every((t) => fields.some((value) => value.includes(t)));
 }
 

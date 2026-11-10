@@ -707,6 +707,11 @@ a {
   background: var(--paper-2);
 }
 
+.place.is-hover {
+  background: var(--paper-2);
+  box-shadow: inset 3px 0 0 var(--lapis);
+}
+
 .place[aria-current='true'] {
   background: var(--lapis-soft);
 }
@@ -902,6 +907,38 @@ a {
 
 .notice button {
   margin-top: 8px;
+}
+
+.notice.query {
+  background: var(--lapis-soft);
+  border-color: transparent;
+  color: var(--ink);
+}
+
+.notice.query > .ic {
+  color: var(--lapis);
+}
+
+.notice.query {
+  align-items: center;
+  padding-block: 8px;
+}
+
+.notice.query .notice-body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+}
+
+.notice.query .text-btn {
+  margin: 0;
+  min-height: 32px;
+  font-size: 13px;
+}
+
+.empty .text-btn + .text-btn {
+  margin-inline-start: 8px;
 }
 
 .notice.korea {
@@ -2087,7 +2124,9 @@ a {
 }
 
 /* MapLibre adjustments */
-.maplibregl-ctrl-bottom-left {
+/* #map: the vendored stylesheet loads later and would win with bottom: 0,
+   leaving the attribution and the scale bar under the list sheet. */
+#map .maplibregl-ctrl-bottom-left {
   bottom: var(--sheet-visible, 46vh);
   transition: bottom 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
@@ -2124,6 +2163,13 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   box-shadow: var(--shadow-1);
+}
+
+.maplibregl-ctrl-scale {
+  border-color: var(--ink-3);
+  background: color-mix(in srgb, var(--paper) 75%, transparent);
+  color: var(--ink-2);
+  font-size: 10.5px;
 }
 
 .maplibregl-ctrl-attrib {
@@ -2208,7 +2254,7 @@ a {
     inset-inline-end: 24px;
   }
 
-  .maplibregl-ctrl-bottom-left {
+  #map .maplibregl-ctrl-bottom-left {
     bottom: 0;
   }
 

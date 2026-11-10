@@ -9,7 +9,7 @@
     "tagline": "내 주변 할랄 음식"
   },
   "search": {
-    "placeholder": "지역, 식당 또는 메뉴",
+    "placeholder": "지역, 역, 식당 또는 메뉴",
     "label": "검색",
     "clear": "검색어 지우기",
     "areas": "지역",
@@ -17,7 +17,8 @@
     "searching": "검색 중…",
     "noResults": "결과가 없습니다. 도시나 동네 이름으로 검색해 보세요.",
     "error": "지금은 지역 검색을 쓸 수 없습니다. 잠시 후 다시 시도해 주세요.",
-    "go": "지도에서 “{q}” 검색"
+    "go": "지도에서 “{q}” 보기",
+    "stationName": "{station}역"
   },
   "locate": {
     "button": "내 주변",
@@ -77,7 +78,14 @@
     "koreaPromoButton": "가이드 열기",
     "discover": "주변 식당 더 찾기",
     "discoverHint": "지도 중심 주변의 식당을 OpenStreetMap에서 추가로 찾아보세요.",
-    "titleAround": "‘{name}’ 주변"
+    "titleAround": "‘{name}’ 주변",
+    "titleQuery": "‘{q}’ 검색 결과",
+    "queryNotice": "검색 결과만 가까운 순으로 표시합니다.",
+    "queryClear": "지우기",
+    "queryGeocode": "주소로 찾기",
+    "queryEmpty": "지금 보이는 지도에는 ‘{q}’ 결과가 없습니다.",
+    "queryNearest": "가장 가까운 결과 보기",
+    "showNearest": "가장 가까운 곳 보기"
   },
   "filter": {
     "label": "필터",

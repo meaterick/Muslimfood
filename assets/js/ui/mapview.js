@@ -57,6 +57,18 @@ function shapePath(ctx, cx, cy, r, square) {
 
 const EMPTY = { type: 'FeatureCollection', features: [] };
 
+const IS_VEG = ['in', ['get', 's'], ['literal', ['V', 'M']]];
+// Names of halal places from zoom 13.5, every name from zoom 15.
+const LABEL_FILTER = ['all', ['!', ['has', 'point_count']], ['any', ['>=', ['zoom'], 15], ['!', IS_VEG]]];
+
+/** Radius of the accuracy circle at zoom 0, in pixels (shown when the fix is vaguer than 30 m). */
+function accuracyProps(pos) {
+  const acc = Number(pos.acc);
+  if (!(acc > 30)) return {};
+  const metresPerPixel = 78271.517 * Math.cos((pos.lat * Math.PI) / 180);
+  return { r0: Math.min(acc, 3000) / metresPerPixel };
+}
+
 const LIB_JS = 'assets/vendor/maplibre-gl/maplibre-gl.js';
 const LIB_CSS = 'assets/vendor/maplibre-gl/maplibre-gl.css';
 
@@ -192,8 +204,8 @@ export class MapView {
     this.theme = theme;
     this.lang = lang;
     this.labels = labels;
-    this.handlers = { move: [], select: [], ready: [] };
-    this.data = { places: EMPTY, prayer: EMPTY, summary: EMPTY, selected: EMPTY, user: EMPTY };
+    this.handlers = { move: [], select: [], hover: [], ready: [] };
+    this.data = { places: EMPTY, prayer: EMPTY, summary: EMPTY, selected: EMPTY, hover: EMPTY, user: EMPTY };
     this.map = null;
     this.usingFallback = false;
   }
@@ -239,6 +251,7 @@ export class MapView {
     map.keyboard.disableRotation?.();
     map.addControl(new ml.AttributionControl({ compact: true }), 'bottom-left');
     map.addControl(new ml.NavigationControl({ showCompass: false }), 'top-right');
+    map.addControl(new ml.ScaleControl({ maxWidth: 90, unit: 'metric' }), 'bottom-left');
 
     map.on('styleimagemissing', (e) => {
       if (map.hasImage(e.id)) return;
@@ -271,6 +284,12 @@ export class MapView {
       });
       setTimeout(() => reject(new Error('map load timeout')), 20000);
     });
+    // Phones: start with the attribution folded to its "i" button, next to "Near me".
+    if (matchMedia('(max-width: 899px)').matches) {
+      const attrib = this.container.querySelector('.maplibregl-ctrl-attrib');
+      attrib?.classList.remove('maplibregl-compact-show');
+      attrib?.removeAttribute('open');
+    }
     this.bindEvents();
     this.emit('ready');
   }
@@ -328,6 +347,7 @@ export class MapView {
     });
     add('mf-prayer', { type: 'geojson', data: this.data.prayer });
     add('mf-selected', { type: 'geojson', data: this.data.selected });
+    add('mf-hover', { type: 'geojson', data: this.data.hover });
     add('mf-user', { type: 'geojson', data: this.data.user });
 
     const abbrev = (expr) => [
@@ -370,6 +390,8 @@ export class MapView {
       filter: ['!', ['has', 'point_count']],
       layout: {
         'icon-image': ['get', 'icon'],
+        // Zoomed out, meat-free alternatives are drawn smaller so halal places stand out.
+        'icon-size': ['interpolate', ['linear'], ['zoom'], 11, ['case', IS_VEG, 0.6, 0.9], 15.5, 1],
         'icon-allow-overlap': true,
         'icon-ignore-placement': true,
         'symbol-sort-key': ['get', 'sort'],
@@ -384,16 +406,18 @@ export class MapView {
     if (this.hasGlyphs()) {
       const dark = this.theme === 'dark';
       for (const [id, src, filter] of [
-        ['mf-labels', 'mf-places', ['!', ['has', 'point_count']]],
+        ['mf-labels', 'mf-places', LABEL_FILTER],
         ['mf-prayer-labels', 'mf-prayer', ['has', 'label']],
       ]) {
         map.addLayer({
           id,
           type: 'symbol',
           source: src,
-          minzoom: 15,
+          minzoom: id === 'mf-labels' ? 13.5 : 15,
           filter,
           layout: {
+            // Where names collide, the more certain halal place keeps its name.
+            'symbol-sort-key': ['-', 10, ['coalesce', ['get', 'sort'], 0]],
             'text-field': ['get', 'label'],
             'text-font': ['Noto Sans Regular'],
             'text-size': 12,
@@ -411,6 +435,47 @@ export class MapView {
       }
     }
     this.hideSelectedLabel();
+    map.addLayer({
+      id: 'mf-user-accuracy',
+      type: 'circle',
+      source: 'mf-user',
+      filter: ['has', 'r0'],
+      paint: {
+        // metres -> pixels: the radius doubles with every zoom level
+        'circle-radius': ['interpolate', ['exponential', 2], ['zoom'], 0, ['get', 'r0'], 22, ['*', ['get', 'r0'], 4194304]],
+        'circle-color': '#2346A0',
+        'circle-opacity': 0.1,
+        'circle-stroke-width': 1,
+        'circle-stroke-color': '#2346A0',
+        'circle-stroke-opacity': 0.25,
+      },
+    });
+    map.addLayer({
+      id: 'mf-hover',
+      type: 'circle',
+      source: 'mf-hover',
+      paint: { 'circle-radius': 19, 'circle-color': '#2346A0', 'circle-opacity': 0.14, 'circle-stroke-width': 2.5, 'circle-stroke-color': '#2346A0' },
+    });
+    if (this.hasGlyphs()) {
+      const dark = this.theme === 'dark';
+      map.addLayer({
+        id: 'mf-hover-label',
+        type: 'symbol',
+        source: 'mf-hover',
+        filter: ['has', 'label'],
+        layout: {
+          'text-field': ['get', 'label'],
+          'text-font': ['Noto Sans Bold'],
+          'text-size': 13,
+          'text-offset': [0, 1.7],
+          'text-anchor': 'top',
+          'text-max-width': 11,
+          'text-allow-overlap': true,
+          'text-ignore-placement': true,
+        },
+        paint: { 'text-color': dark ? '#FFFFFF' : '#14233F', 'text-halo-color': dark ? '#0E1726' : '#FFFFFF', 'text-halo-width': 2 },
+      });
+    }
     map.addLayer({
       id: 'mf-user-halo',
       type: 'circle',
@@ -477,6 +542,30 @@ export class MapView {
       const f = e.features[0];
       map.easeTo({ center: f.geometry.coordinates, zoom: Math.max(map.getZoom() + 2.5, DETAIL_ZOOM + 1) });
     });
+    // Pointing at a marker names it (below the zoom where names are drawn) and marks its row in the list.
+    const hover = (e) => {
+      const f = e.features?.[0];
+      const id = f?.properties.id || null;
+      if (id === this.hoverId) return;
+      this.hoverId = id;
+      this.emit('hover', id);
+      this.set(
+        'mf-hover',
+        'hover',
+        f && id !== this.selectedId
+          ? { type: 'FeatureCollection', features: [{ type: 'Feature', geometry: f.geometry, properties: map.getZoom() < 15 && f.properties.label ? { label: f.properties.label } : {} }] }
+          : EMPTY,
+      );
+    };
+    const unhover = () => {
+      this.hoverId = null;
+      this.emit('hover', null);
+      this.set('mf-hover', 'hover', EMPTY);
+    };
+    for (const id of ['mf-pins', 'mf-prayer']) {
+      map.on('mousemove', id, hover);
+      map.on('mouseleave', id, unhover);
+    }
     for (const id of ['mf-pins', 'mf-prayer', 'mf-clusters', 'mf-summary']) {
       map.on('mouseenter', id, () => (map.getCanvas().style.cursor = 'pointer'));
       map.on('mouseleave', id, () => (map.getCanvas().style.cursor = ''));
@@ -536,11 +625,24 @@ export class MapView {
     );
   }
 
+  /** Ring (and, zoomed out, the name) for the list row under the pointer. */
+  setHover(p, label = '') {
+    this.set(
+      'mf-hover',
+      'hover',
+      p
+        ? {
+            type: 'FeatureCollection',
+            features: [{ type: 'Feature', geometry: { type: 'Point', coordinates: [p.x, p.y] }, properties: this.map && this.map.getZoom() < 15 && label ? { label } : {} }],
+          }
+        : EMPTY,
+    );
+  }
+
   /** The selected place has its own bold label; drop its regular one. */
   hideSelectedLabel() {
     if (!this.map?.getLayer('mf-labels')) return;
-    const base = ['!', ['has', 'point_count']];
-    this.map.setFilter('mf-labels', this.selectedId ? ['all', base, ['!=', ['get', 'id'], this.selectedId]] : base);
+    this.map.setFilter('mf-labels', this.selectedId ? ['all', LABEL_FILTER, ['!=', ['get', 'id'], this.selectedId]] : LABEL_FILTER);
   }
 
   /** A labelled pin for a searched area or address (not one of our places). */
@@ -567,7 +669,12 @@ export class MapView {
     this.set(
       'mf-user',
       'user',
-      pos ? { type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'Point', coordinates: [pos.lon, pos.lat] }, properties: {} }] } : EMPTY,
+      pos
+        ? {
+            type: 'FeatureCollection',
+            features: [{ type: 'Feature', geometry: { type: 'Point', coordinates: [pos.lon, pos.lat] }, properties: accuracyProps(pos) }],
+          }
+        : EMPTY,
     );
   }
 
@@ -587,8 +694,15 @@ export class MapView {
 
   flyTo({ lat, lon, zoom }, { instant = false } = {}) {
     const opts = { center: [lon, lat], zoom: zoom ?? Math.max(this.map.getZoom(), 15), essential: true };
-    if (instant || matchMedia('(prefers-reduced-motion: reduce)').matches) this.map.jumpTo(opts);
-    else this.map.flyTo({ ...opts, speed: 1.6, curve: 1.3 });
+    // A flight across the country takes seconds and loads tiles on the way: jump instead.
+    const c = this.map.getCenter();
+    const far = Math.hypot(c.lat - lat, (c.lng - lon) * Math.cos((lat * Math.PI) / 180)) > 0.7;
+    if (instant || far || matchMedia('(prefers-reduced-motion: reduce)').matches) this.map.jumpTo(opts);
+    else {
+      // Quick for a short hop, never longer than two seconds.
+      const km = Math.hypot(c.lat - lat, (c.lng - lon) * Math.cos((lat * Math.PI) / 180)) * 111;
+      this.map.flyTo({ ...opts, curve: 1.3, duration: Math.min(2000, 700 + km * 90) });
+    }
   }
 
   /** Make sure a point is visible (not hidden under the sheet). */

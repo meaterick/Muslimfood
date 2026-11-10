@@ -9,7 +9,7 @@
     "tagline": "Makanan halal berhampiran anda"
   },
   "search": {
-    "placeholder": "Kawasan, restoran atau hidangan",
+    "placeholder": "Kawasan, stesen, restoran atau hidangan",
     "label": "Cari",
     "clear": "Kosongkan carian",
     "areas": "Kawasan",
@@ -17,7 +17,8 @@
     "searching": "Sedang mencari…",
     "noResults": "Tiada hasil. Cuba nama bandar atau kejiranan.",
     "error": "Carian kawasan tidak tersedia sekarang. Cuba lagi sebentar lagi.",
-    "go": "Cari “{q}” di peta"
+    "go": "Tunjukkan “{q}” pada peta",
+    "stationName": "Stesen {station}"
   },
   "locate": {
     "button": "Berhampiran saya",
@@ -77,7 +78,14 @@
     "koreaPromoButton": "Buka panduan",
     "discover": "Cari lebih banyak tempat berdekatan",
     "discoverHint": "Cari tempat tambahan dalam OpenStreetMap di sekitar pusat peta.",
-    "titleAround": "Sekitar “{name}”"
+    "titleAround": "Sekitar “{name}”",
+    "titleQuery": "Hasil untuk “{q}”",
+    "queryNotice": "Tempat yang sepadan sahaja, terdekat dahulu.",
+    "queryClear": "Padam",
+    "queryGeocode": "Cari sebagai alamat",
+    "queryEmpty": "Tiada hasil untuk “{q}” di bahagian peta ini.",
+    "queryNearest": "Tunjukkan hasil terdekat",
+    "showNearest": "Tunjukkan tempat terdekat"
   },
   "filter": {
     "label": "Penapis",

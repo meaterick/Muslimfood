@@ -47,9 +47,16 @@ GitHub Pages에서 동작하는 정적 사이트이며, 특히 **한국**에서 
   - **무슬림을 위한 한식 가이드**: 돼지고기가 보통 들어가는 음식, 숨어 있는 재료(맛술·주정·젤라틴·라드), 비교적 안심할 수 있는 음식
   - **필요한 한국어 문장** (발음 표기, 크게 보기, 한국어 음성 재생)
   - **식당 직원용 안내 카드** (한국어·日本語·中文·English·Français, 전체 화면)
-- **검색과 메뉴** — 지역, 식당명, 주소 또는 메뉴를 검색하고 결과를 선택하면 지도로 이동합니다. 검색한 지역·주소에는 이름이 붙은 핀이 꽂히고,
-  목록 제목이 "‘명동’ 주변"으로 바뀌며 거리도 그 핀에서 잽니다. 식당을 고르면 지도에 그 식당 이름이 함께 표시됩니다.
+- **검색하면 바로 지도가 이동** — 검색어를 입력하고 Enter만 누르면 결과를 고르지 않아도 지도가 움직입니다(`assets/js/core/searchplan.js`).
+  - 지역·역 이름("이태원", "강남역", "Seoul Station", 전국 역 1,300여 곳): 그곳으로 이동하고 이름이 붙은 핀을 꽂습니다. 목록 제목이 "‘명동’ 주변"으로 바뀌고 거리도 핀에서 잽니다.
+  - 식당 이름: 그 식당을 열고 지도에 이름과 함께 표시합니다.
+  - 메뉴·종류·체인("케밥", "할랄", "스타벅스"): 맞는 곳만 지도와 목록에 남기고 가장 가까운 결과들이 보이도록 지도를 맞춥니다.
+  - "강남역 할랄", "halal itaewon"처럼 장소와 함께 쓰면 그 장소 주변의 결과를 보여 줍니다.
+  - 그 밖의 주소·지명은 지오코더(Nominatim, 실패하면 Photon)로 찾아 첫 결과로 이동하고 나머지 후보를 목록으로 보여 줍니다.
   상세 화면에 출처가 있는 대표 메뉴나 메뉴 링크가 표시됩니다.
+- **지도 사용성** — 축소했을 때 채식 대안 마커는 작게, 할랄 식당 이름은 먼저(줌 13.5부터) 보여 줘 할랄 식당이 묻히지 않습니다.
+  "내 주변"을 누른 뒤에는 파란 점이 걸음을 따라 움직이고 위치 오차 범위를 원으로 보여 줍니다. 축척 막대, 목록에 마우스를 올리면 지도에 위치 표시(반대로도),
+  지도에 장소가 없을 때 "가장 가까운 곳 보기", 먼 거리는 애니메이션 없이 바로 이동, 키보드 `/`로 검색창 이동.
 - **역 기준 위치·지점 이름** — 한국의 장소에는 "역삼역 근처 / Near Yeoksam Stn." 처럼 600m 안의 가장 가까운 기차·지하철역을 보여 줍니다(오픈스트리트맵 역 정보, `data/stations.json`).
   한국어가 아닌 화면에서는 체인 지점 이름을 "Starbucks · 역삼역점" 처럼 영문 체인명과 간판의 지점명으로 보여 줘 지점을 구별할 수 있습니다.
 - **처음 방문 안내** — 첫 방문 때 목록 위에 마커 읽는 법(인증·할랄·미확인·채식)을 보여 주고, 닫으면 다시 나오지 않습니다.
@@ -165,7 +172,8 @@ scripts/             데이터 빌드·가져오기·배포 조립 스크립트
 **Muslimfood** is a fast, static website (GitHub Pages) for finding halal and Muslim-friendly food anywhere in the world, with extra depth for Korea.
 
 - Map + list sorted by distance, "Near me", filters (show, confirmed only, open now, cuisine, category, prayer places)
-- Search the full catalog by restaurant, address, cuisine or published dishes. A searched area or address gets a labelled pin, the list becomes "Around ‘Myeongdong’" with distances from the pin, and a chosen restaurant is shown on the map with its name. Use **Find more nearby** to look for additional OpenStreetMap listings around the map centre.
+- Search moves the map on Enter, with no second tap: an area or one of 1,300 Korean stations gets a labelled pin and the list becomes "Around ‘Myeongdong’"; a restaurant name opens that restaurant; a keyword ("kebab", "halal", "starbucks") leaves only the matches on the map and fits the nearest ones; "halal gangnam" shows matches around that place; anything else goes to the geocoder and the map jumps to the first hit.
+- Map usability: halal names and markers take priority over vegetarian alternatives when zoomed out, the blue dot follows you with an accuracy circle, a scale bar, list rows and markers highlight each other on hover, a "Show the nearest places" button where the map is empty, instant jumps for long distances and `/` to focus the search box. Use **Find more nearby** to look for additional OpenStreetMap listings around the map centre.
 - Every place shows *how we know* it is halal (certified / 100% halal / halal menu / Muslim-friendly list / some halal / not confirmed) and its source and date
 - Chains whose standard menu has a meat-free dish appear at every branch in Korea, about 8,100 places: Lotteria (plant-based Miracle Burger), Papa John's (plant-based and cheese pizzas), Subway (Veggie, Egg Mayo), Domino's (cheese pizza), Pizza School and Pizza Maru (cheese and vegetable pizzas with no meat in their allergen lists), Starbucks (a cream cheese bagel sandwich and a cheese bagel), Salady (dishes marked vegan) and Bonjuk (porridges with no meat, milk or egg in the official allergen list). Shops the store registry misses, such as the Lotteria inside Seoul Station, come from OpenStreetMap. The chains, dishes, official menu links and check dates live in `assets/js/core/brands.js`; branch locations come from the national store registry and refresh each quarter. Halal places stay first in the list
 - Vegetarian and vegan places as a fallback when there is no halal option nearby: square leaf markers (filled = whole menu meat-free, outlined = some dishes), with certified dishes and their diet labels (vegan, lacto, ovo) from Seoul City, Suwon City and OpenStreetMap. A **Show** filter switches between halal + vegetarian, halal only and vegetarian only

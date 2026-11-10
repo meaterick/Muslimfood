@@ -9,7 +9,7 @@
     "tagline": "Makanan halal di dekat Anda"
   },
   "search": {
-    "placeholder": "Wilayah, restoran, atau hidangan",
+    "placeholder": "Area, stasiun, restoran atau menu",
     "label": "Cari",
     "clear": "Hapus pencarian",
     "areas": "Daerah",
@@ -17,7 +17,8 @@
     "searching": "Mencari…",
     "noResults": "Tidak ada hasil. Coba nama kota atau lingkungan.",
     "error": "Pencarian daerah sedang tidak tersedia. Coba lagi sebentar lagi.",
-    "go": "Cari “{q}” di peta"
+    "go": "Tampilkan “{q}” di peta",
+    "stationName": "Stasiun {station}"
   },
   "locate": {
     "button": "Di dekat saya",
@@ -77,7 +78,14 @@
     "koreaPromoButton": "Buka panduan",
     "discover": "Temukan lebih banyak tempat di sekitar",
     "discoverHint": "Cari tempat tambahan di OpenStreetMap di sekitar pusat peta.",
-    "titleAround": "Sekitar “{name}”"
+    "titleAround": "Sekitar “{name}”",
+    "titleQuery": "Hasil untuk “{q}”",
+    "queryNotice": "Hanya tempat yang cocok, terdekat lebih dulu.",
+    "queryClear": "Hapus",
+    "queryGeocode": "Cari sebagai alamat",
+    "queryEmpty": "Tidak ada hasil untuk “{q}” di bagian peta ini.",
+    "queryNearest": "Tampilkan hasil terdekat",
+    "showNearest": "Tampilkan tempat terdekat"
   },
   "filter": {
     "label": "Filter",

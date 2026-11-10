@@ -9,7 +9,7 @@
     "tagline": "Manger halal près de vous"
   },
   "search": {
-    "placeholder": "Lieu, restaurant ou plat",
+    "placeholder": "Quartier, station, restaurant ou plat",
     "label": "Rechercher",
     "clear": "Effacer la recherche",
     "areas": "Lieux",
@@ -17,7 +17,8 @@
     "searching": "Recherche en cours…",
     "noResults": "Aucun résultat. Essayez le nom d’une ville ou d’un quartier.",
     "error": "La recherche de lieux est momentanément indisponible. Réessayez dans un instant.",
-    "go": "Rechercher « {q} » sur la carte"
+    "go": "Afficher « {q} » sur la carte",
+    "stationName": "Station {station}"
   },
   "locate": {
     "button": "Autour de moi",
@@ -80,7 +81,14 @@
     "koreaPromoButton": "Ouvrir le guide",
     "discover": "Trouver plus de lieux à proximité",
     "discoverHint": "Recherchez d’autres établissements dans OpenStreetMap autour du centre de la carte.",
-    "titleAround": "Autour de « {name} »"
+    "titleAround": "Autour de « {name} »",
+    "titleQuery": "Résultats pour « {q} »",
+    "queryNotice": "Lieux correspondants uniquement, les plus proches d’abord.",
+    "queryClear": "Effacer",
+    "queryGeocode": "Chercher comme adresse",
+    "queryEmpty": "Aucun résultat pour « {q} » dans cette partie de la carte.",
+    "queryNearest": "Afficher les résultats les plus proches",
+    "showNearest": "Afficher les lieux les plus proches"
   },
   "filter": {
     "label": "Filtres",

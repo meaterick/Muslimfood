@@ -23,6 +23,7 @@ export const store = {
   version: 0, // bumps whenever places change
   liveBusy: false,
   liveError: null,
+  stations: [], // [[korean, english or 0, lat, lon]], for search
   nearStation: null, // (lat, lon) -> station within walking distance, once loaded
 };
 
@@ -78,6 +79,7 @@ export function loadStations() {
       return r.json();
     })
     .then((j) => {
+      store.stations = j.s;
       store.nearStation = stationIndex(j.s);
       store.version++;
       return true;

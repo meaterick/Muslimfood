@@ -9,7 +9,7 @@
     "tagline": "Yakınınızdaki helal yemekler"
   },
   "search": {
-    "placeholder": "Bölge, restoran veya yemek",
+    "placeholder": "Bölge, istasyon, restoran veya yemek",
     "label": "Ara",
     "clear": "Aramayı temizle",
     "areas": "Bölgeler",
@@ -17,7 +17,8 @@
     "searching": "Aranıyor…",
     "noResults": "Sonuç yok. Bir şehir veya semt adı deneyin.",
     "error": "Bölge araması şu anda kullanılamıyor. Birazdan tekrar deneyin.",
-    "go": "Haritada “{q}” arayın"
+    "go": "“{q}” sonuçlarını haritada göster",
+    "stationName": "{station} İstasyonu"
   },
   "locate": {
     "button": "Yakınımda",
@@ -80,7 +81,14 @@
     "koreaPromoButton": "Rehberi aç",
     "discover": "Yakında daha fazla yer bul",
     "discoverHint": "Haritanın merkezi çevresinde OpenStreetMap üzerinden başka yerler ara.",
-    "titleAround": "“{name}” çevresi"
+    "titleAround": "“{name}” çevresi",
+    "titleQuery": "“{q}” sonuçları",
+    "queryNotice": "Yalnızca eşleşen yerler, en yakın olan önce.",
+    "queryClear": "Temizle",
+    "queryGeocode": "Adres olarak ara",
+    "queryEmpty": "Haritanın bu bölümünde “{q}” için sonuç yok.",
+    "queryNearest": "En yakın sonuçları göster",
+    "showNearest": "En yakın yerleri göster"
   },
   "filter": {
     "label": "Filtreler",

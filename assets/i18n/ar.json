@@ -9,7 +9,7 @@
     "tagline": "طعام حلال بالقرب منك"
   },
   "search": {
-    "placeholder": "منطقة أو مطعم أو طبق",
+    "placeholder": "منطقة أو محطة أو مطعم أو طبق",
     "label": "بحث",
     "clear": "مسح البحث",
     "areas": "مناطق",
@@ -17,7 +17,8 @@
     "searching": "جارٍ البحث…",
     "noResults": "لا توجد نتائج. جرّب اسم مدينة أو حي.",
     "error": "البحث عن المناطق غير متاح الآن. حاول مرة أخرى بعد قليل.",
-    "go": "ابحث في الخريطة عن «{q}»"
+    "go": "اعرض «{q}» على الخريطة",
+    "stationName": "محطة {station}"
   },
   "locate": {
     "button": "بالقرب مني",
@@ -90,7 +91,14 @@
     "koreaPromoButton": "افتح الدليل",
     "discover": "اعثر على المزيد بالقرب منك",
     "discoverHint": "ابحث في OpenStreetMap عن أماكن إضافية حول مركز الخريطة.",
-    "titleAround": "حول «{name}»"
+    "titleAround": "حول «{name}»",
+    "titleQuery": "نتائج «{q}»",
+    "queryNotice": "الأماكن المطابقة فقط، الأقرب أولًا.",
+    "queryClear": "مسح",
+    "queryGeocode": "بحث كعنوان",
+    "queryEmpty": "لا نتائج لـ«{q}» في هذا الجزء من الخريطة.",
+    "queryNearest": "اعرض أقرب النتائج",
+    "showNearest": "اعرض أقرب الأماكن"
   },
   "filter": {
     "label": "عوامل التصفية",
