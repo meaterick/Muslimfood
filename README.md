@@ -49,8 +49,8 @@ GitHub Pages에서 동작하는 정적 사이트이며, 특히 **한국**에서 
   - **식당 직원용 안내 카드** (한국어·日本語·中文·English·Français, 전체 화면)
 - **검색하면 바로 지도가 이동** — 검색어를 입력하고 Enter만 누르면 결과를 고르지 않아도 지도가 움직입니다(`assets/js/core/searchplan.js`).
   - 지역·역 이름("이태원", "강남역", "Seoul Station", 전국 역 1,300여 곳): 그곳으로 이동하고 이름이 붙은 핀을 꽂습니다. 목록 제목이 "‘명동’ 주변"으로 바뀌고 거리도 핀에서 잽니다.
-  - 식당 이름: 그 식당을 열고 지도에 이름과 함께 표시합니다.
-  - 메뉴·종류·체인("케밥", "할랄", "스타벅스"): 맞는 곳만 지도와 목록에 남기고 가장 가까운 결과들이 보이도록 지도를 맞춥니다.
+  - 식당 이름: 그 식당의 상세를 열고, 현재 위치를 지도 중심에 둡니다.
+  - 메뉴·종류·체인("케밥", "할랄", "스타벅스"): 현재 위치를 먼저 확인하고, 그 위치를 중심으로 맞는 곳만 지도와 목록에 보여 줍니다. 처음 검색할 때 위치 권한을 요청하며, 위치를 받을 수 없으면 현재 보고 있는 지도를 기준으로 검색합니다.
   - "강남역 할랄", "halal itaewon"처럼 장소와 함께 쓰면 그 장소 주변의 결과를 보여 줍니다.
   - 그 밖의 주소·지명은 지오코더(Nominatim, 실패하면 Photon)로 찾아 첫 결과로 이동하고 나머지 후보를 목록으로 보여 줍니다.
   상세 화면에 출처가 있는 대표 메뉴나 메뉴 링크가 표시됩니다.
@@ -185,7 +185,7 @@ scripts/             데이터 빌드·가져오기·배포 조립 스크립트
 **Muslimfood** is a fast, static website (GitHub Pages) for finding halal and Muslim-friendly food anywhere in the world, with extra depth for Korea.
 
 - Map + list sorted by distance, "Near me", filters (show, confirmed only, open now, cuisine, category, prayer places)
-- Search moves the map on Enter, with no second tap: an area or one of 1,300 Korean stations gets a labelled pin and the list becomes "Around ‘Myeongdong’"; a restaurant name opens that restaurant; a keyword ("kebab", "halal", "starbucks") leaves only the matches on the map and fits the nearest ones; "halal gangnam" shows matches around that place; anything else goes to the geocoder and the map jumps to the first hit.
+- Search moves the map on Enter, with no second tap: restaurant and keyword searches ("kebab", "halal", "starbucks") first request the visitor's location and keep it at the map centre; a restaurant name also opens its details. Without location access, the current map is used. An explicit area or station gets a labelled pin and the list becomes "Around ‘Myeongdong’"; "halal gangnam" shows matches around that place; anything else goes to the geocoder and the map jumps to the first hit.
 - Layout by screen size: a pull-up list sheet on phones with restaurants on the first screen (tips sit between and below the results), a side panel from 720 px (tablets, phones held sideways), wider panels at 1024 and 1280 px, and larger touch targets on touch devices.
 - One restaurant listed in Korean by one source and in Latin letters by another ("호지보보" / "Hojibobo Uzbek Restaurant") is merged by comparing how the names sound (`scripts/lib/phonetic.mjs`), as are shops mapped twice in OpenStreetMap.
 - Map usability: halal names and markers take priority over vegetarian alternatives when zoomed out, the blue dot follows you with an accuracy circle, a scale bar, list rows and markers highlight each other on hover, a "Show the nearest places" button where the map is empty, instant jumps for long distances and `/` to focus the search box. Use **Find more nearby** to look for additional OpenStreetMap listings around the map centre.

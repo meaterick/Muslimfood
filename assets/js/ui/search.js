@@ -58,7 +58,7 @@ export function stationLabel(st) {
   return lang() === 'ko' || !st.en ? `${st.ko}역` : t('search.stationName', { station: st.en });
 }
 
-export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPlace, onKeyword = () => {}, onClear = () => {}, onNoResults = () => {} }) {
+export function initSearch({ form, input, clearBtn, box, getCenter, prepareSearch = async () => {}, onArea, onPlace, onKeyword = () => {}, onClear = () => {}, onNoResults = () => {} }) {
   let options = [];
   let active = -1;
   let ctrl = null;
@@ -189,16 +189,19 @@ export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPl
     onArea({ lat: geo.lat, lon: geo.lon, zoom, bbox: geo.rank < 26 ? geo.bbox : null, marker: { lat: geo.lat, lon: geo.lon, name: geo.name } });
   }
 
-  function openPlace(place) {
+  async function openPlace(place, { prepared = false } = {}) {
     close();
     input.blur();
     input.value = displayName(place);
     clearBtn.hidden = false;
     const request = new AbortController();
     ctrl = request;
-    Promise.resolve(onPlace(place, request.signal)).finally(() => {
+    try {
+      if (!prepared) await prepareSearch(request.signal);
+      if (!request.signal.aborted) await onPlace(place, request.signal);
+    } finally {
       if (ctrl === request) ctrl = null;
-    });
+    }
   }
 
   /** Enter: move the map to the best answer straight away. */
@@ -210,12 +213,12 @@ export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPl
     const request = new AbortController();
     ctrl = request;
     render(localMatches(q), t('search.searching'));
-    [catalog] = await Promise.all([loadSearchCatalog(), loadStations()]);
+    [catalog] = await Promise.all([loadSearchCatalog(), loadStations(), prepareSearch(request.signal)]);
     if (request.signal.aborted || q !== input.value.trim()) return;
     ctrl = null;
     const plan = planSearch(q, { areas: ALL_AREAS, stations: store.stations, places: [...allPlaces()], center: getCenter() });
     if (plan.kind === 'location') return goLocation(plan.loc);
-    if (plan.kind === 'place') return openPlace(plan.place);
+    if (plan.kind === 'place') return openPlace(plan.place, { prepared: true });
     if (plan.kind === 'keyword') {
       close();
       input.blur();
