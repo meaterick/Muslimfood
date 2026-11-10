@@ -77,6 +77,15 @@ test('unknown text goes to the geocoder, with a named place as fallback', () => 
   assert.equal(plan('   ').kind, 'none');
 });
 
+test('a keyword next to a place name needs a match near that place', () => {
+  const abroad = [...places, { id: 'x', n: 'Tower Tandoori', y: 51.51, x: -0.07, k: 'r', s: 'Y' }];
+  const p = planSearch('Seoul Tower', { areas, stations, places: abroad });
+  assert.equal(p.kind, 'geocode');
+  assert.equal(p.fallback.ko, '서울');
+  const here = [...abroad, { id: 'y', n: 'Tower Kebab', y: 37.556, x: 126.972, k: 'r', s: 'Y' }];
+  assert.equal(planSearch('Seoul Tower', { areas, stations, places: here }).kind, 'keyword');
+});
+
 test('places can be passed as an iterator', () => {
   const p = planSearch('강남역 케밥', { areas, stations, places: places.values() });
   assert.equal(p.matches.length, 2);

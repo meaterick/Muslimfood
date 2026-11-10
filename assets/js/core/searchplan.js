@@ -14,6 +14,14 @@ export function locationKey(s) {
 
 const dist2 = (c, y, x) => (c ? (y - c.lat) ** 2 + ((x - c.lon) * Math.cos((c.lat * Math.PI) / 180)) ** 2 : 0);
 
+// A keyword next to a place name counts only when something matches this close to the place.
+const NEAR_KM = 50;
+
+/** { lat, lon } of an area preset or station. */
+export function locPoint(loc) {
+  return loc.kind === 'area' ? { lat: loc.area.y, lon: loc.area.x } : { lat: loc.y, lon: loc.x };
+}
+
 /**
  * Area presets and stations that match a query.
  *   areas:    [{ id, y, x, z, n: { ko, en, ... } }]
@@ -104,13 +112,20 @@ export function planSearch(query, { areas = [], stations = [], places = [], cent
     return { kind: 'keyword', text, matches: pool, loc: where };
   };
 
+  // A restaurant typed by its exact name wins over any reading of the words.
   const matches = find(q);
-  if (matches.length) return decide(q, matches, null);
+  const exact = matches.filter((p) => exactName(p, q));
+  if (exact.length === 1) return { kind: 'place', place: exact[0] };
+  // "halal gangnam", "명동 케밥": the keyword around that place. Only when
+  // something matches near it: "Seoul Tower" must not turn into restaurants
+  // called "Tower" on another continent.
   const split = splitQuery(q, locate);
   if (split) {
+    const at = locPoint(split.loc);
     const near = find(split.keyword);
-    if (near.length) return decide(split.keyword, near, split.loc);
+    if (near.some((p) => Math.sqrt(dist2(at, p.y, p.x)) * 111 < NEAR_KM)) return decide(split.keyword, near, split.loc);
   }
+  if (matches.length) return decide(q, matches, null);
   // One area or station contains the text ("hongik" -> Hongik Univ. station): go there.
   const partial = findLocations(q, areas, stations, { center }).partial;
   if (partial.length === 1) return { kind: 'location', loc: partial[0] };

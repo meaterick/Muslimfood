@@ -7,15 +7,17 @@
 import { AREAS, areaName } from './content.js';
 import { t, lang } from './i18n.js';
 import { normText, matchesQuery, esc } from '../core/text.js';
-import { findLocations, planSearch } from '../core/searchplan.js';
+import { findLocations, planSearch, locationKey } from '../core/searchplan.js';
 import { distance } from '../core/geo.js';
 import { store, loadSearchCatalog, loadStations } from './store.js';
 import { icon } from './icons.js';
 import { displayName, altName, statusLabel } from './render.js';
 import { debounce } from './util.js';
 
-async function geocode(q, signal) {
+/** Geocoder results, preferring places around `near` (the map centre). */
+async function geocode(q, signal, near) {
   const params = new URLSearchParams({ q, format: 'jsonv2', limit: '6', 'accept-language': lang() });
+  if (near) params.set('viewbox', [near.lon - 1, near.lat + 1, near.lon + 1, near.lat - 1].map((v) => v.toFixed(3)).join(','));
   try {
     const r = await fetch(`https://nominatim.openstreetmap.org/search?${params}`, { signal });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
@@ -30,7 +32,8 @@ async function geocode(q, signal) {
     }));
   } catch (err) {
     if (signal?.aborted) throw err;
-    const r = await fetch(`https://photon.komoot.io/api/?${new URLSearchParams({ q, limit: '6' })}`, { signal });
+    const bias = near ? { lat: near.lat.toFixed(3), lon: near.lon.toFixed(3) } : {};
+    const r = await fetch(`https://photon.komoot.io/api/?${new URLSearchParams({ q, limit: '6', ...bias })}`, { signal });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const j = await r.json();
     return (j.features || []).map((f) => {
@@ -234,7 +237,8 @@ export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPl
     ctrl = request;
     render({}, t('search.searching'));
     try {
-      const results = (await geocode(q, request.signal)).filter(({ lat, lon }) => Number.isFinite(lat) && Number.isFinite(lon));
+      const c = getCenter();
+      const results = (await geocode(q, request.signal, c)).filter(({ lat, lon }) => Number.isFinite(lat) && Number.isFinite(lon));
       if (request.signal.aborted || q !== input.value.trim()) return;
       if (!results.length) {
         if (fallback) return goLocation(fallback);
@@ -242,10 +246,17 @@ export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPl
         onNoResults(q);
         return;
       }
-      if (results.length === 1) return goGeo(results[0]);
+      // Move at once only to a believable first hit: nearby, or carrying the
+      // searched name. A geocoder's best guess for an unknown word can be a
+      // desert on another continent; then the visitor picks from the list.
+      const top = results[0];
+      const qk = locationKey(q);
+      const nk = locationKey(top.name);
+      const sure = distance(c.lat, c.lon, top.lat, top.lon) < 200000 || (nk && (nk.includes(qk) || qk.includes(nk)));
+      if (results.length === 1 && sure) return goGeo(top);
       render({ areas: results.map((geo) => ({ kind: 'geo', geo })) });
       setActive(0);
-      goGeo(results[0], { keepOpen: true });
+      if (sure) goGeo(top, { keepOpen: true });
     } catch (err) {
       if (request.signal.aborted || q !== input.value.trim()) return;
       if (fallback) return goLocation(fallback);

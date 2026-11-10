@@ -478,13 +478,14 @@ function fitNearest() {
  * Show the rows nearest to `ref` on the map: the closest one and whatever lies
  * within 2.5 times its distance (at least 1.2 km), six at most.
  */
-function fitRows(rows, ref, { includeRef = false } = {}) {
+function fitRows(rows, ref, { includeRef = false, maxDistance = Infinity } = {}) {
   const near = rows.map((r) => ({ r, d: distance(ref.lat, ref.lon, r.y, r.x) })).sort((a, b) => a.d - b.d);
   if (!near.length) return false;
+  if (near[0].d > maxDistance) return true; // too far to jump unasked; the list offers a button
   const limit = Math.max(near[0].d * 2.5, 1200);
   const pick = near.filter((x) => x.d <= limit).slice(0, 6);
   const pts = pick.map((x) => [x.r.x, x.r.y]);
-  if (includeRef || near[0].d < 3000) pts.push([ref.lon, ref.lat]);
+  if (near[0].d < (includeRef ? 30000 : 3000)) pts.push([ref.lon, ref.lat]);
   if (!map) {
     state.view = { lat: pick[0].r.y, lon: pick[0].r.x, zoom: 15 };
     refresh();
@@ -504,13 +505,17 @@ function fitRows(rows, ref, { includeRef = false } = {}) {
   return true;
 }
 
-/** Move the map to the nearest matches of the keyword search (or, without one, the nearest places). */
-async function showNearest() {
+/**
+ * Move the map to the nearest matches of the keyword search (or, without one,
+ * the nearest places). Right after a search (`auto`) the map stays put when
+ * the nearest match is more than 150 km away.
+ */
+async function showNearest({ auto = false } = {}) {
   const v = getView();
   const ref = state.searchPin || refPoint(v);
   const all = state.query ? state.query.rows : (await loadSearchCatalog()).filter((r) => r.k !== 'p');
   const rows = all.filter(rowPasses);
-  if (!fitRows(rows.length ? rows : all, ref, { includeRef: Boolean(state.searchPin) })) toast(t('search.noResults'));
+  if (!fitRows(rows.length ? rows : all, ref, { includeRef: Boolean(state.searchPin), maxDistance: auto ? 150000 : Infinity })) toast(t('search.noResults'));
 }
 
 /** Enter on a keyword ("케밥", "starbucks", "halal" near a station): only the matches stay on the map and in the list. */
@@ -526,7 +531,7 @@ function applyQuery({ text, query, matches, loc }) {
   track('search/keyword', { title: text });
   sheet.ensure('half');
   $('#list-scroll').scrollTop = 0;
-  showNearest();
+  showNearest({ auto: true });
   refresh();
 }
 
