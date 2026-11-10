@@ -101,6 +101,19 @@ test('a failed MUFKO refresh and push rebuild keep the latest good snapshot', as
   await writeFile(cache, JSON.stringify(old));
   await main(['--cache', cache, '--reuse'], { out, fetchFn });
   assert.deepEqual(JSON.parse(await readFile(out)), good);
+  assert.deepEqual(JSON.parse(await readFile(cache)), good);
+});
+
+test('the first push seeds an empty MUFKO cache without network access', async (t) => {
+  const dir = await mkdtemp(path.join(tmpdir(), 'mufko-initial-'));
+  t.after(() => rm(dir, { recursive: true, force: true }));
+  const out = path.join(dir, 'source.json');
+  const cache = path.join(dir, 'cache', 'restaurants.json');
+  const good = { source: 'mufko', fetched: date, records: 1, places: [mufkoPlace(row(), null, date)] };
+  await writeFile(out, JSON.stringify(good));
+  t.mock.method(console, 'log', () => {});
+  await main(['--cache', cache, '--reuse'], { out, fetchFn: () => assert.fail('a push must reuse the committed snapshot') });
+  assert.deepEqual(JSON.parse(await readFile(cache)), good);
 });
 
 test('MUFKO merges into existing places with both names, source links and stable aliases', () => {
