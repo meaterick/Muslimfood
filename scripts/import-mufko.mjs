@@ -116,13 +116,14 @@ export async function main(args = process.argv.slice(2), { out = OUT, fetchFn = 
   if (!args.includes('--reuse') || !previous) {
     try {
       data = await importRestaurants({ previous, fetchFn });
-      if (cache) await save(cache, data);
     } catch (err) {
       if (!previous) throw err;
       console.warn(`::warning::${err.message}; keeping the MUFKO snapshot from ${previous.fetched}`);
     }
   }
   await save(out, data);
+  // Seed a missing Actions cache on push deploys too, using the committed copy.
+  if (cache) await save(cache, data);
   console.log(`MUFKO: ${data.places.length} places (snapshot ${data.fetched}, ${data.records} source records)`);
 }
 
