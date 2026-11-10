@@ -131,7 +131,8 @@
       "V": "Everything on the menu is vegetarian: no meat or fish, though dairy and eggs may be used. Not halal-certified: ask about alcohol in sauces, such as cooking wine.",
       "VV": "Everything on the menu is vegan: no meat, fish, dairy or eggs. Not halal-certified: ask about alcohol in sauces, such as cooking wine.",
       "M": "Serves some vegetarian dishes, but meat is cooked here too, so pans and oil may be shared. Not halal-certified.",
-      "MV": "Serves some vegan dishes, but meat is cooked here too, so pans and oil may be shared. Not halal-certified."
+      "MV": "Serves some vegan dishes, but meat is cooked here too, so pans and oil may be shared. Not halal-certified.",
+      "Udirectory": "Listed by a restaurant directory without verified halal evidence. Check the ingredients and preparation with the restaurant before ordering."
     }
   },
   "diet": {
@@ -297,7 +298,8 @@
     "seoul": "Seoul Metropolitan Government, certified vegetarian restaurants",
     "suwon": "Suwon City, restaurants with vegan menus",
     "sbiz": "Small Enterprise and Market Service, national store registry",
-    "brand": "{brand} official menu"
+    "brand": "{brand} official menu",
+    "mufko": "MUFKO (Muslim Friendly Korea)"
   },
   "guide": {
     "title": "Eating halal in Korea",
@@ -477,5 +479,14 @@
     "thanksYes": "Thanks for confirming!",
     "thanksNo": "Thanks, we will check it.",
     "counts": "Visitors: {yes} confirmed · {no} reported a problem"
+  },
+  "mufko": {
+    "muslim_certified": "Muslim Certified",
+    "self_certified": "Self Certified",
+    "seafood": "Seafood",
+    "veggie": "Veggie",
+    "halal_meat": "Halal Meat",
+    "salam": "Salam",
+    "unknown": "Unspecified"
   }
 }

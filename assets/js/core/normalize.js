@@ -13,10 +13,12 @@
 //        F listed by an official Muslim-friendly programme, U unconfirmed (inferred);
 //        meat-free alternatives: V whole menu vegetarian/vegan, M has vegetarian/vegan dishes
 //   dv   for s=V/M: "vegan" | "vegetarian"
-//   why  for s=U: "name" (name says halal) or "cuisine" (cuisine usually halal)
+//   why  for s=U: "name" (name says halal), "cuisine" (cuisine usually halal),
+//        or "directory" (listed without verified halal evidence)
 //   cu   cuisine tokens, e.g. ["turkish","kebab"]
 //   a    address, ph phone, w website, ig instagram url, oh opening_hours (OSM syntax)
 //   mu   menu URL, mn menu item names, ml localized menu item names, su source page URL
+//   mf   MUFKO place id; mc = original MUFKO category code (kept after merging)
 //   mv   diet label per item in mn: "v" vegan, "l" lacto, "o" ovo, "lo" lacto-ovo, "" unknown
 //   ohx  free-text opening hours when it could not be converted
 //   ck   date the halal status was last checked (YYYY-MM-DD)

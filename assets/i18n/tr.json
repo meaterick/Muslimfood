@@ -131,7 +131,8 @@
       "V": "Menüdeki her şey vejetaryendir: et veya balık yoktur, ancak süt ürünleri ve yumurta kullanılabilir. Helal sertifikalı değildir: soslarda pişirme şarabı gibi alkol olup olmadığını sorun.",
       "VV": "Menüdeki her şey vegandır: et, balık, süt ürünü veya yumurta yoktur. Helal sertifikalı değildir: soslarda pişirme şarabı gibi alkol olup olmadığını sorun.",
       "M": "Bazı vejetaryen yemekler sunar, ancak burada et de pişirilir; tava ve yağ ortak kullanılabilir. Helal sertifikalı değildir.",
-      "MV": "Bazı vegan yemekler sunar, ancak burada et de pişirilir; tava ve yağ ortak kullanılabilir. Helal sertifikalı değildir."
+      "MV": "Bazı vegan yemekler sunar, ancak burada et de pişirilir; tava ve yağ ortak kullanılabilir. Helal sertifikalı değildir.",
+      "Udirectory": "Doğrulanmış helal kanıtı olmadan bir restoran rehberinde listelenmiştir. Sipariş vermeden önce malzemeleri ve hazırlama yöntemini restorana sorun."
     }
   },
   "diet": {
@@ -297,7 +298,8 @@
     "seoul": "Seul Büyükşehir Belediyesi, sertifikalı vejetaryen restoranlar",
     "suwon": "Suwon Belediyesi, vegan menüsü olan restoranlar",
     "sbiz": "Küçük İşletmeler ve Pazar Hizmeti, ulusal işletme kaydı",
-    "brand": "{brand} resmî menüsü"
+    "brand": "{brand} resmî menüsü",
+    "mufko": "MUFKO (Muslim Friendly Korea)"
   },
   "guide": {
     "title": "Kore'de helal beslenme",
@@ -477,5 +479,14 @@
     "thanksYes": "Onayladığınız için teşekkürler!",
     "thanksNo": "Teşekkürler, kontrol edeceğiz.",
     "counts": "Ziyaretçiler: {yes} onayladı · {no} sorun bildirdi"
+  },
+  "mufko": {
+    "muslim_certified": "Müslüman Sertifikalı",
+    "self_certified": "Kendi Beyanıyla Sertifikalı",
+    "seafood": "Deniz Ürünleri",
+    "veggie": "Vejetaryen",
+    "halal_meat": "Helal Et",
+    "salam": "Salam",
+    "unknown": "Belirtilmemiş"
   }
 }

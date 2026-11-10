@@ -8,6 +8,7 @@
     "build:data": "node scripts/build-data.mjs",
     "build:data:offline": "node scripts/build-data.mjs --offline",
     "import:kr": "node scripts/import-kr.mjs",
+    "import:mufko": "node scripts/import-mufko.mjs",
     "import:chains": "node scripts/import-chains.mjs",
     "serve": "node scripts/serve.mjs",
     "test": "node --test tests/*.test.mjs"
