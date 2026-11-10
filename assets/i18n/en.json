@@ -78,7 +78,6 @@
     },
     "showUnconfirmed": "Show them",
     "koreaPromo": "New to Korean food? See which dishes usually contain pork or alcohol.",
-    "koreaPromoButton": "Open the guide",
     "discover": "Find more nearby",
     "discoverHint": "Look for additional places in OpenStreetMap around the map centre.",
     "titleAround": "Around “{name}”",
@@ -285,7 +284,8 @@
     "chainMenu": "Meat-free dishes at {brand}",
     "chainNote": "From the official {brand} menu, checked {date}. Not every branch may sell them, so ask before you order.",
     "officialMenu": "Official menu",
-    "menuChecked": "checked {date}"
+    "menuChecked": "checked {date}",
+    "everyDay": "Every day"
   },
   "source": {
     "osm": "OpenStreetMap contributors",
@@ -413,10 +413,6 @@
   },
   "legend": {
     "title": "How to read the map",
-    "cert": "Circle with a gold dot: halal certificate",
-    "halal": "Green circle: halal food (owner or tourism office)",
-    "unconfirmed": "Dashed circle: not confirmed, ask the staff",
-    "veg": "Square with a leaf: vegetarian or vegan option, not halal",
     "ok": "Got it",
     "more": "What the levels mean"
   },

@@ -236,9 +236,9 @@ function updateCuisineOptions(food) {
 
 // ------------------------------------------------------------------ rendering
 
-/** "Near Yeoksam Stn." for places in Korea, once the station list is loaded. */
-function nearOf(p) {
-  return store.nearStation && isInKorea(p.y, p.x) ? nearText(store.nearStation(p.y, p.x)) : '';
+/** The station within walking distance of a place in Korea, once the station list is loaded. */
+function stationOf(p) {
+  return store.nearStation && isInKorea(p.y, p.x) ? store.nearStation(p.y, p.x) : null;
 }
 
 function setHeader(title, count) {
@@ -250,17 +250,12 @@ function setHeader(title, count) {
 function legendHtml() {
   const row = (cls, glyph, key) => `<li><span class="mark ${cls}" aria-hidden="true">${icon(glyph)}</span><span>${esc(t(key))}</span></li>`;
   return `<section class="legend-card" aria-labelledby="legend-title">
-    <h2 id="legend-title">${esc(t('legend.title'))}</h2>
-    <ul>${[
-      row('s-C', 'restaurant', 'legend.cert'),
-      row('s-Y', 'restaurant', 'legend.halal'),
-      row('s-U', 'restaurant', 'legend.unconfirmed'),
-      row('s-M', 'leaf', 'legend.veg'),
-    ].join('')}</ul>
-    <div class="legend-actions">
-      <button type="button" class="text-btn primary" data-action="legend-ok" data-track="legend/ok">${esc(t('legend.ok'))}</button>
-      <button type="button" class="text-btn" data-action="legend-more" data-track="legend/more">${esc(t('legend.more'))}</button>
+    <div class="legend-head">
+      <h2 id="legend-title">${esc(t('legend.title'))}</h2>
+      <button type="button" class="legend-close" data-action="legend-ok" data-track="legend/ok" aria-label="${esc(t('legend.ok'))}">${icon('close')}</button>
     </div>
+    <ul>${[row('s-C', 'restaurant', 'status.C'), row('s-Y', 'restaurant', 'status.Y'), row('s-U', 'restaurant', 'status.U'), row('s-M', 'leaf', 'status.M')].join('')}</ul>
+    <button type="button" class="link-btn" data-action="legend-more" data-track="legend/more">${esc(t('legend.more'))}${icon('back', 'chev')}</button>
   </section>`;
 }
 
@@ -268,6 +263,8 @@ function dismissLegend() {
   if (storage.get('legendSeen')) return;
   storage.set('legendSeen', true);
   $('.legend-card')?.remove();
+  const tipsLi = $('.list-tips');
+  if (tipsLi && !tipsLi.children.length) tipsLi.remove();
 }
 
 function areaButtons() {
@@ -283,8 +280,11 @@ function render(v) {
   const notices = [];
   const now = new Date();
 
+  // Restaurants come first: what must be read sits above them, tips follow the
+  // first few results, and "find more" closes the list.
+  const tips = [];
+  const foot = [];
   if (!navigator.onLine) notices.push(noticeHtml({ iconName: 'alert', text: t('list.offline') }));
-  if (!storage.get('legendSeen')) notices.push(legendHtml());
 
   // Zoomed out: summary only. Areas served by live Overpass queries (no
   // prebuilt data) need a closer zoom before anything can be listed.
@@ -295,6 +295,7 @@ function render(v) {
     setHeader(t('list.titleArea'), '');
     results.innerHTML = '';
     $('#more').hidden = true;
+    $('#list-after').innerHTML = '';
     $('#list-notices').innerHTML =
       notices.join('') +
       `<div class="empty"><strong>${esc(t('list.zoomIn'))}</strong>${n ? `<p>${esc(t('list.zoomInCount', { n }))}</p>` : ''}<button type="button" class="text-btn primary" data-action="zoom-in">${icon(
@@ -333,14 +334,17 @@ function render(v) {
       <button type="button" class="text-btn" data-action="query-geocode">${icon('pin')}${esc(t('list.queryGeocode'))}</button></div></div>`);
   }
   if (store.mode === 'live' || (store.hybrid && !isInKorea(v.lat, v.lon))) notices.push(noticeHtml({ iconName: 'globe', text: t('list.live') }));
+  if (!storage.get('legendSeen')) tips.push(legendHtml());
   if (!state.query && isInKorea(v.lat, v.lon) && !storage.get('guideSeen')) {
-    notices.push(noticeHtml({ kind: 'korea', iconName: 'book', text: t('list.koreaPromo'), button: t('list.koreaPromoButton'), buttonAction: 'open-guide' }));
+    tips.push(
+      `<button type="button" class="tip-row" data-action="open-guide">${icon('book')}<span><strong>${esc(t('menu.guide'))}</strong>${esc(t('list.koreaPromo'))}</span>${icon('back', 'chev')}</button>`,
+    );
   }
   if (hiddenU) notices.push(noticeHtml({ iconName: 'info', text: t('list.hiddenUnconfirmed', { n: hiddenU }), button: t('list.showUnconfirmed'), buttonAction: 'show-unconfirmed' }));
   if (!state.query && navigator.onLine && v.zoom >= 12) {
     const box = discoveryBox(v);
-    if (state.discovering) notices.push(noticeHtml({ iconName: 'search', text: t('search.searching') }));
-    else if (hasMoreToDiscover(box)) notices.push(noticeHtml({ iconName: 'globe', text: t('list.discoverHint'), button: t('list.discover'), buttonAction: 'discover' }));
+    if (state.discovering) foot.push(noticeHtml({ iconName: 'search', text: t('search.searching') }));
+    else if (hasMoreToDiscover(box)) foot.push(noticeHtml({ iconName: 'globe', text: t('list.discoverHint'), button: t('list.discover'), buttonAction: 'discover' }));
   }
 
   if (!list.length) {
@@ -348,6 +352,7 @@ function render(v) {
       $('#list-notices').innerHTML = notices.join('');
       results.innerHTML = `<li>${skeletonHtml()}</li>`;
       $('#more').hidden = true;
+      $('#list-after').innerHTML = '';
       return;
     }
     const nearestBtn = `<button type="button" class="text-btn primary" data-action="nearest">${icon('locate')}${esc(t(state.query ? 'list.queryNearest' : 'list.showNearest'))}</button>`;
@@ -369,16 +374,22 @@ function render(v) {
       );
     }
   }
-  $('#list-notices').innerHTML = notices.join('');
   const shown = list.slice(0, state.limit);
-  results.innerHTML = shown
-    .map((p, i) => {
-      const item = listItemHtml(p, { dist: p._d, tz: tzFor(p), selected: p.id === state.selected, near: nearOf(p) });
-      const divider = i > 0 && group(p) && !group(shown[i - 1]);
-      return divider ? `<li class="list-divider" aria-hidden="true">${esc(t('list.vegSection'))}</li>${item}` : item;
-    })
-    .join('');
+  // Tips go after the third result (after the list when it is shorter, above it when it is empty).
+  const tipsAt = Math.min(3, shown.length) - 1;
+  const tipsHtml = tips.length ? `<li class="list-tips">${tips.join('')}</li>` : '';
+  $('#list-notices').innerHTML = notices.join('');
+  results.innerHTML =
+    (shown.length ? '' : tipsHtml) +
+    shown
+      .map((p, i) => {
+        const item = listItemHtml(p, { dist: p._d, tz: tzFor(p), selected: p.id === state.selected, station: stationOf(p) });
+        const divider = i > 0 && group(p) && !group(shown[i - 1]);
+        return `${divider ? `<li class="list-divider" aria-hidden="true">${esc(t('list.vegSection'))}</li>` : ''}${item}${i === tipsAt ? tipsHtml : ''}`;
+      })
+      .join('');
   $('#more').hidden = list.length <= state.limit;
+  $('#list-after').innerHTML = foot.join('');
 }
 
 function renderCredits() {
@@ -551,7 +562,7 @@ function showDetail(p, { push = true, reveal = true } = {}) {
       <button type="button" class="icon-btn" data-action="back" aria-label="${esc(t('detail.back'))}">${icon('back', 'ic-flip')}</button>
       <button type="button" class="icon-btn" data-action="share" aria-label="${esc(t('detail.share'))}">${icon('share')}</button>
     </div>
-    <div class="panel-scroll">${detailHtml(p, { dist, tz: tzFor(p), near: nearOf(p), vote: p.k === 'p' ? '' : voteHtml(p) })}</div>`;
+    <div class="panel-scroll">${detailHtml(p, { dist, tz: tzFor(p), near: nearText(stationOf(p)), vote: p.k === 'p' ? '' : voteHtml(p) })}</div>`;
   $('#view-list').hidden = true;
   view.hidden = false;
   view.dataset.id = p.id;
@@ -914,6 +925,8 @@ function bindEvents() {
     }
   };
   $('#list-notices').addEventListener('click', onAction);
+  $('#results').addEventListener('click', onAction);
+  $('#list-after').addEventListener('click', onAction);
   $('#credits').addEventListener('click', onAction);
   $('#about-body').addEventListener('click', (e) => {
     if (e.target.closest('[data-action="owner-form"]')) openOwnerForm();

@@ -1,7 +1,7 @@
 // Bottom sheet for phones: three snap points (peek / half / full), dragged by
 // the grip or the list heading. On wide screens the panel is a fixed sidebar.
 
-const WIDE = matchMedia('(min-width: 900px)');
+const WIDE = matchMedia('(min-width: 720px)');
 
 export class Sheet {
   constructor(panel, { app, grip, dragAreas = [], onChange }) {

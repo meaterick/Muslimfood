@@ -59,7 +59,10 @@ GitHub Pages에서 동작하는 정적 사이트이며, 특히 **한국**에서 
   지도에 장소가 없을 때 "가장 가까운 곳 보기", 먼 거리는 애니메이션 없이 바로 이동, 키보드 `/`로 검색창 이동.
 - **역 기준 위치·지점 이름** — 한국의 장소에는 "역삼역 근처 / Near Yeoksam Stn." 처럼 600m 안의 가장 가까운 기차·지하철역을 보여 줍니다(오픈스트리트맵 역 정보, `data/stations.json`).
   한국어가 아닌 화면에서는 체인 지점 이름을 "Starbucks · 역삼역점" 처럼 영문 체인명과 간판의 지점명으로 보여 줘 지점을 구별할 수 있습니다.
-- **처음 방문 안내** — 첫 방문 때 목록 위에 마커 읽는 법(인증·할랄·미확인·채식)을 보여 주고, 닫으면 다시 나오지 않습니다.
+- **처음 방문 안내** — 첫 방문 때 목록의 세 번째 식당 아래에 마커 읽는 법(인증·할랄·미확인·채식)을 작게 보여 주고, 닫으면 다시 나오지 않습니다.
+- **화면 크기별 레이아웃** — 휴대폰은 지도 위로 끌어올리는 목록 시트(첫 화면에 식당이 바로 보이도록 안내 카드는 결과 사이·아래에 배치),
+  720px 이상(태블릿, 가로로 돌린 휴대폰)은 지도 옆 목록 패널, 1024px·1280px에서 패널이 넓어집니다.
+  터치 기기에서는 버튼·필터를 40px 이상으로 키우고, 작은 휴대폰에서는 길찾기 버튼을 한 줄로 줄여 상세 화면 첫 화면에 보이게 했습니다.
 - **식당 등록 양식과 "이 정보가 맞나요?"** — 사장님이나 손님이 GitHub 계정 없이 메뉴의 "지도에 없는 장소 추가"로 식당을 보낼 수 있고,
   상세 화면에서 방문자가 정보가 맞는지(아니면 무엇이 틀렸는지) 알려 줄 수 있습니다. 구글 시트에 저장됩니다([설정 방법](docs/feedback/README.md)).
 - **주변 식당 더 찾기** — 지도를 확대하고 버튼을 누르면 지도 중심 주변의 식당을 OpenStreetMap에서 추가로 찾습니다.
@@ -117,6 +120,10 @@ Overpass 서버가 잠시 안 될 때는 마지막으로 받은 데이터를 그
 | [한국관광공사 무슬림 친화 식당 가이드](https://english.visitkorea.or.kr/svc/thingsToDo/subMuslimFriendly.do) | 식당 9곳의 위치, 분류, 대표 메뉴 | 사실 정보 요약, 출처 표시 |
 | [OpenFreeMap](https://openfreemap.org) | 지도 타일 | © OpenMapTiles, © OpenStreetMap contributors |
 
+같은 식당이 두 출처에 한글 이름과 영문 이름으로 따로 올라온 경우("호지보보" / "Hojibobo Uzbek Restaurant")는 이름을 소리로 비교해 하나로 합칩니다
+(`scripts/lib/phonetic.mjs`: 한글을 로마자로 바꾸고 모음과 "레스토랑" 같은 일반 단어를 뺀 뒤 자음 뼈대를 비교, 60m 안·같은 업종일 때만).
+오픈스트리트맵에 두 번 등록된 가게(30m 안, 같은 이름이거나 소리가 같은 이름)도 하나로 합칩니다. 위치만으로는 합치지 않습니다(이태원에서는 다른 식당이 3m 간격).
+
 공공데이터는 `scripts/import-kr.mjs`로 내려받아 `data/sources/*.json`에 저장합니다(출처·날짜 포함).
 주소만 있는 데이터는 Nominatim·Photon으로 좌표를 찾았고, 건물 단위로 찾지 못한 곳은 앱에 "대략적인 위치"로 표시됩니다.
 
@@ -173,6 +180,8 @@ scripts/             데이터 빌드·가져오기·배포 조립 스크립트
 
 - Map + list sorted by distance, "Near me", filters (show, confirmed only, open now, cuisine, category, prayer places)
 - Search moves the map on Enter, with no second tap: an area or one of 1,300 Korean stations gets a labelled pin and the list becomes "Around ‘Myeongdong’"; a restaurant name opens that restaurant; a keyword ("kebab", "halal", "starbucks") leaves only the matches on the map and fits the nearest ones; "halal gangnam" shows matches around that place; anything else goes to the geocoder and the map jumps to the first hit.
+- Layout by screen size: a pull-up list sheet on phones with restaurants on the first screen (tips sit between and below the results), a side panel from 720 px (tablets, phones held sideways), wider panels at 1024 and 1280 px, and larger touch targets on touch devices.
+- One restaurant listed in Korean by one source and in Latin letters by another ("호지보보" / "Hojibobo Uzbek Restaurant") is merged by comparing how the names sound (`scripts/lib/phonetic.mjs`), as are shops mapped twice in OpenStreetMap.
 - Map usability: halal names and markers take priority over vegetarian alternatives when zoomed out, the blue dot follows you with an accuracy circle, a scale bar, list rows and markers highlight each other on hover, a "Show the nearest places" button where the map is empty, instant jumps for long distances and `/` to focus the search box. Use **Find more nearby** to look for additional OpenStreetMap listings around the map centre.
 - Every place shows *how we know* it is halal (certified / 100% halal / halal menu / Muslim-friendly list / some halal / not confirmed) and its source and date
 - Chains whose standard menu has a meat-free dish appear at every branch in Korea, about 8,100 places: Lotteria (plant-based Miracle Burger), Papa John's (plant-based and cheese pizzas), Subway (Veggie, Egg Mayo), Domino's (cheese pizza), Pizza School and Pizza Maru (cheese and vegetable pizzas with no meat in their allergen lists), Starbucks (a cream cheese bagel sandwich and a cheese bagel), Salady (dishes marked vegan) and Bonjuk (porridges with no meat, milk or egg in the official allergen list). Shops the store registry misses, such as the Lotteria inside Seoul Station, come from OpenStreetMap. The chains, dishes, official menu links and check dates live in `assets/js/core/brands.js`; branch locations come from the national store registry and refresh each quarter. Halal places stay first in the list

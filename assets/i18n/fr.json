@@ -78,7 +78,6 @@
     },
     "showUnconfirmed": "Afficher ces lieux",
     "koreaPromo": "Vous découvrez la cuisine coréenne ? Voyez quels plats contiennent généralement du porc ou de l’alcool.",
-    "koreaPromoButton": "Ouvrir le guide",
     "discover": "Trouver plus de lieux à proximité",
     "discoverHint": "Recherchez d’autres établissements dans OpenStreetMap autour du centre de la carte.",
     "titleAround": "Autour de « {name} »",
@@ -285,7 +284,8 @@
     "chainMenu": "Plats sans viande chez {brand}",
     "chainNote": "D’après la carte officielle de {brand}, vérifiée le {date}. Tous les restaurants ne les proposent pas forcément : demandez avant de commander.",
     "officialMenu": "Carte officielle",
-    "menuChecked": "vérifiée le {date}"
+    "menuChecked": "vérifiée le {date}",
+    "everyDay": "Tous les jours"
   },
   "source": {
     "osm": "Contributeurs OpenStreetMap",
@@ -413,10 +413,6 @@
   },
   "legend": {
     "title": "Lire la carte",
-    "cert": "Cercle avec un point doré : certificat halal",
-    "halal": "Cercle vert : cuisine halal (restaurant ou office du tourisme)",
-    "unconfirmed": "Cercle en pointillés : non confirmé, demandez au personnel",
-    "veg": "Carré avec une feuille : option végétarienne ou végane, pas halal",
     "ok": "Compris",
     "more": "Signification des niveaux"
   },

@@ -105,18 +105,25 @@ export function nearText(station) {
   return t('place.nearStation', { station: name });
 }
 
-export function listItemHtml(p, { dist, tz, selected, near = '' }) {
+/** A station's name as on the signs: "역삼역" / "Yeoksam". */
+export function stationName(station) {
+  if (!station) return '';
+  return lang() === 'ko' || !station.en ? `${station.ko}역` : station.en;
+}
+
+export function listItemHtml(p, { dist, tz, selected, station = null }) {
   const alt = altName(p);
+  const stn = stationName(station);
   const cuisine = p.k === 'p' ? '' : cuisineLabel(p);
   const open = openText(p, tz);
   return `<li><button type="button" class="place" data-id="${esc(p.id)}"${selected ? ' aria-current="true"' : ''}>
   ${markHtml(p)}
   <span class="place-body">
     <span class="place-name">${esc(displayName(p))}</span>
-    ${alt || near ? `<span class="place-alt">${esc(alt)}${alt && near ? ' · ' : ''}${near ? `<span class="place-near">${esc(near)}</span>` : ''}</span>` : ''}
+    ${alt ? `<span class="place-alt">${esc(alt)}</span>` : ''}
     <span class="place-meta">${badgeHtml(p)}${cuisine ? `<span>${esc(cuisine)}</span>` : ''}${
-      open ? `<span class="open-state ${open.cls}">${esc(open.text)}</span>` : ''
-    }${p.al === 1 ? `<span class="warn-text">${esc(t('detail.alcohol'))}</span>` : ''}</span>
+      stn ? `<span class="place-stn" title="${esc(nearText(station))}">${icon('train')}${esc(stn)}</span>` : ''
+    }${open ? `<span class="open-state ${open.cls}">${esc(open.text)}</span>` : ''}${p.al === 1 ? `<span class="warn-text">${esc(t('detail.alcohol'))}</span>` : ''}</span>
   </span>
   <span class="place-dist">${Number.isFinite(dist) ? esc(formatDistance(dist, lang() === 'ar' ? 'ar-u-nu-latn' : lang())) : ''}</span>
 </button></li>`;
@@ -218,9 +225,13 @@ function hoursHtml(p, tz) {
   const open = openText(p, tz);
   const rows = weekRows(parsed);
   const today = localTime(new Date(), tz).day;
+  // The same hours all week read better as one line than as seven rows.
+  const sameAllWeek = rows.every((r) => r && r === rows[0]);
   const table = parsed.always
     ? ''
-    : `<table class="hours"><tbody>${rows
+    : sameAllWeek
+      ? `<span class="fact-sub">${esc(t('detail.everyDay'))} ${esc(rows[0])}</span>`
+      : `<table class="hours"><tbody>${rows
         .map(
           (r, i) =>
             `<tr${i === today ? ' class="today"' : ''}><th scope="row">${esc(weekdayName(i, 'short'))}</th><td>${esc(r || t('detail.closedDay'))}</td></tr>`,
@@ -245,6 +256,8 @@ export function detailHtml(p, { dist, tz, near = '', vote = '' }) {
   if (p.v && !MEAT_FREE.has(p.s)) flags.push(['', 'check', t('detail.vegetarian')]);
   if (p.pr) flags.push(['good', 'prayer', t('detail.prayerSpace')]);
   const isOsm = /^[nwr]\d+$/.test(p.id);
+  // Open or closed belongs next to the name: it decides whether to go at all.
+  const headOpen = p.k === 'p' && !p.oh ? '' : openText(p, tz);
   const reportHref = isOsm
     ? osmNoteLink(p)
     : `${ISSUE_REPORT}&title=${encodeURIComponent(`[Report] ${p.n || p.id}`)}&place=${encodeURIComponent(`${p.n || ''} (${p.id}) ${p.a || ''}`.trim())}`;
@@ -252,7 +265,7 @@ export function detailHtml(p, { dist, tz, near = '', vote = '' }) {
   <header class="detail-head">
     <h2 id="detail-title" tabindex="-1">${esc(displayName(p))}</h2>
     ${alt ? `<p class="alt">${esc(alt)}</p>` : ''}
-    <p class="kind">${badgeHtml(p)}<span>${esc(kind)}</span></p>
+    <p class="kind">${badgeHtml(p)}<span>${esc(kind)}</span>${headOpen ? `<span class="open-state ${headOpen.cls}">${esc(headOpen.text)}</span>` : ''}</p>
   </header>
   <h3 class="visually-hidden">${esc(t('detail.directions'))}</h3>
   <div class="apps">${apps
@@ -264,7 +277,6 @@ export function detailHtml(p, { dist, tz, near = '', vote = '' }) {
     ${p.ce ? `<p>${esc(t('detail.cert', { cert: p.ce }))}</p>` : ''}
     ${p.d && !isOsm ? `<p class="src">${esc(t('detail.dataDate', { date: formatDate(p.d) }))}</p>` : ''}
   </section>
-  ${vote}
   <div class="actions">
     ${p.ph ? `<a class="text-btn" href="${esc(telHref(p.ph, inKr))}" data-track="call">${icon('phone')}${esc(t('detail.call'))}</a>` : ''}
     ${p.w ? `<a class="text-btn" href="${esc(p.w)}" target="_blank" rel="noopener" data-track="website">${icon('globe')}${esc(t('detail.website'))}</a>` : ''}
@@ -283,6 +295,7 @@ export function detailHtml(p, { dist, tz, near = '', vote = '' }) {
   ${menuHtml(p)}
   ${flags.length ? `<div class="flags">${flags.map(([cls, ic, text]) => `<span class="flag ${cls}">${icon(ic)}${esc(text)}</span>`).join('')}</div>` : ''}
   ${p.ap ? `<p class="note">${esc(t('detail.approx'))}</p>` : ''}
+  ${vote}
   <div class="help-links">
     ${p.k === 'p' ? '' : `<button type="button" class="text-btn primary" data-action="staff-card" data-track="staff-card">${icon('card')}${esc(t('detail.staffCard'))}</button>`}
     <a class="text-btn" href="${esc(reportHref)}" target="_blank" rel="noopener" data-track="report">${icon('flag')}${esc(t('detail.report'))}</a>

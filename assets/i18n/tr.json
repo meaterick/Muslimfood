@@ -78,7 +78,6 @@
     },
     "showUnconfirmed": "Göster",
     "koreaPromo": "Kore yemeklerine yeni misiniz? Genellikle domuz eti veya alkol içeren yemeklere göz atın.",
-    "koreaPromoButton": "Rehberi aç",
     "discover": "Yakında daha fazla yer bul",
     "discoverHint": "Haritanın merkezi çevresinde OpenStreetMap üzerinden başka yerler ara.",
     "titleAround": "“{name}” çevresi",
@@ -285,7 +284,8 @@
     "chainMenu": "{brand} menüsündeki etsiz yemekler",
     "chainNote": "{brand} resmî menüsünden, {date} tarihinde kontrol edildi. Her şube satmayabilir; sipariş vermeden önce sorun.",
     "officialMenu": "Resmî menü",
-    "menuChecked": "{date} tarihinde kontrol edildi"
+    "menuChecked": "{date} tarihinde kontrol edildi",
+    "everyDay": "Her gün"
   },
   "source": {
     "osm": "OpenStreetMap katkıcıları",
@@ -413,10 +413,6 @@
   },
   "legend": {
     "title": "Harita nasıl okunur",
-    "cert": "Altın noktalı daire: helal sertifikası",
-    "halal": "Yeşil daire: helal yemek (işletme sahibi veya turizm ofisi)",
-    "unconfirmed": "Kesik çizgili daire: doğrulanmadı, personele sorun",
-    "veg": "Yapraklı kare: vejetaryen veya vegan seçenek, helal değil",
     "ok": "Anladım",
     "more": "Seviyelerin anlamı"
   },

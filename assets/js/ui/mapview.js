@@ -285,7 +285,7 @@ export class MapView {
       setTimeout(() => reject(new Error('map load timeout')), 20000);
     });
     // Phones: start with the attribution folded to its "i" button, next to "Near me".
-    if (matchMedia('(max-width: 899px)').matches) {
+    if (matchMedia('(max-width: 719px)').matches) {
       const attrib = this.container.querySelector('.maplibregl-ctrl-attrib');
       attrib?.classList.remove('maplibregl-compact-show');
       attrib?.removeAttribute('open');

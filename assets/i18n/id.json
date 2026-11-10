@@ -75,7 +75,6 @@
     },
     "showUnconfirmed": "Tampilkan",
     "koreaPromo": "Baru mengenal makanan Korea? Lihat hidangan yang biasanya mengandung babi atau alkohol.",
-    "koreaPromoButton": "Buka panduan",
     "discover": "Temukan lebih banyak tempat di sekitar",
     "discoverHint": "Cari tempat tambahan di OpenStreetMap di sekitar pusat peta.",
     "titleAround": "Sekitar “{name}”",
@@ -282,7 +281,8 @@
     "chainMenu": "Menu tanpa daging di {brand}",
     "chainNote": "Dari menu resmi {brand}, diperiksa {date}. Tidak semua cabang menjualnya, jadi tanyakan sebelum memesan.",
     "officialMenu": "Menu resmi",
-    "menuChecked": "diperiksa {date}"
+    "menuChecked": "diperiksa {date}",
+    "everyDay": "Setiap hari"
   },
   "source": {
     "osm": "Kontributor OpenStreetMap",
@@ -410,10 +410,6 @@
   },
   "legend": {
     "title": "Cara membaca peta",
-    "cert": "Lingkaran bertitik emas: sertifikat halal",
-    "halal": "Lingkaran hijau: makanan halal (pemilik atau dinas pariwisata)",
-    "unconfirmed": "Lingkaran putus-putus: belum pasti, tanyakan staf",
-    "veg": "Kotak berdaun: pilihan vegetarian atau vegan, bukan halal",
     "ok": "Mengerti",
     "more": "Arti tiap tingkat"
   },

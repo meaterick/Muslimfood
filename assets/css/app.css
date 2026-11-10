@@ -941,72 +941,183 @@ a {
   margin-inline-start: 8px;
 }
 
-.notice.korea {
-  background: var(--turq-soft);
-  border-color: transparent;
-  color: var(--ink);
+/* tips between the results: first-visit marker key, link to the food guide */
+.list-tips {
+  display: grid;
+  gap: 8px;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
 }
 
-.notice.korea .ic {
-  color: var(--turq);
+.results li.list-tips:last-child {
+  border-bottom: 0;
 }
 
-/* first-visit marker key */
 .legend-card {
-  margin: 10px 16px 2px;
-  padding: 14px 16px;
+  padding: 10px 14px 8px;
+  padding-inline-end: 12px;
   border-radius: var(--r-m);
-  background: var(--paper);
-  border: 1px solid var(--line-strong);
-  box-shadow: var(--shadow-1);
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+}
+
+.legend-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .legend-card h2 {
-  font-size: 15px;
-  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.legend-close {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  margin-block: -4px;
+  margin-inline-end: -6px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--ink-3);
+  display: grid;
+  place-items: center;
+}
+
+.legend-close:hover {
+  background: var(--line);
+  color: var(--ink);
 }
 
 .legend-card ul {
   display: grid;
-  gap: 8px;
-  margin: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 12px;
+  margin: 6px 0 4px;
   padding: 0;
   list-style: none;
-  font-size: 14px;
+  font-size: 13.5px;
+  line-height: 1.25;
   color: var(--ink-2);
 }
 
 .legend-card li {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  min-width: 0;
 }
 
 .legend-card .mark {
   flex: none;
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
 }
 
 .legend-card .mark .ic {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
 }
 
 .legend-card .mark.s-V,
 .legend-card .mark.s-M {
-  border-radius: 8px;
+  border-radius: 7px;
 }
 
-.legend-actions {
+.legend-card .mark.s-C::after {
+  width: 8px;
+  height: 8px;
+}
+
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 36px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--lapis);
+  font-size: 13.5px;
+  font-weight: 650;
+}
+
+.link-btn:hover {
+  text-decoration: underline;
+}
+
+/* a chevron pointing forward (the "back" arrow, mirrored; mirrored again in RTL) */
+.chev {
+  width: 16px;
+  height: 16px;
+  transform: scaleX(-1);
+}
+
+[dir='rtl'] .chev {
+  transform: none;
+}
+
+.tip-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 52px;
+  padding: 8px 14px;
+  padding-inline-end: 10px;
+  border: 0;
+  border-radius: var(--r-m);
+  background: var(--turq-soft);
+  color: var(--ink-2);
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: start;
 }
 
-.place-near {
+.tip-row > .ic:first-child {
+  flex: none;
+  color: var(--turq);
+}
+
+.tip-row span {
+  flex: 1;
+  min-width: 0;
+}
+
+.tip-row strong {
+  display: block;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.tip-row .chev {
+  flex: none;
+  color: var(--ink-3);
+}
+
+.tip-row:hover {
+  background: color-mix(in srgb, var(--turq-soft) 80%, var(--turq));
+}
+
+#list-after .notice {
+  margin-top: 14px;
+}
+
+/* nearest station, with the other facts of a row */
+.place-stn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   white-space: nowrap;
+}
+
+.place-stn .ic {
+  width: 14px;
+  height: 14px;
+  color: var(--ink-3);
 }
 
 .text-btn {
@@ -1500,7 +1611,7 @@ a {
   background: var(--scrim);
 }
 
-@media (min-width: 900px) {
+@media (min-width: 720px) {
   .sheet-dialog {
     margin: auto;
     border-radius: var(--r-l);
@@ -2178,9 +2289,11 @@ a {
 
 /* ------------------------------------------------------------- desktop */
 
-@media (min-width: 900px) {
+/* From tablet width up the list is a side panel next to the map. */
+@media (min-width: 720px) {
   :root {
     --topbar-h: 128px;
+    --panel-w: 360px;
   }
 
   .topbar {
@@ -2263,9 +2376,107 @@ a {
   }
 }
 
+@media (min-width: 1024px) {
+  :root {
+    --panel-w: 420px;
+  }
+}
+
 @media (min-width: 1280px) {
   :root {
     --panel-w: 460px;
+  }
+}
+
+/* A phone on its side: one compact bar above the list, so the list keeps its height. */
+@media (min-width: 720px) and (max-height: 520px) {
+  :root {
+    --topbar-h: 68px;
+  }
+
+  .topbar {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: 'brand search menu';
+    column-gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .brand-word {
+    display: none;
+  }
+}
+
+/* Small phones: the sheet shows half a screen, so the place header stays tight
+   and the directions buttons become one row of pills. */
+@media (max-width: 719px) {
+  /* Suggestions use the whole screen width, not just the search field's. */
+  .search-results {
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 64px);
+    inset-inline: 8px;
+    max-height: min(62dvh, 460px);
+  }
+
+  /* With the sheet fully open the map is covered: its controls would float over the search bar. */
+  .app:has(.panel[data-state='full']) :is(.locate, .maplibregl-ctrl-bottom-left) {
+    visibility: hidden;
+  }
+
+  .detail-head h2 {
+    font-size: 21px;
+  }
+
+  .detail-head .alt {
+    margin-top: 2px;
+    font-size: 14px;
+  }
+
+  .detail-head + .visually-hidden + .apps {
+    margin-top: 12px;
+  }
+
+  .app-btn {
+    flex-direction: row;
+    gap: 7px;
+    min-height: 50px;
+    padding: 6px 8px;
+    text-align: start;
+  }
+
+  .app-logo {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+
+  .list-heading h1 {
+    font-size: 19px;
+  }
+}
+
+/* Fingers need bigger targets than a mouse pointer. */
+@media (pointer: coarse) {
+  .chip {
+    height: 40px;
+    padding-inline: 14px;
+  }
+
+  .legend-btn {
+    height: 40px;
+    padding: 0 12px;
+  }
+
+  .notice.query .text-btn {
+    min-height: 40px;
+  }
+
+  .legend-close {
+    width: 44px;
+    height: 44px;
+  }
+
+  .link-btn {
+    min-height: 44px;
   }
 }
 

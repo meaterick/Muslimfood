@@ -75,7 +75,6 @@
     },
     "showUnconfirmed": "함께 보기",
     "koreaPromo": "한식이 처음이신가요? 돼지고기나 술이 자주 들어가는 음식을 확인해 보세요.",
-    "koreaPromoButton": "가이드 열기",
     "discover": "주변 식당 더 찾기",
     "discoverHint": "지도 중심 주변의 식당을 OpenStreetMap에서 추가로 찾아보세요.",
     "titleAround": "‘{name}’ 주변",
@@ -282,7 +281,8 @@
     "chainMenu": "{brand}의 고기 없는 메뉴",
     "chainNote": "{brand} 공식 메뉴 기준({date} 확인)입니다. 매장마다 판매하지 않을 수 있으니 주문 전에 확인하세요.",
     "officialMenu": "공식 메뉴 보기",
-    "menuChecked": "{date} 확인"
+    "menuChecked": "{date} 확인",
+    "everyDay": "매일"
   },
   "source": {
     "osm": "오픈스트리트맵 기여자",
@@ -410,10 +410,6 @@
   },
   "legend": {
     "title": "지도 보는 법",
-    "cert": "금색 점이 있는 원: 할랄 인증",
-    "halal": "초록 원: 할랄 음식 (업주·관광공사 정보)",
-    "unconfirmed": "점선 원: 확인 안 됨, 직원에게 물어보세요",
-    "veg": "잎 모양 사각형: 채식·비건 메뉴 (할랄 아님)",
     "ok": "알겠어요",
     "more": "등급 자세히 보기"
   },
