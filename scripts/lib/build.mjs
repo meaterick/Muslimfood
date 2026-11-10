@@ -2,8 +2,8 @@
 
 import { fromOsmElement, betterStatus, MEAT_FREE, addressOf } from '../../assets/js/core/normalize.js';
 import { cellKey, distance, isInKorea, CELL_SIZE } from '../../assets/js/core/geo.js';
-import { namesMatch, allNames } from '../../assets/js/core/text.js';
-import { soundsAlike, branchMarker } from './phonetic.mjs';
+import { namesMatch, allNames, coreName } from '../../assets/js/core/text.js';
+import { soundsAlike, branchMarker, phoneticKey } from './phonetic.mjs';
 import { STATUS_ORDER } from '../../assets/js/core/normalize.js';
 import { BRAND_BY_ID, brandDiet, matchBrand, chainOfTags, branchName } from '../../assets/js/core/brands.js';
 
@@ -152,6 +152,11 @@ function absorb(same, place, sourceKey, { names = false } = {}) {
     if (s !== 'U') delete same.why;
   }
   for (const f of ['a', 'ph', 'oh', 'ohx', 'w', 'ig', 'pt', 'mu', 'su', 'ce', 'ck']) if (!same[f] && place[f]) same[f] = place[f];
+  // Keep MUFKO's grade and page together even when this becomes an OSM/KTO record.
+  if (place.mf && !same.mf) {
+    same.mf = place.mf;
+    same.mc = place.mc;
+  }
   // Menu names, translations and diet labels belong together.
   if (!same.mn?.length && place.mn?.length) {
     same.mn = place.mn;
@@ -251,14 +256,31 @@ export function mergeInto(byCell, place, sourceKey) {
     const d = distance(o.y, o.x, place.y, place.x);
     if (d >= MERGE_RADIUS_M) return false;
     // Nearby branches can share a brand while serving different menus.
-    if ((sourceKey === 'kto' || o.src === 'kto') && !sameKind(o, place)) return false;
+    if ((['kto', 'mufko'].includes(sourceKey) || ['kto', 'mufko'].includes(o.src)) &&
+        (!sameKind(o, place) || differentBranch(o, place))) return false;
+    // MUFKO can list several distinct neighbours (URGUT / URGUT2, The Kebab /
+    // Shohona Kebab). Within that directory only collapse clear duplicates;
+    // different grades retain their own original pages and evidence.
+    if (sourceKey === 'mufko' && o.mf) {
+      return d < OSM_DUPLICATE_M && o.mc === place.mc && sameKind(o, place) &&
+        allNames(o).some((a) => allNames(place).some((b) => coreName(a) === coreName(b)));
+    }
+    if (sourceKey === 'mufko' || o.mf) {
+      if (allNames(o).some((a) => allNames(place).some((b) => coreName(a) === coreName(b)))) return true;
+      // MUFKO supplies both scripts. Avoid substring/fuzzy matches that hide
+      // different restaurants on a busy street; exact phonetic matches still
+      // join a Korean public-data name to its English directory entry.
+      bySound = d < SOUND_MERGE_M && sameKind(o, place) &&
+        allNames(o).some((a) => allNames(place).some((b) => soundsAlike(a, b) && phoneticKey(a) === phoneticKey(b)));
+      return bySound;
+    }
     if (place.k === 'p') return true;
     if (sharesName(o, place)) return true;
     bySound = d < SOUND_MERGE_M && sameKind(o, place) && soundsSame(o, place);
     return bySound;
   });
   if (same) {
-    absorb(same, place, sourceKey, { names: bySound });
+    absorb(same, place, sourceKey, { names: bySound || sourceKey === 'mufko' });
     return false;
   }
   if (!byCell.has(key)) byCell.set(key, []);

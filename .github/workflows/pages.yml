@@ -1,6 +1,6 @@
 # Deploys the site to GitHub Pages. A push to main rebuilds the data from the
 # last downloads and is live in about two minutes; the daily run refreshes
-# OpenStreetMap (5-10 minutes, mostly waiting for the shared Overpass server)
+# OpenStreetMap and MUFKO (5-10 minutes, mostly waiting for the shared Overpass server)
 # and the quarterly Korean store registry. One-time setup: Settings → Pages →
 # Build and deployment → Source: "GitHub Actions".
 name: Deploy to GitHub Pages
@@ -9,7 +9,7 @@ on:
   push:
     branches: [main]
   schedule:
-    # Every day at 04:17 KST (19:17 UTC): picks up new halal places added to OpenStreetMap.
+    # Every day at 04:17 KST (19:17 UTC): refresh OpenStreetMap and MUFKO.
     - cron: '17 19 * * *'
   workflow_dispatch:
 
@@ -81,6 +81,24 @@ jobs:
         continue-on-error: true
         run: node scripts/import-chains.mjs --zip .cache/stores.zip
 
+      # MUFKO fills gaps in OSM and the older Korean public lists. Pushes reuse
+      # the latest successful snapshot; a failed refresh retains that snapshot.
+      - name: Restore MUFKO directory
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache/mufko
+          key: mufko-${{ github.run_id }}
+          restore-keys: mufko-
+
+      - name: Import MUFKO restaurants
+        run: node scripts/import-mufko.mjs --cache .cache/mufko/restaurants.json ${{ steps.mode.outputs.refresh != 'true' && '--reuse' || '' }}
+
+      - name: Save MUFKO directory
+        uses: actions/cache/save@v4
+        with:
+          path: .cache/mufko
+          key: mufko-${{ github.run_id }}
+
       # Keep the last good OpenStreetMap download: pushes reuse it, and a
       # temporary Overpass outage on the daily run does not remove places.
       - name: Restore previous OpenStreetMap download
@@ -90,7 +108,7 @@ jobs:
           key: osm-${{ github.run_id }}
           restore-keys: osm-
 
-      - name: Build data (OpenStreetMap + Korean public data)
+      - name: Build data (OpenStreetMap + MUFKO + Korean public data)
         run: node scripts/build-data.mjs --osm-cache .cache/osm ${{ steps.mode.outputs.refresh != 'true' && '--osm-reuse' || '' }}
 
       - name: Save OpenStreetMap download

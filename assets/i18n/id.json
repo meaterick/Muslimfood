@@ -128,7 +128,8 @@
       "V": "Semua menu vegetarian: tanpa daging atau ikan, tetapi mungkin memakai susu dan telur. Tidak bersertifikat halal: tanyakan alkohol dalam saus, seperti arak masak.",
       "VV": "Semua menu vegan: tanpa daging, ikan, susu, atau telur. Tidak bersertifikat halal: tanyakan alkohol dalam saus, seperti arak masak.",
       "M": "Menyajikan beberapa hidangan vegetarian, tetapi juga memasak daging, jadi peralatan dan minyak mungkin dipakai bersama. Tidak bersertifikat halal.",
-      "MV": "Menyajikan beberapa hidangan vegan, tetapi juga memasak daging, jadi peralatan dan minyak mungkin dipakai bersama. Tidak bersertifikat halal."
+      "MV": "Menyajikan beberapa hidangan vegan, tetapi juga memasak daging, jadi peralatan dan minyak mungkin dipakai bersama. Tidak bersertifikat halal.",
+      "Udirectory": "Terdaftar di direktori restoran tanpa bukti halal yang terverifikasi. Tanyakan bahan dan cara pengolahannya kepada restoran sebelum memesan."
     }
   },
   "diet": {
@@ -294,7 +295,8 @@
     "seoul": "Pemerintah Kota Seoul, restoran vegetarian bersertifikat",
     "suwon": "Kota Suwon, restoran dengan menu vegan",
     "sbiz": "Small Enterprise and Market Service, daftar usaha nasional",
-    "brand": "Menu resmi {brand}"
+    "brand": "Menu resmi {brand}",
+    "mufko": "MUFKO (Muslim Friendly Korea)"
   },
   "guide": {
     "title": "Makan halal di Korea",
@@ -474,5 +476,14 @@
     "thanksYes": "Terima kasih sudah memastikan!",
     "thanksNo": "Terima kasih, akan kami periksa.",
     "counts": "Pengunjung: {yes} memastikan · {no} melaporkan masalah"
+  },
+  "mufko": {
+    "muslim_certified": "Sertifikasi Muslim",
+    "self_certified": "Sertifikasi Mandiri",
+    "seafood": "Makanan Laut",
+    "veggie": "Vegetarian",
+    "halal_meat": "Daging Halal",
+    "salam": "Salam",
+    "unknown": "Tidak disebutkan"
   }
 }

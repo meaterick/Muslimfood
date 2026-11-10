@@ -131,7 +131,8 @@
       "V": "Toute la carte est végétarienne : ni viande ni poisson, mais des produits laitiers et des œufs peuvent être utilisés. Sans certification halal : demandez si les sauces contiennent de l’alcool, comme du vin de cuisine.",
       "VV": "Toute la carte est vegan : ni viande, ni poisson, ni produits laitiers, ni œufs. Sans certification halal : demandez si les sauces contiennent de l’alcool, comme du vin de cuisine.",
       "M": "Propose quelques plats végétariens, mais la viande y est aussi cuisinée : ustensiles et huile peuvent être partagés. Sans certification halal.",
-      "MV": "Propose quelques plats vegan, mais la viande y est aussi cuisinée : ustensiles et huile peuvent être partagés. Sans certification halal."
+      "MV": "Propose quelques plats vegan, mais la viande y est aussi cuisinée : ustensiles et huile peuvent être partagés. Sans certification halal.",
+      "Udirectory": "Répertorié dans un annuaire de restaurants sans preuve halal vérifiée. Vérifiez les ingrédients et la préparation auprès du restaurant avant de commander."
     }
   },
   "diet": {
@@ -297,7 +298,8 @@
     "seoul": "Ville de Séoul, restaurants végétariens certifiés",
     "suwon": "Ville de Suwon, restaurants avec menu vegan",
     "sbiz": "Small Enterprise and Market Service, registre national des commerces",
-    "brand": "Carte officielle de {brand}"
+    "brand": "Carte officielle de {brand}",
+    "mufko": "MUFKO (Muslim Friendly Korea)"
   },
   "guide": {
     "title": "Manger halal en Corée",
@@ -477,5 +479,14 @@
     "thanksYes": "Merci pour la confirmation !",
     "thanksNo": "Merci, nous allons vérifier.",
     "counts": "Visiteurs : {yes} ont confirmé · {no} ont signalé un problème"
+  },
+  "mufko": {
+    "muslim_certified": "Certification musulmane",
+    "self_certified": "Autocertification",
+    "seafood": "Fruits de mer",
+    "veggie": "Végétarien",
+    "halal_meat": "Viande halal",
+    "salam": "Salam",
+    "unknown": "Non précisé"
   }
 }
