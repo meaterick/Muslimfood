@@ -25,7 +25,7 @@ import { runOverpass, taggedQuery, koreaQuery, vegQuery, chainsQuery, stationsQu
 import { stationsFromOsm } from '../assets/js/core/stations.js';
 import { compact } from '../assets/js/core/normalize.js';
 import { isInKorea, KOREA_BBOX, CELL_SIZE } from '../assets/js/core/geo.js';
-import { normalizeParts, groupByCell, mergeSources, searchRecords, supplementChains } from './lib/build.mjs';
+import { normalizeParts, groupByCell, mergeSources, searchRecords, supplementChains, dedupeOsm } from './lib/build.mjs';
 import { BRANDS } from '../assets/js/core/brands.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -172,8 +172,9 @@ async function main() {
   }
 
   const { byId, osmBase, chainShops } = normalizeParts(parts);
-  log(`OSM places: ${byId.size}`);
-  const byCell = groupByCell(byId.values());
+  const osm = dedupeOsm(byId.values());
+  log(`OSM places: ${byId.size}, ${osm.merged} listed twice merged`);
+  const byCell = groupByCell(osm.places);
   const sourceStats = mergeSources(byCell, sources);
   for (const st of sourceStats) log(`${st.file}: ${st.records} records, ${st.added} new, ${st.records - st.added} merged`);
   const chainsAdded = supplementChains(byCell, chainShops);
