@@ -73,3 +73,13 @@ test('a public record never merges into a chain branch by a shared word', () => 
   // ...but one named after the chain does.
   assert.equal(mergeInto(byCell, { id: 'osm-3', n: '롯데리아 연지', y: 35.17, x: 129.05, k: 'f', s: 'U' }, 'osm'), false);
 });
+
+test('a registry restaurant joins the MUFKO entry at the same door, not a neighbour', () => {
+  const muf = { id: 'mufko-1', n: 'Star Kebab', y: 35.8571, x: 128.4893, k: 'r', s: 'Y', src: 'mufko', mf: 1, mc: 'H' };
+  const next = { id: 'mufko-2', n: '타슈켄트', nl: { en: 'Toshkent' }, y: 35.8571, x: 128.4893, k: 'r', s: 'U', src: 'mufko', mf: 2, mc: 'U' };
+  const byCell = groupByCell([muf, next]);
+  assert.equal(mergeInto(byCell, { id: 'sbiz-9', n: '스타케밥', y: 35.8571, x: 128.4893, k: 'r', s: 'U', why: 'name' }, 'sbiz'), false);
+  assert.deepEqual([...byCell.values()].flat().find((p) => p.id === 'mufko-1').ids, ['sbiz-9']);
+  // A generic registry name in the same building stays separate.
+  assert.equal(mergeInto(byCell, { id: 'sbiz-10', n: '할랄푸드', y: 35.8571, x: 128.4893, k: 'r', s: 'U', why: 'name' }, 'sbiz'), true);
+});

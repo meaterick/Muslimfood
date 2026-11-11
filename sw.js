@@ -1,9 +1,11 @@
 // Service worker: app shell offline, data stale-while-revalidate, visited map
 // tiles cached so the map keeps working with a weak connection.
 // Bump VERSION when the app shell changes.
-const VERSION = 'v12';
+const VERSION = 'v15';
 const SHELL = `mf-shell-${VERSION}`;
-const DATA = 'mf-data-v1';
+// Drop cells cached before MUFKO was added, so returning visitors get its places
+// with the new app shell instead of an old cell on their first updated visit.
+const DATA = 'mf-data-v2';
 const TILES = 'mf-tiles-v1';
 const MAX_TILES = 1500;
 

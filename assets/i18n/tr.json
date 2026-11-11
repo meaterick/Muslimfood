@@ -136,7 +136,8 @@
       "M": "Bazı vejetaryen yemekler sunar, ancak burada et de pişirilir; tava ve yağ ortak kullanılabilir. Helal sertifikalı değildir.",
       "MV": "Bazı vegan yemekler sunar, ancak burada et de pişirilir; tava ve yağ ortak kullanılabilir. Helal sertifikalı değildir.",
       "S": "Deniz ürünleri restoranı: çiğ balık, suşi, ızgara balık veya kabuklu deniz ürünleri. Balık kesim gerektirmez, ama burası helal sertifikalı değil. Hanefi mezhebine uyanlar yalnızca balık yer; karides, midye ve kalamar yemez. Pişirme şarabı (mirin, soju) ve güveçlerdeki et suyunu sorun.",
-      "Vname": "Adında vegan, vejetaryen veya tapınak yemeği geçiyor; menünün çoğu ya da tamamı etsiz olmalı. Helal sertifikalı değil: soslardaki alkolü, örneğin pişirme şarabını sorun."
+      "Vname": "Adında vegan, vejetaryen veya tapınak yemeği geçiyor; menünün çoğu ya da tamamı etsiz olmalı. Helal sertifikalı değil: soslardaki alkolü, örneğin pişirme şarabını sorun.",
+      "Udirectory": "Doğrulanmış helal kanıtı olmadan bir restoran rehberinde listelenmiştir. Sipariş vermeden önce malzemeleri ve hazırlama yöntemini restorana sorun."
     },
     "S": "Deniz ürünleri"
   },
@@ -305,7 +306,8 @@
     "seoul": "Seul Büyükşehir Belediyesi, sertifikalı vejetaryen restoranlar",
     "suwon": "Suwon Belediyesi, vegan menüsü olan restoranlar",
     "sbiz": "Küçük İşletmeler ve Pazar Hizmeti, ulusal işletme kaydı",
-    "brand": "{brand} resmî menüsü"
+    "brand": "{brand} resmî menüsü",
+    "mufko": "MUFKO (Muslim Friendly Korea)"
   },
   "guide": {
     "title": "Kore'de helal beslenme",
@@ -523,5 +525,14 @@
     "thanksYes": "Onayladığınız için teşekkürler!",
     "thanksNo": "Teşekkürler, kontrol edeceğiz.",
     "counts": "Ziyaretçiler: {yes} onayladı · {no} sorun bildirdi"
+  },
+  "mufko": {
+    "muslim_certified": "Müslüman Sertifikalı",
+    "self_certified": "Kendi Beyanıyla Sertifikalı",
+    "seafood": "Deniz Ürünleri",
+    "veggie": "Vejetaryen",
+    "halal_meat": "Helal Et",
+    "salam": "Salam",
+    "unknown": "Belirtilmemiş"
   }
 }

@@ -80,3 +80,19 @@ test('Korean source files carry license and source metadata', () => {
     assert.equal(ids.size, j.places.length, `${f} has duplicate ids`);
   }
 });
+
+test('every MUFKO restaurant is in a served cell and the search catalogue after merging', () => {
+  const source = JSON.parse(read('data/sources/kr-mufko-restaurants.json'));
+  const index = JSON.parse(read('data/index.json'));
+  const catalogue = new Set(JSON.parse(read('data/search.json')).map((p) => p.id));
+  const places = Object.keys(index.cells).flatMap((key) => JSON.parse(read(`data/cells/${key}.json`)));
+  const byId = new Map(places.flatMap((p) => [p.id, ...(p.ids || [])].map((id) => [id, p])));
+  assert.ok(source.places.length > 0 && source.records >= source.places.length);
+  for (const p of source.places) {
+    const served = byId.get(p.id);
+    assert.ok(served, `${p.id} missing from the cells`);
+    assert.ok(catalogue.has(served.id), `${p.id} missing from search`);
+    assert.ok((served.srcs || [served.src]).includes('mufko'), `${p.id} lost attribution`);
+    assert.ok(served.mf, `${p.id} lost its MUFKO page`);
+  }
+});

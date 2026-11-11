@@ -136,7 +136,8 @@
       "M": "Propose quelques plats végétariens, mais la viande y est aussi cuisinée : ustensiles et huile peuvent être partagés. Sans certification halal.",
       "MV": "Propose quelques plats vegan, mais la viande y est aussi cuisinée : ustensiles et huile peuvent être partagés. Sans certification halal.",
       "S": "Restaurant de poissons et fruits de mer : poisson cru, sushi, poisson grillé ou coquillages. Le poisson ne demande pas d’abattage, mais ce lieu n’est pas certifié halal. Les hanafites ne mangent que le poisson, pas les crevettes, coquillages ni calmars. Demandez s’il y a du vin de cuisine (mirin, soju) ou un bouillon de viande dans les ragoûts.",
-      "Vname": "Son nom indique une cuisine végane, végétarienne ou de temple : la carte devrait être en grande partie ou entièrement sans viande. Non certifié halal : demandez s’il y a de l’alcool dans les sauces, comme le vin de cuisine."
+      "Vname": "Son nom indique une cuisine végane, végétarienne ou de temple : la carte devrait être en grande partie ou entièrement sans viande. Non certifié halal : demandez s’il y a de l’alcool dans les sauces, comme le vin de cuisine.",
+      "Udirectory": "Répertorié dans un annuaire de restaurants sans preuve halal vérifiée. Vérifiez les ingrédients et la préparation auprès du restaurant avant de commander."
     },
     "S": "Fruits de mer"
   },
@@ -305,7 +306,8 @@
     "seoul": "Ville de Séoul, restaurants végétariens certifiés",
     "suwon": "Ville de Suwon, restaurants avec menu vegan",
     "sbiz": "Small Enterprise and Market Service, registre national des commerces",
-    "brand": "Carte officielle de {brand}"
+    "brand": "Carte officielle de {brand}",
+    "mufko": "MUFKO (Muslim Friendly Korea)"
   },
   "guide": {
     "title": "Manger halal en Corée",
@@ -523,5 +525,14 @@
     "thanksYes": "Merci pour la confirmation !",
     "thanksNo": "Merci, nous allons vérifier.",
     "counts": "Visiteurs : {yes} ont confirmé · {no} ont signalé un problème"
+  },
+  "mufko": {
+    "muslim_certified": "Certification musulmane",
+    "self_certified": "Autocertification",
+    "seafood": "Fruits de mer",
+    "veggie": "Végétarien",
+    "halal_meat": "Viande halal",
+    "salam": "Salam",
+    "unknown": "Non précisé"
   }
 }

@@ -133,7 +133,8 @@
       "M": "Menghidangkan beberapa hidangan vegetarian, tetapi turut memasak daging, jadi peralatan dan minyak mungkin dikongsi. Tidak diperakui halal.",
       "MV": "Menghidangkan beberapa hidangan vegan, tetapi turut memasak daging, jadi peralatan dan minyak mungkin dikongsi. Tidak diperakui halal.",
       "S": "Restoran makanan laut: ikan mentah, sushi, ikan bakar atau kerang. Ikan tidak perlu disembelih, tetapi tempat ini tidak diperakui halal. Pengikut mazhab Hanafi makan ikan sahaja, bukan udang, kerang atau sotong. Tanya tentang arak masakan (mirin, soju) dan sup daging dalam rebusan.",
-      "Vname": "Namanya menyebut vegan, vegetarian atau makanan kuil, jadi kebanyakan atau semua menunya mungkin tanpa daging. Tidak diperakui halal: tanya tentang alkohol dalam sos, seperti arak masakan."
+      "Vname": "Namanya menyebut vegan, vegetarian atau makanan kuil, jadi kebanyakan atau semua menunya mungkin tanpa daging. Tidak diperakui halal: tanya tentang alkohol dalam sos, seperti arak masakan.",
+      "Udirectory": "Disenaraikan dalam direktori restoran tanpa bukti halal yang disahkan. Semak bahan dan cara penyediaan dengan restoran sebelum memesan."
     },
     "S": "Makanan laut"
   },
@@ -302,7 +303,8 @@
     "seoul": "Kerajaan Metropolitan Seoul, restoran vegetarian diperakui",
     "suwon": "Bandar Suwon, restoran dengan menu vegan",
     "sbiz": "Small Enterprise and Market Service, daftar perniagaan kebangsaan",
-    "brand": "Menu rasmi {brand}"
+    "brand": "Menu rasmi {brand}",
+    "mufko": "MUFKO (Muslim Friendly Korea)"
   },
   "guide": {
     "title": "Makan halal di Korea",
@@ -520,5 +522,14 @@
     "thanksYes": "Terima kasih kerana mengesahkan!",
     "thanksNo": "Terima kasih, kami akan menyemaknya.",
     "counts": "Pengunjung: {yes} mengesahkan · {no} melaporkan masalah"
+  },
+  "mufko": {
+    "muslim_certified": "Pensijilan Muslim",
+    "self_certified": "Pensijilan Sendiri",
+    "seafood": "Makanan Laut",
+    "veggie": "Vegetarian",
+    "halal_meat": "Daging Halal",
+    "salam": "Salam",
+    "unknown": "Tidak dinyatakan"
   }
 }

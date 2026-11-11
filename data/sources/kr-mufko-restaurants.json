@@ -1,0 +1,9163 @@
+{
+  "source": "mufko",
+  "title": "MUFKO (Muslim Friendly Korea) restaurant directory",
+  "publisher": "MUFKO",
+  "url": "https://app.mufko.com/restaurants",
+  "license": "Factual restaurant information with source attribution",
+  "licenseNote": "Public listing facts only; photos, descriptions and reviews are not reproduced. Each record links to the original MUFKO page.",
+  "fetched": "2026-11-10",
+  "selection": "All pages of the public restaurant directory in English and Korean, with valid Korean coordinates; closed places excluded. Muslim Certified → C only with isCertified=true; Self Certified → Y; Halal Meat → L; Veggie → M (vegetarian dishes, not a fully vegetarian kitchen); Seafood, Salam and unknown categories → U (directory listing, not halal verification).",
+  "records": 621,
+  "places": [
+    {
+      "id": "mufko-1",
+      "n": "Himalaya Garden",
+      "y": 37.2635,
+      "x": 127.03387,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기도 수원시 팔달구 인계동 권광로180번길 19",
+      "mf": 1,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-3",
+      "n": "Hwadeok Dakgalbi (Gapyeong Branch)",
+      "y": 37.82481,
+      "x": 127.50678,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "korean"
+      ],
+      "a": "경기도 가평군 가평읍 문화로 264",
+      "mf": 3,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-4",
+      "n": "Hello india Al Waha",
+      "y": 35.16206,
+      "x": 129.16055,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "부산광역시 해운대구 중동 구남로 23",
+      "mf": 4,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-5",
+      "n": "Hummus Kitchen",
+      "y": 37.50913,
+      "x": 127.06085,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울특별시 강남구 삼성1동 159-8",
+      "mf": 5,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-13",
+      "n": "The Halal Guys (Itaewon Branch)",
+      "y": 37.53467,
+      "x": 126.99476,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "서울특별시 용산구 이태원1동 123-32",
+      "mf": 13,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-14",
+      "n": "The Halal Guys (Gangnam Branch)",
+      "y": 37.50181,
+      "x": 127.02461,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "서울특별시 서초구 서초4동 강남대로69길 8",
+      "mf": 14,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-15",
+      "n": "Halal India Restaurant",
+      "y": 37.68977,
+      "x": 126.60051,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기도 김포시 통진읍 마송리 100-5",
+      "mf": 15,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-19",
+      "n": "Hajj",
+      "y": 37.53327,
+      "x": 126.99755,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울특별시 용산구 한남동 732-21",
+      "mf": 19,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-20",
+      "n": "Hisbiscus Asian Restaurant",
+      "y": 37.56428,
+      "x": 126.96847,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "서울특별시 중구 의주로1가 통일로 102",
+      "mf": 20,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-21",
+      "n": "Pierre Gagnaire à Séoul (Lotte Hotel)",
+      "y": 37.56499,
+      "x": 126.98137,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "western"
+      ],
+      "a": "서울특별시 중구 소공동 1",
+      "mf": 21,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-23",
+      "n": "Potala Restaurant (Hongdae Branch)",
+      "y": 37.55709,
+      "x": 126.92047,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 마포구 동교동 월드컵북로4길 13",
+      "mf": 23,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-24",
+      "n": "Potala Restaurant (Jongro Branch)",
+      "y": 37.56837,
+      "x": 126.98866,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 종로구 관철동 35-2",
+      "mf": 24,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-25",
+      "n": "Foreign Restaurant",
+      "y": 37.53386,
+      "x": 126.99575,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "korean",
+        "indian"
+      ],
+      "a": "서울특별시 용산구 이태원동 우사단로 42",
+      "mf": 25,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-26",
+      "n": "Persian Palace Restaurant",
+      "y": 37.58487,
+      "x": 126.99753,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "서울특별시 종로구 명륜2가 121-1",
+      "mf": 26,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-27",
+      "n": "Punjab Indian Restaurant",
+      "y": 35.16138,
+      "x": 129.16103,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "부산광역시 해운대구 중1동 1393-31",
+      "mf": 27,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-28",
+      "n": "Familia (Imperial Palace Hotel)",
+      "y": 37.51402,
+      "x": 127.03588,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "서울특별시 강남구 논현동 248-7",
+      "mf": 28,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-29",
+      "n": "Terras Green",
+      "y": 37.25999,
+      "x": 127.12055,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기도 용인시 기흥구 상갈동 민속촌로 90",
+      "mf": 29,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-31",
+      "n": "Taj Palace",
+      "y": 37.53366,
+      "x": 126.99543,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 용산구 이태원1동 132-2",
+      "mf": 31,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-32",
+      "n": "Taj Mahal",
+      "y": 35.22244,
+      "x": 128.67665,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "경상남도 창원시 성산구 중앙동 용지로 74",
+      "mf": 32,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-33",
+      "n": "Taj mahal in Korea",
+      "y": 35.83905,
+      "x": 128.70896,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "대구광역시 수성구 고산1동 567-21",
+      "mf": 33,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-34",
+      "n": "Taj",
+      "y": 37.56429,
+      "x": 126.98619,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 중구 명동 1-3",
+      "mf": 34,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-35",
+      "n": "Tara",
+      "y": 35.86649,
+      "x": 128.59389,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "대구광역시 중구 덕산동 125-12",
+      "mf": 35,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-36",
+      "n": "Kitchen of India",
+      "y": 37.51536,
+      "x": 127.10744,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 송파구 방이동 올림픽로 336",
+      "mf": 36,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-38",
+      "n": "Kervan Turkish Restaurant (Itaewon Branch)",
+      "y": 37.53433,
+      "x": 126.99536,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울특별시 용산구 이태원동 이태원로 192",
+      "mf": 38,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-39",
+      "n": "Kervan Turkish Restaurant (Pangyo Branch)",
+      "y": 37.38979,
+      "x": 127.10986,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "경기도 성남시 분당구 백현동 판교역로 192번길 14-2",
+      "mf": 39,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-40",
+      "n": "Kervan Turkish Restaurant (Famille Station Branch)",
+      "y": 37.50443,
+      "x": 127.00776,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울특별시 서초구 반포4동 118-3",
+      "mf": 40,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-41",
+      "n": "Kervan Turkish Restaurant (COEX Branch)",
+      "y": 37.51019,
+      "x": 127.05858,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울특별시 강남구 삼성1동 봉은사로 524",
+      "mf": 41,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-42",
+      "n": "Kervan Turkish Restaurant GFC",
+      "y": 37.49993,
+      "x": 127.03655,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울특별시 강남구 역삼1동 737",
+      "mf": 42,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-43",
+      "n": "Kervan Turkish Restaurant (Goyang Branch)",
+      "y": 37.64678,
+      "x": 126.89482,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "경기도 고양시 덕양구 동산동 97-2",
+      "mf": 43,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-44",
+      "n": "Kervan Turkish Restaurant (Seoul Station Branch)",
+      "y": 37.56453,
+      "x": 127.02197,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울특별시 중구 신당5동 151-16",
+      "mf": 44,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-45",
+      "n": "Kervan Bakery",
+      "y": 37.53447,
+      "x": 126.9965,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울특별시 용산구 이태원동 126-2",
+      "mf": 45,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-46",
+      "n": "Kervan Turkish Restaurant (Banpo Branch)",
+      "y": 37.50413,
+      "x": 127.00307,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울특별시 서초구 반포4동 19-3",
+      "mf": 46,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-48",
+      "n": "Cappadocia",
+      "y": 35.25994,
+      "x": 129.0922,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "부산광역시 금정구 남산동 금단로 123-9",
+      "mf": 48,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-53",
+      "n": "Cheon Hae Cheon",
+      "y": 33.49962,
+      "x": 126.53119,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "korean"
+      ],
+      "a": "제주특별자치도 제주시 한라대학로, 25",
+      "mf": 53,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-54",
+      "n": "Jinbo Dakgalbi",
+      "y": 37.86346,
+      "x": 127.72296,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "korean"
+      ],
+      "a": "강원도 춘천시 퇴계동 627-4",
+      "mf": 54,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-58",
+      "n": "Ilpumdang",
+      "y": 37.57274,
+      "x": 126.97403,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "japanese"
+      ],
+      "a": "서울특별시 종로구 내수동 1",
+      "mf": 58,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-70",
+      "n": "Eid",
+      "y": 37.53234,
+      "x": 126.99915,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울특별시 용산구 한남동 우사단로10길 67",
+      "mf": 70,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-77",
+      "n": "Om Restaurant (Gwanggyo Branch)",
+      "y": 37.25653,
+      "x": 127.05434,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기 수원시 영통구 센트럴타운로 85 아브뉴프랑 2층 라온존 B223호",
+      "mf": 77,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-78",
+      "n": "Om Restaurant (Samcheongdong Branch)",
+      "y": 37.5869,
+      "x": 126.98148,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 종로구 삼청동 삼청로 129",
+      "mf": 78,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-80",
+      "n": "Om Restaurant (Gwanghwamun Branch)",
+      "y": 37.57047,
+      "x": 126.97607,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 종로구 신문로1가 2",
+      "mf": 80,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-85",
+      "n": "Otsal Indian Restaurant",
+      "y": 37.58912,
+      "x": 127.01821,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 성북구 동선동 64-2",
+      "mf": 85,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-89",
+      "n": "Yangguk",
+      "y": 37.502,
+      "x": 127.03469,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울특별시 강남구 역삼1동 논현로95길 15",
+      "mf": 89,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-90",
+      "n": "Aladin Kebab",
+      "y": 37.41861,
+      "x": 126.64989,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "인천광역시 연수구 옥련동 547-10",
+      "mf": 90,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-95",
+      "n": "Asian Family Restaurant Dongmun",
+      "y": 37.78994,
+      "x": 127.52581,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "강원도 춘천시 남산면 남이섬길 1",
+      "mf": 95,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-96",
+      "n": "Asian Live",
+      "y": 37.51019,
+      "x": 127.05858,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울특별시 강남구 삼성1동 봉은사로 524",
+      "mf": 96,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-97",
+      "n": "Ama (Hongdae Branch)",
+      "y": 37.55347,
+      "x": 126.92024,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 마포구 서교동 양화로16길 10",
+      "mf": 97,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-98",
+      "n": "Amma (Sinchon Branch)",
+      "y": 37.55777,
+      "x": 126.93542,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 서대문구 신촌동 연세로7길 24",
+      "mf": 98,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-101",
+      "n": "Salam",
+      "y": 37.53327,
+      "x": 126.99755,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울특별시 용산구 한남동 732-21",
+      "mf": 101,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-103",
+      "n": "Continental (The Silla Seoul)",
+      "y": 37.55774,
+      "x": 127.00763,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "western"
+      ],
+      "a": "서울특별시 중구 장충동2가 200-73",
+      "mf": 103,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-104",
+      "n": "Rayeon (The Silla Seoul)",
+      "y": 37.55774,
+      "x": 127.00763,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울특별시 중구 장충동2가 200-73",
+      "mf": 104,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-105",
+      "n": "Siti Sarah",
+      "y": 37.53312,
+      "x": 126.99595,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "서울특별시 용산구 이태원동 우사단로10길 7",
+      "mf": 105,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-107",
+      "n": "Atrium Café (Swiss Grand Hotel)",
+      "y": 37.59,
+      "x": 126.93475,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "western"
+      ],
+      "a": "서울특별시 서대문구 홍은동 연희로 353",
+      "mf": 107,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-108",
+      "n": "Sultan Kebab",
+      "y": 37.53398,
+      "x": 126.99421,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "korean",
+        "turkish"
+      ],
+      "a": "서울특별시 용산구 이태원동 127-28",
+      "mf": 108,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-110",
+      "n": "Suembu (Suwon Branch)",
+      "y": 37.26692,
+      "x": 127.00361,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기도 수원시 팔달구 매산로2가 97-5",
+      "mf": 110,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-111",
+      "n": "Suembu (Dongtan Branch)",
+      "y": 37.1981,
+      "x": 127.07785,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기도 화성시 동탄2동 113-4",
+      "mf": 111,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-112",
+      "n": "SHUBH",
+      "y": 36.71428,
+      "x": 127.42785,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "충청북도 청원군 오창읍 양청리 787-5",
+      "mf": 112,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-118",
+      "n": "Shalimar Restaurant",
+      "y": 35.50486,
+      "x": 129.4166,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "울산광역시 동구 화정동 208-1",
+      "mf": 118,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-124",
+      "n": "Samarkand (Daegu Branch)",
+      "y": 35.8721,
+      "x": 128.5956,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "대구광역시 중구 동성로2가 2-1",
+      "mf": 124,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-125",
+      "n": "Samarkand (Busan Branch)",
+      "y": 35.1139,
+      "x": 129.03794,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "부산광역시 동구 초량동 대영로243번길 37",
+      "mf": 125,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-126",
+      "n": "Samarkand (Dongdaemun Branch)",
+      "y": 37.56511,
+      "x": 127.0058,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "서울특별시 중구 광희동 마른내로 159-21",
+      "mf": 126,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-128",
+      "n": "Bihaani",
+      "y": 37.49021,
+      "x": 126.7252,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "인천광역시 부평구 부평동 185-118",
+      "mf": 128,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-129",
+      "n": "Bina Restaurant (2nd Branch)",
+      "y": 37.58912,
+      "x": 127.01821,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 성북구 동선동 64-2",
+      "mf": 129,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-130",
+      "n": "Bina Restaurant (Main Branch)",
+      "y": 37.58838,
+      "x": 127.03527,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 동대문구 제기동 안암로24길 4",
+      "mf": 130,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-131",
+      "n": "Bukhara India",
+      "y": 36.35156,
+      "x": 127.38798,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "대전광역시 서구 둔산동 1455",
+      "mf": 131,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-132",
+      "n": "Busanjip",
+      "y": 37.5631,
+      "x": 126.98484,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울특별시 중구 명동2가 32-7",
+      "mf": 132,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-142",
+      "n": "Bombay Grill",
+      "y": 37.53316,
+      "x": 126.99622,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 용산구 이태원1동 137-42",
+      "mf": 142,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-146",
+      "n": "Bela Moti",
+      "y": 35.50486,
+      "x": 129.4166,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "울산광역시 동구 화정동 208-1",
+      "mf": 146,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-157",
+      "n": "Bollywood Indian Restaurant",
+      "y": 35.15269,
+      "x": 129.11774,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "부산광역시 수영구 광안2동 광안해변로 209",
+      "mf": 157,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-158",
+      "n": "Baba India",
+      "y": 37.49476,
+      "x": 127.02859,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 서초구 서초동 1328-11",
+      "mf": 158,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-159",
+      "n": "Balaji Restaurant",
+      "y": 35.87338,
+      "x": 128.59569,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "대구광역시 중구 성내1동 6-3",
+      "mf": 159,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-162",
+      "n": "Bagdad",
+      "y": 33.49749,
+      "x": 126.52969,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "제주특별자치도 제주시 이도2동 1188-16",
+      "mf": 162,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-163",
+      "n": "Mr.Kebab (2nd Branch)",
+      "y": 37.53386,
+      "x": 126.99575,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울특별시 용산구 이태원동 우사단로 42",
+      "mf": 163,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-164",
+      "n": "Mr. Kebab",
+      "y": 37.53433,
+      "x": 126.99536,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울특별시 용산구 이태원동 이태원로 192",
+      "mf": 164,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-167",
+      "n": "Mugunghwa (Lotte Hotel Busan)",
+      "y": 35.15685,
+      "x": 129.05665,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "korean"
+      ],
+      "a": "부산광역시 부산진구 부전동 503-15 7층",
+      "mf": 167,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-168",
+      "n": "Mugunghwa (Lotte Hotel Seoul)",
+      "y": 37.56499,
+      "x": 126.98137,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울특별시 중구 소공동 1",
+      "mf": 168,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-172",
+      "n": "La Festa (Mayfield Hotel)",
+      "y": 37.54752,
+      "x": 126.81879,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "western"
+      ],
+      "a": "서울특별시 강서구 외발산동 426",
+      "mf": 172,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-173",
+      "n": "Nakwon (Mayfield Hotel)",
+      "y": 37.54752,
+      "x": 126.81879,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울특별시 강서구 외발산동 426",
+      "mf": 173,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-174",
+      "n": "Park Café (MEA Seoul)",
+      "y": 37.52119,
+      "x": 126.91859,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "western"
+      ],
+      "a": "서울특별시 영등포구 여의동 28-3",
+      "mf": 174,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-175",
+      "n": "Manokamana (Triple Street 2nd Branch)",
+      "y": 37.43304,
+      "x": 126.71731,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "인천광역시 남동구 남촌도림동 남촌동로16번길 33-5",
+      "mf": 175,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-176",
+      "n": "Manokamana (Sinchon Branch)",
+      "y": 37.55879,
+      "x": 126.93601,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 서대문구 신촌동 연세로11길 13",
+      "mf": 176,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-177",
+      "n": "Manokamana (Songdo Branch)",
+      "y": 37.39108,
+      "x": 126.64804,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "인천광역시 연수구 송도동 4-1",
+      "mf": 177,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-178",
+      "n": "Manokamana (Daehakro Branch)",
+      "y": 37.5826,
+      "x": 126.99882,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 종로구 명륜4가 187",
+      "mf": 178,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-179",
+      "n": "Manna Dakgalbi",
+      "y": 37.34222,
+      "x": 127.92016,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "korean"
+      ],
+      "a": "강원도 원주시 무실동 산53-2",
+      "mf": 179,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-180",
+      "n": "Maharaja",
+      "y": 35.22306,
+      "x": 128.67603,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "경상남도 창원시 성산구 중앙동 용지로 75",
+      "mf": 180,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-183",
+      "n": "Masala Indian Restaurant",
+      "y": 37.50297,
+      "x": 126.7613,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "western"
+      ],
+      "a": "경기도 부천시 원미구 중1동 1162-9",
+      "mf": 183,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-184",
+      "n": "Murrey",
+      "y": 37.53305,
+      "x": 126.99662,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울특별시 용산구 이태원동 우사단로10길 20",
+      "mf": 184,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-185",
+      "n": "Mother India",
+      "y": 37.51991,
+      "x": 126.93178,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 영등포구 여의도동 43-4",
+      "mf": 185,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-186",
+      "n": "Manis Kitchen",
+      "y": 37.53294,
+      "x": 126.9976,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울특별시 용산구 이태원동 우사단로10길 36",
+      "mf": 186,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-187",
+      "n": "Luna Asia",
+      "y": 37.50986,
+      "x": 127.05662,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 강남구 삼성1동 152-62",
+      "mf": 187,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-188",
+      "n": "Laxmi Restaurant",
+      "y": 37.51628,
+      "x": 126.90572,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 영등포구 영등포동4가 425-4",
+      "mf": 188,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-191",
+      "n": "Raj Mahal",
+      "y": 33.48827,
+      "x": 126.49037,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "제주특별자치도 제주시 연동 272-17",
+      "mf": 191,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-192",
+      "n": "Raji Indian Restaurant",
+      "y": 37.4927,
+      "x": 126.48883,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "인천광역시 중구 운서동 2793-2",
+      "mf": 192,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-193",
+      "n": "Raji Inchoen Airport",
+      "y": 37.43888,
+      "x": 126.46298,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "인천광역시 중구 운서동 2850-7",
+      "mf": 193,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-196",
+      "n": "Dubai",
+      "y": 37.53433,
+      "x": 126.99536,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "서울특별시 용산구 이태원동 이태원로 192",
+      "mf": 196,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-197",
+      "n": "Durga (Jonggak Branch)",
+      "y": 37.56973,
+      "x": 126.98407,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 종로구 관철동 45-2",
+      "mf": 197,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-198",
+      "n": "Durga (Uijeongbu Branch)",
+      "y": 37.73909,
+      "x": 127.04873,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기도 의정부시 의정부1동 176-8",
+      "mf": 198,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-199",
+      "n": "Durga (Main Branch)",
+      "y": 37.5708,
+      "x": 126.97985,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 종로구 종로1가 24",
+      "mf": 199,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-200",
+      "n": "Durga (Gimhae Branch)",
+      "y": 35.23513,
+      "x": 128.88282,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "경상남도 김해시 동상동 901-3",
+      "mf": 200,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-202",
+      "n": "Byeollan Duck",
+      "y": 37.57264,
+      "x": 127.01202,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울특별시 종로구 창신동 142-44",
+      "mf": 202,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-203",
+      "n": "Delhi India",
+      "y": 37.54865,
+      "x": 126.91971,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 마포구 서교동 402-6",
+      "mf": 203,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-204",
+      "n": "Delhi Gate",
+      "y": 37.47828,
+      "x": 126.89022,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 금천구 가산동 가산로 147-12",
+      "mf": 204,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-213",
+      "n": "Nirvana",
+      "y": 37.57511,
+      "x": 126.98375,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 종로구 관훈동 121",
+      "mf": 213,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-214",
+      "n": "New Taj Mahal",
+      "y": 36.80877,
+      "x": 127.14894,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "korean",
+        "indian"
+      ],
+      "a": "충청남도 천안시 동남구 중앙동 버들로 10",
+      "mf": 214,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-215",
+      "n": "New Saladin (Gyemyeongdae Branch)",
+      "y": 35.85581,
+      "x": 128.49426,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "대구광역시 달서구 신당동 1723-17",
+      "mf": 215,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-216",
+      "n": "New Saladin (Gyeongbukdae Branch)",
+      "y": 35.89252,
+      "x": 128.60898,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "대구광역시 북구 산격3동 대학로 79",
+      "mf": 216,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-217",
+      "n": "New Little India (Busan Station Branch)",
+      "y": 35.11571,
+      "x": 129.03959,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "부산광역시 동구 초량동 중앙대로 205",
+      "mf": 217,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-218",
+      "n": "New Little India (Nampo Branch)",
+      "y": 35.09898,
+      "x": 129.02892,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "부산광역시 중구 남포동3가 비프광장로 33-1",
+      "mf": 218,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-219",
+      "n": "New Little India (Gimhae Branch)",
+      "y": 35.23501,
+      "x": 128.88114,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "경상남도 김해시 서상동 27-31",
+      "mf": 219,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-222",
+      "n": "Namiseom Kkokko Chuncheon Dakgalbi",
+      "y": 37.80586,
+      "x": 127.52482,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "korean"
+      ],
+      "a": "경기도 가평군 가평읍 북한강변로 1045",
+      "mf": 222,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-224",
+      "n": "Kali",
+      "y": 37.58243,
+      "x": 126.99923,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 종로구 명륜4가 170-8",
+      "mf": 224,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-226",
+      "n": "Gurkha Restaurant",
+      "y": 37.56303,
+      "x": 126.98517,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 중구 명동 32-14",
+      "mf": 226,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-230",
+      "n": "Zaffran",
+      "y": 37.53266,
+      "x": 126.99818,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 용산구 한남동 763-24",
+      "mf": 230,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-231",
+      "n": "Honey Kebab",
+      "y": 37.50319,
+      "x": 127.02617,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 강남구 강남대로106길 7",
+      "mf": 231,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-233",
+      "n": "Warung Mbok Mumun",
+      "y": 35.23593,
+      "x": 128.8826,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "경남 김해시 동상동 분성로 335번길",
+      "mf": 233,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-234",
+      "n": "Krakatau Indonesia",
+      "y": 35.23491,
+      "x": 128.88086,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "경상남도 김해시 서상동 52-22",
+      "mf": 234,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-236",
+      "n": "Hoji Bobo",
+      "y": 37.49879,
+      "x": 127.0366,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "서울 강남구 역삼로17길 64 A4스페이스 2층",
+      "mf": 236,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-237",
+      "n": "Bakso Bejo Korea Restaurant Myeongdong",
+      "y": 37.55922,
+      "x": 126.98596,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "서울특별시 중구 남산동2가 퇴계로20길 21",
+      "mf": 237,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-238",
+      "n": "The Kitchen Asia",
+      "y": 37.55454,
+      "x": 126.92329,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 마포구 와우산로 23길 35-6",
+      "mf": 238,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-239",
+      "n": "Indian Kitchen",
+      "y": 33.44313,
+      "x": 126.3386,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "제주 제주시 애월읍 애원로 191",
+      "mf": 239,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-240",
+      "n": "Taste India",
+      "y": 37.32675,
+      "x": 126.7802,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기도 안산시 단원구 신길동 1625",
+      "mf": 240,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-241",
+      "n": "Kinja Indian Restaurant",
+      "y": 37.31002,
+      "x": 126.82902,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기 안산시 단원구 광덕대로 151",
+      "mf": 241,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-242",
+      "n": "Al-Baraka",
+      "y": 36.20594,
+      "x": 127.08752,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "충남 논산시 반월동 47-12",
+      "mf": 242,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-243",
+      "n": "Samarkand Ansan",
+      "y": 37.32897,
+      "x": 126.78962,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "경기 안산시 단원구 다문화2길 3",
+      "mf": 243,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-245",
+      "n": "Kampungku",
+      "y": 37.55903,
+      "x": 126.986,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "서울 중구 퇴계로20길 25",
+      "mf": 245,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-246",
+      "n": "Rindu Kampoeng",
+      "y": 33.29306,
+      "x": 126.65158,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "부산 사상구 법동 532-2",
+      "mf": 246,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-247",
+      "n": "Morocco Casablanca",
+      "y": 35.25986,
+      "x": 129.09248,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "부산광역시 금정구 금단로113-15",
+      "mf": 247,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-248",
+      "n": "King Kebab",
+      "y": 37.53423,
+      "x": 126.99342,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 용산구 이태원로 176",
+      "mf": 248,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-249",
+      "n": "King Kebab and Fries",
+      "y": 37.53467,
+      "x": 126.99456,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 용산구 이태원로 185",
+      "mf": 249,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-250",
+      "n": "Taksim Kebab",
+      "y": 37.53425,
+      "x": 126.99359,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 용산구 이태원로 176-1",
+      "mf": 250,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-251",
+      "n": "Agak agak",
+      "y": 37.55916,
+      "x": 126.91997,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "서울 마포구 동교로25길 57",
+      "mf": 251,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-252",
+      "n": "Arabesque (Itaewon Branch)",
+      "y": 37.5356,
+      "x": 126.99884,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "서울 용산구 이태원로 227",
+      "mf": 252,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-253",
+      "n": "Troy Kebab",
+      "y": 37.53384,
+      "x": 126.99393,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 용산구 보광로 125",
+      "mf": 253,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-261",
+      "n": "Istanbul Delight",
+      "y": 37.53286,
+      "x": 126.99776,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 용산구 우사단로10길 40",
+      "mf": 261,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-262",
+      "n": "Warung Jaya Mbak Tia(Halal food)",
+      "y": 35.09977,
+      "x": 129.03105,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "부산 중구 광복중앙로 3-1, 2층",
+      "mf": 262,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-263",
+      "n": "Bakso bejo Korea (Busan Branch)",
+      "y": 35.09888,
+      "x": 129.02941,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "부산 중구 남포길 6",
+      "mf": 263,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-264",
+      "n": "Bakso bejo Korea (Gimhae Branch)",
+      "y": 36.59506,
+      "x": 128.19163,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "경상남도 김해시 서상동 27-30",
+      "mf": 264,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-265",
+      "n": "Warteg Gembul",
+      "y": 35.23513,
+      "x": 128.88143,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "경상남도 김해시 서상동 27-23",
+      "mf": 265,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-267",
+      "n": "Namaste (Haewoondae)",
+      "y": 35.16059,
+      "x": 129.15712,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "부산 해운대구 해운대해변로265번길 7",
+      "mf": 267,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-271",
+      "n": "Uzkuduk2",
+      "y": 35.11428,
+      "x": 129.03843,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "부산 동구 대영로243번길 50",
+      "mf": 271,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-272",
+      "n": "URGUT2",
+      "y": 35.23417,
+      "x": 128.88265,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "경남 김해시 분성로335번길 5-1",
+      "mf": 272,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-273",
+      "n": "URGUT",
+      "y": 35.23415,
+      "x": 128.88291,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "경상남도 김해시 동상동 985",
+      "mf": 273,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-274",
+      "n": "Morocco Casablanca",
+      "y": 35.22737,
+      "x": 128.88278,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "경남 김해시 가락로93번길 10",
+      "mf": 274,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-275",
+      "n": "Morocco Casablanca",
+      "y": 35.23475,
+      "x": 128.88205,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "경상남도 김해시 서상동 82-47",
+      "mf": 275,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-277",
+      "n": "Navourz",
+      "y": 35.23413,
+      "x": 128.88201,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "경남 김해시 가락로86번길 6 금오빌딩",
+      "mf": 277,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-278",
+      "n": "Vodiy",
+      "y": 35.23387,
+      "x": 128.88295,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "경남 김해시 분성로335번길 2-1",
+      "mf": 278,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-279",
+      "n": "Kheiry Kebab",
+      "y": 37.54189,
+      "x": 126.98717,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "서울 용산구 신흥로7길 1",
+      "mf": 279,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-281",
+      "n": "Islam 2",
+      "y": 37.76011,
+      "x": 128.89622,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "강원 강릉시 율곡로 2868 번길 9",
+      "mf": 281,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-282",
+      "n": "타슈켄트 시티",
+      "y": 37.00565,
+      "x": 127.27306,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "경기 안성시 낙원 길 73",
+      "mf": 282,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-283",
+      "n": "헬로 베이루트",
+      "y": 37.56374,
+      "x": 126.97045,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "서울 중구 서소문로 9 길 28",
+      "mf": 283,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-285",
+      "n": "Arabesque (East Incheon Branch)",
+      "y": 37.47474,
+      "x": 126.63111,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "인천 중구 우현로 90-1",
+      "mf": 285,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-286",
+      "n": "Firdavs Kafe",
+      "y": 35.84311,
+      "x": 127.13614,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "전북 전주시 덕진구 금암동 1544-1",
+      "mf": 286,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-287",
+      "n": "ASALAM",
+      "y": 33.51654,
+      "x": 126.5242,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "제주 제주시 중앙로 2 길 7",
+      "mf": 287,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-288",
+      "n": "Wardah",
+      "y": 33.51103,
+      "x": 126.52317,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "제주 제주시 관덕로 8 길 24-1",
+      "mf": 288,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-289",
+      "n": "Uzbezim",
+      "y": 37.48843,
+      "x": 126.70142,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "인천 미추홀 구 주염로 5 영진 빌딩",
+      "mf": 289,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-290",
+      "n": "Siti Sarah Ansan",
+      "y": 37.33284,
+      "x": 126.79373,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "경기도 안산시 단원구 원곡동 752-2",
+      "mf": 290,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-291",
+      "n": "Rindu alam",
+      "y": 37.32965,
+      "x": 126.79066,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "경기도 안산시 단원구 원곡동 다문화 길 18",
+      "mf": 291,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-292",
+      "n": "Warung Nusantara",
+      "y": 37.33018,
+      "x": 126.79105,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "경기도 안산시 단원구 원곡 본동 다문화 2 길 28",
+      "mf": 292,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-293",
+      "n": "RM Batavia",
+      "y": 37.32846,
+      "x": 126.7898,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "경기도 안산시 단원구 원곡동 798-14",
+      "mf": 293,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-294",
+      "n": "Kedai Rinjani",
+      "y": 37.32968,
+      "x": 126.79055,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "경기도 안산시 단원구 원곡동 다문화 2 길",
+      "mf": 294,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-295",
+      "n": "Warung Lea Indonesia",
+      "y": 37.32831,
+      "x": 126.78969,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "경기도 안산시 단원구 원곡동 798-13",
+      "mf": 295,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-296",
+      "n": "RM pondok bali",
+      "y": 37.32857,
+      "x": 126.78955,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "경기도 안산시 단원구 원곡동 787-9",
+      "mf": 296,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-297",
+      "n": "Warung kartini",
+      "y": 37.32857,
+      "x": 126.78955,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "경기도 안산시 단원구 원곡동 787-9",
+      "mf": 297,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-298",
+      "n": "New Taj Mahel",
+      "y": 37.33055,
+      "x": 126.79173,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기 안산시 단원구 다문화 1 길 49",
+      "mf": 298,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-300",
+      "n": "Asiana Restaurant",
+      "y": 37.32878,
+      "x": 126.79012,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기도 안산시 단원구 원곡동 796-23",
+      "mf": 300,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-301",
+      "n": "Kantipur Indian Restaurant",
+      "y": 37.33018,
+      "x": 126.79105,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기도 안산시 단원구 원곡 본동 다문화 2 길 28",
+      "mf": 301,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-303",
+      "n": "Warung Mbok Mumun",
+      "y": 35.23551,
+      "x": 128.88262,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "경남 김해시 폭탄 동 분성로 335 번길",
+      "mf": 303,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-304",
+      "n": "Krakatau Indonesia",
+      "y": 35.23491,
+      "x": 128.88086,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "경상남도 김해시 서상동 52-22",
+      "mf": 304,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-305",
+      "n": "Bakso Bejo Korea Restaurant Myeongdong",
+      "y": 37.55922,
+      "x": 126.98596,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "서울 특별시 중구 남산동 2가 퇴계로 20 길 21",
+      "mf": 305,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-306",
+      "n": "Warung Sumber Rejeki (mba Jijan)",
+      "y": 36.99341,
+      "x": 127.08612,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "경기도 평택시 평택동 63-12",
+      "mf": 306,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-307",
+      "n": "Warteg bahari",
+      "y": 35.22057,
+      "x": 126.81978,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "광주 광역시 광산구 비아동 716-10",
+      "mf": 307,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-319",
+      "n": "Kinja Restaurant (Gojan)",
+      "y": 37.31001,
+      "x": 126.82896,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기 안산시 단원구 광덕대로 151 304호 삼영타운",
+      "mf": 319,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-320",
+      "n": "Kinja Indian Restaurant (Hanyang Univ)",
+      "y": 37.30024,
+      "x": 126.83867,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기 안산시 상록구 한양대학로 45-1",
+      "mf": 320,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-327",
+      "n": "Kinja Indian Restaurant",
+      "y": 37.39052,
+      "x": 126.95481,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기도 안양시 동안구 평촌대로217번길 19",
+      "mf": 327,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-328",
+      "n": "First Nepal (Jukjeon)",
+      "y": 37.32267,
+      "x": 127.12385,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기 용인시 수지구 죽전로144번길 12-7",
+      "mf": 328,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-332",
+      "n": "Kervan (Suwon AK Plaza)",
+      "y": 37.26548,
+      "x": 127.00035,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "경기도 수원시 팔달구 덕영대로 924 (매산로1가, AK플라자)",
+      "mf": 332,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-334",
+      "n": "Punjab Indian Restaurant",
+      "y": 35.22244,
+      "x": 128.67665,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "경상남도 창원시 성산구 중앙동 용지로 74",
+      "mf": 334,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-338",
+      "n": "Karvon",
+      "y": 37.41472,
+      "x": 126.655,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "인천광역시 연수구 동춘동 앵고개로87번길 44-19 아미르티무르",
+      "mf": 338,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-341",
+      "n": "Shanti (Seogyo)",
+      "y": 37.5555,
+      "x": 126.92497,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울특별시 마포구 와우산로27길 70 2층",
+      "mf": 341,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-342",
+      "n": "Chakraa Indian Restaurant",
+      "y": 37.53446,
+      "x": 127.00967,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 용산구 독서당로 83",
+      "mf": 342,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-343",
+      "n": "Indian Curry",
+      "y": 37.38567,
+      "x": 127.12569,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기도 성남시 분당구 서현동 황새울로360번길 21",
+      "mf": 343,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-344",
+      "n": "Petra",
+      "y": 37.53463,
+      "x": 126.98768,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "서울특별시 용산구 녹사평대로40길 33",
+      "mf": 344,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-345",
+      "n": "New Delhi Indian Restaurant",
+      "y": 37.25383,
+      "x": 127.07443,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기도 수원시 영통구 영통동 봉영로 1606 미네시티프라자 125호",
+      "mf": 345,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-346",
+      "n": "Bella Tunisia",
+      "y": 37.29722,
+      "x": 126.97137,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "경기도 수원시 장안구 서부로2106번길 21",
+      "mf": 346,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-350",
+      "n": "Great Himalaya",
+      "y": 37.26728,
+      "x": 127.0023,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기도 수원시 팔달구 매산로 7-1, 3층",
+      "mf": 350,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-351",
+      "n": "Arabic House",
+      "y": 37.53709,
+      "x": 126.98704,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "서울 용산구 녹사평대로 218",
+      "mf": 351,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-352",
+      "n": "Saffron",
+      "y": 37.56692,
+      "x": 126.98798,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "서울특별시 중구 362 삼일대로 2nd Floor",
+      "mf": 352,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-353",
+      "n": "Maya Restaurant",
+      "y": 35.89198,
+      "x": 128.60755,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "대구 북구 대학로13길 1",
+      "mf": 353,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-354",
+      "n": "Kirvem Kebab & Pizza",
+      "y": 35.23476,
+      "x": 128.88274,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "김해시 분성로 335번길 12-1",
+      "mf": 354,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-355",
+      "n": "Persian Land",
+      "y": 37.53363,
+      "x": 126.99706,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "서울특별시 용산구 한남동 732-25",
+      "mf": 355,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-356",
+      "n": "Kasam Restaurant (Gwangju)",
+      "y": 37.40811,
+      "x": 127.2583,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기 광주시 중앙로 95-5",
+      "mf": 356,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-357",
+      "n": "Tashkent Uzbek restaurant",
+      "y": 37.26622,
+      "x": 127.00235,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기도 수원시 팔달구 매산로1가 57-3",
+      "mf": 357,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-361",
+      "n": "Berkah Jaya",
+      "y": 37.13469,
+      "x": 126.911,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "경기 화성시 향남읍 3.1만세로 1140",
+      "mf": 361,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-364",
+      "n": "Diwali",
+      "y": 37.44878,
+      "x": 127.12713,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기 성남시 수정구 성남대로 1334",
+      "mf": 364,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-368",
+      "n": "Indi Table",
+      "y": 37.39718,
+      "x": 127.11343,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기 성남시 분당구 동판교로177번길 25",
+      "mf": 368,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-369",
+      "n": "AL AZIZ",
+      "y": 37.53322,
+      "x": 126.99639,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "서울시 용산구 우사단로 10길 15",
+      "mf": 369,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-371",
+      "n": "Durrat Arriyadh",
+      "y": 35.95929,
+      "x": 126.96716,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indian"
+      ],
+      "a": "전북 익산시 무왕로 896",
+      "mf": 371,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-372",
+      "n": "Poornima Restaurant",
+      "y": 37.26776,
+      "x": 127.00265,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "경기 수원시 팔달구 향교로 12-1",
+      "mf": 372,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-374",
+      "n": "Halal food market",
+      "y": 37.47603,
+      "x": 126.69529,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "인천 부평구 십정동 배곶로 92",
+      "mf": 374,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-375",
+      "n": "Yell-O! Chicken",
+      "y": 37.53303,
+      "x": 126.99642,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 용산구 우사단로10길 14",
+      "mf": 375,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-376",
+      "n": "Halal Food Jincheon",
+      "y": 36.84496,
+      "x": 127.41201,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "충청북도 진천군 진천읍 중앙서로 23-1 2층",
+      "mf": 376,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-379",
+      "n": "Baba India Gangnam Station",
+      "y": 37.4948,
+      "x": 127.02861,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 서초구 강남대로 359",
+      "mf": 379,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-382",
+      "n": "Maji",
+      "y": 37.57761,
+      "x": 126.97081,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 종로구 자하문로5길 19",
+      "mf": 382,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-384",
+      "n": "Kervan Famille Station",
+      "y": 37.50449,
+      "x": 127.00785,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울시 서초구 사평대로 205 2층 에프피 216호",
+      "mf": 384,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-385",
+      "n": "Necktie Man Hairtail Pollack",
+      "y": 37.55967,
+      "x": 126.97702,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 중구 남대문시장길 18-9",
+      "mf": 385,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-386",
+      "n": "Jungang Hairtail Restaurant",
+      "y": 37.55979,
+      "x": 126.97708,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 중구 남대문시장길 22-12",
+      "mf": 386,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-387",
+      "n": "Huirak Hairtail",
+      "y": 37.5599,
+      "x": 126.97708,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 중구 남대문시장길 22-6",
+      "mf": 387,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-390",
+      "n": "Bakso Bejo Myeongdong",
+      "y": 37.55926,
+      "x": 126.98598,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "서울시 중구 퇴계로 20길 21, 2층",
+      "mf": 390,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-392",
+      "n": "Samarkand City",
+      "y": 37.5656,
+      "x": 127.00554,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울시 중구 을지로 42길 16  2층",
+      "mf": 392,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-393",
+      "n": "SAMARQAND",
+      "y": 37.5657,
+      "x": 127.00563,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울시 중구 을지로42길 14 1층",
+      "mf": 393,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-396",
+      "n": "Star Samarkand",
+      "y": 37.56575,
+      "x": 127.00567,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울시 중구 을지로42길 12 1층",
+      "mf": 396,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-400",
+      "n": "FORTUNE Restaurant",
+      "y": 37.56459,
+      "x": 127.00498,
+      "k": "r",
+      "s": "L",
+      "cu": [],
+      "a": "서울시 중구 마른내로 154",
+      "mf": 400,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-405",
+      "n": "Gurkha India Restaurant",
+      "y": 37.56307,
+      "x": 126.98519,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 중구 명동10길 16-1 5층",
+      "mf": 405,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-409",
+      "n": "Daebok",
+      "y": 37.5628,
+      "x": 126.97793,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 중구 세종대로14길 22",
+      "mf": 409,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-416",
+      "n": "Yusukdan Buja Octopus",
+      "y": 37.56567,
+      "x": 126.98998,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 수표로 50-1",
+      "mf": 416,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-421",
+      "n": "Gongneung Chicken Hanmari",
+      "y": 37.55713,
+      "x": 126.94107,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 서대문구 연세로2길 77",
+      "mf": 421,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-424",
+      "n": "Daepo Jjimdak",
+      "y": 37.55811,
+      "x": 126.93667,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 서대문구 연세로 27-1 대성빌딩 3층",
+      "mf": 424,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-427",
+      "n": "Toco Loco Mexican Restaurant",
+      "y": 37.55811,
+      "x": 126.93463,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [],
+      "a": "서울시 서대문구 연세로7안길 37 1층",
+      "mf": 427,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-428",
+      "n": "KERVAN Café, Dessert & Brunch",
+      "y": 37.5333,
+      "x": 126.99653,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 용산구 우사단로10길 17 1층",
+      "mf": 428,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-429",
+      "n": "Yell-O Chicken",
+      "y": 37.53305,
+      "x": 126.99643,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 용산구 우사단로10길 14",
+      "mf": 429,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-430",
+      "n": "Petra Palace",
+      "y": 37.53454,
+      "x": 126.9882,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울시 용산구 녹사평대로40길 43 1층",
+      "mf": 430,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-431",
+      "n": "LAZZAT",
+      "y": 37.53353,
+      "x": 126.99544,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "서울시 용산구 우사단로 37 3층",
+      "mf": 431,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-432",
+      "n": "Little India Seoul",
+      "y": 37.53329,
+      "x": 126.99671,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 용산구 우사단로10길 21",
+      "mf": 432,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-433",
+      "n": "Mister Kebab Branch 1",
+      "y": 37.53437,
+      "x": 126.99537,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울시 용산구 이태원로 192",
+      "mf": 433,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-434",
+      "n": "ITAEWON KITCHEN",
+      "y": 37.53323,
+      "x": 126.99569,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "서울시 용산구 우사단로 34",
+      "mf": 434,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-435",
+      "n": "Zaffran",
+      "y": 37.533,
+      "x": 126.99757,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 용산구 우사단로10길 36",
+      "mf": 435,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-436",
+      "n": "Kervan Bakery",
+      "y": 37.53454,
+      "x": 126.99706,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울시 용산구 이태원로 208",
+      "mf": 436,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-437",
+      "n": "Petra Resturant",
+      "y": 37.53465,
+      "x": 126.98772,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "서울시 용산구 녹사평대로40길 33",
+      "mf": 437,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-438",
+      "n": "DUBAI Restaurant",
+      "y": 37.53437,
+      "x": 126.99537,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 용산구 이태원로 192",
+      "mf": 438,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-439",
+      "n": "Sultan Kebab",
+      "y": 37.53402,
+      "x": 126.99422,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울시 용산구 보광로 126",
+      "mf": 439,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-440",
+      "n": "EID",
+      "y": 37.53238,
+      "x": 126.99918,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 용산구 우사단로10길 67",
+      "mf": 440,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-441",
+      "n": "KERVAN Restaurant",
+      "y": 37.53437,
+      "x": 126.99537,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울시 용산구 이태원로 192",
+      "mf": 441,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-442",
+      "n": "Taj Palace",
+      "y": 37.5337,
+      "x": 126.99545,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 용산구 우사단로 39",
+      "mf": 442,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-443",
+      "n": "Bombay Grill",
+      "y": 37.5332,
+      "x": 126.99623,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 용산구 우사단로10길 11",
+      "mf": 443,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-444",
+      "n": "King Kebab Burger & Fried",
+      "y": 37.53472,
+      "x": 126.9946,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울시 용산구 이태원로 185 1층",
+      "mf": 444,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-445",
+      "n": "Cheonghwa Sushi",
+      "y": 37.51337,
+      "x": 127.10933,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "japanese"
+      ],
+      "a": "서울시 송파구 오금로13길 14",
+      "mf": 445,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-447",
+      "n": "Seoul Original Braised Spicy Monkfish",
+      "y": 37.5736,
+      "x": 126.98802,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 종로구 삼일대로 436-1",
+      "mf": 447,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-448",
+      "n": "Jong-ro Ginseng Chicken Soup",
+      "y": 37.56907,
+      "x": 126.98412,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 종로구 종로8길 21 남창빌딩 1층",
+      "mf": 448,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-450",
+      "n": "Balwoo Gongyang",
+      "y": 37.57394,
+      "x": 126.98319,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 종로구 우정국로 56",
+      "mf": 450,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-452",
+      "n": "Eosachultto Jong-ro 3 Ga",
+      "y": 37.57078,
+      "x": 126.9907,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 종로구 돈화문로5길 24",
+      "mf": 452,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-453",
+      "n": "Insaeng Sliced Raw Fish Jonggak Main",
+      "y": 37.56967,
+      "x": 126.98485,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 종로구 우정국로2길 31",
+      "mf": 453,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-455",
+      "n": "Hyeongje Yukhoe Main",
+      "y": 37.57062,
+      "x": 127.00004,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 종로구 종로 200-1",
+      "mf": 455,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-456",
+      "n": "Nirvana",
+      "y": 37.57513,
+      "x": 126.98377,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 종로구 인사동길 58 2층",
+      "mf": 456,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-461",
+      "n": "Saffron Restaurant",
+      "y": 37.56695,
+      "x": 126.98809,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 중구 삼일대로 362, 롯데시티호텔명동 2층",
+      "mf": 461,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-463",
+      "n": "Luna Asia",
+      "y": 37.5099,
+      "x": 127.05663,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 강남구 삼성로100길 15",
+      "mf": 463,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-465",
+      "n": "Kervan COEX Mall Branch",
+      "y": 37.51283,
+      "x": 127.05725,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 강남구 봉은사로 524 코엑스몰 B1 H105",
+      "mf": 465,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-466",
+      "n": "Persian Palace",
+      "y": 37.58491,
+      "x": 126.99756,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 종로구 성균관로6길 9",
+      "mf": 466,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-468",
+      "n": "The Kitchen Asia Hoingik Univ.",
+      "y": 37.55458,
+      "x": 126.92332,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 마포구 와우산로 23길 35-6",
+      "mf": 468,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-469",
+      "n": "Deli INDIA",
+      "y": 37.54869,
+      "x": 126.91974,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 마포구 독막로9길 8 2층",
+      "mf": 469,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-470",
+      "n": "Ama Hongdae",
+      "y": 37.55351,
+      "x": 126.92027,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 마포구 양화로16길 10 2층",
+      "mf": 470,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-476",
+      "n": "Kebab Inn",
+      "y": 37.54104,
+      "x": 127.06822,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 광진구 아차산로 221",
+      "mf": 476,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-478",
+      "n": "Mongol Nomadic",
+      "y": 37.56519,
+      "x": 127.00657,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [],
+      "a": "서울 중구 을지로44길 19 2층",
+      "mf": 478,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-480",
+      "n": "TANDOOR",
+      "y": 37.56551,
+      "x": 127.00586,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 중구 을지로42길 15",
+      "mf": 480,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-484",
+      "n": "Bali in Mangwon",
+      "y": 37.55329,
+      "x": 126.90604,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [],
+      "a": "서울 마포구 포은로 67 1층",
+      "mf": 484,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-485",
+      "n": "Cosmos grocery Seongsu",
+      "y": 37.54157,
+      "x": 127.05344,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 성동구 성수이로7길 27 서울숲코오롱디지탈타워 1층",
+      "mf": 485,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-487",
+      "n": "NIROSHA Restaurant",
+      "y": 37.58023,
+      "x": 127.00429,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 종로구 동숭길 43",
+      "mf": 487,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-488",
+      "n": "Green Field (Restaurant)",
+      "y": 37.58962,
+      "x": 127.06235,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 동대문구 망우로18길 6",
+      "mf": 488,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-489",
+      "n": "Imo's Sea Snail Restaurant",
+      "y": 37.58957,
+      "x": 127.05644,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 동대문구 회기로28길 7 1층 이모네골뱅이전문점",
+      "mf": 489,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-492",
+      "n": "Gyeongseong Gogikun",
+      "y": 37.59182,
+      "x": 127.05325,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 동대문구 회기로21길 8",
+      "mf": 492,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-494",
+      "n": "Sinjindo Ganjang Gejang",
+      "y": 37.55703,
+      "x": 126.92279,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 월드컵북로2길 41",
+      "mf": 494,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-497",
+      "n": "Baegnyeon Tojong Samgyetang",
+      "y": 37.55383,
+      "x": 126.92023,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 양화로 118 1층",
+      "mf": 497,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-505",
+      "n": "Tashkent kebab",
+      "y": 37.56588,
+      "x": 127.0057,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 중구 을지로42길 8",
+      "mf": 505,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-508",
+      "n": "Hongdae Soy Sauce Marinated Crab Hongilpum",
+      "y": 37.54808,
+      "x": 126.91872,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 독막로 47-1",
+      "mf": 508,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-510",
+      "n": "By Tofu",
+      "y": 37.54609,
+      "x": 126.98519,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 용산구 소월로20길 10 바이두부",
+      "mf": 510,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-512",
+      "n": "Himalaya Garden 10",
+      "y": 37.56837,
+      "x": 126.98866,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기도 수원시 팔달구 인계동 권광로180번길 19",
+      "mf": 512,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-516",
+      "n": "Art Sushi",
+      "y": 37.49555,
+      "x": 127.03006,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "japanese"
+      ],
+      "a": "서울시 강남구 테헤란로4길 46 B125호",
+      "mf": 516,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-519",
+      "n": "Maji (마지)",
+      "y": 37.57761,
+      "x": 126.97081,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 종로구 자하문로5길 19",
+      "mf": 519,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-524",
+      "n": "Jungang Galchi Restaurant",
+      "y": 37.55979,
+      "x": 126.97708,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 중구 남대문시장길 22-12",
+      "mf": 524,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-538",
+      "n": "Lumbini Restaurant",
+      "y": 37.5729,
+      "x": 127.01451,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 종로구 종로 333 2층",
+      "mf": 538,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-557",
+      "n": "Yusukdan Buja Nakji",
+      "y": 37.56641,
+      "x": 126.98925,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 을지로 101-1",
+      "mf": 557,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-582",
+      "n": "Home-Cooked Meal Gim Seonsaeng",
+      "y": 37.53723,
+      "x": 126.98849,
+      "k": "r",
+      "s": "C",
+      "cu": [],
+      "a": "서울시 용산구 녹사평대로46길 28",
+      "mf": 582,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-599",
+      "n": "Jongno Samgyetang",
+      "y": 37.56907,
+      "x": 126.98412,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 종로구 종로8길 21 남창빌딩 1층",
+      "mf": 599,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-674",
+      "n": "Bongchu Braised Spicy Chicken with Vegetables Apgujeong Rodeo",
+      "y": 37.52655,
+      "x": 127.03822,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 강남구 선릉로157길 20-5 2층",
+      "mf": 674,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-678",
+      "n": "Marbling House Hongdae",
+      "y": 37.55912,
+      "x": 126.92395,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 동교로 212-2 1층",
+      "mf": 678,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-684",
+      "n": "Iftar",
+      "y": 37.55927,
+      "x": 126.92439,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 동교로 212-22 2층",
+      "mf": 684,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-685",
+      "n": "Myeongin Deungsim Sangam",
+      "y": 37.547,
+      "x": 126.95376,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 마포대로 144 마포T타운 B1",
+      "mf": 685,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-688",
+      "n": "Naerim Handmade Ginseng Chicken Soup Euljiro",
+      "y": 37.56748,
+      "x": 126.98439,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 중구 남대문로10길 30",
+      "mf": 688,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-690",
+      "n": "Jangsu Medicinal Herb Ginseng Chicken Soup",
+      "y": 37.54226,
+      "x": 126.94782,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 마포대로 63-8 삼창주택",
+      "mf": 690,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-693",
+      "n": "Jinmi Grilled Beef Tripe Sangam",
+      "y": 37.57853,
+      "x": 126.89498,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 매봉산로2길 15 1층 101호 2호",
+      "mf": 693,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-699",
+      "n": "New Delhi",
+      "y": 37.52751,
+      "x": 127.03063,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 강남구 논현로176길 28",
+      "mf": 699,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-700",
+      "n": "Vegan Kitchen",
+      "y": 37.55926,
+      "x": 126.98598,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 퇴계로20길 21 1층",
+      "mf": 700,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-701",
+      "n": "Bongchu Braised Spicy Chicken with Vegetables Myeongdong Jungang Post Office",
+      "y": 37.56106,
+      "x": 126.98228,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 명동8나길 47",
+      "mf": 701,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-704",
+      "n": "MaeHwa Lamb Skewers Myeongdong",
+      "y": 37.55938,
+      "x": 126.98595,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 퇴계로20길 19 1층",
+      "mf": 704,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-705",
+      "n": "Lamb Camp",
+      "y": 37.55826,
+      "x": 126.98636,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 퇴계로20길 46",
+      "mf": 705,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-708",
+      "n": "Jinuh Tuna",
+      "y": 37.56075,
+      "x": 126.92077,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 연남로3길 34",
+      "mf": 708,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-712",
+      "n": "Fisherman's Daughter",
+      "y": 37.48618,
+      "x": 126.98139,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 동작구 동작대로25길 9-6 1층",
+      "mf": 712,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-713",
+      "n": "Nammi Plant Lab",
+      "y": 37.48061,
+      "x": 126.98323,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "western"
+      ],
+      "a": "서울 서초구 방배천로4안길 55 2층",
+      "mf": 713,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-714",
+      "n": "Cow Home",
+      "y": 37.48126,
+      "x": 126.98073,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 동작구 동작대로11길 16 1층",
+      "mf": 714,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-716",
+      "n": "CAFÉ TURTLE",
+      "y": 37.4802,
+      "x": 126.98342,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [],
+      "a": "서울 서초구 방배천로4안길 48 1층",
+      "mf": 716,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-717",
+      "n": "The Rabbit",
+      "y": 37.47969,
+      "x": 126.98341,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [],
+      "a": "서울 서초구 방배천로4안길 38 1층",
+      "mf": 717,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-720",
+      "n": "Troy Kebab",
+      "y": 37.49943,
+      "x": 127.02794,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 강남구 테헤란로1길 16 지상1층",
+      "mf": 720,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-727",
+      "n": "Camouflage",
+      "y": 37.53363,
+      "x": 126.99357,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 용산구 이태원로26길 19 2층",
+      "mf": 727,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-728",
+      "n": "Yukjeon Rice Soup Daehak-ro",
+      "y": 37.58316,
+      "x": 127.00348,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 종로구 동숭길 117 3층",
+      "mf": 728,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-729",
+      "n": "Mohssens Sweet Daehak-ro",
+      "y": 37.58199,
+      "x": 127.00425,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [],
+      "a": "서울 종로구 동숭길 84-1 1층",
+      "mf": 729,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-730",
+      "n": "The Kitchen Asia Daehak-ro",
+      "y": 37.58315,
+      "x": 127.00009,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 종로구 대명길 27 2층, 3층",
+      "mf": 730,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-732",
+      "n": "Baked Fish Restaurant (Lotte Dept. Store Jamsil)",
+      "y": 37.51131,
+      "x": 127.09814,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 송파구 올림픽로 240 롯데백화점 잠실점 11층",
+      "mf": 732,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-733",
+      "n": "Hanguk Jip (Lotte Dept. Store Jamsil)",
+      "y": 37.51131,
+      "x": 127.09814,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 송파구 올림픽로 240 지하 1층",
+      "mf": 733,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-735",
+      "n": "Hanguk Jip (Lotte World Mall)",
+      "y": 37.51371,
+      "x": 127.1043,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 송파구 올림픽로 300 롯데월드몰 5층",
+      "mf": 735,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-737",
+      "n": "Haemok Nonhyeon",
+      "y": 37.52153,
+      "x": 127.0383,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "japanese"
+      ],
+      "a": "서울 강남구 선릉로145길 14",
+      "mf": 737,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-739",
+      "n": "Chani Fish Cake",
+      "y": 37.58294,
+      "x": 127.00242,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [],
+      "a": "서울 종로구 대학로8가길 48 1층",
+      "mf": 739,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-740",
+      "n": "MANOKAMANA (Indian Restaurant) Daehak-ro",
+      "y": 37.58264,
+      "x": 126.99883,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 종로구 창경궁로 236 이화빌딩 2층",
+      "mf": 740,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-742",
+      "n": "Veganature",
+      "y": 37.5067,
+      "x": 127.10629,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [],
+      "a": "서울 송파구 송파대로 448-1",
+      "mf": 742,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-743",
+      "n": "Rooted",
+      "y": 37.51148,
+      "x": 127.11144,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "western"
+      ],
+      "a": "서울 송파구 오금로17길 7 1층",
+      "mf": 743,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-744",
+      "n": "Sobamae Nigo",
+      "y": 37.54334,
+      "x": 127.05389,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "japanese"
+      ],
+      "a": "서울 성동구 연무장길 39-15 지1층",
+      "mf": 744,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-745",
+      "n": "Pal Gakdo Seongsu Station",
+      "y": 37.54528,
+      "x": 127.05645,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 성동구 성수일로8길 53 성수동복합시설 1층 105호, 106호",
+      "mf": 745,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-748",
+      "n": "Soba Mae",
+      "y": 37.54681,
+      "x": 127.04701,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "japanese"
+      ],
+      "a": "서울 성동구 왕십리로4길 26-20 지층",
+      "mf": 748,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-749",
+      "n": "Everest Yangjae Branch",
+      "y": 37.48064,
+      "x": 127.0411,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 서초구 논현로31길 47 1층",
+      "mf": 749,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-750",
+      "n": "Daddy's Lamb Steakhouse",
+      "y": 37.55055,
+      "x": 126.91113,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 양화로3길 37-1, 1층",
+      "mf": 750,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-751",
+      "n": "Manis Kirchen",
+      "y": 37.533,
+      "x": 126.99757,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 용산구 우사단로10길 36",
+      "mf": 751,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-752",
+      "n": "Geumsu Bokguk Jamsil Sofitel",
+      "y": 37.51387,
+      "x": 127.1061,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 송파구 잠실로 209, B1F(소피텔 앰버서더 서울 호텔)",
+      "mf": 752,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-753",
+      "n": "PLANT",
+      "y": 37.53314,
+      "x": 126.99423,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "western"
+      ],
+      "a": "서울 용산구 보광로 117, 2층",
+      "mf": 753,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-754",
+      "n": "Busanjib Hongdae",
+      "y": 37.55368,
+      "x": 126.92248,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 어울마당로 100-6, 2층",
+      "mf": 754,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-755",
+      "n": "Heukwoojeong Gangnam",
+      "y": 37.50176,
+      "x": 127.02425,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 서초구 강남대로69길 10, 서호빌딩 B1F",
+      "mf": 755,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-756",
+      "n": "Byeoryangjip",
+      "y": 37.5044,
+      "x": 127.04366,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 강남구 테헤란로43길 17",
+      "mf": 756,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-757",
+      "n": "Sunmine Haengbok Gejang Dongdaemun",
+      "y": 37.56771,
+      "x": 127.00777,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 을지로43길 38, 2층",
+      "mf": 757,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-758",
+      "n": "Wonhalmae Wonjo Dakhanmari",
+      "y": 37.57028,
+      "x": 127.0053,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 종로구 종로40가길 25",
+      "mf": 758,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-759",
+      "n": "BusanjibKBBQ",
+      "y": 37.56317,
+      "x": 126.9851,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 명동8길 11-8",
+      "mf": 759,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-760",
+      "n": "Busanjib Fried Chicken",
+      "y": 37.56314,
+      "x": 126.98485,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 명동8길 11-4",
+      "mf": 760,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-761",
+      "n": "Myeongdong\nBusanjib",
+      "y": 37.56316,
+      "x": 126.98497,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 명동8길 11-6",
+      "mf": 761,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-762",
+      "n": "Myeongdong Chungmugimbap",
+      "y": 37.56314,
+      "x": 126.9852,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 명동10길 16",
+      "mf": 762,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-763",
+      "n": "Bali Holiday",
+      "y": 37.5595,
+      "x": 126.98588,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 중구 퇴계로20길 15, 2층",
+      "mf": 763,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-764",
+      "n": "Cherry Garden",
+      "y": 37.57231,
+      "x": 127.01399,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 종로구 종로 326",
+      "mf": 764,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-765",
+      "n": "nusantaraku",
+      "y": 37.55585,
+      "x": 126.92523,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "서울 마포구 어울마당로 136-6, 2층",
+      "mf": 765,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-766",
+      "n": "SUNNY BOWL",
+      "y": 37.55575,
+      "x": 126.94747,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "western"
+      ],
+      "a": "서울 마포구 숭문16길 18, 1층",
+      "mf": 766,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-767",
+      "n": "SLUNCH FACTORY",
+      "y": 37.55252,
+      "x": 126.92504,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "western"
+      ],
+      "a": "서울 마포구 와우산로 94 아트앤디자인밸리 b119호",
+      "mf": 767,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-768",
+      "n": "jumjumjumjumjumjum",
+      "y": 37.57724,
+      "x": 126.89621,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 성암로15길 36, 1층",
+      "mf": 768,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-769",
+      "n": "Everest Restaurant Yeongdeungpo",
+      "y": 37.51597,
+      "x": 126.90614,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 영등포구 경인로 838-1",
+      "mf": 769,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-770",
+      "n": "Lepak La",
+      "y": 37.56076,
+      "x": 126.98694,
+      "k": "r",
+      "s": "L",
+      "cu": [],
+      "a": "서울 중구 퇴계로24길 2",
+      "mf": 770,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-771",
+      "n": "VEGAN insa",
+      "y": 37.57479,
+      "x": 126.98857,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 종로구 삼일대로32가길 12-4",
+      "mf": 771,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-772",
+      "n": "Nokum Space",
+      "y": 37.5596,
+      "x": 126.83269,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 강서구 공항대로 227 403호 마곡센트럴타워 1차",
+      "mf": 772,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-773",
+      "n": "iftar",
+      "y": 37.57701,
+      "x": 126.96968,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 종로구 자하문로1길 50-1 1층",
+      "mf": 773,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-774",
+      "n": "L'OIGNON",
+      "y": 37.52179,
+      "x": 127.02051,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "western"
+      ],
+      "a": "서울 강남구 압구정로4길 13-4 1층",
+      "mf": 774,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-775",
+      "n": "CAMEL’S KITCHEN",
+      "y": 37.55219,
+      "x": 126.90689,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 포은로 52-1, 2호",
+      "mf": 775,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-776",
+      "n": "Soba Lab Shinchon",
+      "y": 37.55878,
+      "x": 126.93946,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "japanese"
+      ],
+      "a": "서울 서대문구 명물길 50-9 1층",
+      "mf": 776,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-777",
+      "n": "Hamcho Ganjang gejang",
+      "y": 37.562,
+      "x": 126.98656,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 명동8가길 27 지하 1층",
+      "mf": 777,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-778",
+      "n": "San Chon",
+      "y": 37.5738,
+      "x": 126.98626,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 종로구 인사동길 30-13",
+      "mf": 778,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-779",
+      "n": "Curry in",
+      "y": 37.51167,
+      "x": 127.06553,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 강남구 영동대로96길 37",
+      "mf": 779,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-780",
+      "n": "Myeongdongjeong",
+      "y": 37.56153,
+      "x": 126.98849,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 삼일대로 299, 이화빌딩 1층",
+      "mf": 780,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-781",
+      "n": "Gosame Hapjeong",
+      "y": 37.55013,
+      "x": 126.91077,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 월드컵로3길 31-6 1층",
+      "mf": 781,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-782",
+      "n": "Gosame Shinchon",
+      "y": 37.55832,
+      "x": 126.93472,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 서대문구 연세로7안길 38",
+      "mf": 782,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-783",
+      "n": "KAMPUNGKU",
+      "y": 37.55813,
+      "x": 126.98664,
+      "k": "r",
+      "s": "L",
+      "cu": [],
+      "a": "서울 중구 퇴계로20길 25 1,2층",
+      "mf": 783,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-784",
+      "n": "Myeongdong Chaeum Korean Traditional Restaurant",
+      "y": 37.56036,
+      "x": 126.98588,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 퇴계로18길 7 지하2층",
+      "mf": 784,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-785",
+      "n": "SEOUL-IYA",
+      "y": 37.55927,
+      "x": 126.92439,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 동교로 212-22 2층",
+      "mf": 785,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-786",
+      "n": "SWALLOW BAKERY & CAFE",
+      "y": 37.48438,
+      "x": 127.01445,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [],
+      "a": "서울 서초구 효령로 276, 203호",
+      "mf": 786,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-787",
+      "n": "Cheongdam Musin",
+      "y": 37.52574,
+      "x": 127.05069,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 강남구 도산대로89길 15",
+      "mf": 787,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-788",
+      "n": "MONKS BUTCHER",
+      "y": 37.53545,
+      "x": 126.99922,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "western"
+      ],
+      "a": "서울 용산구 이태원로 228-1 대로변 3층 4층",
+      "mf": 788,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-789",
+      "n": "ALT.a",
+      "y": 37.53245,
+      "x": 126.99447,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [],
+      "a": "서울 용산구 보광로 109, 1층",
+      "mf": 789,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-790",
+      "n": "Gyeongsong",
+      "y": 37.53854,
+      "x": 127.12798,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 강동구 천호대로159길 22 1층",
+      "mf": 790,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-791",
+      "n": "서경한우프라자 역삼점",
+      "nl": {
+        "en": "Seokyeong Hanwoo Plaza"
+      },
+      "y": 37.49786,
+      "x": 127.03884,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 강남구 논현로 420, 지상1층~2층",
+      "mf": 791,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-792",
+      "n": "Travel writer's Azit",
+      "y": 37.51482,
+      "x": 127.01925,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "western"
+      ],
+      "a": "서울 서초구 강남대로97길 8",
+      "mf": 792,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-793",
+      "n": "YANG IN HWAN DAE Hongdae",
+      "y": 37.55375,
+      "x": 126.92476,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 와우산로29가길 86",
+      "mf": 793,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-794",
+      "n": "Meoktong Nakji",
+      "y": 37.51888,
+      "x": 126.90674,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 영등포구 영등포로42길 6-2",
+      "mf": 794,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-795",
+      "n": "Yundal Ori",
+      "y": 37.52066,
+      "x": 126.90163,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 영등포구 영등포로 181-2",
+      "mf": 795,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-796",
+      "n": "The Makan",
+      "y": 37.51324,
+      "x": 127.11055,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [],
+      "a": "서울 송파구 올림픽로32길 37-4",
+      "mf": 796,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-797",
+      "n": "The Makan Yeouido",
+      "y": 37.52484,
+      "x": 126.92418,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [],
+      "a": "서울 영등포구 여의대로 70, 원센티널 B1F 103호",
+      "mf": 797,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-798",
+      "n": "Kwanho Yeouido",
+      "y": 37.5207,
+      "x": 126.93,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 영등포구 여의대방로67길 22, 205호",
+      "mf": 798,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-799",
+      "n": "ALADDIN’S LAMB",
+      "y": 37.51012,
+      "x": 127.08371,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 송파구 백제고분로7길 42-16",
+      "mf": 799,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-800",
+      "n": "Durga Gwanghwamun",
+      "y": 37.57084,
+      "x": 126.97992,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 종로구 종로 19 르메이에르종로타운1 B1",
+      "mf": 800,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-801",
+      "n": "Himalaya Jonggak",
+      "y": 37.56977,
+      "x": 126.98409,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 종로구 종로8길 5 2층",
+      "mf": 801,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-802",
+      "n": "India Chef",
+      "y": 37.57268,
+      "x": 126.98517,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 종로구 인사동5길 20 2층",
+      "mf": 802,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-803",
+      "n": "Durga Gangnam",
+      "y": 37.49972,
+      "x": 127.02897,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 강남구 강남대로94길 21",
+      "mf": 803,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-804",
+      "n": "plat å[o:]",
+      "y": 37.47654,
+      "x": 127.04014,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [],
+      "a": "서울 서초구 양재천로 103-1",
+      "mf": 804,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-805",
+      "n": "Necktie Man Galchi Dongtae",
+      "y": 37.55992,
+      "x": 126.97698,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 중구 남대문시장길 18-9",
+      "mf": 805,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-806",
+      "n": "Huirak Galchi",
+      "y": 37.55993,
+      "x": 126.97714,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 중구 남대문시장길 22-6",
+      "mf": 806,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-807",
+      "n": "Pooja 2 Indian Halal Food",
+      "y": 37.5674,
+      "x": 127.00745,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 중구 을지로43길 13 (을지로6가, 대화빌딩) 4층",
+      "mf": 807,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-808",
+      "n": "SAMARQAND",
+      "y": 37.56512,
+      "x": 127.00582,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 중구 마른내로 159-10",
+      "mf": 808,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-809",
+      "n": "Everest Restaurant Dongdaemun History & Culture Park",
+      "y": 37.56672,
+      "x": 127.00754,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 중구 장충단로 247 굿모닝씨티 쇼핑몰 지하3층",
+      "mf": 809,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-810",
+      "n": "Everest Restaurant Dongdaemun",
+      "y": 37.57258,
+      "x": 127.01244,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 종로구 종로51가길 2-1",
+      "mf": 810,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-811",
+      "n": "DDP SPECIAL DUCK",
+      "y": 37.57103,
+      "x": 127.01082,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 종로구 종로46길 12 2층",
+      "mf": 811,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-812",
+      "n": "Mr. Kebab",
+      "y": 37.53437,
+      "x": 126.99534,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울시 용산구 이태원로 192",
+      "mf": 812,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-813",
+      "n": "ITAEWON KITCHEN",
+      "y": 37.53323,
+      "x": 126.99569,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [],
+      "a": "서울시 용산구 우사단로 34 2층",
+      "mf": 813,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-814",
+      "n": "Kervan Bakery & Café",
+      "y": 37.53454,
+      "x": 126.99706,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울시 용산구 이태원로 208",
+      "mf": 814,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-815",
+      "n": "Home-Cooked Meal Gim Seonsaeng",
+      "y": 37.53214,
+      "x": 126.99102,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 용산구 녹사평대로32길 3 1층",
+      "mf": 815,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-816",
+      "n": "Petra",
+      "y": 37.53444,
+      "x": 126.98771,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [],
+      "a": "서울시 용산구 녹사평대로40길 33 2층",
+      "mf": 816,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-817",
+      "n": "Eid",
+      "y": 37.53327,
+      "x": 126.99646,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 용산구 우사단로10길 15 1층",
+      "mf": 817,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-818",
+      "n": "Taji Palace Itaewon",
+      "y": 37.5337,
+      "x": 126.99545,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 용산구 우사단로 39, 2층",
+      "mf": 818,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-819",
+      "n": "King Kebab",
+      "y": 37.53473,
+      "x": 126.99478,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울시 용산구 이태원로 185 1층",
+      "mf": 819,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-820",
+      "n": "Temple Food-Specialized Restaurant Balwoo Gongyang",
+      "y": 37.57382,
+      "x": 126.98317,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 종로구 우정국로 56 템플스테이 통합정보센터 5층",
+      "mf": 820,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-821",
+      "n": "Insaeng Sliced Raw Fish Jonggak Main",
+      "y": 37.56956,
+      "x": 126.9843,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 종로구 우정국로2길 29 1층",
+      "mf": 821,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-822",
+      "n": "Kervan COEX Mall",
+      "y": 37.51283,
+      "x": 127.05726,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 강남구 봉은사로 524 코엑스몰 B1 H105",
+      "mf": 822,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-823",
+      "n": "The Kitchen Asia Hongdae",
+      "y": 37.55458,
+      "x": 126.92331,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 마포구 와우산로 23길 35-6",
+      "mf": 823,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-824",
+      "n": "Delhi India",
+      "y": 37.54872,
+      "x": 126.91974,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 마포구 독막로9길 8 2층",
+      "mf": 824,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-825",
+      "n": "AMMA HONGDAE",
+      "y": 37.55347,
+      "x": 126.92024,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울시 마포구 양화로16길 10 2층",
+      "mf": 825,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-826",
+      "n": "SAMARQANDSHAHJAHON\nCHAYHONA",
+      "y": 37.56502,
+      "x": 127.00533,
+      "k": "r",
+      "s": "L",
+      "cu": [],
+      "a": "서울 중구 마른내로 159-21 1층",
+      "mf": 826,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-827",
+      "n": "Green Field Restaurant",
+      "y": 37.58853,
+      "x": 127.06283,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 동대문구 망우로18길 36",
+      "mf": 827,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-828",
+      "n": "Chammallo Jotsudak 273",
+      "y": 37.59069,
+      "x": 127.05363,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 동대문구 회기로 160 1층 참말로좋수닭 273",
+      "mf": 828,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-829",
+      "n": "Bongchu Jjimdak Apgujeong Rodeo",
+      "y": 37.52655,
+      "x": 127.03822,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 강남구 선릉로157길 20-5 2층",
+      "mf": 829,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-830",
+      "n": "Naerimson\n Samgyetang Euljiro",
+      "y": 37.56744,
+      "x": 126.98424,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 중구 남대문로10길 30",
+      "mf": 830,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-831",
+      "n": "Saeng Gopchangjip Sangam",
+      "y": 37.57849,
+      "x": 126.89499,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 매봉산로2길 15 1층 101호 102호",
+      "mf": 831,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-832",
+      "n": "Bongchu Jjimdak Myeongdong Jungang Post Office",
+      "y": 37.56106,
+      "x": 126.98228,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 명동8나길 47",
+      "mf": 832,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-833",
+      "n": "MaeHwa Lamb Skewers Myeongdong",
+      "y": 37.55931,
+      "x": 126.98575,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 퇴계로20길 15 1층",
+      "mf": 833,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-836",
+      "n": "Chani Oden",
+      "y": 37.58296,
+      "x": 127.00242,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "japanese"
+      ],
+      "a": "서울 종로구 대학로8가길 48 1층",
+      "mf": 836,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-837",
+      "n": "Veganature",
+      "y": 37.50657,
+      "x": 127.10643,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [],
+      "a": "서울 송파구 송파대로 448-1 102, 103호",
+      "mf": 837,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-838",
+      "n": "8 (Pal) Gakdo Seongsu Station",
+      "y": 37.54528,
+      "x": 127.05645,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 성동구 성수일로8길 53 성수동복합시설 1층 105호, 106호",
+      "mf": 838,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-839",
+      "n": "Everest Restaurant Yangjae",
+      "y": 37.48062,
+      "x": 127.04103,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 서초구 논현로31길 47 1층",
+      "mf": 839,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1177",
+      "n": "Uzbegim Choyhonasi",
+      "y": 34.77011,
+      "x": 127.70529,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "전남 여수시 미평9길 7 1층 (미평동)",
+      "mf": 1177,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1178",
+      "n": "34 Kebab",
+      "y": 37.14704,
+      "x": 128.21106,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "충북 제천시 의림대로31가길 11",
+      "mf": 1178,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1179",
+      "n": "Aisha",
+      "y": 37.21284,
+      "x": 127.35835,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 이천시 마장면 청강가창로 419",
+      "mf": 1179,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1180",
+      "n": "Al Said",
+      "y": 35.85538,
+      "x": 128.49332,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "대구 달서구 계대동문로 10",
+      "mf": 1180,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1181",
+      "n": "Al-Aziz",
+      "y": 35.17727,
+      "x": 126.9002,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "광주 북구 설죽로202번길 49",
+      "mf": 1181,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1182",
+      "n": "Al-Baraka",
+      "y": 37.27352,
+      "x": 127.04364,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 수원시 영통구 매여울로61번길 17",
+      "mf": 1182,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1183",
+      "n": "Al-Baraka",
+      "y": 37.27425,
+      "x": 127.1098,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "용인시 기흥구 신구로22번길 3 1층",
+      "mf": 1183,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1184",
+      "n": "Al-Faiz",
+      "y": 35.41606,
+      "x": 129.17526,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경상남도 양산시 연호로 41",
+      "mf": 1184,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1185",
+      "n": "Al-Faiz",
+      "y": 35.36245,
+      "x": 129.04828,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 양산시 북정중앙로 41",
+      "mf": 1185,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1186",
+      "n": "Al-Fajr",
+      "y": 35.18936,
+      "x": 128.11933,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경상남도 진주시 모덕로233번길 7",
+      "mf": 1186,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1187",
+      "n": "Al-Fayz",
+      "y": 37.34383,
+      "x": 126.74278,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 시흥시 정왕동 1594-12",
+      "mf": 1187,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1188",
+      "n": "Al-Madina",
+      "y": 36.9719,
+      "x": 127.93052,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "충북 충주시 성서동 35",
+      "mf": 1188,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1189",
+      "n": "Al-Madina Hind",
+      "y": 37.78281,
+      "x": 126.84612,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 파주시 광탄면 등원로 534-1",
+      "mf": 1189,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1190",
+      "n": "Al-Mansur",
+      "y": 37.76015,
+      "x": 128.89623,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "강원 강릉시 교동 156-47",
+      "mf": 1190,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1191",
+      "n": "Al-Mashriq",
+      "y": 34.74835,
+      "x": 126.37038,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "전남 영암군 삼호읍 신항로 135-36",
+      "mf": 1191,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1192",
+      "n": "Aladdin",
+      "y": 37.58789,
+      "x": 126.6351,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "인천 서구 원당대로301번길 3 1층",
+      "mf": 1192,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1193",
+      "n": "Aliya Kafe",
+      "y": 36.81377,
+      "x": 127.1497,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "충청남도 천안시 동남구 대흥로 290-1",
+      "mf": 1193,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1194",
+      "n": "Amina Restaraunt",
+      "y": 36.76667,
+      "x": 127.28475,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "충남 천안시 동남구 병천면 충절로 1608",
+      "mf": 1194,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1195",
+      "n": "Amir Kebab",
+      "y": 37.48154,
+      "x": 126.93019,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 관악구 신림로 306 1층",
+      "mf": 1195,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1196",
+      "n": "Amir Kebab",
+      "y": 37.40026,
+      "x": 126.92254,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "안양시 만안구 장내로 149번길 50",
+      "mf": 1196,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1197",
+      "n": "Anhor",
+      "y": 37.40552,
+      "x": 127.25872,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 광주시 역동 39-11",
+      "mf": 1197,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1198",
+      "n": "Anor",
+      "y": 35.85371,
+      "x": 129.20703,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경북 경주시 금성로 404",
+      "mf": 1198,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1199",
+      "n": "Anor Restaurant",
+      "y": 35.1886,
+      "x": 128.119,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 진주시 모덕로 228",
+      "mf": 1199,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1200",
+      "n": "Ansor",
+      "y": 36.36182,
+      "x": 127.3494,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "대전 유성구 대학로141번길 18",
+      "mf": 1200,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1201",
+      "n": "Asia",
+      "y": 35.85297,
+      "x": 129.20791,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경북 경주시 북문로47번길 32-1",
+      "mf": 1201,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1202",
+      "n": "Asia Halal",
+      "y": 37.75897,
+      "x": 128.89814,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "강원 강릉시 옥천로65번길 10",
+      "mf": 1202,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1203",
+      "n": "Asia O'Zbek",
+      "y": 35.73023,
+      "x": 128.44498,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "대구시 달성군 논공읍 논공로21길14-4 2층",
+      "mf": 1203,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1204",
+      "n": "Asia외국인mart",
+      "y": 35.12506,
+      "x": 126.76723,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "광주 광산구 평동로 851 3층",
+      "mf": 1204,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1205",
+      "n": "Asl Kebab",
+      "y": 35.13499,
+      "x": 129.10016,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "부산광역시 남구 용소로28번길 10",
+      "mf": 1205,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1206",
+      "n": "Assorti",
+      "y": 37.87257,
+      "x": 127.74576,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "강원특별자치도 춘천시 서부대성로 249 1층 (효자동)",
+      "mf": 1206,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1207",
+      "n": "Atlas",
+      "y": 37.73775,
+      "x": 127.0503,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 의정부시 시민로 138",
+      "mf": 1207,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1208",
+      "n": "Ayla Kebab",
+      "y": 35.13502,
+      "x": 129.10035,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "부산 남구 용소로28번길 8 1층",
+      "mf": 1208,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1209",
+      "n": "Baraka",
+      "y": 37.42576,
+      "x": 126.68278,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "인천 연수구 함박로 49-1",
+      "mf": 1209,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1210",
+      "n": "Bek's Kebab",
+      "y": 37.44168,
+      "x": 127.12821,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "경기 성남시 수정구 성남대로1250번길 5-2 1층 (태평동)",
+      "mf": 1210,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1211",
+      "n": "Best Kebab",
+      "y": 37.54735,
+      "x": 127.07244,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 광진구 광나루로 386 107호",
+      "mf": 1211,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1212",
+      "n": "Best Kebab",
+      "y": 37.53907,
+      "x": 127.12726,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 강동구 천호대로157길 29",
+      "mf": 1212,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1213",
+      "n": "Big Brother'S Burger",
+      "y": 37.55367,
+      "x": 127.07361,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "서울 광진구 군자로 127",
+      "mf": 1213,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1214",
+      "n": "Bismillah",
+      "y": 35.30704,
+      "x": 128.73436,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경상남도 김해시 진영읍 김해대로 407 번길 8-6",
+      "mf": 1214,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1215",
+      "n": "Chayhana",
+      "y": 36.33789,
+      "x": 127.45248,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "대전 동구 자양동 90-8",
+      "mf": 1215,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1216",
+      "n": "Chayhana",
+      "y": 35.23387,
+      "x": 128.88263,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 김해시 분성로335번길 3 (서상동)",
+      "mf": 1216,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1217",
+      "n": "Chayxana",
+      "y": 37.42526,
+      "x": 126.68564,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "인천 연수구 함박로 76 (연수동)",
+      "mf": 1217,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1218",
+      "n": "Chinor",
+      "y": 35.17059,
+      "x": 126.80589,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "광주 광산구 산정공원로 33",
+      "mf": 1218,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1219",
+      "n": "Choyhona Kafe",
+      "y": 35.9143,
+      "x": 128.81877,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경북 경산시 하양읍 금송로 8 2층",
+      "mf": 1219,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1220",
+      "n": "Choyxona Khiva",
+      "y": 36.91781,
+      "x": 127.13012,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "충남 천안시 서북구 성환읍 성환중앙로 43-1",
+      "mf": 1220,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1221",
+      "n": "Darxon Halal Foods",
+      "y": 35.17636,
+      "x": 128.11518,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 진주시 공단로139번길 10-1",
+      "mf": 1221,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1222",
+      "n": "Deli Kabab",
+      "y": 37.55867,
+      "x": 126.83217,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "서울특별시 강서구 공항대로 222 발산W타워 108호",
+      "mf": 1222,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1223",
+      "n": "Diamond O'zbek Milliy Taomlari",
+      "y": 35.09979,
+      "x": 128.81616,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 창원시 진해구 용원중로 27",
+      "mf": 1223,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1224",
+      "n": "Diydor",
+      "y": 35.30793,
+      "x": 128.73301,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 김해시 진영읍 김해대로407번길 40-18",
+      "mf": 1224,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1225",
+      "n": "Doner Kebab",
+      "y": 37.55247,
+      "x": 126.92273,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 마포구 서교동 358-124 | 와우산로21길 24",
+      "mf": 1225,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1226",
+      "n": "Dostuk",
+      "y": 37.34665,
+      "x": 127.95342,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "강원 원주시 중앙로 33",
+      "mf": 1226,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1227",
+      "n": "Dostuk",
+      "y": 37.75946,
+      "x": 128.89704,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "강원 강릉시 옥천로71번길 14 (교동)",
+      "mf": 1227,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1228",
+      "n": "Dunyo",
+      "y": 36.77428,
+      "x": 126.93387,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "충청남도 아산시 신창면 순천향로15번길 6 2F",
+      "mf": 1228,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1229",
+      "n": "Eski Shahar",
+      "y": 35.91471,
+      "x": 127.07064,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "전북 완주군 삼례읍 동학로 91",
+      "mf": 1229,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1230",
+      "n": "Eski Shahar",
+      "y": 37.8731,
+      "x": 127.74053,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "강원특별자치도 춘천시 서부대성로206번길 15 1층",
+      "mf": 1230,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1231",
+      "n": "Farg'ona",
+      "y": 35.3909,
+      "x": 128.48307,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 창녕군 남지읍 남지리 294-24, 2층",
+      "mf": 1231,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1232",
+      "n": "Fayzli Oshxona",
+      "y": 34.74773,
+      "x": 126.37717,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "전남 영암군 삼호읍 신항로 106",
+      "mf": 1232,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1233",
+      "n": "Fergana",
+      "y": 36.32857,
+      "x": 127.43439,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "대전 동구 대전로 770 (원동) 2층",
+      "mf": 1233,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1234",
+      "n": "Fortuna",
+      "y": 37.69008,
+      "x": 126.60081,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 김포시 통진읍 조강로44번길 4 2층",
+      "mf": 1234,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1235",
+      "n": "Fortuna",
+      "y": 37.20996,
+      "x": 126.81892,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 화성시 남양읍 남양시장로 88 2층",
+      "mf": 1235,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1236",
+      "n": "Golden Kebab",
+      "y": 35.91506,
+      "x": 127.06836,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "전북 완주군 삼례읍 동학로 115",
+      "mf": 1236,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1237",
+      "n": "Guzar",
+      "y": 35.39191,
+      "x": 128.47837,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 창녕군 남지읍 남지중앙로 81",
+      "mf": 1237,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1238",
+      "n": "Halal Food",
+      "y": 34.96695,
+      "x": 127.48479,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "전남 순천시 중앙로 238 2F",
+      "mf": 1238,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1239",
+      "n": "Halal Foods",
+      "y": 36.91663,
+      "x": 127.13201,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "충남 천안시 서북구 성환읍 성환11길 37",
+      "mf": 1239,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1240",
+      "n": "Halal Yasin",
+      "y": 35.56792,
+      "x": 126.84794,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "전라북도 정읍시 조곡천 1길 30",
+      "mf": 1240,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1241",
+      "n": "Hello India",
+      "y": 35.13657,
+      "x": 129.09993,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "부산 남구 용소로8번길 6",
+      "mf": 1241,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1242",
+      "n": "Hoji Bobo",
+      "y": 37.53399,
+      "x": 126.98946,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "서울 용산구 이태원로 140-1",
+      "mf": 1242,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1243",
+      "n": "Hot Kebab",
+      "y": 35.84374,
+      "x": 127.13813,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "전북 전주시 덕진구 삼송5길 14-23",
+      "mf": 1243,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1244",
+      "n": "Indian Curry",
+      "y": 36.3605,
+      "x": 127.35213,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "indian"
+      ],
+      "a": "대전 유성구 대학로 169 (궁동)",
+      "mf": 1244,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1245",
+      "n": "Ipak Yo'Li",
+      "y": 35.85297,
+      "x": 129.20807,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경북 경주시 금성로386번길 11-11",
+      "mf": 1245,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1246",
+      "n": "Ipak Yo'Li 2",
+      "y": 35.18884,
+      "x": 128.11903,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 진주시 모덕로 229",
+      "mf": 1246,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1247",
+      "n": "Ipak Yo'li",
+      "y": 35.1791,
+      "x": 128.1089,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 진주시 도동천로 75",
+      "mf": 1247,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1248",
+      "n": "Islam Kafe-2 Halal",
+      "y": 35.84272,
+      "x": 128.75033,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경북 경산시 둥지로 70 1층",
+      "mf": 1248,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1249",
+      "n": "Istanbul Kebab",
+      "y": 34.77311,
+      "x": 127.70222,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "여수시 대학로 41, 1층",
+      "mf": 1249,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1250",
+      "n": "Istanbul Turk",
+      "y": 33.31022,
+      "x": 126.33568,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "제주특별자치도 서귀포시 안덕면 신화역사로 447 (안덕면 동광리)",
+      "mf": 1250,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1251",
+      "n": "Ixlos",
+      "y": 37.20888,
+      "x": 127.03398,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 화성시 경기대로 1047",
+      "mf": 1251,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1252",
+      "n": "Ixlos Halal Food",
+      "y": 37.1573,
+      "x": 127.05901,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기도 오산시 궐동로 45 1층",
+      "mf": 1252,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1253",
+      "n": "Ixlos Halal Foods",
+      "y": 37.27304,
+      "x": 127.0445,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 수원시 영통구 매여울로 58",
+      "mf": 1253,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1254",
+      "n": "Kaist Student Cafeteria",
+      "y": 36.36838,
+      "x": 127.35677,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "대전 유성구 대학로 291 N12 building 1F",
+      "mf": 1254,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1255",
+      "n": "Karavan",
+      "y": 36.82019,
+      "x": 127.15941,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "충남 천안시 동남구 터미널4길 4-1 (신부동)",
+      "mf": 1255,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1256",
+      "n": "Kavsar",
+      "y": 37.20877,
+      "x": 126.81708,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 화성시 남양읍 남양시장로66번길 9-3",
+      "mf": 1256,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1257",
+      "n": "Kavsar",
+      "y": 36.77242,
+      "x": 127.06719,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "충남 아산시 배방읍 배방로187번길 24-6 1층",
+      "mf": 1257,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1258",
+      "n": "Kavsar",
+      "y": 35.84132,
+      "x": 128.75398,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경북 경산시 둥지로 34",
+      "mf": 1258,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1259",
+      "n": "Kebab",
+      "y": 35.17093,
+      "x": 126.8062,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "광주 광산구 산정공원로 40",
+      "mf": 1259,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1260",
+      "n": "Kebab-shi Turk Kebab",
+      "y": 37.55211,
+      "x": 127.07147,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울시 광진구 군자로 100-1",
+      "mf": 1260,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1261",
+      "n": "King Hamburger",
+      "y": 36.959,
+      "x": 127.04363,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 평택시 팽성읍 안정쇼핑로 4 1층 (팽성읍 안정리)",
+      "mf": 1261,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1262",
+      "n": "Lazzat",
+      "y": 37.25051,
+      "x": 127.37555,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 이천시 마장면 서이천로 167",
+      "mf": 1262,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1263",
+      "n": "Lookma Halal Restaraunt",
+      "y": 37.36975,
+      "x": 127.93638,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "강원도 원주시 상지대길 53",
+      "mf": 1263,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1264",
+      "n": "Marakand",
+      "y": 35.84197,
+      "x": 128.7521,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경북 경산시 둥지로 51",
+      "mf": 1264,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1265",
+      "n": "Maria",
+      "y": 37.14781,
+      "x": 128.21013,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "충북 제천시 내제로27길 15",
+      "mf": 1265,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1266",
+      "n": "Mazza Milliy Taomlari",
+      "y": 37.35006,
+      "x": 127.3402,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 광주시 곤지암읍 경충대로 617 1층",
+      "mf": 1266,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1267",
+      "n": "Mechta",
+      "y": 35.22728,
+      "x": 128.67687,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 창원시 성산구 중앙동 70-11",
+      "mf": 1267,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1268",
+      "n": "Mechta 2",
+      "y": 35.10061,
+      "x": 128.81624,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 창원시 진해구 용원중로37번길 3",
+      "mf": 1268,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1269",
+      "n": "Medina Restaurant",
+      "y": 36.3337,
+      "x": 127.44595,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "대전 동구 대동로 4 2층",
+      "mf": 1269,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1270",
+      "n": "Minor Uzbekistan Restaurant",
+      "y": 35.84246,
+      "x": 128.75026,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경북 경산시 둥지로 69, 2층",
+      "mf": 1270,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1271",
+      "n": "Moida Taomlari",
+      "y": 35.84231,
+      "x": 128.75075,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경북 경산시 둥지로 65",
+      "mf": 1271,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1272",
+      "n": "Mr. Bilo Fast Food",
+      "y": 35.23373,
+      "x": 128.88285,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 김해시 동상동 992-12",
+      "mf": 1272,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1273",
+      "n": "Musafir",
+      "y": 37.86548,
+      "x": 127.73803,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "강원 춘천시 공지로252번길 22 (효자동)",
+      "mf": 1273,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1274",
+      "n": "Muslim Food",
+      "y": 35.91558,
+      "x": 127.06808,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "전북 완주군 삼례읍 삼례화산2길 37-5",
+      "mf": 1274,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1275",
+      "n": "Muslim Halal Food",
+      "y": 36.19285,
+      "x": 127.45334,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "충남 금산군 추부면 대학로 191",
+      "mf": 1275,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1276",
+      "n": "Muslim Restaraunt",
+      "y": 36.12703,
+      "x": 128.11511,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경북 김천시 평화동 67-58",
+      "mf": 1276,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1277",
+      "n": "Muslima",
+      "y": 37.5564,
+      "x": 127.07264,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "서울특별시 광진구 천호대로102길 64",
+      "mf": 1277,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1278",
+      "n": "Muslima",
+      "y": 37.23864,
+      "x": 127.20867,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 용인시 처인구 백옥대로 1153",
+      "mf": 1278,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1279",
+      "n": "Muslima",
+      "y": 37.40516,
+      "x": 127.25764,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 광주시 역동 48-6",
+      "mf": 1279,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1280",
+      "n": "Muslima",
+      "y": 36.97293,
+      "x": 127.92376,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "충북 충주시 중앙로 3",
+      "mf": 1280,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1281",
+      "n": "Navro'z",
+      "y": 35.48163,
+      "x": 129.41169,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "울산 동구 문현로 79 1층 1호 (방어동)",
+      "mf": 1281,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1282",
+      "n": "Nihol",
+      "y": 35.8421,
+      "x": 128.75155,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경산시 둥지로 57",
+      "mf": 1282,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1283",
+      "n": "O'zbegim",
+      "y": 35.91492,
+      "x": 127.06964,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "전북 완주군 삼례읍 동학로 103 (삼례읍 후정리)",
+      "mf": 1283,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1284",
+      "n": "O'zbek Choyxona",
+      "y": 37.21026,
+      "x": 126.81878,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 화성시 남양읍 남양시장로55번길 37",
+      "mf": 1284,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1285",
+      "n": "O'zgen",
+      "y": 35.34538,
+      "x": 129.03724,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 양산시 북부동 487-10",
+      "mf": 1285,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1286",
+      "n": "Oazis",
+      "y": 37.2341,
+      "x": 127.20941,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 용인시 처인구 김량장동 63-9",
+      "mf": 1286,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1287",
+      "n": "Osiyo",
+      "y": 36.9707,
+      "x": 127.92962,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "충북 충주시 사직산16길 57",
+      "mf": 1287,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1288",
+      "n": "Otash Qassob",
+      "y": 35.23379,
+      "x": 128.88265,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 김해시 서상동 94-12",
+      "mf": 1288,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1289",
+      "n": "Plov House",
+      "y": 37.42552,
+      "x": 126.68228,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "인천 연수구 연수동 503-5",
+      "mf": 1289,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1290",
+      "n": "Qaysar Qaynar Halal Food",
+      "y": 35.8426,
+      "x": 127.13383,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "전북 전주시 덕진구 삼송1길 25",
+      "mf": 1290,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1291",
+      "n": "Ramada Restaurant",
+      "y": 37.41665,
+      "x": 126.65074,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "인천 연수구 능허대로 217",
+      "mf": 1291,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1292",
+      "n": "Rayhon",
+      "y": 37.30062,
+      "x": 126.84045,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 안산시 상록구 사동 1169",
+      "mf": 1292,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1293",
+      "n": "Rayyan",
+      "y": 37.30247,
+      "x": 126.85059,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기도 안산시 상록구 서암로3길 7",
+      "mf": 1293,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1294",
+      "n": "Rayyan",
+      "y": 37.67762,
+      "x": 126.75481,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "일산서구 대산로211번길 13",
+      "mf": 1294,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1295",
+      "n": "Rayyon Restaurant Halal",
+      "y": 37.65192,
+      "x": 126.58829,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 김포시 대곶면 율생로 28 1층",
+      "mf": 1295,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1296",
+      "n": "Registan Avenue",
+      "y": 35.17731,
+      "x": 126.90054,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "광주 북구 반룡로28번길 40 1층 (용봉동)",
+      "mf": 1296,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1297",
+      "n": "Registon",
+      "y": 35.0973,
+      "x": 128.81968,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 창원시 진해구 용원로102번길 14 (용원동)",
+      "mf": 1297,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1298",
+      "n": "Registon",
+      "y": 37.54439,
+      "x": 127.13236,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "서울 강동구 구천면로 271 1F",
+      "mf": 1298,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1299",
+      "n": "Sabina 2",
+      "y": 37.41868,
+      "x": 126.64987,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "인천 연수구 능허대로 187",
+      "mf": 1299,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1300",
+      "n": "Salom",
+      "y": 37.4253,
+      "x": 126.6851,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "인천 연수구 함박로 72 1층",
+      "mf": 1300,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1301",
+      "n": "Samarkand",
+      "y": 37.41651,
+      "x": 126.6508,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "인천 연수구 능허대로 219",
+      "mf": 1301,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1302",
+      "n": "Samarkand Chayxana",
+      "y": 37.29491,
+      "x": 127.63479,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 여주시 세종로40번길 16 2층 (창동)",
+      "mf": 1302,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1303",
+      "n": "Samarqand",
+      "y": 35.84079,
+      "x": 128.75282,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경북 경산시 임당동 645-16",
+      "mf": 1303,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1304",
+      "n": "Samarqand",
+      "y": 37.53896,
+      "x": 127.13199,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "서울특별시 강동구 성안로25길 65, 1층 101호 (천호동)",
+      "mf": 1304,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1305",
+      "n": "Samarqand",
+      "y": 37.82901,
+      "x": 127.15054,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 포천시 소흘읍 송우리 110-13",
+      "mf": 1305,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1306",
+      "n": "Sarbon Milliy Taomlar",
+      "y": 37.68911,
+      "x": 126.60156,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 김포시 통진읍 조강로 29",
+      "mf": 1306,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1307",
+      "n": "Saroy Halal Food",
+      "y": 35.10849,
+      "x": 128.96593,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "부산 사하구 하단동 512-3",
+      "mf": 1307,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1308",
+      "n": "Sevinch",
+      "y": 35.8551,
+      "x": 128.49467,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "대구 달서구 서당로7길 16",
+      "mf": 1308,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1309",
+      "n": "Shahram Halal Restaraunt",
+      "y": 37.82181,
+      "x": 126.98744,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기도 양주시 광적면 삼일로29번길 12",
+      "mf": 1309,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1310",
+      "n": "Shohona Kebab",
+      "y": 37.45063,
+      "x": 126.65933,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "인천 미추홀구 인하로 99",
+      "mf": 1310,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1311",
+      "n": "Shosh",
+      "y": 37.42444,
+      "x": 126.68592,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "인천 연수구 함박로92번길 4",
+      "mf": 1311,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1312",
+      "n": "Silk Road",
+      "y": 36.33834,
+      "x": 127.45116,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "대전 동구 자양동 85-35",
+      "mf": 1312,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1313",
+      "n": "Star Kebab",
+      "y": 36.81829,
+      "x": 127.1579,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "충남 천안시 동남구 먹거리11길 47 1층",
+      "mf": 1313,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1314",
+      "n": "Star Kebab",
+      "y": 36.12959,
+      "x": 128.33181,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "경북 구미시 문화로 2",
+      "mf": 1314,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1315",
+      "n": "Street Kebab",
+      "y": 34.75497,
+      "x": 126.45349,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "전라남도 영암군 삼호읍 대불주거5로2길 15",
+      "mf": 1315,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1316",
+      "n": "Sultan",
+      "y": 37.42696,
+      "x": 126.64276,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "인천 연수구 옥련로 30",
+      "mf": 1316,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1317",
+      "n": "Sultan",
+      "y": 35.84277,
+      "x": 128.75011,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경북 경산시 임당동 570-5",
+      "mf": 1317,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1318",
+      "n": "Sultan Halal Food",
+      "y": 37.83031,
+      "x": 127.14827,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 포천시 소흘읍 송우리 221-2 2층",
+      "mf": 1318,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1319",
+      "n": "Sumayya",
+      "y": 35.83871,
+      "x": 127.13109,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "전북 전주시 덕진구 기린대로 414 (금암동)",
+      "mf": 1319,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1320",
+      "n": "Supara Restaraunt",
+      "y": 37.75821,
+      "x": 128.89815,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "강원 강릉시 옥천동 147-10",
+      "mf": 1320,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1321",
+      "n": "Surqash",
+      "y": 34.75301,
+      "x": 126.45497,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "전남 영암군 삼호읍 대불주거 1로7길31",
+      "mf": 1321,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1322",
+      "n": "Tandir Xona",
+      "y": 36.92953,
+      "x": 127.03855,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "충남 아산시 둔포면 둔포리 463-6 1층",
+      "mf": 1322,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1323",
+      "n": "Tashkent",
+      "y": 35.43466,
+      "x": 129.31187,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "울산 울주군 온산읍 덕신리 1302-8",
+      "mf": 1323,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1324",
+      "n": "Tashkent",
+      "y": 38.19822,
+      "x": 128.58221,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "강원 속초시 교동 668-92",
+      "mf": 1324,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1325",
+      "n": "Tashkent City",
+      "y": 37.33104,
+      "x": 126.79309,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 안산시 단원구 원곡동 748-7",
+      "mf": 1325,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1326",
+      "n": "Tashkent Restaurant",
+      "y": 37.45307,
+      "x": 126.65756,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "인천광역시 미추홀구 인하로 47번길 71",
+      "mf": 1326,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1327",
+      "n": "The Kebab",
+      "y": 37.45112,
+      "x": 126.65973,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "인천광역시 미추홀구 용현동 185-13",
+      "mf": 1327,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1328",
+      "n": "Toshkent",
+      "y": 37.34427,
+      "x": 126.73477,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 시흥시 중심상가1길 3-6",
+      "mf": 1328,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1329",
+      "n": "Toshkent",
+      "y": 35.88417,
+      "x": 128.55695,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "대구 서구 서대구로 296-1 (비산동)",
+      "mf": 1329,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1330",
+      "n": "Toshkent",
+      "y": 35.92094,
+      "x": 128.29174,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경북 성주군 성주읍 성주순환로 250",
+      "mf": 1330,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1331",
+      "n": "Toshkent",
+      "y": 35.56739,
+      "x": 126.85379,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "전북 정읍시 정인1길 54",
+      "mf": 1331,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1332",
+      "n": "Toshkent",
+      "y": 37.34778,
+      "x": 127.95268,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "강원 원주시 중앙로 58 (중앙동)",
+      "mf": 1332,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1333",
+      "n": "Toshkent",
+      "y": 34.96946,
+      "x": 127.58099,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "전남 광양시 광양읍 서천1길 13 1층 (광양읍 칠성리)",
+      "mf": 1333,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1334",
+      "n": "Turan Kebab",
+      "y": 36.82158,
+      "x": 127.15801,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "충남 천안시 동남구 터미널2로 29",
+      "mf": 1334,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1335",
+      "n": "Turkish Kebab",
+      "y": 35.96229,
+      "x": 129.40327,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "경북 포항시 남구 오천읍 문덕로 3 1층 (오천읍 문덕리)",
+      "mf": 1335,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1336",
+      "n": "Turkistan",
+      "y": 35.17146,
+      "x": 126.80597,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "광주 광산구 산정공원로 43 (산정동)",
+      "mf": 1336,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1337",
+      "n": "Turkiye Kebab",
+      "y": 36.32885,
+      "x": 127.42864,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "대전 중구 대종로488번길 46 1층",
+      "mf": 1337,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1338",
+      "n": "Turon",
+      "y": 36.33442,
+      "x": 127.44479,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "대전 동구 동대전로131번길 22",
+      "mf": 1338,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1339",
+      "n": "Uluk Ata",
+      "y": 37.42745,
+      "x": 126.64297,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "인천광역시 연수구 옥련로 31",
+      "mf": 1339,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1340",
+      "n": "Uz Samarkand",
+      "y": 36.59575,
+      "x": 128.20069,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경상북도 문경시 점촌동 중앙8길8 2층",
+      "mf": 1340,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1341",
+      "n": "Uzbegim",
+      "y": 37.65098,
+      "x": 126.58296,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 김포시 대곶면 율생중앙로 31",
+      "mf": 1341,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1342",
+      "n": "Uzbekistan",
+      "y": 35.88606,
+      "x": 128.55717,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "대구 서구 서대구로63길 1 (비산동)",
+      "mf": 1342,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1343",
+      "n": "Uzbekistan",
+      "y": 35.37489,
+      "x": 128.7085,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 밀양시 하남읍 수산리 814-85",
+      "mf": 1343,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1344",
+      "n": "Uzbekistan",
+      "y": 35.27741,
+      "x": 128.40763,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 함안군 가야읍 말산리 527-7",
+      "mf": 1344,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1345",
+      "n": "Vatan Halal Restaurant",
+      "y": 35.22287,
+      "x": 129.15118,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "부산 해운대구 아랫반송로 59번길 9",
+      "mf": 1345,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1346",
+      "n": "Vodiy",
+      "y": 35.161,
+      "x": 129.05455,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "부산광역시 부산진구 부전동 405-41, 1층",
+      "mf": 1346,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1347",
+      "n": "Vodiy",
+      "y": 35.92031,
+      "x": 128.28965,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경북 성주군 성주읍 성주읍2길 32-1 1층 (성주읍 경산리)",
+      "mf": 1347,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1348",
+      "n": "Vodiy",
+      "y": 37.14352,
+      "x": 127.06776,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 오산시 오산로 189-7",
+      "mf": 1348,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1349",
+      "n": "Vodiy",
+      "y": 35.27811,
+      "x": 128.40874,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경남 함안군 가야읍 가야로 69",
+      "mf": 1349,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1350",
+      "n": "Vodiy Somsa",
+      "y": 37.42582,
+      "x": 126.68191,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "인천 연수구 함박로 41",
+      "mf": 1350,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1351",
+      "n": "WoW Kebab",
+      "y": 35.84488,
+      "x": 127.12589,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "전북 전주시 덕진동1가 664-6",
+      "mf": 1351,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1352",
+      "n": "YD Kebab House",
+      "y": 37.26919,
+      "x": 127.00687,
+      "k": "r",
+      "s": "Y",
+      "cu": [
+        "turkish"
+      ],
+      "a": "경기 수원시 팔달구 매산로 51 동일트루빌 107호",
+      "mf": 1352,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1353",
+      "n": "Zam-zam",
+      "y": 37.40804,
+      "x": 127.25714,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 광주시 중앙로 95-37",
+      "mf": 1353,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1354",
+      "n": "Zam-zam",
+      "y": 35.19226,
+      "x": 128.11942,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경상남도 진주시 도동로247번길 23",
+      "mf": 1354,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1355",
+      "n": "Zomin",
+      "y": 36.82203,
+      "x": 127.15928,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "충남 천안시 동남구 터미널4길 26 (신부동)",
+      "mf": 1355,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1356",
+      "n": "Zumrad Food",
+      "y": 37.78231,
+      "x": 126.84671,
+      "k": "r",
+      "s": "Y",
+      "cu": [],
+      "a": "경기 파주시 광탄면 혜음로 1131-1 (광탄면 신산리)",
+      "mf": 1356,
+      "mc": "self_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1385",
+      "n": "루마 라사 코리아",
+      "nl": {
+        "en": "Rumah Rasa Korea"
+      },
+      "y": 35.09811,
+      "x": 129.033,
+      "k": "r",
+      "s": "C",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "부산 중구 남포길 40-1",
+      "mf": 1385,
+      "mc": "muslim_certified",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1524",
+      "n": "클레오파트라 레스토랑",
+      "nl": {
+        "en": "Cleopatra Restaurant"
+      },
+      "y": 37.53484,
+      "x": 126.99621,
+      "k": "r",
+      "s": "L",
+      "cu": [],
+      "a": "서울특별시 용산구 이태원로 199, 3층",
+      "mf": 1524,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1525",
+      "n": "허머스키친",
+      "nl": {
+        "en": "Hummus Kitchen"
+      },
+      "y": 37.50919,
+      "x": 127.06081,
+      "k": "r",
+      "s": "L",
+      "cu": [],
+      "a": "서울 강남구 테헤란로 521 파르나스몰 지하 1층 F-26호",
+      "mf": 1525,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1526",
+      "n": "원대구탕",
+      "nl": {
+        "en": "Won Daegutang"
+      },
+      "y": 37.53469,
+      "x": 126.97422,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 용산구 한강대로62가길 8 (삼각지)",
+      "mf": 1526,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1527",
+      "n": "꾸스꾸스",
+      "nl": {
+        "en": "CousCous Tunisian Home Kitchen"
+      },
+      "y": 37.57786,
+      "x": 126.97115,
+      "k": "r",
+      "s": "L",
+      "cu": [],
+      "a": "서울 종로구 자하문로5길 16-2",
+      "mf": 1527,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1528",
+      "n": "피자버거플러스",
+      "nl": {
+        "en": "PB+"
+      },
+      "y": 37.53321,
+      "x": 126.99541,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "western"
+      ],
+      "a": "서울 용산구 우사단로 33 1층",
+      "mf": 1528,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1529",
+      "n": "자이카",
+      "nl": {
+        "en": "Zaiqa Restaurant Tandoori & Curry House"
+      },
+      "y": 37.5332,
+      "x": 126.99623,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 용산구 우사단로10길 11 B1, 1F",
+      "mf": 1529,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1530",
+      "n": "셉템버 템퍼쳐_9월의 온도",
+      "nl": {
+        "en": "September Temperature"
+      },
+      "y": 37.54863,
+      "x": 127.05308,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [],
+      "a": "서울 성동구 성수일로12길 15-1 1층 102호",
+      "mf": 1530,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1531",
+      "n": "옴레스토랑 광화문점",
+      "nl": {
+        "en": "Om Restaurant & Cafe Gwanghwamun"
+      },
+      "y": 37.57053,
+      "x": 126.97609,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 종로구 새문안로 103 지하",
+      "mf": 1531,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1532",
+      "n": "베리서울",
+      "nl": {
+        "en": "Very Seoul"
+      },
+      "y": 37.54817,
+      "x": 127.05325,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울시 성동구 성수일로12길 20 1층 103호",
+      "mf": 1532,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1533",
+      "n": "호지보보",
+      "nl": {
+        "en": "Hoji Bobo Steak House"
+      },
+      "y": 37.53399,
+      "x": 126.98946,
+      "k": "r",
+      "s": "L",
+      "cu": [],
+      "a": "서울 용산구 이태원로 140-1 3층",
+      "mf": 1533,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1534",
+      "n": "리프레쉬먼트",
+      "nl": {
+        "en": "Refreshment"
+      },
+      "y": 37.55089,
+      "x": 127.04745,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [],
+      "a": "서울 성동구 상원길 77 상가동 1층 refreshment",
+      "mf": 1534,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1535",
+      "n": "푸른델리",
+      "nl": {
+        "en": "Pureun Deli"
+      },
+      "y": 37.54228,
+      "x": 127.04834,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [],
+      "a": "서울 성동구 성수일로3길 4-6 지하1층",
+      "mf": 1535,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1536",
+      "n": "옛날집낙원아구찜",
+      "nl": {
+        "en": "Yennaljip Nakwon Agujjim"
+      },
+      "y": 37.5735,
+      "x": 126.988,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 종로구 삼일대로 436 (낙원동)",
+      "mf": 1536,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1537",
+      "n": "탁심케밥",
+      "nl": {
+        "en": "TAKSIM Kebab"
+      },
+      "y": 37.53426,
+      "x": 126.99361,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 용산구 이태원로 176-1 1층",
+      "mf": 1537,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1538",
+      "n": "풍윤",
+      "nl": {
+        "en": "Poongyoon"
+      },
+      "y": 37.55218,
+      "x": 126.91335,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 마포구 양화로11길 64 1층",
+      "mf": 1538,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1539",
+      "n": "oyoyoy연남점",
+      "nl": {
+        "en": "Oyoyoy Yeonnam"
+      },
+      "y": 37.56128,
+      "x": 126.92472,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [],
+      "a": "서울 마포구 동교로36길 7 1층",
+      "mf": 1539,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1540",
+      "n": "oyoyoy을지로점",
+      "nl": {
+        "en": "Oyoyoy Euljiro"
+      },
+      "y": 37.56565,
+      "x": 126.99039,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [],
+      "a": "서울 중구 수표로 48-7 1층",
+      "mf": 1540,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1541",
+      "n": "oyoyoy본점",
+      "nl": {
+        "en": "Oyoyoy Main Branch"
+      },
+      "y": 37.54231,
+      "x": 127.05382,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [],
+      "a": "서울 성동구 성수일로4길 45 1층",
+      "mf": 1541,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1542",
+      "n": "프라나 테이블",
+      "nl": {
+        "en": "Prana Table"
+      },
+      "y": 37.5419,
+      "x": 127.04836,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [],
+      "a": "서울 성동구 성수일로3길 3-9 1, 2층, 루프탑",
+      "mf": 1542,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1543",
+      "n": "에피코어",
+      "nl": {
+        "en": "Epikore"
+      },
+      "y": 37.5423,
+      "x": 127.04935,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 성동구 뚝섬로3길 22 1층",
+      "mf": 1543,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1544",
+      "n": "위어도우",
+      "nl": {
+        "en": "Weirdough"
+      },
+      "y": 37.57461,
+      "x": 126.92742,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [],
+      "a": "서울 서대문구 증가로 80 2층 201호",
+      "mf": 1544,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1545",
+      "n": "이스탄불그릴",
+      "nl": {
+        "en": "Istanbul Grill"
+      },
+      "y": 37.54475,
+      "x": 126.94826,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울 마포구 백범로 152 (공덕파크자이)",
+      "mf": 1545,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1546",
+      "n": "박소린두깜풍",
+      "nl": {
+        "en": "Bakso Rindu Kampung"
+      },
+      "y": 37.53387,
+      "x": 126.99345,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indonesian"
+      ],
+      "a": "서울 용산구 보광로59길 9 2층",
+      "mf": 1546,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1547",
+      "n": "질할브로스",
+      "nl": {
+        "en": "Jilhal Bros"
+      },
+      "y": 37.53496,
+      "x": 126.9921,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "turkish"
+      ],
+      "a": "서울특별시 용산구 이태원로27가길 58 2층",
+      "mf": 1547,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1548",
+      "n": "해목 서촌점",
+      "nl": {
+        "en": "Haemok Seochon"
+      },
+      "y": 37.57842,
+      "x": 126.972,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "japanese"
+      ],
+      "a": "서울 종로구 자하문로 26-1",
+      "mf": 1548,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1549",
+      "n": "브릭샌드 서울역점",
+      "nl": {
+        "en": "BRICKSAND Seoul Station"
+      },
+      "y": 37.55484,
+      "x": 126.97173,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [],
+      "a": "서울 용산구 한강대로 405 서울역 1층 M02호",
+      "mf": 1549,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1550",
+      "n": "브릭샌드 명동점",
+      "nl": {
+        "en": "BRICKSAND Myeongdong"
+      },
+      "y": 37.56337,
+      "x": 126.9841,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [],
+      "a": "서울 중구 명동8길 8-10 1층",
+      "mf": 1550,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1551",
+      "n": "고사리익스프레스",
+      "nl": {
+        "en": "Gosari Express"
+      },
+      "y": 37.56627,
+      "x": 127.02001,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 퇴계로85길 12-10 1층",
+      "mf": 1551,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1552",
+      "n": "예티",
+      "nl": {
+        "en": "Yetti"
+      },
+      "y": 37.551,
+      "x": 126.92402,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "indian"
+      ],
+      "a": "서울 마포구 와우산로18길 20 홍대예티 1층",
+      "mf": 1552,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1553",
+      "n": "문어본가",
+      "nl": {
+        "en": "Muneo Bonga"
+      },
+      "y": 37.56733,
+      "x": 126.98335,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 남대문로10길 11",
+      "mf": 1553,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1554",
+      "n": "동강나루터",
+      "nl": {
+        "en": "Donggang Naruteo"
+      },
+      "y": 37.56643,
+      "x": 126.98897,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 을지로 99 창신빌딩 2층",
+      "mf": 1554,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1555",
+      "n": "소바키리스즈",
+      "nl": {
+        "en": "Sobakeerisuzu"
+      },
+      "y": 37.55946,
+      "x": 127.01241,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "japanese"
+      ],
+      "a": "서울 중구 동호로12길 98 1층",
+      "mf": 1555,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1556",
+      "n": "모로코코 카페",
+      "nl": {
+        "en": "Morococo Cafe"
+      },
+      "y": 37.54147,
+      "x": 126.98731,
+      "k": "r",
+      "s": "L",
+      "cu": [],
+      "a": "서울 용산구 신흥로 34",
+      "mf": 1556,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1557",
+      "n": "카사블랑카 샌드위치",
+      "nl": {
+        "en": "Casablanca Sandwich"
+      },
+      "y": 37.54164,
+      "x": 126.98712,
+      "k": "r",
+      "s": "L",
+      "cu": [],
+      "a": "서울 용산구 신흥로 35",
+      "mf": 1557,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1558",
+      "n": "네기우나기야",
+      "nl": {
+        "en": "Negi Unagiya"
+      },
+      "y": 37.51387,
+      "x": 127.1061,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "japanese"
+      ],
+      "a": "서울 송파구 잠실로 209, 2층",
+      "mf": 1558,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1559",
+      "n": "명가양갈비",
+      "nl": {
+        "en": "Myeongga Yanggalbi"
+      },
+      "y": 37.56937,
+      "x": 126.98507,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 종로구 삼일대로17길 42-1",
+      "mf": 1559,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1560",
+      "n": "업투미",
+      "nl": {
+        "en": "UP TO ME"
+      },
+      "y": 37.56477,
+      "x": 126.92471,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "western"
+      ],
+      "a": "서울 마포구 성미산로 165-6 1층",
+      "mf": 1560,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1561",
+      "n": "비지수프바",
+      "nl": {
+        "en": "BIJI Soup Bar"
+      },
+      "y": 37.53779,
+      "x": 127.05802,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [],
+      "a": "서울 성동구 성덕정19길 25 1층",
+      "mf": 1561,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1562",
+      "n": "남산가든",
+      "nl": {
+        "en": "Namsan Garden Korean BBQ"
+      },
+      "y": 37.56037,
+      "x": 126.98767,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 퇴계로24길 13-8 2층, 3층",
+      "mf": 1562,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1563",
+      "n": "관호 광화문점",
+      "nl": {
+        "en": "Kwanho Gwanghwamun"
+      },
+      "y": 37.56842,
+      "x": 126.97625,
+      "k": "r",
+      "s": "L",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 중구 태평로1가 62-9, 2층(세진빌딩)",
+      "mf": 1563,
+      "mc": "halal_meat",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1564",
+      "n": "성수아구",
+      "nl": {
+        "en": "Seongsu AGU"
+      },
+      "y": 37.54827,
+      "x": 127.04851,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 성동구 상원길 48-1",
+      "mf": 1564,
+      "mc": "salam",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1565",
+      "n": "청담제주물항 청담본점",
+      "nl": {
+        "en": "Cheongdam Jeju Mulhang Main Branch"
+      },
+      "y": 37.52574,
+      "x": 127.05243,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 강남구 도산대로101길 9, 1-2층",
+      "mf": 1565,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1566",
+      "n": "금수복국 서초점",
+      "nl": {
+        "en": "Geumsu Bokguk Seocho"
+      },
+      "y": 37.49541,
+      "x": 127.0164,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 서초구 서초중앙로24길 27, 1층",
+      "mf": 1566,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1567",
+      "n": "비움",
+      "nl": {
+        "en": "BIUM"
+      },
+      "y": 37.52241,
+      "x": 127.05431,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 강남구 학동로97길 41 1층",
+      "mf": 1567,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1568",
+      "n": "꽃새담 여의도직영점",
+      "nl": {
+        "en": "Kkotsedam Yeouido Branch"
+      },
+      "y": 37.52922,
+      "x": 126.92084,
+      "k": "r",
+      "s": "U",
+      "why": "directory",
+      "cu": [
+        "korean"
+      ],
+      "a": "서울 영등포구 국회대로70길 19 대하빌딩 B07호",
+      "mf": 1568,
+      "mc": "seafood",
+      "d": "2026-11-10"
+    },
+    {
+      "id": "mufko-1569",
+      "n": "플랜튜드 스타필드코엑스점",
+      "nl": {
+        "en": "PLANTUDE Starfield COEX Mall"
+      },
+      "y": 37.51182,
+      "x": 127.05916,
+      "k": "r",
+      "s": "M",
+      "dv": "vegetarian",
+      "cu": [],
+      "a": "서울 강남구 영동대로 513 스타필드 지하1층",
+      "mf": 1569,
+      "mc": "veggie",
+      "d": "2026-11-10"
+    }
+  ]
+}

@@ -50,6 +50,7 @@ export function statusLabel(p) {
 }
 
 export function statusDesc(p) {
+  if (p.s === 'U' && p.why === 'directory') return t('status.desc.Udirectory');
   if (p.s === 'U') return t(p.why === 'name' ? 'status.desc.Uname' : 'status.desc.Ucuisine');
   // A vegetarian place known only from its name ("비건", "채식", "사찰음식").
   if (p.s === 'V' && p.why === 'name') return t('status.desc.Vname');
@@ -157,6 +158,10 @@ function sourceLines(p) {
     if (src === 'osm' || src === 'live') {
       if (p.ck) text += ` — ${t('detail.checked', { date: formatDate(p.ck) })}`;
       lines.push(`<li><a href="${esc(osmLink(p))}" target="_blank" rel="noopener">${esc(text)}</a></li>`);
+    } else if (src === 'mufko') {
+      if (p.mc) text += ` — ${t(has(`mufko.${p.mc}`) ? `mufko.${p.mc}` : 'mufko.unknown')}`;
+      const url = Number.isSafeInteger(p.mf) && p.mf > 0 ? `https://app.mufko.com/places/${p.mf}` : 'https://app.mufko.com/restaurants';
+      lines.push(`<li><a href="${esc(url)}" target="_blank" rel="noopener">${esc(text)}</a></li>`);
     } else {
       if (p.d && src !== 'kto') text += ` (${formatDate(p.d)})`;
       const source = src === 'kto' && cleanUrl(p.su);

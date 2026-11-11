@@ -133,7 +133,8 @@
       "M": "Menyajikan beberapa hidangan vegetarian, tetapi juga memasak daging, jadi peralatan dan minyak mungkin dipakai bersama. Tidak bersertifikat halal.",
       "MV": "Menyajikan beberapa hidangan vegan, tetapi juga memasak daging, jadi peralatan dan minyak mungkin dipakai bersama. Tidak bersertifikat halal.",
       "S": "Restoran makanan laut: ikan mentah, sushi, ikan bakar, atau kerang. Ikan tidak perlu disembelih, tetapi tempat ini tidak bersertifikat halal. Pengikut mazhab Hanafi hanya makan ikan, bukan udang, kerang, atau cumi. Tanyakan arak masak (mirin, soju) dan kaldu daging dalam sup.",
-      "Vname": "Namanya menyebut vegan, vegetarian, atau makanan kuil, jadi sebagian besar atau semua menunya mungkin tanpa daging. Tidak bersertifikat halal: tanyakan alkohol dalam saus, seperti arak masak."
+      "Vname": "Namanya menyebut vegan, vegetarian, atau makanan kuil, jadi sebagian besar atau semua menunya mungkin tanpa daging. Tidak bersertifikat halal: tanyakan alkohol dalam saus, seperti arak masak.",
+      "Udirectory": "Terdaftar di direktori restoran tanpa bukti halal yang terverifikasi. Tanyakan bahan dan cara pengolahannya kepada restoran sebelum memesan."
     },
     "S": "Makanan laut"
   },
@@ -302,7 +303,8 @@
     "seoul": "Pemerintah Kota Seoul, restoran vegetarian bersertifikat",
     "suwon": "Kota Suwon, restoran dengan menu vegan",
     "sbiz": "Small Enterprise and Market Service, daftar usaha nasional",
-    "brand": "Menu resmi {brand}"
+    "brand": "Menu resmi {brand}",
+    "mufko": "MUFKO (Muslim Friendly Korea)"
   },
   "guide": {
     "title": "Makan halal di Korea",
@@ -520,5 +522,14 @@
     "thanksYes": "Terima kasih sudah memastikan!",
     "thanksNo": "Terima kasih, akan kami periksa.",
     "counts": "Pengunjung: {yes} memastikan · {no} melaporkan masalah"
+  },
+  "mufko": {
+    "muslim_certified": "Sertifikasi Muslim",
+    "self_certified": "Sertifikasi Mandiri",
+    "seafood": "Makanan Laut",
+    "veggie": "Vegetarian",
+    "halal_meat": "Daging Halal",
+    "salam": "Salam",
+    "unknown": "Tidak disebutkan"
   }
 }

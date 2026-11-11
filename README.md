@@ -53,14 +53,14 @@ GitHub Pages에서 동작하는 정적 사이트이며, 특히 **한국**에서 
   6. 고기 없는 한식, 빵집·디저트(젤라틴·라드·술 확인), 할랄 마트 — 가이드에서 안내
 - **한국 특화**
   - 길찾기 버튼이 **네이버 지도 → 카카오맵 → 구글 지도** 순서 (한국에서는 구글 지도 도보·자동차 길찾기가 안 되기 때문)
-  - 공공데이터(경기관광공사 무슬림 친화 음식점, 한국문화정보원 세계 음식점, 서울시 채식 인증 음식점, 수원시 비건 메뉴 업소) 반영, 이슬람 성원·기도실 표시
+  - MUFKO 공개 식당 목록과 공공데이터(경기관광공사 무슬림 친화 음식점, 한국문화정보원 세계 음식점, 서울시 채식 인증 음식점, 수원시 비건 메뉴 업소) 반영, 이슬람 성원·기도실 표시
   - **무슬림을 위한 한식 가이드**: 돼지고기가 보통 들어가는 음식, 숨어 있는 재료(맛술·주정·젤라틴·라드), 비교적 안심할 수 있는 음식
   - **필요한 한국어 문장** (발음 표기, 크게 보기, 한국어 음성 재생)
   - **식당 직원용 안내 카드** (한국어·日本語·中文·English·Français, 전체 화면)
 - **검색하면 바로 지도가 이동** — 검색어를 입력하고 Enter만 누르면 결과를 고르지 않아도 지도가 움직입니다(`assets/js/core/searchplan.js`).
   - 지역·역 이름("이태원", "강남역", "Seoul Station", 전국 역 1,300여 곳): 그곳으로 이동하고 이름이 붙은 핀을 꽂습니다. 목록 제목이 "‘명동’ 주변"으로 바뀌고 거리도 핀에서 잽니다.
-  - 식당 이름: 그 식당을 열고 지도에 이름과 함께 표시합니다.
-  - 메뉴·종류·체인("케밥", "할랄", "스타벅스"): 맞는 곳만 지도와 목록에 남기고 가장 가까운 결과들이 보이도록 지도를 맞춥니다.
+  - 식당 이름: 그 식당의 상세를 열고, 현재 위치를 지도 중심에 둡니다.
+  - 메뉴·종류·체인("케밥", "할랄", "스타벅스"): 현재 위치를 먼저 확인하고, 그 위치를 중심으로 맞는 곳만 지도와 목록에 보여 줍니다. 처음 검색할 때 위치 권한을 요청하며, 위치를 받을 수 없으면 현재 보고 있는 지도를 기준으로 검색합니다.
   - "강남역 할랄", "halal itaewon"처럼 장소와 함께 쓰면 그 장소 주변의 결과를 보여 줍니다.
   - 그 밖의 주소·지명은 지오코더(Nominatim, 실패하면 Photon)로 찾아 첫 결과로 이동하고 나머지 후보를 목록으로 보여 줍니다.
   상세 화면에 출처가 있는 대표 메뉴나 메뉴 링크가 표시됩니다.
@@ -106,8 +106,9 @@ GitHub Pages에서 동작하는 정적 사이트이며, 특히 **한국**에서 
 2. 저장소 **Settings → Pages → Build and deployment → Source** 를 **GitHub Actions** 로 바꿉니다.
 3. **Actions** 탭에서 *Deploy to GitHub Pages* 워크플로가 끝나면 사이트가 열립니다. (바로 실행하려면 *Run workflow*)
 
-이후에는 매일 04:17(KST)에 오픈스트리트맵 데이터를 새로 받아 자동 배포합니다(5~10분, 대부분 공용 Overpass 서버를 기다리는 시간).
-Overpass 서버가 잠시 안 될 때는 마지막으로 받은 데이터를 그대로 씁니다.
+이후에는 매일 04:17(KST)에 오픈스트리트맵과 MUFKO 식당 목록을 새로 받아 자동 배포합니다(5~10분, 대부분 공용 Overpass 서버를 기다리는 시간).
+원본 서버가 잠시 안 되면 마지막으로 받은 데이터를 그대로 씁니다. MUFKO는 영어·한국어 목록의 모든 페이지를 가져오고,
+일부 페이지만 내려오거나 목록이 갑자기 줄면 이전 목록을 유지합니다. 푸시 배포는 캐시와 저장소 중 더 최신 MUFKO 목록을 재사용합니다.
 `main`에 코드를 푸시하면 마지막으로 받은 오픈스트리트맵·상가 데이터로 바로 다시 빌드해 약 2분 안에 배포합니다.
 상가(상권)정보 원본(약 350MB)은 분기마다 새 판이 나올 때 한 번만 받고 GitHub Actions 캐시에 보관하므로,
 `brands.js`에 체인을 추가해도 다시 받지 않고 30초 안에 지점을 다시 뽑습니다.
@@ -119,6 +120,7 @@ Overpass 서버가 잠시 안 될 때는 마지막으로 받은 데이터를 그
 
 | 출처 | 내용 | 라이선스 |
 |---|---|---|
+| [MUFKO 공개 식당 목록](https://app.mufko.com/restaurants) ([공개 API](https://api-v2.mufko.com/v1/places?kind=restaurant&limit=100)) | 한국 식당의 이름·좌표·주소·원본 등급. 2026-11-10 수집본 621건. 한국어·영문 이름으로 검색, 상세 화면에 원본 등급과 개별 MUFKO 페이지 표시 | 출처를 명시한 식당의 사실 정보만 사용 (사진·리뷰·설명문 제외) |
 | [OpenStreetMap](https://www.openstreetmap.org/copyright) (Overpass API) | 전 세계 `diet:halal=yes/only/limited` 장소와 전 메뉴 채식·비건 식당(`diet:vegan=only`, `diet:vegetarian=only`), 한국의 이슬람 성원·기도실, 채식·비건 메뉴가 있는 식당, 이름·음식 종류로 보아 할랄 가능성이 높은 음식점 (할랄 인증 태그와 할랄 관련 분류도 검색하고, 실시간 검색에서는 이름·브랜드의 할랄 표시와 채식 태그도 확인) | ODbL, © OpenStreetMap contributors |
 | [경기관광공사_경기도 무슬림 친화 음식점](https://www.data.go.kr/data/15099378/fileData.do) | 경기도 무슬림 친화 식당 51곳 (주소를 좌표로 변환) | 공공데이터포털 이용허락범위 제한 없음 |
 | [경기관광공사_경기도 이슬람 예배당 및 예배소 현황](https://www.data.go.kr/data/15099380/fileData.do) | 경기도 성원·기도소 (정확한 위치를 찾은 곳만) | 이용허락범위 제한 없음 |
@@ -154,6 +156,7 @@ npm run build:data:offline     # 한국 공공데이터만으로 data/ 생성 (�
 npm run build:data             # 오픈스트리트맵 포함 전체 데이터 생성 (Overpass 필요, 수 분 소요)
 npm run serve                  # http://localhost:8080
 npm run import:kr              # data.go.kr 공공데이터 다시 받기 + 좌표 변환
+npm run import:mufko           # MUFKO 전체 페이지 → data/sources/kr-mufko-restaurants.json
 npm run import:chains          # 상가(상권)정보(약 350MB)에서 체인 지점 다시 뽑기 → data/sources/kr-chains.json
 ```
 
@@ -163,7 +166,7 @@ assets/js/core/      브라우저와 Node가 함께 쓰는 순수 로직 (정규
 assets/js/ui/        화면 (지도, 목록·상세, 검색, 가이드, 다국어)
 assets/i18n/         번역 (en, ko, ar, id, ms, tr, fr)
 assets/vendor/       MapLibre GL JS 5.24.0, RTL 텍스트 플러그인 (라이선스 파일 포함)
-data/sources/        한국 공공데이터 (가공본)
+data/sources/        한국 공공데이터 및 MUFKO 공개 식당 목록 (가공본)
 data/index.json, data/cells/   배포용 데이터 (1°×1° 구역별 파일)
 data/search.json              검색을 실행할 때만 받는 전체 식당 검색 데이터
 data/stations.json            한국의 기차·지하철역 ("○○역 근처" 표시용, 빌드할 때 생성)
@@ -176,6 +179,9 @@ scripts/             데이터 빌드·가져오기·배포 조립 스크립트
 
 ### 알려진 한계
 
+- MUFKO의 원본 등급을 보존하며 보수적으로 표시합니다. Muslim Certified(인증 플래그 있음)는 할랄 인증, Self Certified는 할랄 메뉴,
+  Halal Meat는 일부 할랄, Veggie는 채식 메뉴로 표시합니다. Seafood·Salam 및 새 분류는 할랄 근거가 확인되지 않은 목록 등록으로 안내하며,
+  해산물이나 채식 분류만으로 할랄 인증 또는 전 메뉴 채식이라고 판단하지 않습니다. 수집일은 할랄 확인일이 아닙니다.
 - 한국의 오픈스트리트맵 할랄 태그는 아직 적습니다. 그래서 공공데이터, "미확인" 후보, 채식·비건 식당을 함께 보여 주며, 미확인 장소와 채식 식당은 필터로 숨길 수 있습니다.
 - 한국관광공사의 무슬림 친화 식당 목록은 저작권이 있어 복사하지 않고, 가이드에서 공식 PDF로 연결합니다.
 - 한국문화정보원 데이터는 2022년 기준이라 폐업한 곳이 있을 수 있습니다(상세 화면에 기준일 표시).
@@ -189,7 +195,7 @@ scripts/             데이터 빌드·가져오기·배포 조립 스크립트
 **Muslimfood** is a fast, static website (GitHub Pages) for finding halal and Muslim-friendly food anywhere in the world, with extra depth for Korea.
 
 - Map + list sorted by distance, "Near me", filters (show, confirmed only, open now, cuisine, category, prayer places)
-- Search moves the map on Enter, with no second tap: an area or one of 1,300 Korean stations gets a labelled pin and the list becomes "Around ‘Myeongdong’"; a restaurant name opens that restaurant; a keyword ("kebab", "halal", "starbucks") leaves only the matches on the map and fits the nearest ones; "halal gangnam" shows matches around that place; anything else goes to the geocoder and the map jumps to the first hit.
+- Search moves the map on Enter, with no second tap: restaurant and keyword searches ("kebab", "halal", "starbucks") first request the visitor's location and keep it at the map centre; a restaurant name also opens its details. Without location access, the current map is used. An explicit area or station gets a labelled pin and the list becomes "Around ‘Myeongdong’"; "halal gangnam" shows matches around that place; anything else goes to the geocoder and the map jumps to the first hit.
 - Layout by screen size: a pull-up list sheet on phones with restaurants on the first screen (tips sit between and below the results), a side panel from 720 px (tablets, phones held sideways), wider panels at 1024 and 1280 px, and larger touch targets on touch devices.
 - One restaurant listed in Korean by one source and in Latin letters by another ("호지보보" / "Hojibobo Uzbek Restaurant") is merged by comparing how the names sound (`scripts/lib/phonetic.mjs`), as are shops mapped twice in OpenStreetMap.
 - Map usability: halal names and markers take priority over vegetarian alternatives when zoomed out, the blue dot follows you with an accuracy circle, a scale bar, list rows and markers highlight each other on hover, a "Show the nearest places" button where the map is empty, instant jumps for long distances and `/` to focus the search box. Use **Find more nearby** to look for additional OpenStreetMap listings around the map centre.

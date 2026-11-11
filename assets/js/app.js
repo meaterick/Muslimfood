@@ -550,6 +550,14 @@ async function showNearest({ auto = false } = {}) {
   if (!fitRows(rows.length ? rows : all, ref, { includeRef: Boolean(state.searchPin), maxDistance: auto ? 150000 : Infinity })) toast(t('search.noResults'));
 }
 
+/** Food searches keep the visitor at the map centre, with a useful nearby zoom. */
+function centerSearchOnUser() {
+  if (!state.user) return false;
+  state.fitNearest = false;
+  moveTo({ lat: state.user.lat, lon: state.user.lon, zoom: 15, marker: null });
+  return true;
+}
+
 /** Enter on a keyword ("케밥", "starbucks", "halal" near a station): only the matches stay on the map and in the list. */
 function applyQuery({ text, query, matches, loc }) {
   if (!$('#view-detail').hidden) closeDetail();
@@ -563,7 +571,7 @@ function applyQuery({ text, query, matches, loc }) {
   track('search/keyword', { title: text });
   sheet.ensure('half');
   $('#list-scroll').scrollTop = 0;
-  showNearest({ auto: true });
+  if (loc || !centerSearchOnUser()) showNearest({ auto: true });
   refresh();
 }
 
@@ -612,7 +620,7 @@ function showDetail(p, { push = true, reveal = true } = {}) {
   sheet.ensure('half');
   if (reveal && map) map.reveal({ lat: p.y, lon: p.x }, Math.max(15, map.zoom()));
   else if (reveal) {
-    state.view = { lat: p.y, lon: p.x, zoom: 15 };
+    state.view = { lat: p.y, lon: p.x, zoom: Math.max(15, state.view.zoom) };
     refresh();
   }
   if (!reveal || !map) writeHash();
@@ -668,34 +676,56 @@ async function sharePlace(p) {
 
 // ------------------------------------------------------------------ location
 
-function locate({ auto = false } = {}) {
+function locate({ auto = false, recenter = true, signal } = {}) {
+  if (signal?.aborted) return Promise.resolve(null);
+  if (!recenter && state.user) return Promise.resolve(state.user);
   if (!('geolocation' in navigator)) {
-    if (!auto) toast(t('locate.unavailable'));
-    return;
+    if (!auto || !recenter) toast(t('locate.unavailable'));
+    return Promise.resolve(null);
   }
   const btn = $('#locate');
   if (!auto) track('locate');
   btn.setAttribute('aria-busy', 'true');
   if (!auto) toast(t('locate.locating'), { duration: 0 });
-  navigator.geolocation.getCurrentPosition(
-    (pos) => {
+  return new Promise((resolve) => {
+    let done = false;
+    const finish = (position) => {
+      if (done) return;
+      done = true;
+      signal?.removeEventListener('abort', abort);
       btn.removeAttribute('aria-busy');
-      $('#toast').hidden = true;
-      state.user = { lat: pos.coords.latitude, lon: pos.coords.longitude, acc: pos.coords.accuracy };
-      map?.setUser(state.user);
-      watchUser();
-      state.fitNearest = true;
-      if ($('#view-detail').hidden === false) closeDetail();
-      moveTo({ lat: state.user.lat, lon: state.user.lon, zoom: 15, marker: null });
-      if (!map) refresh();
-    },
-    (err) => {
-      btn.removeAttribute('aria-busy');
-      if (auto) return;
-      toast(err.code === 1 ? t('locate.denied') : t('locate.unavailable'), { duration: 6000 });
-    },
-    { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 },
-  );
+      resolve(position);
+    };
+    const abort = () => finish(null);
+    signal?.addEventListener('abort', abort, { once: true });
+    const fail = (err) => {
+      if (done) return;
+      finish(null);
+      if (!auto || !recenter) toast(err.code === 1 ? t('locate.denied') : t('locate.unavailable'), { duration: 6000 });
+    };
+    try {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          if (done) return;
+          $('#toast').hidden = true;
+          state.user = { lat: pos.coords.latitude, lon: pos.coords.longitude, acc: pos.coords.accuracy };
+          map?.setUser(state.user);
+          watchUser();
+          if (recenter) {
+            state.fitNearest = true;
+            if ($('#view-detail').hidden === false) closeDetail();
+            moveTo({ lat: state.user.lat, lon: state.user.lon, zoom: 15, marker: null });
+            if (!map) refresh();
+          }
+          finish(state.user);
+        },
+        fail,
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 },
+      );
+    } catch (err) {
+      fail(err);
+    }
+  });
 }
 
 // After the first fix the blue dot follows the visitor (while the page is
@@ -832,7 +862,9 @@ async function initMap(start) {
       const p = getPlace(state.selected);
       if (p) {
         map.setSelected(p, displayName(p));
-        map.reveal({ lat: p.y, lon: p.x }, Math.max(15, map.zoom()));
+        // Searches can finish while the map library is still loading. Honour
+        // that pending view, including a search centred on the visitor.
+        moveTo({ ...state.view, marker: state.searchPin });
       }
     } else if (state.view.lat !== start.lat || state.view.lon !== start.lon || state.view.zoom !== start.zoom) {
       moveTo({ ...state.view, marker: state.searchPin });
@@ -1116,7 +1148,8 @@ async function boot() {
     input: $('#q'),
     clearBtn: $('#q-clear'),
     box: $('#search-results'),
-    getCenter: () => getView(),
+    getCenter: () => state.user || getView(),
+    prepareSearch: (signal) => locate({ auto: true, recenter: false, signal }),
     onArea: (a) => {
       track('search/area');
       clearQuery();
@@ -1131,10 +1164,11 @@ async function boot() {
       setSearchPin(null); // the place itself is highlighted
       clearQuery();
       track('search/place');
+      const centeredOnUser = centerSearchOnUser();
       await indexReady;
       const place = await findPlace(p.id, { lat: p.y, lon: p.x });
       if (signal.aborted) return;
-      if (place) showDetail(place);
+      if (place) showDetail(place, { reveal: !centeredOnUser });
       else toast(t('detail.notFound'));
     },
     onNoResults: (q) => track('search/none', { title: q }),
