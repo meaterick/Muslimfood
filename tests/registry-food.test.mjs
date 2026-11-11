@@ -20,7 +20,8 @@ test('look-alike names and wrong categories are not cuisines', () => {
   assert.equal(type('칠칠켄터키', 'I21006'), null, '켄터키 contains 터키');
   assert.equal(type('미스터키친'), null);
   assert.equal(type('해피데이김밥', 'I21007'), null);
-  assert.equal(type('덕수파스타진주혁신', 'I20402'), null, '파스타진주 contains 타진');
+  assert.equal(classifyRow('덕수파스타진주혁신', 'I20402').type, 'dish', '파스타진주 contains 타진, but it is a pasta place');
+  assert.deepEqual(classifyRow('덕수파스타진주혁신', 'I20402').cu, ['pasta']);
   assert.equal(type('오시리아역', 'I21201'), null);
   assert.equal(type('두바이', 'I21101'), null, 'bars never count');
   assert.equal(type('이스탄불커피', 'I21201'), null, 'a cuisine word in a café name is only a theme');
@@ -82,4 +83,42 @@ test('a registry restaurant joins the MUFKO entry at the same door, not a neighb
   assert.deepEqual([...byCell.values()].flat().find((p) => p.id === 'mufko-1').ids, ['sbiz-9']);
   // A generic registry name in the same building stays separate.
   assert.equal(mergeInto(byCell, { id: 'sbiz-10', n: '할랄푸드', y: 35.8571, x: 128.4893, k: 'r', s: 'U', why: 'name' }, 'sbiz'), true);
+});
+
+test('restaurants whose usual dishes include meat-free ones', () => {
+  const dish = (name, code = 'I20101') => classifyRow(name, code)?.cu?.[0] || null;
+  assert.equal(dish('파스타입니다', 'I20402'), 'pasta');
+  assert.equal(dish('황철수피자', 'I21003'), 'pizza', 'pizza by category');
+  assert.equal(dish('델리인도레스토랑', 'I20599'), 'indian');
+  assert.equal(dish('도스타코스', 'I20499'), 'mexican');
+  assert.equal(dish('소망단팥죽'), 'porridge');
+  assert.equal(dish('콩영자콩국수', 'I20105'), 'kongguksu');
+  assert.equal(dish('으뜸해물순두부'), 'tofu');
+  assert.equal(dish('냠냠떡볶이', 'I21007'), 'tteokbokki');
+  // look-alikes and meat
+  for (const [name, code] of [
+    ['노크케이커리', 'I21001'], // cakery
+    ['명인도넛츠', 'I21001'],
+    ['다인도시락', 'I20101'],
+    ['타코비 동래점', 'I21007'], // takoyaki
+    ['멕시칸치킨', 'I21006'], // fried chicken
+    ['고기듬뿍대왕비빔밥', 'I20101'],
+    ['순대와녹두빈대떡', 'I20101'],
+    ['찬스불고기부리또', 'I20401'],
+  ]) assert.equal(classifyRow(name, code)?.type === 'dish' ? name : null, null, name);
+  assert.equal(classifyRow('섬나루바지락칼국수', 'I20105').type, 'sea', 'clam noodles are seafood');
+  assert.equal(registryRecord({ 상권업종대분류코드: 'I2', 상권업종소분류코드: 'I20402', 상호명: '파스타다', 상가업소번호: 'X', 위도: '37.5', 경도: '127' }).place.s, 'D');
+});
+
+test('dish searches: "파스타", "명동 피자"', async () => {
+  const { planSearch: plan, dishOf } = await import('../assets/js/core/searchplan.js');
+  const areas = [{ id: 'myeongdong', y: 37.563, x: 126.985, z: 15, n: { ko: '명동', en: 'Myeongdong' } }];
+  assert.equal(dishOf('Pasta'), 'pasta');
+  assert.equal(dishOf('피자스쿨'), null, 'a chain name is not the dish');
+  assert.deepEqual(plan('파스타', { areas }), { kind: 'dish', dish: 'pasta', text: '파스타', loc: null });
+  const p = plan('명동 피자', { areas });
+  assert.equal(p.kind, 'dish');
+  assert.equal(p.dish, 'pizza');
+  assert.equal(p.loc.area.id, 'myeongdong');
+  assert.ok(matchesQuery({ n: '파스타다', s: 'D', cu: ['pasta'] }, 'pasta'));
 });

@@ -85,7 +85,8 @@
     "queryEmpty": "Tiada hasil untuk “{q}” di bahagian peta ini.",
     "queryNearest": "Tunjukkan hasil terdekat",
     "showNearest": "Tunjukkan tempat terdekat",
-    "seaSection": "Restoran makanan laut"
+    "seaSection": "Restoran makanan laut",
+    "dishSection": "Pasta, piza, kari dan lain-lain"
   },
   "filter": {
     "label": "Penapis",
@@ -107,7 +108,8 @@
       "o": "Lain-lain"
     },
     "showSea": "Halal + makanan laut",
-    "showEvery": "Semua (termasuk makanan laut)"
+    "showEvery": "Semua (makanan laut, pasta…)",
+    "showDish": "Halal + pasta, piza, kari…"
   },
   "status": {
     "C": "Diperakui halal",
@@ -134,9 +136,24 @@
       "MV": "Menghidangkan beberapa hidangan vegan, tetapi turut memasak daging, jadi peralatan dan minyak mungkin dikongsi. Tidak diperakui halal.",
       "S": "Restoran makanan laut: ikan mentah, sushi, ikan bakar atau kerang. Ikan tidak perlu disembelih, tetapi tempat ini tidak diperakui halal. Pengikut mazhab Hanafi makan ikan sahaja, bukan udang, kerang atau sotong. Tanya tentang arak masakan (mirin, soju) dan sup daging dalam rebusan.",
       "Vname": "Namanya menyebut vegan, vegetarian atau makanan kuil, jadi kebanyakan atau semua menunya mungkin tanpa daging. Tidak diperakui halal: tanya tentang alkohol dalam sos, seperti arak masakan.",
-      "Udirectory": "Disenaraikan dalam direktori restoran tanpa bukti halal yang disahkan. Semak bahan dan cara penyediaan dengan restoran sebelum memesan."
+      "Udirectory": "Disenaraikan dalam direktori restoran tanpa bukti halal yang disahkan. Semak bahan dan cara penyediaan dengan restoran sebelum memesan.",
+      "D": "Belum disemak: disenaraikan kerana jenis restorannya. Minta tanpa daging, bakon atau sup daging. Tidak diperakui halal."
     },
-    "S": "Makanan laut"
+    "S": "Makanan laut",
+    "D": "Mungkin ada hidangan tanpa daging",
+    "dish": {
+      "pasta": "Pasta: biasanya ada aglio e olio, tomato (pomodoro) atau pasta makanan laut; wain putih sering digunakan dalam sos makanan laut dan krim.",
+      "pizza": "Piza: biasanya ada piza keju, margherita atau sayur; topping mungkin mengandungi bakon atau ham, jadi semak dahulu.",
+      "salad": "Salad atau poke: biasanya ada mangkuk sayur, tauhu atau salmon; sos jarang mengandungi daging.",
+      "indian": "India atau Nepal: biasanya ada kari sayur, dal, paneer dan naan. Ayam dan kambing tidak halal melainkan restoran menyatakannya.",
+      "mexican": "Mexico: biasanya ada burrito dan taco kacang, keju atau sayur; kacang refried mungkin dimasak dengan lemak babi.",
+      "porridge": "Bubur: biasanya ada bubur labu, kacang merah, kacang pain, sayur atau abalone.",
+      "kongguksu": "Mi susu soya: mi sejuk dalam susu soya, biasanya tanpa daging.",
+      "bibimbap": "Bibimbap: minta tanpa daging (고기 빼 주세요); sayur dan telurnya tidak mengapa.",
+      "tofu": "Tauhu: biasanya ada tauhu biasa atau rebusan tauhu makanan laut; banyak rebusan tauhu menggunakan babi atau lembu, jadi pilih 해물순두부.",
+      "tteokbokki": "Tteokbokki: kek beras dan kek ikan dalam sos cili; sosej atau ramen perisa daging boleh ditambah.",
+      "pajeon": "Lempeng: biasanya ada lempeng makanan laut dan daun bawang (해물파전); lempeng kacang hijau selalunya ada babi."
+    }
   },
   "diet": {
     "v": "Vegan",
@@ -243,7 +260,15 @@
       "vegan": "Vegan",
       "vegetarian": "Vegetarian",
       "vietnamese": "Vietnam",
-      "yemeni": "Yaman"
+      "yemeni": "Yaman",
+      "pasta": "Pasta",
+      "salad": "Salad",
+      "porridge": "Bubur",
+      "kongguksu": "Mi susu soya",
+      "bibimbap": "Bibimbap",
+      "tofu": "Tauhu",
+      "tteokbokki": "Tteokbokki",
+      "pajeon": "Lempeng Korea"
     }
   },
   "detail": {
@@ -369,6 +394,10 @@
       "mart": {
         "title": "Kedai halal",
         "desc": "Kedai halal (할랄마트) menjual daging diperakui dan makanan siap, ada yang mempunyai dapur kecil. Hidupkan penapis “{filter}” untuk melihatnya."
+      },
+      "dish": {
+        "title": "Pasta, piza, kari dan hidangan lain yang selalunya tanpa daging",
+        "desc": "Pasta aglio e olio dan tomato, piza keju, salad dan poke, kari sayur dan dal, burrito kacang, bubur, mi susu soya, bibimbap tanpa daging, tauhu, tteokbokki dan lempeng makanan laut. Tidak disemak satu persatu: minta tanpa daging dan tanpa sup daging."
       }
     }
   },

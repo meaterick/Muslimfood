@@ -9,3 +9,5 @@ _ci/
 # Seafood restaurants from the store registry (about 50,000): written at deploy time, too large to commit.
 data/sources/kr-seafood.json
 data/sea/
+data/sources/kr-dishes.json
+data/dish/

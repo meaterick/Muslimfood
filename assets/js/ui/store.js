@@ -17,7 +17,7 @@ export const store = {
   places: new Map(),
   aliases: new Map(),
   cells: new Map(), // key -> Promise
-  seaCells: new Map(), // key -> Promise (seafood restaurants, loaded on request)
+  layerCells: new Map(), // 'sea/<key>' | 'dish/<key>' -> Promise (layers loaded on request)
   tz: new Map(),
   liveTiles: new Set(),
   prayerTiles: new Set(),
@@ -112,9 +112,11 @@ function loadCell(key) {
   return store.cells.get(key);
 }
 
-function loadSeaCell(key) {
-  if (!store.seaCells.has(key)) {
-    const p = fetch(`data/sea/${key}.json`)
+/** Places of an optional layer: 'sea' (seafood restaurants) or 'dish' (likely meat-free dishes). */
+function loadLayerCell(layer, key) {
+  const id = `${layer}/${key}`;
+  if (!store.layerCells.has(id)) {
+    const p = fetch(`data/${layer}/${key}.json`)
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
@@ -124,21 +126,21 @@ function loadSeaCell(key) {
         store.version++;
       })
       .catch((err) => {
-        store.seaCells.delete(key);
+        store.layerCells.delete(id);
         throw err;
       });
-    store.seaCells.set(key, p);
+    store.layerCells.set(id, p);
   }
-  return store.seaCells.get(key);
+  return store.layerCells.get(id);
 }
 
-/** Make sure every prebuilt cell intersecting bbox is loaded (with `sea`, the seafood files too). */
-export async function ensureArea(bbox, zoom, { sea = false } = {}) {
+/** Make sure every prebuilt cell intersecting bbox is loaded, with the optional `layers` ('sea', 'dish'). */
+export async function ensureArea(bbox, zoom, { layers = [] } = {}) {
   const jobs = [];
   if (store.mode === 'static' && zoom >= DETAIL_ZOOM - 0.5) {
     for (const key of cellsForBbox(bbox)) {
       if (store.index.cells[key]) jobs.push(loadCell(key));
-      if (sea && store.index.sea?.[key]) jobs.push(loadSeaCell(key));
+      for (const layer of layers) if (store.index[layer]?.[key]) jobs.push(loadLayerCell(layer, key));
     }
   }
   const results = await Promise.allSettled(jobs);
@@ -244,25 +246,25 @@ export function tzFor(p) {
 }
 
 /** Summary points for low zoom levels (one per data cell). */
-/** Index rows to count: food per cell, plus seafood when it is shown. */
-function summaryRows(sea) {
+/** Index rows to count: food per cell, plus the optional layers that are shown. */
+function summaryRows(layers) {
   if (!store.index) return [];
   const rows = Object.values(store.index.cells).map((v) => [v[0], v[1], v[2]]);
-  if (sea) rows.push(...Object.values(store.index.sea || {}));
+  for (const layer of layers) rows.push(...Object.values(store.index[layer] || {}));
   return rows;
 }
 
-export function summaryGeoJSON({ sea = false } = {}) {
-  const features = summaryRows(sea)
+export function summaryGeoJSON({ layers = [] } = {}) {
+  const features = summaryRows(layers)
     .filter((v) => v[0])
     .map((v) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [v[2], v[1]] }, properties: { count: v[0] } }));
   return { type: 'FeatureCollection', features };
 }
 
 /** Number of food places inside bbox according to the index (for zoomed-out views). */
-export function countInView(bbox, { sea = false } = {}) {
+export function countInView(bbox, { layers = [] } = {}) {
   let n = 0;
-  for (const v of summaryRows(sea)) if (inBbox(v[1], v[2], bbox)) n += v[0];
+  for (const v of summaryRows(layers)) if (inBbox(v[1], v[2], bbox)) n += v[0];
   return n;
 }
 

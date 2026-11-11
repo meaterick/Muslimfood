@@ -88,7 +88,8 @@
     "queryEmpty": "Haritanın bu bölümünde “{q}” için sonuç yok.",
     "queryNearest": "En yakın sonuçları göster",
     "showNearest": "En yakın yerleri göster",
-    "seaSection": "Deniz ürünleri restoranları"
+    "seaSection": "Deniz ürünleri restoranları",
+    "dishSection": "Makarna, pizza, köri ve daha fazlası"
   },
   "filter": {
     "label": "Filtreler",
@@ -110,7 +111,8 @@
       "o": "Diğer"
     },
     "showSea": "Helal + deniz ürünleri",
-    "showEvery": "Hepsi (deniz ürünleri dahil)"
+    "showEvery": "Hepsi (deniz ürünleri, makarna…)",
+    "showDish": "Helal + makarna, pizza, köri…"
   },
   "status": {
     "C": "Helal sertifikalı",
@@ -137,9 +139,24 @@
       "MV": "Bazı vegan yemekler sunar, ancak burada et de pişirilir; tava ve yağ ortak kullanılabilir. Helal sertifikalı değildir.",
       "S": "Deniz ürünleri restoranı: çiğ balık, suşi, ızgara balık veya kabuklu deniz ürünleri. Balık kesim gerektirmez, ama burası helal sertifikalı değil. Hanefi mezhebine uyanlar yalnızca balık yer; karides, midye ve kalamar yemez. Pişirme şarabı (mirin, soju) ve güveçlerdeki et suyunu sorun.",
       "Vname": "Adında vegan, vejetaryen veya tapınak yemeği geçiyor; menünün çoğu ya da tamamı etsiz olmalı. Helal sertifikalı değil: soslardaki alkolü, örneğin pişirme şarabını sorun.",
-      "Udirectory": "Doğrulanmış helal kanıtı olmadan bir restoran rehberinde listelenmiştir. Sipariş vermeden önce malzemeleri ve hazırlama yöntemini restorana sorun."
+      "Udirectory": "Doğrulanmış helal kanıtı olmadan bir restoran rehberinde listelenmiştir. Sipariş vermeden önce malzemeleri ve hazırlama yöntemini restorana sorun.",
+      "D": "Kontrol edilmedi: restoran türüne göre listelendi. Etsiz, domuz pastırmasız ve et suyu olmadan isteyin. Helal sertifikalı değil."
     },
-    "S": "Deniz ürünleri"
+    "S": "Deniz ürünleri",
+    "D": "Etsiz yemek olasılığı yüksek",
+    "dish": {
+      "pasta": "Makarna: genellikle sarımsaklı zeytinyağlı, domatesli (pomodoro) veya deniz ürünlü makarna vardır; birçok deniz ürünlü ve kremalı sosa beyaz şarap konur.",
+      "pizza": "Pizza: peynirli, margherita veya sebzeli pizza olağandır; malzemelerde domuz pastırması veya jambon olabilir, kontrol edin.",
+      "salad": "Salata veya poke: sebzeli, tofulu veya somonlu kaseler olağandır; soslarda nadiren et bulunur.",
+      "indian": "Hint veya Nepal: sebze körisi, dal, paneer ve naan olağandır. Tavuk ve kuzu, restoran söylemedikçe helal değildir.",
+      "mexican": "Meksika: fasulyeli, peynirli veya sebzeli burrito ve tako olağandır; ezme fasulye domuz yağıyla pişirilebilir.",
+      "porridge": "Lapa: balkabağı, kırmızı fasulye, çam fıstığı, sebze veya deniz kulağı lapası olağandır.",
+      "kongguksu": "Soya sütlü erişte: soya sütünde soğuk erişte, genellikle etsiz.",
+      "bibimbap": "Bibimbap: etsiz isteyin (고기 빼 주세요); sebzeler ve yumurta sorun değil.",
+      "tofu": "Tofu: sade tofu veya deniz ürünlü tofu güveci olağandır; birçok tofu güvecinde domuz veya sığır eti var, 해물순두부 seçin.",
+      "tteokbokki": "Tteokbokki: acı sosta pirinç keki ve balık keki; sosis veya et aromalı ramen eklenebilir.",
+      "pajeon": "Krep: deniz ürünlü ve yeşil soğanlı krep (해물파전) olağandır; maş fasulyesi krebinde çoğu zaman domuz eti vardır."
+    }
   },
   "diet": {
     "v": "Vegan",
@@ -246,7 +263,15 @@
       "vegan": "Vegan",
       "vegetarian": "Vejetaryen",
       "vietnamese": "Vietnam",
-      "yemeni": "Yemen"
+      "yemeni": "Yemen",
+      "pasta": "Makarna",
+      "salad": "Salata",
+      "porridge": "Lapa",
+      "kongguksu": "Soya sütlü erişte",
+      "bibimbap": "Bibimbap",
+      "tofu": "Tofu",
+      "tteokbokki": "Tteokbokki",
+      "pajeon": "Kore krebi"
     }
   },
   "detail": {
@@ -372,6 +397,10 @@
       "mart": {
         "title": "Helal marketler",
         "desc": "Helal marketler (할랄마트) sertifikalı et ve hazır yemek satar, bazılarının küçük bir mutfağı var. Görmek için “{filter}” filtresini açın."
+      },
+      "dish": {
+        "title": "Makarna, pizza, köri ve çoğu zaman etsiz gelen diğer yemekler",
+        "desc": "Sarımsaklı zeytinyağlı ve domatesli makarna, peynirli pizza, salata ve poke, sebze körisi ve dal, fasulyeli burrito, lapa, soya sütlü erişte, etsiz bibimbap, tofu, tteokbokki ve deniz ürünlü krep. Tek tek kontrol edilmedi: etsiz ve et suyu olmadan isteyin."
       }
     }
   },

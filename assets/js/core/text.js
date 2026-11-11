@@ -49,6 +49,21 @@ const VEG_WORDS = ['vegetarian', 'vegan', 'veggie', 'plant based', '채식', '�
 // Words for seafood, so "회", "초밥" or "seafood" find seafood restaurants.
 export const SEA_WORDS = ['seafood', 'fish', 'sushi', 'sashimi', '해산물', '생선', '횟집', '회', '초밥', '스시', 'poisson', 'fruits de mer', 'makanan laut', 'ikan', 'deniz ürünleri', 'balık', 'مأكولات بحرية', 'سمك'];
 
+// Dishes that usually come without meat (status D places), and the words people search them by.
+export const DISH_WORDS = {
+  pasta: ['파스타', '스파게티', '알리오올리오', 'pasta', 'spaghetti', 'aglio olio', 'makarna', 'pâtes'],
+  pizza: ['피자', 'pizza', 'piza', 'بيتزا'],
+  salad: ['샐러드', '포케', 'salad', 'poke', 'salade', 'salata', 'سلطة'],
+  indian: ['커리', '카레', '인도음식', '인도요리', '네팔음식', 'curry', 'indian', 'kari', 'köri', 'كاري'],
+  mexican: ['멕시칸', '부리또', '타코스', 'mexican', 'burrito', 'tacos', 'meksika'],
+  porridge: ['죽', '팥죽', '호박죽', 'porridge', 'bubur', 'lapa', 'عصيدة'],
+  kongguksu: ['콩국수', 'kongguksu', 'soybean noodles'],
+  bibimbap: ['비빔밥', 'bibimbap'],
+  tofu: ['두부', '순두부', 'tofu', 'tahu', 'tauhu'],
+  tteokbokki: ['떡볶이', 'tteokbokki'],
+  pajeon: ['파전', '해물파전', 'pajeon'],
+};
+
 // "halal" in the UI languages, so "할랄" or "حلال" finds every halal place.
 const HALAL_WORDS = ['halal', '할랄', 'حلال', 'helal'];
 
@@ -64,6 +79,7 @@ function searchFields(p) {
   if (HALAL.has(p.s)) fields.push(...HALAL_WORDS.map(searchText));
   if (p.s === 'V' || p.s === 'M') fields.push(...VEG_WORDS.map(searchText));
   if (p.s === 'S') fields.push(...SEA_WORDS.map(searchText));
+  if (p.s === 'D') for (const c of p.cu || []) fields.push(...(DISH_WORDS[c] || []).map(searchText));
   FIELDS.set(p, fields);
   return fields;
 }

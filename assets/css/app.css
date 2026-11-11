@@ -776,6 +776,13 @@ a {
   border-radius: 11px;
 }
 
+.mark.s-D {
+  background: var(--paper);
+  color: var(--leaf-ink);
+  border-radius: 11px;
+  border: 2.5px dashed var(--leaf);
+}
+
 .mark.s-S {
   background: var(--paper);
   color: var(--sea-ink);
@@ -880,6 +887,12 @@ a {
 .badge.s-V {
   background: var(--leaf-soft);
   color: var(--leaf-ink);
+}
+
+.badge.s-D {
+  background: transparent;
+  color: var(--leaf-ink);
+  border: 1.5px dashed var(--leaf);
 }
 
 .badge.s-S {
@@ -1345,6 +1358,11 @@ a {
 .status-card.s-P {
   background: var(--lapis-soft);
   border-color: var(--lapis);
+}
+
+.status-card.s-D {
+  background: var(--leaf-soft);
+  border-inline-start: 5px dashed var(--leaf);
 }
 
 .status-card.s-S {
@@ -2094,7 +2112,8 @@ a {
 
 .food-kind .mark.s-V,
 .food-kind .mark.s-M,
-.food-kind .mark.s-S {
+.food-kind .mark.s-S,
+.food-kind .mark.s-D {
   border-radius: 8px;
 }
 

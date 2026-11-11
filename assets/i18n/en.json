@@ -88,7 +88,8 @@
     "queryEmpty": "No results for “{q}” in this part of the map.",
     "queryNearest": "Show the nearest results",
     "showNearest": "Show the nearest places",
-    "seaSection": "Seafood restaurants"
+    "seaSection": "Seafood restaurants",
+    "dishSection": "Pasta, pizza, curry and more"
   },
   "filter": {
     "label": "Filters",
@@ -110,7 +111,8 @@
       "o": "Other"
     },
     "showSea": "Halal + seafood",
-    "showEvery": "Everything (incl. seafood)"
+    "showEvery": "Everything (seafood, pasta…)",
+    "showDish": "Halal + pasta, pizza, curry…"
   },
   "status": {
     "C": "Halal certified",
@@ -137,9 +139,24 @@
       "MV": "Serves some vegan dishes, but meat is cooked here too, so pans and oil may be shared. Not halal-certified.",
       "S": "A seafood restaurant: raw fish, sushi, grilled fish or shellfish. Fish needs no slaughter, but this place is not halal-certified. Followers of the Hanafi school eat fish only, not shrimp, shellfish or squid. Ask about cooking wine (mirin, soju) and meat broth in stews.",
       "Vname": "Its name says vegan, vegetarian or temple food, so most or all of the menu should be meat-free. Not halal-certified: ask about alcohol in sauces, such as cooking wine.",
-      "Udirectory": "Listed by a restaurant directory without verified halal evidence. Check the ingredients and preparation with the restaurant before ordering."
+      "Udirectory": "Listed by a restaurant directory without verified halal evidence. Check the ingredients and preparation with the restaurant before ordering.",
+      "D": "Not checked: listed because of the kind of restaurant. Ask for it without meat, bacon or meat broth. Not halal-certified."
     },
-    "S": "Seafood"
+    "S": "Seafood",
+    "D": "Meat-free dishes likely",
+    "dish": {
+      "pasta": "Pasta: aglio e olio, tomato (pomodoro) or seafood pasta are usually on the menu; white wine goes into many seafood and cream sauces.",
+      "pizza": "Pizza: cheese, margherita or vegetable pizza are usual; sauces and crusts can hide bacon or ham, so check the toppings.",
+      "salad": "Salad or poke: vegetable, tofu or salmon bowls are usual; dressings rarely contain meat.",
+      "indian": "Indian or Nepali: vegetable curry, dal, paneer and naan are usual. The chicken and lamb are not halal unless the restaurant says so.",
+      "mexican": "Mexican: bean, cheese or vegetable burritos and tacos are usual; refried beans can be cooked with lard.",
+      "porridge": "Porridge: pumpkin, red bean, pine nut, vegetable or abalone porridge are usual.",
+      "kongguksu": "Soybean noodles: cold noodles in soy milk, usually without meat.",
+      "bibimbap": "Bibimbap: ask for it without beef (고기 빼 주세요); the vegetables and egg are fine.",
+      "tofu": "Tofu: plain or seafood tofu stew is usual; many tofu stews use pork or beef, so ask for 해물순두부.",
+      "tteokbokki": "Tteokbokki: rice cakes and fish cakes in chilli sauce; sausage or ramen with beef flavour can be added.",
+      "pajeon": "Pancakes: seafood or green onion pancakes (해물파전) are usual; mung bean pancakes often have pork."
+    }
   },
   "diet": {
     "v": "Vegan",
@@ -246,7 +263,15 @@
       "vegan": "Vegan",
       "vegetarian": "Vegetarian",
       "vietnamese": "Vietnamese",
-      "yemeni": "Yemeni"
+      "yemeni": "Yemeni",
+      "pasta": "Pasta",
+      "salad": "Salad",
+      "porridge": "Porridge",
+      "kongguksu": "Soybean noodles",
+      "bibimbap": "Bibimbap",
+      "tofu": "Tofu",
+      "tteokbokki": "Tteokbokki",
+      "pajeon": "Korean pancakes"
     }
   },
   "detail": {
@@ -372,6 +397,10 @@
       "mart": {
         "title": "Halal marts",
         "desc": "Halal grocers (할랄마트) sell certified meat and ready meals, and some have a small kitchen. Turn on the “{filter}” filter to see them."
+      },
+      "dish": {
+        "title": "Pasta, pizza, curry and other dishes that often come without meat",
+        "desc": "Aglio e olio and tomato pasta, cheese pizza, salads and poke, vegetable curry and dal, bean burritos, porridge, soybean noodles, bibimbap without meat, tofu, tteokbokki and seafood pancakes. Not checked one by one: ask for no meat and no meat broth."
       }
     }
   },

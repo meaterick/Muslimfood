@@ -2,11 +2,15 @@
 // open one restaurant, show every match on the map, or ask the geocoder.
 // Pure functions, shared by the search box and the tests.
 
-import { normText, matchesQuery, allNames, SEA_WORDS } from './text.js';
+import { normText, matchesQuery, allNames, SEA_WORDS, DISH_WORDS } from './text.js';
 
 const SEA_KEYS = new Set(SEA_WORDS.map((w) => normText(w)));
 /** Is this text a word for seafood ("회", "초밥", "seafood")? */
 export const isSeafoodWord = (text) => SEA_KEYS.has(normText(text));
+
+const DISH_KEYS = new Map(Object.entries(DISH_WORDS).flatMap(([dish, words]) => words.map((w) => [normText(w), dish])));
+/** The dish a word stands for ("파스타" -> "pasta"), or null. */
+export const dishOf = (text) => DISH_KEYS.get(normText(text)) || null;
 
 /** A place name without spaces, accents or the "역" / "Station" suffix. */
 export function locationKey(s) {
@@ -93,6 +97,7 @@ const inName = (p, q) => matchesQuery({ n: p.n, nl: p.nl }, q);
  *   { kind: 'place', place }                   open this restaurant
  *   { kind: 'keyword', text, matches, loc }    show the matches (near loc, if given)
  *   { kind: 'seafood', loc }                   show seafood restaurants (around loc)
+ *   { kind: 'dish', dish, text, loc }          show places with that dish (around loc)
  *   { kind: 'geocode', fallback }              nothing local: ask the geocoder
  *                                              (fallback: a location named in the query)
  */
@@ -106,6 +111,9 @@ export function planSearch(query, { areas = [], stations = [], places = [], cent
   if (isSeafoodWord(q)) return { kind: 'seafood', loc: null };
   const seaSplit = splitQuery(q, locate);
   if (seaSplit && isSeafoodWord(seaSplit.keyword)) return { kind: 'seafood', loc: seaSplit.loc };
+  // "파스타", "명동 피자", "curry itaewon": places with that dish (a layer of their own).
+  if (dishOf(q)) return { kind: 'dish', dish: dishOf(q), text: q, loc: null };
+  if (seaSplit && dishOf(seaSplit.keyword)) return { kind: 'dish', dish: dishOf(seaSplit.keyword), text: seaSplit.keyword, loc: seaSplit.loc };
 
   const list = Array.isArray(places) ? places : [...places];
   const find = (text) => list.filter((p) => p.n && matchesQuery(p, text));

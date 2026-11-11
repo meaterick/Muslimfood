@@ -37,11 +37,13 @@ import { renderOwnerForm, voteHtml, handleVoteAction, refreshVoteCounts } from '
 const PAGE = 40;
 // "Show" choices: halal and vegetarian places, halal only, or vegetarian only.
 // "Show" choices: halal places with meat-free alternatives (default), halal
-// only, meat-free only, halal with seafood restaurants, and everything.
-const SHOW = ['all', 'halal', 'veg', 'sea', 'every'];
-const SHOW_ICON = { all: 'leaf', halal: 'restaurant', veg: 'leaf', sea: 'fish', every: 'menu' };
-/** Does the current choice include seafood restaurants (loaded separately)? */
-const showsSea = () => state.filters.show === 'sea' || state.filters.show === 'every';
+// only, meat-free only, halal with seafood restaurants, halal with places whose
+// usual dishes include meat-free ones (pasta, pizza, curry...), and everything.
+const SHOW = ['all', 'halal', 'veg', 'sea', 'dish', 'every'];
+const SHOW_ICON = { all: 'leaf', halal: 'restaurant', veg: 'leaf', sea: 'fish', dish: 'leaf', every: 'menu' };
+/** Optional data layers the current choice needs (loaded separately). */
+const shownLayers = () => ({ sea: ['sea'], dish: ['dish'], every: ['sea', 'dish'] })[state.filters.show] || [];
+const showsSea = () => shownLayers().includes('sea');
 const savedShow = () => {
   const v = storage.get('show');
   return SHOW.includes(v) ? v : 'all';
@@ -164,7 +166,10 @@ function inCuisine(p, g) {
 /** During a keyword search, is this one of the matches? */
 function inQuery(p) {
   const q = state.query;
-  return !q || q.ids.has(p.id) || (p.src === 'live' && matchesQuery(p, q.text));
+  if (!q) return true;
+  // A dish search ("파스타"): its layer's places and anything else that serves it.
+  if (q.dish) return Boolean(p.cu?.includes(q.dish)) || matchesQuery(p, q.text);
+  return q.ids.has(p.id) || (p.src === 'live' && matchesQuery(p, q.text));
 }
 
 function passes(p, now, { ignoreConfirmed = false } = {}) {
@@ -188,10 +193,12 @@ function showPasses(p, show) {
       return MEAT_FREE.has(p.s) || Boolean(p.v);
     case 'sea':
       return p.s === 'S' || !ALTERNATIVES.has(p.s);
+    case 'dish':
+      return p.s === 'D' || !ALTERNATIVES.has(p.s);
     case 'every':
       return true;
     default:
-      return p.s !== 'S';
+      return p.s !== 'S' && p.s !== 'D';
   }
 }
 
@@ -215,7 +222,7 @@ function renderChips() {
   const f = state.filters;
   const chip = (key, label, pressed, extra = '') =>
     `<button type="button" class="chip ${extra}" data-filter="${key}" aria-pressed="${pressed}">${label}</button>`;
-  const showKey = { all: 'filter.showAll', halal: 'filter.showHalal', veg: 'filter.showVeg', sea: 'filter.showSea', every: 'filter.showEvery' };
+  const showKey = { all: 'filter.showAll', halal: 'filter.showHalal', veg: 'filter.showVeg', sea: 'filter.showSea', dish: 'filter.showDish', every: 'filter.showEvery' };
   $('#chips').innerHTML = [
     `<label class="chip has-select" data-active="${f.show !== 'all'}">${icon(SHOW_ICON[f.show])}<span class="visually-hidden">${esc(t('filter.show'))}</span><select id="show-select">${SHOW.map(
       (v) => `<option value="${v}"${v === f.show ? ' selected' : ''}>${esc(t(showKey[v]))}</option>`,
@@ -309,7 +316,7 @@ function render(v) {
   const live = store.mode === 'live' || (store.hybrid && !isInKorea(v.lat, v.lon));
   const tooFar = v.zoom < DETAIL_ZOOM || (live && v.zoom < LIVE_ZOOM);
   if (tooFar) {
-    const n = store.mode === 'static' ? countInView(v.bbox, { sea: showsSea() }) : 0;
+    const n = store.mode === 'static' ? countInView(v.bbox, { layers: shownLayers() }) : 0;
     setHeader(t('list.titleArea'), '');
     results.innerHTML = '';
     $('#more').hidden = true;
@@ -335,8 +342,9 @@ function render(v) {
   for (const p of list) p._d = distance(ref.lat, ref.lon, p.y, p.x);
   // Halal places first, then vegetarian ones (the fallback), each by distance,
   // so chain branches nearby never push a halal restaurant out of view.
-  // Halal places first, then meat-free ones, then seafood restaurants.
-  const group = (p) => (p.s === 'S' ? 2 : MEAT_FREE.has(p.s) ? 1 : 0);
+  // Halal places first, then meat-free ones, seafood restaurants, and places
+  // that likely have meat-free dishes.
+  const group = (p) => (p.s === 'D' ? 3 : p.s === 'S' ? 2 : MEAT_FREE.has(p.s) ? 1 : 0);
   list.sort((a, b) => group(a) - group(b) || a._d - b._d);
   const hiddenU = state.filters.confirmed ? food.filter((p) => p.s === 'U' && passes(p, now, { ignoreConfirmed: true })).length : 0;
 
@@ -405,7 +413,7 @@ function render(v) {
         const item = listItemHtml(p, { dist: p._d, tz: tzFor(p), selected: p.id === state.selected, station: stationOf(p) });
         const g = group(p);
         const divider = i > 0 && g && g !== group(shown[i - 1]);
-        const label = g === 2 ? t('list.seaSection') : t('list.vegSection');
+        const label = t(['', 'list.vegSection', 'list.seaSection', 'list.dishSection'][g]);
         return `${divider ? `<li class="list-divider${g === 2 ? ' sea' : ''}" aria-hidden="true">${esc(label)}</li>` : ''}${item}${i === tipsAt ? tipsHtml : ''}`;
       })
       .join('');
@@ -446,7 +454,7 @@ async function refresh({ keepLimit = false } = {}) {
   render(v);
   let error = null;
   try {
-    await ensureArea(v.bbox, v.zoom, { sea: showsSea() });
+    await ensureArea(v.bbox, v.zoom, { layers: shownLayers() });
     if (state.filters.prayer && v.zoom >= 11 && !isInKorea(v.lat, v.lon)) await ensureLive(v.bbox, 'prayer');
   } catch (err) {
     error = err;
@@ -545,7 +553,11 @@ function fitRows(rows, ref, { includeRef = false, maxDistance = Infinity } = {})
 async function showNearest({ auto = false } = {}) {
   const v = getView();
   const ref = state.searchPin || refPoint(v);
-  const all = state.query ? state.query.rows : (await loadSearchCatalog()).filter((r) => r.k !== 'p');
+  const all = state.query?.dish
+    ? [...store.places.values()].filter((p) => p.k !== 'p' && inQuery(p))
+    : state.query
+      ? state.query.rows
+      : (await loadSearchCatalog()).filter((r) => r.k !== 'p');
   const rows = all.filter(rowPasses);
   if (!fitRows(rows.length ? rows : all, ref, { includeRef: Boolean(state.searchPin), maxDistance: auto ? 150000 : Infinity })) toast(t('search.noResults'));
 }
@@ -580,7 +592,7 @@ function setShow(value) {
   state.filters.show = SHOW.includes(value) ? value : 'all';
   storage.set('show', state.filters.show);
   renderChips();
-  map?.setSummary(summaryGeoJSON({ sea: showsSea() }));
+  map?.setSummary(summaryGeoJSON({ layers: shownLayers() }));
 }
 
 /** "회", "seafood", "명동 초밥": seafood restaurants around that place (or here). */
@@ -589,6 +601,19 @@ function applySeafood({ target }) {
   clearQuery();
   if (!showsSea()) setShow('sea');
   track('search/seafood');
+  sheet.ensure('half');
+  $('#list-scroll').scrollTop = 0;
+  if (target) moveTo(target);
+  else setSearchPin(null);
+  refresh();
+}
+
+/** "파스타", "명동 피자": places with that dish around that place (or here). */
+function applyDish({ dish, text, query, target }) {
+  if (!$('#view-detail').hidden) closeDetail();
+  if (state.filters.show !== 'every') setShow('dish');
+  state.query = { text, typed: query, rows: [], ids: new Set(), dish };
+  track('search/dish', { title: dish });
   sheet.ensure('half');
   $('#list-scroll').scrollTop = 0;
   if (target) moveTo(target);
@@ -855,7 +880,7 @@ async function initMap(start) {
     await mv.init();
     map = mv;
     $('#map-status')?.remove();
-    map.setSummary(summaryGeoJSON({ sea: showsSea() }));
+    map.setSummary(summaryGeoJSON({ layers: shownLayers() }));
     applySheetToMap(lastSheet);
     if (state.user) map.setUser(state.user);
     if (state.selected) {
@@ -918,7 +943,7 @@ function bindEvents() {
       const chipEl = e.target.closest('.chip');
       chipEl.dataset.active = String(state.filters.show !== 'all');
       chipEl.querySelector('.ic').outerHTML = icon(SHOW_ICON[state.filters.show]);
-      map?.setSummary(summaryGeoJSON({ sea: showsSea() }));
+      map?.setSummary(summaryGeoJSON({ layers: shownLayers() }));
       refresh();
     }
   });
@@ -1174,6 +1199,7 @@ async function boot() {
     onNoResults: (q) => track('search/none', { title: q }),
     onKeyword: applyQuery,
     onSeafood: applySeafood,
+    onDish: applyDish,
     onClear: () => {
       const had = clearQuery();
       if (!had && !state.searchPin) return;
@@ -1197,7 +1223,7 @@ async function boot() {
   initMap(start);
   await indexReady;
   renderCredits();
-  map?.setSummary(summaryGeoJSON({ sea: showsSea() }));
+  map?.setSummary(summaryGeoJSON({ layers: shownLayers() }));
   await refresh();
 
   const params = new URLSearchParams(location.search);

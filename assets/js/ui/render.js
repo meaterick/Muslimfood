@@ -54,6 +54,11 @@ export function statusDesc(p) {
   if (p.s === 'U') return t(p.why === 'name' ? 'status.desc.Uname' : 'status.desc.Ucuisine');
   // A vegetarian place known only from its name ("비건", "채식", "사찰음식").
   if (p.s === 'V' && p.why === 'name') return t('status.desc.Vname');
+  // A restaurant whose usual dishes include meat-free ones (pasta, pizza, curry...).
+  if (p.s === 'D') {
+    const dish = (p.cu || []).find((c) => has(`status.dish.${c}`));
+    return [dish ? t(`status.dish.${dish}`) : '', t('status.desc.D')].filter(Boolean).join(' ');
+  }
   return t(`status.desc.${statusVariant(p)}`);
 }
 
@@ -79,7 +84,7 @@ export function cuisineLabel(p, max = 2) {
 
 export function markHtml(p, extra = '') {
   const s = statusKey(p);
-  const glyph = s === 'S' ? 'fish' : MEAT_FREE.has(s) ? 'leaf' : CATEGORY_ICON[p.k] || 'other';
+  const glyph = s === 'S' ? 'fish' : MEAT_FREE.has(s) || s === 'D' ? 'leaf' : CATEGORY_ICON[p.k] || 'other';
   return `<span class="mark s-${s} ${extra}" aria-hidden="true">${icon(glyph)}</span>`;
 }
 

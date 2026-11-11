@@ -88,7 +88,8 @@
     "queryEmpty": "Aucun résultat pour « {q} » dans cette partie de la carte.",
     "queryNearest": "Afficher les résultats les plus proches",
     "showNearest": "Afficher les lieux les plus proches",
-    "seaSection": "Restaurants de fruits de mer"
+    "seaSection": "Restaurants de fruits de mer",
+    "dishSection": "Pâtes, pizza, curry et plus"
   },
   "filter": {
     "label": "Filtres",
@@ -110,7 +111,8 @@
       "o": "Autres"
     },
     "showSea": "Halal + fruits de mer",
-    "showEvery": "Tout (fruits de mer compris)"
+    "showEvery": "Tout (fruits de mer, pâtes…)",
+    "showDish": "Halal + pâtes, pizza, curry…"
   },
   "status": {
     "C": "Certifié halal",
@@ -137,9 +139,24 @@
       "MV": "Propose quelques plats vegan, mais la viande y est aussi cuisinée : ustensiles et huile peuvent être partagés. Sans certification halal.",
       "S": "Restaurant de poissons et fruits de mer : poisson cru, sushi, poisson grillé ou coquillages. Le poisson ne demande pas d’abattage, mais ce lieu n’est pas certifié halal. Les hanafites ne mangent que le poisson, pas les crevettes, coquillages ni calmars. Demandez s’il y a du vin de cuisine (mirin, soju) ou un bouillon de viande dans les ragoûts.",
       "Vname": "Son nom indique une cuisine végane, végétarienne ou de temple : la carte devrait être en grande partie ou entièrement sans viande. Non certifié halal : demandez s’il y a de l’alcool dans les sauces, comme le vin de cuisine.",
-      "Udirectory": "Répertorié dans un annuaire de restaurants sans preuve halal vérifiée. Vérifiez les ingrédients et la préparation auprès du restaurant avant de commander."
+      "Udirectory": "Répertorié dans un annuaire de restaurants sans preuve halal vérifiée. Vérifiez les ingrédients et la préparation auprès du restaurant avant de commander.",
+      "D": "Non vérifié : listé d’après le type de restaurant. Demandez sans viande, sans bacon ni bouillon de viande. Non certifié halal."
     },
-    "S": "Fruits de mer"
+    "S": "Fruits de mer",
+    "D": "Plats sans viande probables",
+    "dish": {
+      "pasta": "Pâtes : aglio e olio, tomate (pomodoro) ou fruits de mer sont en général à la carte ; le vin blanc entre dans beaucoup de sauces aux fruits de mer et à la crème.",
+      "pizza": "Pizza : fromage, margherita ou légumes sont habituels ; les garnitures peuvent cacher du bacon ou du jambon, vérifiez.",
+      "salad": "Salade ou poke : bols aux légumes, au tofu ou au saumon habituels ; les sauces contiennent rarement de la viande.",
+      "indian": "Indien ou népalais : curry de légumes, dal, paneer et naan habituels. Le poulet et l’agneau ne sont pas halal sauf si le restaurant l’indique.",
+      "mexican": "Mexicain : burritos et tacos aux haricots, au fromage ou aux légumes habituels ; les haricots frits peuvent être cuits au saindoux.",
+      "porridge": "Bouillie de riz : à la courge, aux haricots rouges, aux pignons, aux légumes ou à l’ormeau en général.",
+      "kongguksu": "Nouilles au lait de soja : nouilles froides, en général sans viande.",
+      "bibimbap": "Bibimbap : demandez-le sans viande (고기 빼 주세요) ; les légumes et l’œuf conviennent.",
+      "tofu": "Tofu : tofu nature ou ragoût de tofu aux fruits de mer habituels ; beaucoup de ragoûts de tofu contiennent du porc ou du bœuf, choisissez 해물순두부.",
+      "tteokbokki": "Tteokbokki : gâteaux de riz et de poisson en sauce pimentée ; saucisses ou ramen au goût de viande peuvent être ajoutés.",
+      "pajeon": "Galettes : aux fruits de mer et à la ciboule (해물파전) en général ; les galettes de haricot mungo contiennent souvent du porc."
+    }
   },
   "diet": {
     "v": "Vegan",
@@ -246,7 +263,15 @@
       "vegan": "Végane",
       "vegetarian": "Végétarienne",
       "vietnamese": "Vietnamienne",
-      "yemeni": "Yéménite"
+      "yemeni": "Yéménite",
+      "pasta": "Pâtes",
+      "salad": "Salade",
+      "porridge": "Bouillie de riz",
+      "kongguksu": "Nouilles au lait de soja",
+      "bibimbap": "Bibimbap",
+      "tofu": "Tofu",
+      "tteokbokki": "Tteokbokki",
+      "pajeon": "Galettes coréennes"
     }
   },
   "detail": {
@@ -372,6 +397,10 @@
       "mart": {
         "title": "Épiceries halal",
         "desc": "Les épiceries halal (할랄마트) vendent de la viande certifiée et des plats préparés, certaines ont une petite cuisine. Activez le filtre « {filter} » pour les voir."
+      },
+      "dish": {
+        "title": "Pâtes, pizza, curry et autres plats souvent sans viande",
+        "desc": "Pâtes aglio e olio ou à la tomate, pizza au fromage, salades et poke, curry de légumes et dal, burritos aux haricots, bouillie de riz, nouilles au lait de soja, bibimbap sans viande, tofu, tteokbokki et galettes aux fruits de mer. Non vérifiés un par un : demandez sans viande ni bouillon de viande."
       }
     }
   },

@@ -371,7 +371,7 @@ export function applyBrand(place) {
 /** Merge local source files: official lists first, unconfirmed hints last. */
 export function mergeSources(byCell, sources) {
   // Halal lists first, then meat-free lists, unconfirmed hints last.
-  const order = (s) => (s.status === 'S' ? 4 : s.status === 'U' ? 3 : s.status === 'F' ? 0 : MEAT_FREE.has(s.status) ? 2 : 1);
+  const order = (s) => (s.status === 'D' ? 5 : s.status === 'S' ? 4 : s.status === 'U' ? 3 : s.status === 'F' ? 0 : MEAT_FREE.has(s.status) ? 2 : 1);
   const stats = [];
   for (const src of [...sources].sort((a, b) => order(a) - order(b))) {
     let added = 0;
@@ -389,7 +389,8 @@ export function mergeSources(byCell, sources) {
 
 /** Compact search rows with coordinates for loading the matching cell on selection. */
 export function searchRecords(places) {
-  // Seafood restaurants (about 50,000) are left out; they are searched once loaded.
-  return places.filter((p) => p.n && p.k !== 'p' && p.s !== 'S').map(({ id, n, nl, y, x, k, s, dv, a, cu, mn, ml, b }) =>
+  // Seafood restaurants and likely meat-free dish places (about 75,000) are
+  // left out; they are searched once their layer is loaded.
+  return places.filter((p) => p.n && p.k !== 'p' && p.s !== 'S' && p.s !== 'D').map(({ id, n, nl, y, x, k, s, dv, a, cu, mn, ml, b }) =>
     ({ id, n, nl, y, x, k, s, dv, a, cu, mn, ml, b }));
 }

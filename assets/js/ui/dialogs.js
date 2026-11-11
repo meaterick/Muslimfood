@@ -139,7 +139,7 @@ function speak(text) {
 function levelRow(s, kind = 'r') {
   const label = s === 'P' ? t('prayer.mosque') : t(`status.${s}`);
   const desc = s === 'U' ? t('status.desc.Ucuisine') : s === 'P' ? t('cat.p') : t(`status.desc.${s}`);
-  const glyph = s === 'P' ? 'prayer' : s === 'S' ? 'fish' : s === 'V' || s === 'M' ? 'leaf' : kind === 'r' ? 'restaurant' : kind;
+  const glyph = s === 'P' ? 'prayer' : s === 'S' ? 'fish' : ['V', 'M', 'D'].includes(s) ? 'leaf' : kind === 'r' ? 'restaurant' : kind;
   return `<li class="level"><span class="mark s-${s}" aria-hidden="true">${icon(glyph)}</span><div><strong>${esc(label)}</strong><p>${esc(desc)}</p></div></li>`;
 }
 
@@ -156,6 +156,7 @@ const KINDS = [
   { id: 'veg', mark: 's-V', glyph: 'leaf', show: 'veg' },
   { id: 'chains', mark: 's-M', glyph: 'leaf', show: 'veg' },
   { id: 'sea', mark: 's-S', glyph: 'fish', show: 'sea' },
+  { id: 'dish', mark: 's-D', glyph: 'leaf', show: 'dish' },
   { id: 'korean', mark: 's-M', glyph: 'restaurant', show: null },
   { id: 'bakery', mark: 's-U', glyph: 'cafe', show: null },
   { id: 'mart', mark: 's-Y', glyph: 'market', show: null },
@@ -236,7 +237,7 @@ export function renderGuide(tab = 'levels', center = null) {
       <ul class="level-list">${['C', 'O', 'Y', 'F', 'L', 'U'].map((s) => levelRow(s)).join('')}${levelRow('P')}</ul>
       <h3 class="level-sub">${esc(t('guide.vegTitle'))}</h3>
       <p>${esc(t('guide.vegIntro'))}</p>
-      <ul class="level-list">${levelRow('V')}${levelRow('M')}${levelRow('S')}</ul>
+      <ul class="level-list">${levelRow('V')}${levelRow('M')}${levelRow('S')}${levelRow('D')}</ul>
       <div class="callout"><h3>${esc(t('guide.ktoTitle'))}</h3><p>${esc(t('guide.ktoBody'))}</p>
         <p><a href="${KTO_PDF}" target="_blank" rel="noopener">${esc(t('guide.ktoLink'))}</a></p></div>`;
   } else if (tab === 'food') {

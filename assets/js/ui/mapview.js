@@ -37,6 +37,8 @@ const PIN = {
   M: { fill: '#FFFFFF', glyph: '#3F7A22', ring: '#4B8A2B', square: true, icon: 'leaf' },
   // Seafood restaurants: an alternative too, so also a square, in sea blue with a fish.
   S: { fill: '#FFFFFF', glyph: '#17577E', ring: '#2470A0', square: true, icon: 'fish' },
+  // Likely meat-free dishes, not checked: a dashed leaf square.
+  D: { fill: '#FFFFFF', glyph: '#3F7A22', ring: '#4B8A2B', square: true, icon: 'leaf', dashed: true },
   P: { fill: '#2346A0', glyph: '#FFFFFF' },
 };
 
@@ -60,7 +62,7 @@ function shapePath(ctx, cx, cy, r, square) {
 const EMPTY = { type: 'FeatureCollection', features: [] };
 
 // Alternatives to halal food (meat-free and seafood): smaller and unnamed when zoomed out.
-const IS_VEG = ['in', ['get', 's'], ['literal', ['V', 'M', 'S']]];
+const IS_VEG = ['in', ['get', 's'], ['literal', ['V', 'M', 'S', 'D']]];
 // Names of halal places from zoom 13.5, every name from zoom 15.
 const LABEL_FILTER = ['all', ['!', ['has', 'point_count']], ['any', ['>=', ['zoom'], 15], ['!', IS_VEG]]];
 
@@ -354,7 +356,7 @@ export class MapView {
       // Cluster colour: jade when it holds halal places, leaf when only meat-free ones, stone otherwise.
       clusterProperties: {
         halal: ['+', ['case', ['in', ['get', 's'], ['literal', ['C', 'O', 'Y', 'F', 'L']]], 1, 0]],
-        veg: ['+', ['case', ['in', ['get', 's'], ['literal', ['V', 'M']]], 1, 0]],
+        veg: ['+', ['case', ['in', ['get', 's'], ['literal', ['V', 'M', 'D']]], 1, 0]],
         sea: ['+', ['case', ['==', ['get', 's'], 'S'], 1, 0]],
       },
     });

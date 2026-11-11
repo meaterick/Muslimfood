@@ -4,7 +4,7 @@
 //   - branches of the chains in assets/js/core/brands.js -> kr-chains.json
 //   - other kinds of food Muslims can eat (scripts/lib/registry-food.mjs):
 //     Muslim-majority cuisines, vegetarian and seafood restaurants
-//     -> kr-registry-cuisine.json, kr-registry-veg.json, kr-seafood.json
+//     -> kr-registry-cuisine.json, kr-registry-veg.json, kr-seafood.json, kr-dishes.json
 //
 //   node scripts/import-chains.mjs              # download (~350 MB) -> data/sources/
 //   node scripts/import-chains.mjs --zip FILE   # use an archive that is already downloaded
@@ -214,7 +214,7 @@ export function dedupeFood(places) {
 /** Chain branches and other Muslim-friendly food in every CSV of the registry archive. */
 export async function extractRegistry(zipFile) {
   const chains = new Map();
-  const food = { cuisine: [], veg: [], sea: [] };
+  const food = { cuisine: [], veg: [], sea: [], dish: [] };
   for (const entry of await listZip(zipFile)) {
     if (!/\.csv$/i.test(entry.name)) continue;
     let n = 0;
@@ -289,10 +289,10 @@ async function main() {
   for (const [type, list] of Object.entries(food)) {
     const meta = OUTPUTS[type];
     const target = path.join(path.dirname(file), meta.file);
-    const status = { cuisine: 'U', veg: 'V', sea: 'S' }[type];
+    const status = { cuisine: 'U', veg: 'V', sea: 'S', dish: 'D' }[type];
     await writeFile(
       target,
-      JSON.stringify({ ...out, status, selection: meta.selection, places: list.map((p) => (edition ? { ...p, d: edition } : p)) }, null, type === 'sea' ? 0 : 1) + '\n',
+      JSON.stringify({ ...out, status, selection: meta.selection, places: list.map((p) => (edition ? { ...p, d: edition } : p)) }, null, ['sea', 'dish'].includes(type) ? 0 : 1) + '\n',
     );
     console.log(`wrote ${list.length} ${type} places to ${path.relative(ROOT, target)}`);
   }
