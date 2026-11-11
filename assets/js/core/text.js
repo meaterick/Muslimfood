@@ -62,6 +62,12 @@ export const DISH_WORDS = {
   tofu: ['두부', '순두부', 'tofu', 'tahu', 'tauhu'],
   tteokbokki: ['떡볶이', 'tteokbokki'],
   pajeon: ['파전', '해물파전', 'pajeon'],
+  udon: ['우동', '소바', '모밀', 'udon', 'soba'],
+  sanchae: ['산채', '산채비빔밥', '산채정식'],
+  boribap: ['보리밥', 'boribap'],
+  muk: ['도토리묵', '묵밥', 'dotorimuk'],
+  ongsimi: ['옹심이', '감자전', 'gamjajeon'],
+  thai: ['태국음식', '팟타이', 'pad thai', 'thai'],
 };
 
 // "halal" in the UI languages, so "할랄" or "حلال" finds every halal place.

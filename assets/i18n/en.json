@@ -66,7 +66,7 @@
     "emptyHint": "Zoom out, clear the filters, or search another area.",
     "emptyMuslimCountries": "In Muslim-majority countries most food is halal, so few places are marked separately.",
     "showMore": "Show more",
-    "vegSection": "Vegetarian and vegan options",
+    "vegSection": "Meat-free dishes (checked)",
     "loading": "Loading places…",
     "loadError": "Places could not be loaded. Check your connection and try again.",
     "retry": "Try again",
@@ -89,14 +89,14 @@
     "queryNearest": "Show the nearest results",
     "showNearest": "Show the nearest places",
     "seaSection": "Seafood restaurants",
-    "dishSection": "Pasta, pizza, curry and more"
+    "dishSection": "Likely meat-free dishes (not checked)"
   },
   "filter": {
     "label": "Filters",
     "show": "Show",
-    "showAll": "Halal + vegetarian",
+    "showAll": "Halal + meat-free",
     "showHalal": "Halal only",
-    "showVeg": "Vegetarian & vegan",
+    "showVeg": "Meat-free only",
     "confirmed": "Confirmed only",
     "openNow": "Open now",
     "prayer": "Prayer places",
@@ -111,8 +111,7 @@
       "o": "Other"
     },
     "showSea": "Halal + seafood",
-    "showEvery": "Everything (seafood, pasta…)",
-    "showDish": "Halal + pasta, pizza, curry…"
+    "showEvery": "Everything (seafood, pasta…)"
   },
   "status": {
     "C": "Halal certified",
@@ -155,7 +154,13 @@
       "bibimbap": "Bibimbap: ask for it without beef (고기 빼 주세요); the vegetables and egg are fine.",
       "tofu": "Tofu: plain or seafood tofu stew is usual; many tofu stews use pork or beef, so ask for 해물순두부.",
       "tteokbokki": "Tteokbokki: rice cakes and fish cakes in chilli sauce; sausage or ramen with beef flavour can be added.",
-      "pajeon": "Pancakes: seafood or green onion pancakes (해물파전) are usual; mung bean pancakes often have pork."
+      "pajeon": "Pancakes: seafood or green onion pancakes (해물파전) are usual; mung bean pancakes often have pork.",
+      "udon": "Udon or soba: noodles in fish stock (dashi), usually without meat; avoid ones with beef or pork cutlet.",
+      "sanchae": "Wild greens: bibimbap and set meals of mountain vegetables, usually without meat.",
+      "boribap": "Barley rice with vegetables to mix in; the soybean stew that comes with it may use anchovy or beef stock.",
+      "muk": "Acorn jelly (도토리묵) is vegan; 묵밥 comes in anchovy broth.",
+      "ongsimi": "Potato dumplings (옹심이) or potato pancakes, usually in vegetable or anchovy broth.",
+      "thai": "Thai: tofu, vegetable or seafood pad thai and curries are usual; fish sauce is common."
     }
   },
   "diet": {
@@ -271,7 +276,12 @@
       "bibimbap": "Bibimbap",
       "tofu": "Tofu",
       "tteokbokki": "Tteokbokki",
-      "pajeon": "Korean pancakes"
+      "pajeon": "Korean pancakes",
+      "udon": "Udon & soba",
+      "sanchae": "Wild greens",
+      "boribap": "Barley rice",
+      "muk": "Acorn jelly",
+      "ongsimi": "Potato dishes"
     }
   },
   "detail": {
@@ -319,7 +329,8 @@
     "chainNote": "From the official {brand} menu, checked {date}. Not every branch may sell them, so ask before you order.",
     "officialMenu": "Official menu",
     "menuChecked": "checked {date}",
-    "everyDay": "Every day"
+    "everyDay": "Every day",
+    "menuMeatFree": "Meat-free dishes on its menu"
   },
   "source": {
     "osm": "OpenStreetMap contributors",
@@ -332,7 +343,9 @@
     "suwon": "Suwon City, restaurants with vegan menus",
     "sbiz": "Small Enterprise and Market Service, national store registry",
     "brand": "{brand} official menu",
-    "mufko": "MUFKO (Muslim Friendly Korea)"
+    "mufko": "MUFKO (Muslim Friendly Korea)",
+    "goodprice": "Ministry of the Interior and Safety, “Good Price” shops and their menus",
+    "ydp": "Yeongdeungpo-gu multilingual menus"
   },
   "guide": {
     "title": "Eating halal in Korea",
@@ -400,7 +413,7 @@
       },
       "dish": {
         "title": "Pasta, pizza, curry and other dishes that often come without meat",
-        "desc": "Aglio e olio and tomato pasta, cheese pizza, salads and poke, vegetable curry and dal, bean burritos, porridge, soybean noodles, bibimbap without meat, tofu, tteokbokki and seafood pancakes. Not checked one by one: ask for no meat and no meat broth."
+        "desc": "Pasta, pizza, salads and poke, vegetable curry, bean burritos, Thai, udon and soba, porridge, soybean noodles, wild-greens and barley rice, acorn jelly, potato dumplings, tofu, tteokbokki and seafood pancakes. Places whose public menu lists such a dish are marked as checked; the others are not, so ask for no meat and no meat broth."
       }
     }
   },

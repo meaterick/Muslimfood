@@ -64,7 +64,7 @@
     "emptyHint": "Perkecil peta, hapus filter, atau cari daerah lain.",
     "emptyMuslimCountries": "Di negara mayoritas Muslim, sebagian besar makanan halal sehingga hanya sedikit tempat yang ditandai khusus.",
     "showMore": "Tampilkan lagi",
-    "vegSection": "Pilihan vegetarian dan vegan",
+    "vegSection": "Menu tanpa daging (sudah dicek)",
     "loading": "Memuat tempat…",
     "loadError": "Tempat tidak dapat dimuat. Periksa koneksi Anda lalu coba lagi.",
     "retry": "Coba lagi",
@@ -86,14 +86,14 @@
     "queryNearest": "Tampilkan hasil terdekat",
     "showNearest": "Tampilkan tempat terdekat",
     "seaSection": "Restoran makanan laut",
-    "dishSection": "Pasta, piza, kari, dan lainnya"
+    "dishSection": "Kemungkinan ada menu tanpa daging (belum dicek)"
   },
   "filter": {
     "label": "Filter",
     "show": "Tampilkan",
-    "showAll": "Halal + vegetarian",
+    "showAll": "Halal + tanpa daging",
     "showHalal": "Halal saja",
-    "showVeg": "Vegetarian & vegan",
+    "showVeg": "Tanpa daging saja",
     "confirmed": "Hanya yang terkonfirmasi",
     "openNow": "Buka sekarang",
     "prayer": "Tempat salat",
@@ -108,8 +108,7 @@
       "o": "Lainnya"
     },
     "showSea": "Halal + makanan laut",
-    "showEvery": "Semua (makanan laut, pasta…)",
-    "showDish": "Halal + pasta, piza, kari…"
+    "showEvery": "Semua (makanan laut, pasta…)"
   },
   "status": {
     "C": "Bersertifikat halal",
@@ -152,7 +151,13 @@
       "bibimbap": "Bibimbap: minta tanpa daging (고기 빼 주세요); sayur dan telurnya aman.",
       "tofu": "Tahu: biasanya ada tahu biasa atau sup tahu makanan laut; banyak sup tahu memakai babi atau sapi, jadi pilih 해물순두부.",
       "tteokbokki": "Tteokbokki: kue beras dan kue ikan dalam saus cabai; bisa ditambah sosis atau ramen rasa daging.",
-      "pajeon": "Pancake: biasanya ada pancake makanan laut dan daun bawang (해물파전); pancake kacang hijau sering berisi babi."
+      "pajeon": "Pancake: biasanya ada pancake makanan laut dan daun bawang (해물파전); pancake kacang hijau sering berisi babi.",
+      "udon": "Udon atau soba: mi dalam kaldu ikan (dashi), biasanya tanpa daging; hindari yang berisi daging sapi atau katsu babi.",
+      "sanchae": "Sayur liar: bibimbap dan paket makan sayur gunung, biasanya tanpa daging.",
+      "boribap": "Nasi jelai dengan sayur untuk diaduk; sup kedelai yang menyertainya bisa memakai kaldu teri atau sapi.",
+      "muk": "Jeli biji ek (도토리묵) vegan; 묵밥 disajikan dalam kaldu teri.",
+      "ongsimi": "Pangsit kentang (옹심이) atau pancake kentang, biasanya dalam kaldu sayur atau teri.",
+      "thai": "Thailand: pad thai dan kari tahu, sayur, atau makanan laut biasa ada; kecap ikan umum dipakai."
     }
   },
   "diet": {
@@ -268,7 +273,12 @@
       "bibimbap": "Bibimbap",
       "tofu": "Tahu",
       "tteokbokki": "Tteokbokki",
-      "pajeon": "Pancake Korea"
+      "pajeon": "Pancake Korea",
+      "udon": "Udon & soba",
+      "sanchae": "Sayur liar",
+      "boribap": "Nasi jelai",
+      "muk": "Jeli biji ek",
+      "ongsimi": "Masakan kentang"
     }
   },
   "detail": {
@@ -316,7 +326,8 @@
     "chainNote": "Dari menu resmi {brand}, diperiksa {date}. Tidak semua cabang menjualnya, jadi tanyakan sebelum memesan.",
     "officialMenu": "Menu resmi",
     "menuChecked": "diperiksa {date}",
-    "everyDay": "Setiap hari"
+    "everyDay": "Setiap hari",
+    "menuMeatFree": "Menu tanpa daging di daftar menunya"
   },
   "source": {
     "osm": "Kontributor OpenStreetMap",
@@ -329,7 +340,9 @@
     "suwon": "Kota Suwon, restoran dengan menu vegan",
     "sbiz": "Small Enterprise and Market Service, daftar usaha nasional",
     "brand": "Menu resmi {brand}",
-    "mufko": "MUFKO (Muslim Friendly Korea)"
+    "mufko": "MUFKO (Muslim Friendly Korea)",
+    "goodprice": "Kementerian Dalam Negeri dan Keselamatan, toko “Harga Baik” dan menunya",
+    "ydp": "Menu multibahasa Yeongdeungpo-gu"
   },
   "guide": {
     "title": "Makan halal di Korea",
@@ -397,7 +410,7 @@
       },
       "dish": {
         "title": "Pasta, piza, kari, dan hidangan lain yang sering tanpa daging",
-        "desc": "Pasta aglio e olio dan tomat, piza keju, salad dan poke, kari sayur dan dal, burrito kacang, bubur, mi susu kedelai, bibimbap tanpa daging, tahu, tteokbokki, dan pancake makanan laut. Tidak dicek satu per satu: minta tanpa daging dan tanpa kaldu daging."
+        "desc": "Pasta, piza, salad dan poke, kari sayur, burrito kacang, masakan Thailand, udon dan soba, bubur, mi susu kedelai, nasi sayur liar dan nasi jelai, jeli biji ek, pangsit kentang, tahu, tteokbokki, dan pancake makanan laut. Tempat yang menu publiknya mencantumkan hidangan seperti itu ditandai sudah dicek; yang lain belum, jadi minta tanpa daging dan tanpa kaldu daging."
       }
     }
   },

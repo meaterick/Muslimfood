@@ -33,7 +33,8 @@ test('vegetarian names, but not 산채식당 or 사랑채 식당', () => {
   assert.equal(type('비건테이블바람'), 'veg');
   assert.equal(type('자연속의밥상사찰음식'), 'veg');
   assert.equal(type('채식뷔페집밥'), 'veg');
-  assert.equal(type('산채식당'), null);
+  assert.equal(type('산채식당'), 'dish', 'not vegetarian by name, but a 산채 (wild greens) place');
+  assert.deepEqual(classifyRow('산채식당', 'I20101').cu, ['sanchae']);
   assert.equal(type('사랑채식당'), null);
   assert.equal(type('하늘채식품', 'I21007'), null);
   assert.equal(classifyRow('비건마마', 'I21001').cu[0], 'vegan');
@@ -121,4 +122,38 @@ test('dish searches: "파스타", "명동 피자"', async () => {
   assert.equal(p.dish, 'pizza');
   assert.equal(p.loc.area.id, 'myeongdong');
   assert.ok(matchesQuery({ n: '파스타다', s: 'D', cu: ['pasta'] }, 'pasta'));
+});
+
+test('menu items: meat-free dishes from a printed menu', async () => {
+  const { dishKind, meatFreeDishes } = await import('../scripts/lib/menu-dishes.mjs');
+  assert.equal(dishKind('콩국수(여름)'), 'veg');
+  assert.equal(dishKind('비빔국수'), 'veg');
+  assert.equal(dishKind('바지락칼국수'), 'sea');
+  assert.equal(dishKind('연어샐러드'), 'sea', 'fish in an otherwise meat-free dish');
+  assert.equal(dishKind('잔치국수'), 'sea', 'anchovy broth');
+  for (const item of ['라조기', '오돌뼈알밥', '소고기비빔밥', '햄야채김밥', '칼국수', '된장찌개', '물냉면', '김치찌개', '닭칼국수', '턴두리샐러드', '콥샐러드(치킨)', '타코샐러드(비프)', '샐러드김밥']) {
+    assert.equal(dishKind(item), null, item);
+  }
+  assert.deepEqual(meatFreeDishes(['김치찌개', '콩국수', '콩국수 (대)', '고등어구이', '제육볶음']), { veg: ['콩국수'], sea: ['고등어구이'] });
+});
+
+test('menu restaurants: matched by address and name, meat restaurants left out', async () => {
+  const { addressKey, pickByName, menuRecord, meatPlace } = await import('../scripts/import-menus.mjs');
+  assert.equal(addressKey('서울특별시 노원구 동일로 1353 (상계동) 지하 1층'), '노원구|동일로1353');
+  assert.equal(addressKey('경기도 수원시 팔달구 인계로166번길 48-21'), '수원시|인계로166번길48-21');
+  const c = [
+    { n: '우이동멸치국수', y: 37.66, x: 127.01 },
+    { n: '파리바게뜨 우이점', y: 37.66, x: 127.01 },
+  ];
+  assert.equal(pickByName('우이동 멸치국수', c).n, '우이동멸치국수');
+  assert.equal(pickByName('다른식당', c), null);
+  assert.ok(meatPlace('마초갈비', 'I20101'));
+  assert.ok(meatPlace('행복식당', 'I20107'), 'pork category');
+  assert.ok(!meatPlace('우이동멸치국수', 'I20105'));
+  const rec = menuRecord('gp-1', { n: '우이동멸치국수', y: 37.66, x: 127.01, k: 'r' }, ['비빔국수', '멸치국수', '수육'], 'goodprice');
+  assert.equal(rec.s, 'M');
+  assert.deepEqual(rec.mn, ['비빔국수', '멸치국수']);
+  assert.deepEqual(rec.mv, ['veg', '']);
+  assert.equal(menuRecord('gp-2', { n: 'x', y: 37, x: 127, k: 'r' }, ['고등어구이'], 'goodprice').s, 'S');
+  assert.equal(menuRecord('gp-3', { n: 'x', y: 37, x: 127, k: 'r' }, ['김치찌개'], 'goodprice'), null);
 });

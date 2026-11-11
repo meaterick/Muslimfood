@@ -218,8 +218,10 @@ function menuHtml(p) {
     <a class="text-btn" href="${esc(brand.url)}" target="_blank" rel="noopener" data-track="official-menu" data-track-title="${esc(brand.id)}">${icon('external')}${esc(t('detail.officialMenu'))}</a>
   </section>`;
   }
+  // Dishes read from a public menu list: only its meat-free ones are kept.
+  const fromMenuList = (p.srcs || [p.src]).some((src) => src === 'goodprice' || src === 'ydp');
   return `<section class="place-menu">
-    <h3>${esc(t('detail.menu'))}</h3>
+    <h3>${esc(t(fromMenuList ? 'detail.menuMeatFree' : 'detail.menu'))}</h3>
     ${menu.length ? `<ul>${dishItemsHtml(menu, diet)}</ul>` : ''}
     <p class="note">${esc(t('detail.menuNote'))}</p>
     ${url ? `<a class="text-btn" href="${esc(url)}" target="_blank" rel="noopener">${icon('external')}${esc(t('detail.menuLink'))}</a>` : ''}

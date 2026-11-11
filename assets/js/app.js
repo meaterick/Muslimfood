@@ -35,14 +35,16 @@ import { track, trackPageview, initTracking } from './ui/analytics.js';
 import { renderOwnerForm, voteHtml, handleVoteAction, refreshVoteCounts } from './ui/feedback.js';
 
 const PAGE = 40;
-// "Show" choices: halal and vegetarian places, halal only, or vegetarian only.
-// "Show" choices: halal places with meat-free alternatives (default), halal
-// only, meat-free only, halal with seafood restaurants, halal with places whose
-// usual dishes include meat-free ones (pasta, pizza, curry...), and everything.
-const SHOW = ['all', 'halal', 'veg', 'sea', 'dish', 'every'];
-const SHOW_ICON = { all: 'leaf', halal: 'restaurant', veg: 'leaf', sea: 'fish', dish: 'leaf', every: 'menu' };
+// "Show" choices: halal places with meat-free alternatives (default: checked
+// ones and, ranked below them, places whose usual dishes include meat-free
+// ones such as pasta or curry), halal only, meat-free only, halal with seafood
+// restaurants, and everything. "Confirmed only" hides the unchecked ones.
+const SHOW = ['all', 'halal', 'veg', 'sea', 'every'];
+const SHOW_ICON = { all: 'leaf', halal: 'restaurant', veg: 'leaf', sea: 'fish', every: 'menu' };
 /** Optional data layers the current choice needs (loaded separately). */
-const shownLayers = () => ({ sea: ['sea'], dish: ['dish'], every: ['sea', 'dish'] })[state.filters.show] || [];
+const shownLayers = () => ({ all: ['dish'], veg: ['dish'], sea: ['sea'], every: ['sea', 'dish'] })[state.filters.show] || [];
+/** Not checked: likely-halal hints (U) and likely meat-free dishes (D). */
+const UNCHECKED = new Set(['U', 'D']);
 const showsSea = () => shownLayers().includes('sea');
 const savedShow = () => {
   const v = storage.get('show');
@@ -176,7 +178,7 @@ function passes(p, now, { ignoreConfirmed = false } = {}) {
   const f = state.filters;
   if (!inQuery(p)) return false;
   if (!showPasses(p, f.show)) return false;
-  if (!ignoreConfirmed && f.confirmed && p.s === 'U') return false;
+  if (!ignoreConfirmed && f.confirmed && UNCHECKED.has(p.s)) return false;
   if (f.cats.size && !f.cats.has(p.k)) return false;
   if (f.cuisine && !inCuisine(p, f.cuisine)) return false;
   if (f.open && isOpenNow(p.oh, now, tzFor(p)) !== true) return false;
@@ -190,15 +192,14 @@ function showPasses(p, show) {
       return !ALTERNATIVES.has(p.s);
     // meat-free kitchens, places with vegetarian dishes, and halal places that have some
     case 'veg':
-      return MEAT_FREE.has(p.s) || Boolean(p.v);
+      return MEAT_FREE.has(p.s) || p.s === 'D' || Boolean(p.v);
     case 'sea':
       return p.s === 'S' || !ALTERNATIVES.has(p.s);
-    case 'dish':
-      return p.s === 'D' || !ALTERNATIVES.has(p.s);
     case 'every':
       return true;
+    // halal places, then meat-free ones (checked first, then likely)
     default:
-      return p.s !== 'S' && p.s !== 'D';
+      return p.s !== 'S';
   }
 }
 
@@ -207,7 +208,7 @@ function rowPasses(r) {
   const f = state.filters;
   if (r.k === 'p') return f.prayer;
   if (!showPasses(r, f.show)) return false;
-  if (f.confirmed && r.s === 'U') return false;
+  if (f.confirmed && UNCHECKED.has(r.s)) return false;
   if (f.cats.size && !f.cats.has(r.k)) return false;
   if (f.cuisine && !inCuisine(r, f.cuisine)) return false;
   return true;
@@ -222,7 +223,7 @@ function renderChips() {
   const f = state.filters;
   const chip = (key, label, pressed, extra = '') =>
     `<button type="button" class="chip ${extra}" data-filter="${key}" aria-pressed="${pressed}">${label}</button>`;
-  const showKey = { all: 'filter.showAll', halal: 'filter.showHalal', veg: 'filter.showVeg', sea: 'filter.showSea', dish: 'filter.showDish', every: 'filter.showEvery' };
+  const showKey = { all: 'filter.showAll', halal: 'filter.showHalal', veg: 'filter.showVeg', sea: 'filter.showSea', every: 'filter.showEvery' };
   $('#chips').innerHTML = [
     `<label class="chip has-select" data-active="${f.show !== 'all'}">${icon(SHOW_ICON[f.show])}<span class="visually-hidden">${esc(t('filter.show'))}</span><select id="show-select">${SHOW.map(
       (v) => `<option value="${v}"${v === f.show ? ' selected' : ''}>${esc(t(showKey[v]))}</option>`,
@@ -346,7 +347,7 @@ function render(v) {
   // that likely have meat-free dishes.
   const group = (p) => (p.s === 'D' ? 3 : p.s === 'S' ? 2 : MEAT_FREE.has(p.s) ? 1 : 0);
   list.sort((a, b) => group(a) - group(b) || a._d - b._d);
-  const hiddenU = state.filters.confirmed ? food.filter((p) => p.s === 'U' && passes(p, now, { ignoreConfirmed: true })).length : 0;
+  const hiddenU = state.filters.confirmed ? food.filter((p) => UNCHECKED.has(p.s) && passes(p, now, { ignoreConfirmed: true })).length : 0;
 
   const title = state.query
     ? t('list.titleQuery', { q: state.query.typed })
@@ -611,7 +612,7 @@ function applySeafood({ target }) {
 /** "파스타", "명동 피자": places with that dish around that place (or here). */
 function applyDish({ dish, text, query, target }) {
   if (!$('#view-detail').hidden) closeDetail();
-  if (state.filters.show !== 'every') setShow('dish');
+  if (!['all', 'veg', 'every'].includes(state.filters.show)) setShow('all');
   state.query = { text, typed: query, rows: [], ids: new Set(), dish };
   track('search/dish', { title: dish });
   sheet.ensure('half');

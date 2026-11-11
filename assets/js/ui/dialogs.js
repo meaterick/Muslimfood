@@ -156,7 +156,7 @@ const KINDS = [
   { id: 'veg', mark: 's-V', glyph: 'leaf', show: 'veg' },
   { id: 'chains', mark: 's-M', glyph: 'leaf', show: 'veg' },
   { id: 'sea', mark: 's-S', glyph: 'fish', show: 'sea' },
-  { id: 'dish', mark: 's-D', glyph: 'leaf', show: 'dish' },
+  { id: 'dish', mark: 's-D', glyph: 'leaf', show: 'all' },
   { id: 'korean', mark: 's-M', glyph: 'restaurant', show: null },
   { id: 'bakery', mark: 's-U', glyph: 'cafe', show: null },
   { id: 'mart', mark: 's-Y', glyph: 'market', show: null },

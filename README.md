@@ -50,11 +50,20 @@ GitHub Pages에서 동작하는 정적 사이트이며, 특히 **한국**에서 
   4. 프랜차이즈의 고기 없는 메뉴 (아래 표)
   5. **해산물** — 상가정보의 횟집·해산물 구이/찜·복 요리·일식 회/초밥 약 5만 곳 (고기 메뉴 이름 제외). 생선은 도축이 필요 없어 할랄 식당이 없을 때 많은 무슬림이 찾지만, 하나피 학파는 새우·조개·오징어를 먹지 않으며 맛술·고기 육수는 확인해야 한다고 안내합니다.
      양이 많아 별도 파일(`data/sea/`)로 나누고 "보기" 필터의 **할랄 + 해산물** 또는 **전체**를 고르거나 "회", "초밥", "seafood", "명동 회"처럼 검색할 때만 받습니다.
-  6. **파스타·피자·커리 등 고기 없이 먹기 쉬운 음식** — 상가정보에서 이름(파스타, 샐러드·포케, 인도·네팔 커리, 멕시칸, 죽, 콩국수, 비빔밥, 두부, 떡볶이, 파전)이나 업종(피자)으로 찾은
-     약 2만 4천 곳(체인 지점·고기 메뉴 이름 제외, "베이커리"·"케이커리"·"타코야끼"·"도시락" 같은 비슷한 이름 제외). 한 곳씩 확인한 것이 아니어서 **고기 없는 메뉴 가능**(점선 잎 네모)으로 표시하고,
+  6. **파스타·피자·커리 등 고기 없이 먹기 쉬운 음식** — 상가정보에서 이름(파스타, 샐러드·포케, 인도·네팔 커리, 멕시칸, 태국, 우동·소바, 죽, 콩국수, 산채, 보리밥, 도토리묵, 감자옹심이, 비빔밥, 두부, 떡볶이, 파전)이나 업종(피자)으로 찾은
+     약 2만 8천 곳(체인 지점·고기 메뉴 이름 제외, "베이커리"·"케이커리"·"타코야끼"·"도시락" 같은 비슷한 이름 제외). 한 곳씩 확인한 것이 아니어서 **고기 없는 메뉴 가능**(점선 잎 네모)으로 표시하고,
      종류마다 "알리오올리오·토마토 파스타가 보통 있고 해산물·크림 소스엔 화이트 와인이 들어가는 경우가 많다"처럼 고를 메뉴와 주의할 점을 보여 줍니다.
-     해산물처럼 별도 파일(`data/dish/`)로 나누고, "보기" 필터의 **할랄 + 파스타·피자·커리 등**이나 "파스타", "명동 피자", "커리" 같은 검색으로 불러옵니다. 바지락·해물칼국수는 해산물로 분류합니다.
-  7. 고기 없는 한식, 빵집·디저트(젤라틴·라드·술 확인), 할랄 마트 — 가이드에서 안내
+     별도 파일(`data/dish/`)로 나눠 기본 화면과 "고기 없는 메뉴만"에서 불러오고, 확인된 곳 아래에 보여 줍니다. "파스타", "명동 피자", "커리" 같은 검색도 됩니다. 바지락·해물칼국수·잔치국수는 해산물로 분류합니다.
+  7. **메뉴판으로 확인한 고기 없는 메뉴** — 공공데이터의 실제 메뉴에서 고기 없는 메뉴를 찾아 "확인"으로 표시합니다(`scripts/import-menus.mjs`, `scripts/lib/menu-dishes.mjs`).
+     - [행정안전부_착한가격업소 현황](https://www.data.go.kr/data/3045247/fileData.do): 전국 음식점 약 1만 곳의 대표 메뉴 4개. 주소와 상호로 상가정보와 맞춰 위치를 찾습니다(약 78%).
+     - [영등포구_다국어메뉴정보](https://www.data.go.kr/data/15076743/fileData.do) + [식당운영정보](https://www.data.go.kr/data/15099326/fileData.do): 영등포구 식당의 전체 메뉴 8만 7천 개. 2026년 상가정보에 아직 있는 식당만 씁니다.
+     - 콩국수·비빔국수·팥칼국수·보리밥·산채비빔밥·감자전·도토리묵·알리오올리오 같은 메뉴는 **채식 메뉴 있음**, 바지락칼국수·회덮밥·고등어구이·우동처럼 생선만 있으면 **해산물**로 표시하고, 상세 화면에 메뉴판의 그 메뉴 이름을 보여 줍니다.
+       된장찌개·칼국수·냉면·김밥·라면처럼 고기나 고기 육수가 자주 들어가는 메뉴, "(치킨)"·"탄두리"처럼 고기가 적힌 메뉴, 고깃집·족발·닭발 같은 식당은 넣지 않습니다.
+     - 지금 약 660곳이 채식 메뉴, 약 1,270곳이 해산물 메뉴로 확인되어 있습니다. 매일 배포 때 새로 받습니다.
+  8. 고기 없는 한식, 빵집·디저트(젤라틴·라드·술 확인), 할랄 마트 — 가이드에서 안내
+
+  **기본 화면(할랄 + 고기 없는 메뉴)** 은 할랄 식당, 확인된 고기 없는 메뉴(체인 공식 메뉴, 채식 인증, 메뉴판), 고기 없는 메뉴 가능(미확인) 순서로 보여 줍니다.
+  **확인된 곳만**을 켜면 미확인 할랄 후보와 미확인 고기 없는 메뉴를 모두 숨깁니다.
 - **한국 특화**
   - 길찾기 버튼이 **네이버 지도 → 카카오맵 → 구글 지도** 순서 (한국에서는 구글 지도 도보·자동차 길찾기가 안 되기 때문)
   - MUFKO 공개 식당 목록과 공공데이터(경기관광공사 무슬림 친화 음식점, 한국문화정보원 세계 음식점, 서울시 채식 인증 음식점, 수원시 비건 메뉴 업소) 반영, 이슬람 성원·기도실 표시
@@ -202,6 +211,7 @@ scripts/             데이터 빌드·가져오기·배포 조립 스크립트
 - Search moves the map on Enter, with no second tap: restaurant and keyword searches ("kebab", "halal", "starbucks") first request the visitor's location and keep it at the map centre; a restaurant name also opens its details. Without location access, the current map is used. An explicit area or station gets a labelled pin and the list becomes "Around ‘Myeongdong’"; "halal gangnam" shows matches around that place; anything else goes to the geocoder and the map jumps to the first hit.
 - Layout by screen size: a pull-up list sheet on phones with restaurants on the first screen (tips sit between and below the results), a side panel from 720 px (tablets, phones held sideways), wider panels at 1024 and 1280 px, and larger touch targets on touch devices.
 - One restaurant listed in Korean by one source and in Latin letters by another ("호지보보" / "Hojibobo Uzbek Restaurant") is merged by comparing how the names sound (`scripts/lib/phonetic.mjs`), as are shops mapped twice in OpenStreetMap.
+- Meat-free dishes read from real menus: the national "Good Price" shop list (about 10,000 eateries with four menu items each, placed through the store registry by address and name) and Yeongdeungpo's multilingual menus (87,000 items) mark about 660 places as having vegetarian dishes and 1,270 as serving fish dishes, with the dish names shown (`scripts/import-menus.mjs`). The default view now shows halal places, then checked meat-free places, then likely ones; "Confirmed only" hides everything not checked.
 - Map usability: halal names and markers take priority over vegetarian alternatives when zoomed out, the blue dot follows you with an accuracy circle, a scale bar, list rows and markers highlight each other on hover, a "Show the nearest places" button where the map is empty, instant jumps for long distances and `/` to focus the search box. Use **Find more nearby** to look for additional OpenStreetMap listings around the map centre.
 - Every place shows *how we know* it is halal (certified / 100% halal / halal menu / Muslim-friendly list / some halal / not confirmed) and its source and date
 - Chains whose standard menu has a meat-free dish appear at every branch in Korea, about 8,100 places: Lotteria (plant-based Miracle Burger), Papa John's (plant-based and cheese pizzas), Subway (Veggie, Egg Mayo), Domino's (cheese pizza), Pizza School, Pizza Maru, Mr. Pizza and 7th Street Pizza (cheese and vegetable pizzas with no meat in their allergen lists), Starbucks (a cream cheese bagel sandwich and a cheese bagel), Salady (dishes marked vegan) and Bonjuk (porridges with no meat, milk or egg in the official allergen list). Shops the store registry misses, such as the Lotteria inside Seoul Station, come from OpenStreetMap. The chains, dishes, official menu links and check dates live in `assets/js/core/brands.js`; branch locations come from the national store registry and refresh each quarter. Halal places stay first in the list

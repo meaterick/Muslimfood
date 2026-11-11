@@ -66,7 +66,7 @@
     "emptyHint": "Uzaklaştırın, filtreleri temizleyin veya başka bir bölge arayın.",
     "emptyMuslimCountries": "Müslüman nüfusun çoğunlukta olduğu ülkelerde yemeklerin çoğu helaldir; bu yüzden ayrıca işaretlenen yer azdır.",
     "showMore": "Daha fazla göster",
-    "vegSection": "Vejetaryen ve vegan seçenekler",
+    "vegSection": "Etsiz yemekler (kontrol edildi)",
     "loading": "Yerler yükleniyor…",
     "loadError": "Yerler yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin.",
     "retry": "Tekrar dene",
@@ -89,14 +89,14 @@
     "queryNearest": "En yakın sonuçları göster",
     "showNearest": "En yakın yerleri göster",
     "seaSection": "Deniz ürünleri restoranları",
-    "dishSection": "Makarna, pizza, köri ve daha fazlası"
+    "dishSection": "Etsiz yemek olasılığı yüksek (kontrol edilmedi)"
   },
   "filter": {
     "label": "Filtreler",
     "show": "Göster",
-    "showAll": "Helal + vejetaryen",
+    "showAll": "Helal + etsiz",
     "showHalal": "Yalnızca helal",
-    "showVeg": "Vejetaryen ve vegan",
+    "showVeg": "Yalnızca etsiz",
     "confirmed": "Yalnızca doğrulanmış",
     "openNow": "Şu an açık",
     "prayer": "Namaz yerleri",
@@ -111,8 +111,7 @@
       "o": "Diğer"
     },
     "showSea": "Helal + deniz ürünleri",
-    "showEvery": "Hepsi (deniz ürünleri, makarna…)",
-    "showDish": "Helal + makarna, pizza, köri…"
+    "showEvery": "Hepsi (deniz ürünleri, makarna…)"
   },
   "status": {
     "C": "Helal sertifikalı",
@@ -155,7 +154,13 @@
       "bibimbap": "Bibimbap: etsiz isteyin (고기 빼 주세요); sebzeler ve yumurta sorun değil.",
       "tofu": "Tofu: sade tofu veya deniz ürünlü tofu güveci olağandır; birçok tofu güvecinde domuz veya sığır eti var, 해물순두부 seçin.",
       "tteokbokki": "Tteokbokki: acı sosta pirinç keki ve balık keki; sosis veya et aromalı ramen eklenebilir.",
-      "pajeon": "Krep: deniz ürünlü ve yeşil soğanlı krep (해물파전) olağandır; maş fasulyesi krebinde çoğu zaman domuz eti vardır."
+      "pajeon": "Krep: deniz ürünlü ve yeşil soğanlı krep (해물파전) olağandır; maş fasulyesi krebinde çoğu zaman domuz eti vardır.",
+      "udon": "Udon veya soba: balık suyunda (dashi) erişte, genellikle etsiz; sığır etli veya domuz kotletli olanlardan kaçının.",
+      "sanchae": "Yabani otlar: dağ sebzeli bibimbap ve set menüler, genellikle etsiz.",
+      "boribap": "Sebzelerle karıştırılan arpalı pilav; yanında gelen soya güveci hamsi veya sığır suyuyla yapılabilir.",
+      "muk": "Meşe palamudu jölesi (도토리묵) vegan; 묵밥 hamsi suyunda gelir.",
+      "ongsimi": "Patates mantısı (옹심이) veya patates krebi, genellikle sebze ya da hamsi suyunda.",
+      "thai": "Tay: tofulu, sebzeli veya deniz ürünlü pad thai ve köriler olağandır; balık sosu yaygındır."
     }
   },
   "diet": {
@@ -271,7 +276,12 @@
       "bibimbap": "Bibimbap",
       "tofu": "Tofu",
       "tteokbokki": "Tteokbokki",
-      "pajeon": "Kore krebi"
+      "pajeon": "Kore krebi",
+      "udon": "Udon ve soba",
+      "sanchae": "Yabani otlar",
+      "boribap": "Arpalı pilav",
+      "muk": "Meşe palamudu jölesi",
+      "ongsimi": "Patates yemekleri"
     }
   },
   "detail": {
@@ -319,7 +329,8 @@
     "chainNote": "{brand} resmî menüsünden, {date} tarihinde kontrol edildi. Her şube satmayabilir; sipariş vermeden önce sorun.",
     "officialMenu": "Resmî menü",
     "menuChecked": "{date} tarihinde kontrol edildi",
-    "everyDay": "Her gün"
+    "everyDay": "Her gün",
+    "menuMeatFree": "Menüsündeki etsiz yemekler"
   },
   "source": {
     "osm": "OpenStreetMap katkıcıları",
@@ -332,7 +343,9 @@
     "suwon": "Suwon Belediyesi, vegan menüsü olan restoranlar",
     "sbiz": "Küçük İşletmeler ve Pazar Hizmeti, ulusal işletme kaydı",
     "brand": "{brand} resmî menüsü",
-    "mufko": "MUFKO (Muslim Friendly Korea)"
+    "mufko": "MUFKO (Muslim Friendly Korea)",
+    "goodprice": "İçişleri ve Güvenlik Bakanlığı, “Uygun Fiyat” dükkânları ve menüleri",
+    "ydp": "Yeongdeungpo-gu çok dilli menüleri"
   },
   "guide": {
     "title": "Kore'de helal beslenme",
@@ -400,7 +413,7 @@
       },
       "dish": {
         "title": "Makarna, pizza, köri ve çoğu zaman etsiz gelen diğer yemekler",
-        "desc": "Sarımsaklı zeytinyağlı ve domatesli makarna, peynirli pizza, salata ve poke, sebze körisi ve dal, fasulyeli burrito, lapa, soya sütlü erişte, etsiz bibimbap, tofu, tteokbokki ve deniz ürünlü krep. Tek tek kontrol edilmedi: etsiz ve et suyu olmadan isteyin."
+        "desc": "Makarna, pizza, salata ve poke, sebze körisi, fasulyeli burrito, Tay yemekleri, udon ve soba, lapa, soya sütlü erişte, yabani otlu ve arpalı pilav, meşe palamudu jölesi, patates mantısı, tofu, tteokbokki ve deniz ürünlü krep. Menüsünde böyle bir yemek bulunan yerler kontrol edildi olarak işaretlenir; diğerleri değil, etsiz ve et suyu olmadan isteyin."
       }
     }
   },

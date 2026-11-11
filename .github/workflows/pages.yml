@@ -81,6 +81,15 @@ jobs:
         continue-on-error: true
         run: node scripts/import-chains.mjs --zip .cache/stores.zip
 
+      # Meat-free dishes from public menu lists (착한가격업소, 영등포구 menus),
+      # placed with the store registry. Pushes use the committed files; the
+      # daily run refreshes them (a failure keeps the committed ones).
+      - name: Import public menu lists
+        if: steps.mode.outputs.refresh == 'true' && hashFiles('.cache/stores.zip') != ''
+        continue-on-error: true
+        timeout-minutes: 15
+        run: node scripts/import-menus.mjs --zip .cache/stores.zip
+
       # MUFKO fills gaps in OSM and the older Korean public lists. Pushes reuse
       # the latest successful snapshot; a failed refresh retains that snapshot.
       - name: Restore MUFKO directory

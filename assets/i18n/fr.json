@@ -66,7 +66,7 @@
     "emptyHint": "Dézoomez, réinitialisez les filtres ou recherchez une autre zone.",
     "emptyMuslimCountries": "Dans les pays à majorité musulmane, la plupart des plats sont halal et peu d’établissements l’indiquent spécifiquement.",
     "showMore": "Afficher plus",
-    "vegSection": "Options végétariennes et vegan",
+    "vegSection": "Plats sans viande (vérifiés)",
     "loading": "Chargement des lieux…",
     "loadError": "Impossible de charger les lieux. Vérifiez votre connexion et réessayez.",
     "retry": "Réessayer",
@@ -89,14 +89,14 @@
     "queryNearest": "Afficher les résultats les plus proches",
     "showNearest": "Afficher les lieux les plus proches",
     "seaSection": "Restaurants de fruits de mer",
-    "dishSection": "Pâtes, pizza, curry et plus"
+    "dishSection": "Plats sans viande probables (non vérifiés)"
   },
   "filter": {
     "label": "Filtres",
     "show": "Afficher",
-    "showAll": "Halal + végétarien",
+    "showAll": "Halal + sans viande",
     "showHalal": "Halal uniquement",
-    "showVeg": "Végétarien et vegan",
+    "showVeg": "Sans viande uniquement",
     "confirmed": "Lieux confirmés uniquement",
     "openNow": "Ouvert actuellement",
     "prayer": "Lieux de prière",
@@ -111,8 +111,7 @@
       "o": "Autres"
     },
     "showSea": "Halal + fruits de mer",
-    "showEvery": "Tout (fruits de mer, pâtes…)",
-    "showDish": "Halal + pâtes, pizza, curry…"
+    "showEvery": "Tout (fruits de mer, pâtes…)"
   },
   "status": {
     "C": "Certifié halal",
@@ -155,7 +154,13 @@
       "bibimbap": "Bibimbap : demandez-le sans viande (고기 빼 주세요) ; les légumes et l’œuf conviennent.",
       "tofu": "Tofu : tofu nature ou ragoût de tofu aux fruits de mer habituels ; beaucoup de ragoûts de tofu contiennent du porc ou du bœuf, choisissez 해물순두부.",
       "tteokbokki": "Tteokbokki : gâteaux de riz et de poisson en sauce pimentée ; saucisses ou ramen au goût de viande peuvent être ajoutés.",
-      "pajeon": "Galettes : aux fruits de mer et à la ciboule (해물파전) en général ; les galettes de haricot mungo contiennent souvent du porc."
+      "pajeon": "Galettes : aux fruits de mer et à la ciboule (해물파전) en général ; les galettes de haricot mungo contiennent souvent du porc.",
+      "udon": "Udon ou soba : nouilles dans un bouillon de poisson (dashi), en général sans viande ; évitez celles au bœuf ou au porc pané.",
+      "sanchae": "Herbes sauvages : bibimbap et menus de légumes de montagne, en général sans viande.",
+      "boribap": "Riz à l’orge avec des légumes à mélanger ; le ragoût de soja servi avec peut être au bouillon d’anchois ou de bœuf.",
+      "muk": "La gelée de gland (도토리묵) est végane ; le 묵밥 est servi dans un bouillon d’anchois.",
+      "ongsimi": "Raviolis de pomme de terre (옹심이) ou galettes de pomme de terre, en général dans un bouillon de légumes ou d’anchois.",
+      "thai": "Thaï : pad thaï et currys au tofu, aux légumes ou aux fruits de mer habituels ; la sauce de poisson est courante."
     }
   },
   "diet": {
@@ -271,7 +276,12 @@
       "bibimbap": "Bibimbap",
       "tofu": "Tofu",
       "tteokbokki": "Tteokbokki",
-      "pajeon": "Galettes coréennes"
+      "pajeon": "Galettes coréennes",
+      "udon": "Udon et soba",
+      "sanchae": "Herbes sauvages",
+      "boribap": "Riz à l’orge",
+      "muk": "Gelée de gland",
+      "ongsimi": "Plats de pomme de terre"
     }
   },
   "detail": {
@@ -319,7 +329,8 @@
     "chainNote": "D’après la carte officielle de {brand}, vérifiée le {date}. Tous les restaurants ne les proposent pas forcément : demandez avant de commander.",
     "officialMenu": "Carte officielle",
     "menuChecked": "vérifiée le {date}",
-    "everyDay": "Tous les jours"
+    "everyDay": "Tous les jours",
+    "menuMeatFree": "Plats sans viande de sa carte"
   },
   "source": {
     "osm": "Contributeurs OpenStreetMap",
@@ -332,7 +343,9 @@
     "suwon": "Ville de Suwon, restaurants avec menu vegan",
     "sbiz": "Small Enterprise and Market Service, registre national des commerces",
     "brand": "Carte officielle de {brand}",
-    "mufko": "MUFKO (Muslim Friendly Korea)"
+    "mufko": "MUFKO (Muslim Friendly Korea)",
+    "goodprice": "Ministère de l’Intérieur et de la Sécurité, commerces « Bon prix » et leurs menus",
+    "ydp": "Menus multilingues de Yeongdeungpo-gu"
   },
   "guide": {
     "title": "Manger halal en Corée",
@@ -400,7 +413,7 @@
       },
       "dish": {
         "title": "Pâtes, pizza, curry et autres plats souvent sans viande",
-        "desc": "Pâtes aglio e olio ou à la tomate, pizza au fromage, salades et poke, curry de légumes et dal, burritos aux haricots, bouillie de riz, nouilles au lait de soja, bibimbap sans viande, tofu, tteokbokki et galettes aux fruits de mer. Non vérifiés un par un : demandez sans viande ni bouillon de viande."
+        "desc": "Pâtes, pizza, salades et poke, curry de légumes, burritos aux haricots, cuisine thaïe, udon et soba, bouillie de riz, nouilles au lait de soja, riz aux herbes sauvages et à l’orge, gelée de gland, raviolis de pomme de terre, tofu, tteokbokki et galettes aux fruits de mer. Les lieux dont le menu public cite un tel plat sont marqués vérifiés ; les autres non : demandez sans viande ni bouillon de viande."
       }
     }
   },

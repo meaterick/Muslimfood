@@ -24,7 +24,7 @@ const CAFE = /^I2120|^I2100[128]$/; // café, bakery, rice cake, ice cream
 const FAST = /^I2100[34567]$/; // pizza, burger, sandwich, chicken, snack bar
 
 // Words that make a "seafood" or "vegan" name a meat restaurant after all.
-const MEAT = /고기|삼겹|갈비|족발|보쌈|곱창|막창|돼지|한우|소고기|돈까스|돈가스|돈카츠|카츠|규동|돈부리|치킨|통닭|닭갈비|닭발|닭강정|닭꼬치|오리|육회|정육|순대|햄버거|스테이크|양꼬치|야키토리|꼬치|불고기|베이컨|소시지|부대|감자탕|국밥|곰탕|설렁탕|샤브|훠궈|마라/;
+export const MEAT_NAME = /라멘|돈코츠|짜장|자장|짬뽕|고기|삼겹|갈비|족발|보쌈|곱창|막창|돼지|한우|소고기|돈까스|돈가스|돈카츠|카츠|규동|돈부리|치킨|통닭|닭갈비|닭발|닭강정|닭꼬치|오리|육회|정육|순대|햄버거|스테이크|양꼬치|야키토리|꼬치|불고기|베이컨|소시지|부대|감자탕|국밥|곰탕|설렁탕|샤브|훠궈|마라/;
 // Organisations and shops filed under food by mistake.
 const NOT_FOOD = /선교|협회|협의회|상공회의소|조합|커뮤니티|교회|연구원|연구소|학원|무역|어린이집|유치원|학교|병원|의원|식품$|마트$|유통/;
 
@@ -50,7 +50,7 @@ const VEG = /비건|vegan|vegetarian|베지테리언|채식(?![당탁품])|사�
 const VEGAN = /비건|vegan/i;
 
 // Seafood by name in other categories.
-const CLAM_NOODLES = /바지락|해물칼국수|조개칼국수/;
+const CLAM_NOODLES = /바지락|해물칼국수|조개칼국수|잔치국수|멸치국수/;
 
 // Dishes that usually come without meat, by name (or by category for pizza).
 const DISHES = [
@@ -67,6 +67,13 @@ const DISHES = [
   ['tofu', /두부/],
   ['tteokbokki', /떡볶이|떡뽁이|떡볶기/],
   ['pajeon', /파전/],
+  // Japanese noodles in fish stock (not ramen, which is pork broth).
+  ['udon', /우동|소바|모밀/],
+  ['sanchae', /산채/],
+  ['boribap', /보리밥/],
+  ['muk', /도토리묵|묵집|묵밥/],
+  ['ongsimi', /옹심이|감자전/],
+  ['thai', /(?<!황)태국|팟타이|쏨땀|타이음식|타이요리/],
 ];
 const PIZZA = /^I21003$/;
 
@@ -89,8 +96,8 @@ export function classifyRow(name, code) {
   if (cuisines.includes('halal') || (cuisines.length && !CAFE.test(code))) {
     return { type: 'cuisine', cu: cuisines.filter((c) => c !== 'halal') };
   }
-  if (VEG.test(n) && !MEAT.test(n)) return { type: 'veg', cu: [VEGAN.test(n) ? 'vegan' : 'vegetarian'] };
-  if (MEAT.test(n)) return null;
+  if (VEG.test(n) && !MEAT_NAME.test(n)) return { type: 'veg', cu: [VEGAN.test(n) ? 'vegan' : 'vegetarian'] };
+  if (MEAT_NAME.test(n)) return null;
   if (SEAFOOD[code]) return { type: 'sea', cu: [SEAFOOD[code]] };
   if (CLAM_NOODLES.test(n)) return { type: 'sea', cu: ['seafood', 'noodle'] };
   const dish = DISHES.find(([, re]) => re.test(n));

@@ -64,7 +64,7 @@
     "emptyHint": "Zum keluar, kosongkan penapis, atau cari kawasan lain.",
     "emptyMuslimCountries": "Di negara majoriti Muslim, kebanyakan makanan adalah halal, jadi hanya sedikit tempat ditanda secara khusus.",
     "showMore": "Tunjuk lagi",
-    "vegSection": "Pilihan vegetarian dan vegan",
+    "vegSection": "Hidangan tanpa daging (sudah disemak)",
     "loading": "Memuatkan tempat…",
     "loadError": "Tempat tidak dapat dimuatkan. Semak sambungan anda dan cuba lagi.",
     "retry": "Cuba lagi",
@@ -86,14 +86,14 @@
     "queryNearest": "Tunjukkan hasil terdekat",
     "showNearest": "Tunjukkan tempat terdekat",
     "seaSection": "Restoran makanan laut",
-    "dishSection": "Pasta, piza, kari dan lain-lain"
+    "dishSection": "Mungkin ada hidangan tanpa daging (belum disemak)"
   },
   "filter": {
     "label": "Penapis",
     "show": "Tunjukkan",
-    "showAll": "Halal + vegetarian",
+    "showAll": "Halal + tanpa daging",
     "showHalal": "Halal sahaja",
-    "showVeg": "Vegetarian & vegan",
+    "showVeg": "Tanpa daging sahaja",
     "confirmed": "Yang disahkan sahaja",
     "openNow": "Dibuka sekarang",
     "prayer": "Tempat solat",
@@ -108,8 +108,7 @@
       "o": "Lain-lain"
     },
     "showSea": "Halal + makanan laut",
-    "showEvery": "Semua (makanan laut, pasta…)",
-    "showDish": "Halal + pasta, piza, kari…"
+    "showEvery": "Semua (makanan laut, pasta…)"
   },
   "status": {
     "C": "Diperakui halal",
@@ -152,7 +151,13 @@
       "bibimbap": "Bibimbap: minta tanpa daging (고기 빼 주세요); sayur dan telurnya tidak mengapa.",
       "tofu": "Tauhu: biasanya ada tauhu biasa atau rebusan tauhu makanan laut; banyak rebusan tauhu menggunakan babi atau lembu, jadi pilih 해물순두부.",
       "tteokbokki": "Tteokbokki: kek beras dan kek ikan dalam sos cili; sosej atau ramen perisa daging boleh ditambah.",
-      "pajeon": "Lempeng: biasanya ada lempeng makanan laut dan daun bawang (해물파전); lempeng kacang hijau selalunya ada babi."
+      "pajeon": "Lempeng: biasanya ada lempeng makanan laut dan daun bawang (해물파전); lempeng kacang hijau selalunya ada babi.",
+      "udon": "Udon atau soba: mi dalam sup ikan (dashi), biasanya tanpa daging; elakkan yang ada daging lembu atau katsu babi.",
+      "sanchae": "Sayur liar: bibimbap dan set hidangan sayur gunung, biasanya tanpa daging.",
+      "boribap": "Nasi barli dengan sayur untuk digaul; rebusan soya yang disajikan mungkin menggunakan sup ikan bilis atau lembu.",
+      "muk": "Jeli acorn (도토리묵) vegan; 묵밥 disajikan dalam sup ikan bilis.",
+      "ongsimi": "Ladu kentang (옹심이) atau lempeng kentang, biasanya dalam sup sayur atau ikan bilis.",
+      "thai": "Thai: pad thai dan kari tauhu, sayur atau makanan laut biasanya ada; sos ikan biasa digunakan."
     }
   },
   "diet": {
@@ -268,7 +273,12 @@
       "bibimbap": "Bibimbap",
       "tofu": "Tauhu",
       "tteokbokki": "Tteokbokki",
-      "pajeon": "Lempeng Korea"
+      "pajeon": "Lempeng Korea",
+      "udon": "Udon & soba",
+      "sanchae": "Sayur liar",
+      "boribap": "Nasi barli",
+      "muk": "Jeli acorn",
+      "ongsimi": "Hidangan kentang"
     }
   },
   "detail": {
@@ -316,7 +326,8 @@
     "chainNote": "Daripada menu rasmi {brand}, disemak {date}. Bukan semua cawangan menjualnya, jadi tanya sebelum memesan.",
     "officialMenu": "Menu rasmi",
     "menuChecked": "disemak {date}",
-    "everyDay": "Setiap hari"
+    "everyDay": "Setiap hari",
+    "menuMeatFree": "Hidangan tanpa daging dalam menunya"
   },
   "source": {
     "osm": "Penyumbang OpenStreetMap",
@@ -329,7 +340,9 @@
     "suwon": "Bandar Suwon, restoran dengan menu vegan",
     "sbiz": "Small Enterprise and Market Service, daftar perniagaan kebangsaan",
     "brand": "Menu rasmi {brand}",
-    "mufko": "MUFKO (Muslim Friendly Korea)"
+    "mufko": "MUFKO (Muslim Friendly Korea)",
+    "goodprice": "Kementerian Dalam Negeri dan Keselamatan, kedai “Harga Baik” dan menunya",
+    "ydp": "Menu pelbagai bahasa Yeongdeungpo-gu"
   },
   "guide": {
     "title": "Makan halal di Korea",
@@ -397,7 +410,7 @@
       },
       "dish": {
         "title": "Pasta, piza, kari dan hidangan lain yang selalunya tanpa daging",
-        "desc": "Pasta aglio e olio dan tomato, piza keju, salad dan poke, kari sayur dan dal, burrito kacang, bubur, mi susu soya, bibimbap tanpa daging, tauhu, tteokbokki dan lempeng makanan laut. Tidak disemak satu persatu: minta tanpa daging dan tanpa sup daging."
+        "desc": "Pasta, piza, salad dan poke, kari sayur, burrito kacang, masakan Thai, udon dan soba, bubur, mi susu soya, nasi sayur liar dan nasi barli, jeli acorn, ladu kentang, tauhu, tteokbokki dan lempeng makanan laut. Tempat yang menu awamnya menyenaraikan hidangan sebegini ditanda sudah disemak; yang lain belum, jadi minta tanpa daging dan tanpa sup daging."
       }
     }
   },
