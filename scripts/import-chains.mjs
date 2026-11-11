@@ -1,10 +1,12 @@
 #!/usr/bin/env node
-// Branches of the chains in assets/js/core/brands.js, from Korea's national
-// store registry: 소상공인시장진흥공단_상가(상권)정보 (data.go.kr 15083033,
-// updated every quarter, 이용허락범위 제한 없음). Only food businesses whose
-// name starts with a chain name are kept.
+// From Korea's national store registry: 소상공인시장진흥공단_상가(상권)정보
+// (data.go.kr 15083033, updated every quarter, 이용허락범위 제한 없음):
+//   - branches of the chains in assets/js/core/brands.js -> kr-chains.json
+//   - other kinds of food Muslims can eat (scripts/lib/registry-food.mjs):
+//     Muslim-majority cuisines, vegetarian and seafood restaurants
+//     -> kr-registry-cuisine.json, kr-registry-veg.json, kr-seafood.json
 //
-//   node scripts/import-chains.mjs              # download (~350 MB) -> data/sources/kr-chains.json
+//   node scripts/import-chains.mjs              # download (~350 MB) -> data/sources/
 //   node scripts/import-chains.mjs --zip FILE   # use an archive that is already downloaded
 //   node scripts/import-chains.mjs --out FILE   # write somewhere else
 //   node scripts/import-chains.mjs --modified   # print the dataset's last update date and exit
@@ -19,6 +21,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { listZip, openEntry } from './lib/unzip.mjs';
 import { BRANDS, matchBrand, branchName, startsWithBrand } from '../assets/js/core/brands.js';
 import { isInKorea, roundCoord, distance } from '../assets/js/core/geo.js';
+import { normText } from '../assets/js/core/text.js';
+import { registryRecord, MAYBE, OUTPUTS } from './lib/registry-food.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PK = '15083033';
@@ -133,7 +137,7 @@ export async function* chainRows(stream) {
       header = parseCsvLine(line.replace(/^﻿/, '')).map((h) => h.trim());
       return;
     }
-    if (!ANY_CHAIN.test(line)) return;
+    if (!ANY_CHAIN.test(line) && !MAYBE.test(line)) return;
     const cells = parseCsvLine(line);
     yield Object.fromEntries(header.map((h, i) => [h, (cells[i] ?? '').trim()]));
   };
@@ -196,19 +200,44 @@ export function dedupeBranches(places) {
   return out.sort((a, b) => (a.id < b.id ? -1 : 1));
 }
 
-/** Chain branches in every CSV of the registry archive. */
-export async function extractChains(zipFile) {
-  const places = new Map();
+/** One record per restaurant: the registry lists some twice under one name and address. */
+export function dedupeFood(places) {
+  const byKey = new Map();
+  for (const p of places) {
+    const key = `${normText(p.n)}|${(p.a || `${p.y},${p.x}`).replace(/\s+/g, '')}`;
+    const prev = byKey.get(key);
+    if (!prev || p.id > prev.id) byKey.set(key, p);
+  }
+  return [...byKey.values()].sort((a, b) => (a.id < b.id ? -1 : 1));
+}
+
+/** Chain branches and other Muslim-friendly food in every CSV of the registry archive. */
+export async function extractRegistry(zipFile) {
+  const chains = new Map();
+  const food = { cuisine: [], veg: [], sea: [] };
   for (const entry of await listZip(zipFile)) {
     if (!/\.csv$/i.test(entry.name)) continue;
     let n = 0;
+    let m = 0;
     for await (const row of chainRows(await openEntry(zipFile, entry))) {
-      const p = chainRecord(row);
-      if (p) places.set(p.id, p), n++;
+      const p = matchBrand(row['상호명']) ? chainRecord(row) : null;
+      if (p) {
+        chains.set(p.id, p);
+        n++;
+        continue;
+      }
+      if (matchBrand(row['상호명'])) continue; // a chain's other shops (cafés named after it, ...)
+      const r = registryRecord(row);
+      if (r) food[r.type].push(r.place), m++;
     }
-    console.log(`${entry.name}: ${n} branches`);
+    console.log(`${entry.name}: ${n} branches, ${m} other places`);
   }
-  return dedupeBranches([...places.values()]);
+  return { chains: dedupeBranches([...chains.values()]), food: Object.fromEntries(Object.entries(food).map(([k, v]) => [k, dedupeFood(v)])) };
+}
+
+/** Chain branches in every CSV of the registry archive. */
+export async function extractChains(zipFile) {
+  return (await extractRegistry(zipFile)).chains;
 }
 
 async function main() {
@@ -233,7 +262,7 @@ async function main() {
     console.log(`downloading ${info.title} (${info.edition || info.modified})…`);
     await download(info, zip);
   }
-  const places = await extractChains(zip);
+  const { chains: places, food } = await extractRegistry(zip);
   const byBrand = Object.fromEntries(BRANDS.map((b) => [b.id, places.filter((p) => p.b === b.id).length]));
   console.log(`branches: ${JSON.stringify(byBrand)}`);
   if (places.length < 100) throw new Error(`only ${places.length} branches found; the file format may have changed`);
@@ -256,6 +285,17 @@ async function main() {
   const file = path.resolve(ROOT, opt('--out', 'data/sources/kr-chains.json'));
   await writeFile(file, JSON.stringify(out, null, 1) + '\n');
   console.log(`wrote ${places.length} branches to ${path.relative(ROOT, file)}`);
+  // The other kinds of food, next to the chains file.
+  for (const [type, list] of Object.entries(food)) {
+    const meta = OUTPUTS[type];
+    const target = path.join(path.dirname(file), meta.file);
+    const status = { cuisine: 'U', veg: 'V', sea: 'S' }[type];
+    await writeFile(
+      target,
+      JSON.stringify({ ...out, status, selection: meta.selection, places: list.map((p) => (edition ? { ...p, d: edition } : p)) }, null, type === 'sea' ? 0 : 1) + '\n',
+    );
+    console.log(`wrote ${list.length} ${type} places to ${path.relative(ROOT, target)}`);
+  }
 }
 
 if (import.meta.url === pathToFileURL(path.resolve(process.argv[1] || '')).href) {

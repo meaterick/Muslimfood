@@ -26,6 +26,7 @@ await mkdir(path.join(out, 'data'), { recursive: true });
 await cp(path.join(dataDir, 'index.json'), path.join(out, 'data', 'index.json'));
 await cp(path.join(dataDir, 'search.json'), path.join(out, 'data', 'search.json'));
 await cp(path.join(dataDir, 'cells'), path.join(out, 'data', 'cells'), { recursive: true });
+if (existsSync(path.join(dataDir, 'sea'))) await cp(path.join(dataDir, 'sea'), path.join(out, 'data', 'sea'), { recursive: true });
 if (existsSync(path.join(dataDir, 'stations.json'))) await cp(path.join(dataDir, 'stations.json'), path.join(out, 'data', 'stations.json'));
 
 const robots = ['User-agent: *', 'Allow: /'];

@@ -87,7 +87,8 @@
     "queryGeocode": "Chercher comme adresse",
     "queryEmpty": "Aucun résultat pour « {q} » dans cette partie de la carte.",
     "queryNearest": "Afficher les résultats les plus proches",
-    "showNearest": "Afficher les lieux les plus proches"
+    "showNearest": "Afficher les lieux les plus proches",
+    "seaSection": "Restaurants de fruits de mer"
   },
   "filter": {
     "label": "Filtres",
@@ -107,7 +108,9 @@
       "c": "Cafés et boulangeries",
       "m": "Épiceries et boucheries",
       "o": "Autres"
-    }
+    },
+    "showSea": "Halal + fruits de mer",
+    "showEvery": "Tout (fruits de mer compris)"
   },
   "status": {
     "C": "Certifié halal",
@@ -131,8 +134,11 @@
       "V": "Toute la carte est végétarienne : ni viande ni poisson, mais des produits laitiers et des œufs peuvent être utilisés. Sans certification halal : demandez si les sauces contiennent de l’alcool, comme du vin de cuisine.",
       "VV": "Toute la carte est vegan : ni viande, ni poisson, ni produits laitiers, ni œufs. Sans certification halal : demandez si les sauces contiennent de l’alcool, comme du vin de cuisine.",
       "M": "Propose quelques plats végétariens, mais la viande y est aussi cuisinée : ustensiles et huile peuvent être partagés. Sans certification halal.",
-      "MV": "Propose quelques plats vegan, mais la viande y est aussi cuisinée : ustensiles et huile peuvent être partagés. Sans certification halal."
-    }
+      "MV": "Propose quelques plats vegan, mais la viande y est aussi cuisinée : ustensiles et huile peuvent être partagés. Sans certification halal.",
+      "S": "Restaurant de poissons et fruits de mer : poisson cru, sushi, poisson grillé ou coquillages. Le poisson ne demande pas d’abattage, mais ce lieu n’est pas certifié halal. Les hanafites ne mangent que le poisson, pas les crevettes, coquillages ni calmars. Demandez s’il y a du vin de cuisine (mirin, soju) ou un bouillon de viande dans les ragoûts.",
+      "Vname": "Son nom indique une cuisine végane, végétarienne ou de temple : la carte devrait être en grande partie ou entièrement sans viande. Non certifié halal : demandez s’il y a de l’alcool dans les sauces, comme le vin de cuisine."
+    },
+    "S": "Fruits de mer"
   },
   "diet": {
     "v": "Vegan",
@@ -150,7 +156,9 @@
     "bonjuk": "Selon la liste officielle des allergènes (octobre 2026), ces bouillies ne contiennent ni viande, ni lait, ni œuf, même par contact croisé. D’autres, comme la bouillie aux légumes, contiennent du bœuf.",
     "pizzaschool": "Les allergènes indiqués sur les pages de la carte officielle sont le lait, le soja, le blé, la tomate et l’œuf, sans viande. D’autres pizzas, comme la truffe-pommes de terre, contiennent du jambon.",
     "pizzamaru": "Selon la liste officielle des allergènes (janvier 2026), ces pizzas à pâte classique contiennent lait, soja, blé et tomate, sans viande. Les pâtes spéciales peuvent ajouter de l’œuf ou des crevettes.",
-    "starbucks": "Les allergènes indiqués sur les pages produits officielles sont le soja, le lait et le blé (et la tomate), sans viande. D’autres sandwichs, même aux noms de légumes, contiennent du jambon."
+    "starbucks": "Les allergènes indiqués sur les pages produits officielles sont le soja, le lait et le blé (et la tomate), sans viande. D’autres sandwichs, même aux noms de légumes, contiennent du jambon.",
+    "mrpizza": "Les tableaux officiels des allergènes et des origines n’indiquent aucune viande pour ces deux pizzas ; la Double Cheese contient de l’œuf. Bacon, pepperoni et garnitures de viande sont sur les autres pizzas.",
+    "pizza7th": "Le tableau officiel des allergènes indique blé, soja et lait pour la pizza gorgonzola (œuf avec la croûte gold sweet). Leurs pizzas double fromage contiennent du poulet."
   },
   "cat": {
     "r": "Restaurant",
@@ -325,7 +333,45 @@
     "cardLanguage": "Langue de la carte",
     "fullscreen": "Afficher en plein écran",
     "exitFullscreen": "Fermer",
-    "listen": "Écouter en coréen"
+    "listen": "Écouter en coréen",
+    "kindsTitle": "Ce que les musulmans peuvent manger en Corée",
+    "kindsIntro": "Du choix le plus sûr à ceux où il faut d’abord demander.",
+    "kindsShow": "Afficher sur la carte",
+    "dishesTitle": "Plats coréens",
+    "kinds": {
+      "halal": {
+        "title": "Restaurants certifiés halal ou tenus par des musulmans",
+        "desc": "Un certificat, une cuisine entièrement halal ou une carte halal. Le choix le plus sûr."
+      },
+      "cuisine": {
+        "title": "Cuisines de pays musulmans",
+        "desc": "Restaurants de kebab turc, ouzbeks et d’Asie centrale, pakistanais, bangladais, afghans, indonésiens, malaisiens, arabes, libanais, égyptiens, marocains et persans. Souvent halal en Corée, mais demandez : certains achètent de la viande ordinaire."
+      },
+      "veg": {
+        "title": "Végétarien, végan et cuisine de temple",
+        "desc": "Aucune viande. La cuisine de temple (사찰음식) exclut aussi l’ail et l’oignon. Demandez s’il y a du vin de cuisine dans les sauces."
+      },
+      "chains": {
+        "title": "Plats sans viande des chaînes",
+        "desc": "Burgers végétaux, pizzas au fromage et aux légumes, bouillies de riz et salades, vérifiés sur la liste officielle des allergènes de chaque chaîne."
+      },
+      "sea": {
+        "title": "Fruits de mer : poisson cru, sushi, poisson grillé, ragoûts de la mer",
+        "desc": "Le poisson ne demande pas d’abattage, c’est pourquoi beaucoup de musulmans mangent dans les restaurants de fruits de mer. Les hanafites ne mangent que le poisson, pas les crevettes, coquillages ni calmars. Demandez pour le mirin, le soju et le bouillon de viande des ragoûts."
+      },
+      "korean": {
+        "title": "Plats coréens sans viande",
+        "desc": "Bibimbap sans viande, galette aux fruits de mer, ragoût de tofu aux fruits de mer, soupe de nouilles aux palourdes, nouilles froides au lait de soja, gimbap aux légumes sans jambon et bouillie de riz. Voir les plats ci-dessous."
+      },
+      "bakery": {
+        "title": "Boulangeries et desserts",
+        "desc": "Le pain est en général sans problème. Vérifiez les garnitures et desserts : gélatine (젤라틴), saindoux (라드) et alcool (술)."
+      },
+      "mart": {
+        "title": "Épiceries halal",
+        "desc": "Les épiceries halal (할랄마트) vendent de la viande certifiée et des plats préparés, certaines ont une petite cuisine. Activez le filtre « {filter} » pour les voir."
+      }
+    }
   },
   "dish": {
     "samgyeopsal": "Poitrine de porc grillée",

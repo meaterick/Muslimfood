@@ -35,6 +35,8 @@ const PIN = {
   // Meat-free alternatives: a rounded square with a leaf, so they never read as halal.
   V: { fill: '#4B8A2B', glyph: '#FFFFFF', square: true, icon: 'leaf' },
   M: { fill: '#FFFFFF', glyph: '#3F7A22', ring: '#4B8A2B', square: true, icon: 'leaf' },
+  // Seafood restaurants: an alternative too, so also a square, in sea blue with a fish.
+  S: { fill: '#FFFFFF', glyph: '#17577E', ring: '#2470A0', square: true, icon: 'fish' },
   P: { fill: '#2346A0', glyph: '#FFFFFF' },
 };
 
@@ -57,7 +59,8 @@ function shapePath(ctx, cx, cy, r, square) {
 
 const EMPTY = { type: 'FeatureCollection', features: [] };
 
-const IS_VEG = ['in', ['get', 's'], ['literal', ['V', 'M']]];
+// Alternatives to halal food (meat-free and seafood): smaller and unnamed when zoomed out.
+const IS_VEG = ['in', ['get', 's'], ['literal', ['V', 'M', 'S']]];
 // Names of halal places from zoom 13.5, every name from zoom 15.
 const LABEL_FILTER = ['all', ['!', ['has', 'point_count']], ['any', ['>=', ['zoom'], 15], ['!', IS_VEG]]];
 
@@ -165,7 +168,8 @@ function drawPin(id) {
 }
 
 function drawCluster(id) {
-  // id = cl-<label>-<g|v|u|s>: halal / vegetarian only (square, like its markers) / unconfirmed / summary
+  // id = cl-<label>-<g|v|w|u|s>: halal / vegetarian only / seafood only (squares,
+  // like their markers) / unconfirmed / summary
   const parts = id.split('-');
   const kind = parts.pop();
   const label = parts.slice(1).join('-');
@@ -178,13 +182,21 @@ function drawCluster(id) {
   const ctx = c.getContext('2d');
   ctx.scale(ratio, ratio);
   const cx = size / 2;
-  const square = kind === 'v';
+  const square = kind === 'v' || kind === 'w';
   shapePath(ctx, cx, cx, r + 4, square);
   ctx.fillStyle =
-    kind === 'u' ? 'rgba(122, 128, 140, 0.30)' : kind === 's' ? 'rgba(35, 70, 160, 0.25)' : kind === 'v' ? 'rgba(75, 138, 43, 0.30)' : 'rgba(30, 123, 79, 0.30)';
+    kind === 'u'
+      ? 'rgba(122, 128, 140, 0.30)'
+      : kind === 's'
+        ? 'rgba(35, 70, 160, 0.25)'
+        : kind === 'v'
+          ? 'rgba(75, 138, 43, 0.30)'
+          : kind === 'w'
+            ? 'rgba(36, 112, 160, 0.28)'
+            : 'rgba(30, 123, 79, 0.30)';
   ctx.fill();
   shapePath(ctx, cx, cx, r, square);
-  ctx.fillStyle = kind === 'u' ? '#5E6573' : kind === 's' ? '#14233F' : kind === 'v' ? '#4B8A2B' : '#1E7B4F';
+  ctx.fillStyle = { u: '#5E6573', s: '#14233F', v: '#4B8A2B', w: '#2470A0' }[kind] || '#1E7B4F';
   ctx.fill();
   ctx.lineWidth = 2;
   ctx.strokeStyle = '#FFFFFF';
@@ -343,6 +355,7 @@ export class MapView {
       clusterProperties: {
         halal: ['+', ['case', ['in', ['get', 's'], ['literal', ['C', 'O', 'Y', 'F', 'L']]], 1, 0]],
         veg: ['+', ['case', ['in', ['get', 's'], ['literal', ['V', 'M']]], 1, 0]],
+        sea: ['+', ['case', ['==', ['get', 's'], 'S'], 1, 0]],
       },
     });
     add('mf-prayer', { type: 'geojson', data: this.data.prayer });
@@ -377,7 +390,12 @@ export class MapView {
       minzoom: DETAIL_ZOOM,
       filter: ['has', 'point_count'],
       layout: {
-        'icon-image': ['concat', 'cl-', abbrev(['get', 'point_count']), ['case', ['>', ['get', 'halal'], 0], '-g', ['>', ['get', 'veg'], 0], '-v', '-u']],
+        'icon-image': [
+          'concat',
+          'cl-',
+          abbrev(['get', 'point_count']),
+          ['case', ['>', ['get', 'halal'], 0], '-g', ['>', ['get', 'veg'], 0], '-v', ['>', ['get', 'sea'], 0], '-w', '-u'],
+        ],
         'icon-allow-overlap': true,
         'icon-ignore-placement': true,
       },

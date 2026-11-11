@@ -139,7 +139,7 @@ function speak(text) {
 function levelRow(s, kind = 'r') {
   const label = s === 'P' ? t('prayer.mosque') : t(`status.${s}`);
   const desc = s === 'U' ? t('status.desc.Ucuisine') : s === 'P' ? t('cat.p') : t(`status.desc.${s}`);
-  const glyph = s === 'P' ? 'prayer' : s === 'V' || s === 'M' ? 'leaf' : kind === 'r' ? 'restaurant' : kind;
+  const glyph = s === 'P' ? 'prayer' : s === 'S' ? 'fish' : s === 'V' || s === 'M' ? 'leaf' : kind === 'r' ? 'restaurant' : kind;
   return `<li class="level"><span class="mark s-${s}" aria-hidden="true">${icon(glyph)}</span><div><strong>${esc(label)}</strong><p>${esc(desc)}</p></div></li>`;
 }
 
@@ -147,6 +147,31 @@ function dishList(items) {
   return `<ul class="dish-list">${items
     .map((d) => `<li><span class="dish-ko" lang="ko">${esc(d.ko)}<span class="dish-rr" lang="en">${esc(d.rr)}</span></span><span class="dish-desc">${esc(t(`dish.${d.id}`))}</span></li>`)
     .join('')}</ul>`;
+}
+
+// Kinds of food Muslims can eat, each with the "Show" choice that puts it on the map.
+const KINDS = [
+  { id: 'halal', mark: 's-C', glyph: 'restaurant', show: 'halal' },
+  { id: 'cuisine', mark: 's-U', glyph: 'restaurant', show: 'halal' },
+  { id: 'veg', mark: 's-V', glyph: 'leaf', show: 'veg' },
+  { id: 'chains', mark: 's-M', glyph: 'leaf', show: 'veg' },
+  { id: 'sea', mark: 's-S', glyph: 'fish', show: 'sea' },
+  { id: 'korean', mark: 's-M', glyph: 'restaurant', show: null },
+  { id: 'bakery', mark: 's-U', glyph: 'cafe', show: null },
+  { id: 'mart', mark: 's-Y', glyph: 'market', show: null },
+];
+
+function kindsHtml() {
+  return `<h3 class="kinds-title">${esc(t('guide.kindsTitle'))}</h3>
+    <p>${esc(t('guide.kindsIntro'))}</p>
+    <ul class="food-kinds">${KINDS.map(
+      (k) => `<li class="food-kind">
+        <span class="mark ${k.mark}" aria-hidden="true">${icon(k.glyph)}</span>
+        <div><strong>${esc(t(`guide.kinds.${k.id}.title`))}</strong><p>${esc(t(`guide.kinds.${k.id}.desc`, { filter: t('filter.cat.m') }))}</p>${
+          k.show ? `<button type="button" class="link-btn" data-show="${k.show}">${esc(t('guide.kindsShow'))}${icon('back', 'chev')}</button>` : ''
+        }</div>
+      </li>`,
+    ).join('')}</ul>`;
 }
 
 const DIET_KEY = { v: 'diet.v', l: 'diet.l', o: 'diet.o', lo: 'diet.lo', veg: 'diet.veg' };
@@ -211,11 +236,13 @@ export function renderGuide(tab = 'levels', center = null) {
       <ul class="level-list">${['C', 'O', 'Y', 'F', 'L', 'U'].map((s) => levelRow(s)).join('')}${levelRow('P')}</ul>
       <h3 class="level-sub">${esc(t('guide.vegTitle'))}</h3>
       <p>${esc(t('guide.vegIntro'))}</p>
-      <ul class="level-list">${levelRow('V')}${levelRow('M')}</ul>
+      <ul class="level-list">${levelRow('V')}${levelRow('M')}${levelRow('S')}</ul>
       <div class="callout"><h3>${esc(t('guide.ktoTitle'))}</h3><p>${esc(t('guide.ktoBody'))}</p>
         <p><a href="${KTO_PDF}" target="_blank" rel="noopener">${esc(t('guide.ktoLink'))}</a></p></div>`;
   } else if (tab === 'food') {
-    html = `<p>${esc(t('guide.foodIntro'))}</p>
+    html = `${kindsHtml()}
+      <h3 class="dish-group-title">${esc(t('guide.dishesTitle'))}</h3>
+      <p>${esc(t('guide.foodIntro'))}</p>
       <h3 class="dish-group avoid"><span class="dot" aria-hidden="true"></span>${esc(t('guide.avoidTitle'))}</h3>${dishList(DISHES.avoid)}
       <h3 class="dish-group hidden-ing"><span class="dot" aria-hidden="true"></span>${esc(t('guide.hiddenTitle'))}</h3>${dishList(DISHES.hidden)}
       <h3 class="dish-group safer"><span class="dot" aria-hidden="true"></span>${esc(t('guide.saferTitle'))}</h3>${dishList(DISHES.safer)}
@@ -245,7 +272,7 @@ export function renderGuide(tab = 'levels', center = null) {
   body.scrollTop = 0;
 }
 
-export function initGuide(getCenter) {
+export function initGuide(getCenter, { onShow = () => {} } = {}) {
   const tabs = document.getElementById('guide-tabs');
   const body = document.getElementById('guide-body');
   tabs.addEventListener('click', (e) => {
@@ -272,6 +299,13 @@ export function initGuide(getCenter) {
     }
   });
   body.addEventListener('click', (e) => {
+    const show = e.target.closest('[data-show]');
+    if (show) {
+      track(`guide/show-${show.dataset.show}`);
+      document.getElementById('guide').close();
+      onShow(show.dataset.show);
+      return;
+    }
     const phrase = e.target.closest('[data-phrase]');
     const sp = e.target.closest('[data-speak]');
     if (sp) {

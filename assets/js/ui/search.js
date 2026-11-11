@@ -58,7 +58,7 @@ export function stationLabel(st) {
   return lang() === 'ko' || !st.en ? `${st.ko}역` : t('search.stationName', { station: st.en });
 }
 
-export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPlace, onKeyword = () => {}, onClear = () => {}, onNoResults = () => {} }) {
+export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPlace, onKeyword = () => {}, onSeafood = () => {}, onClear = () => {}, onNoResults = () => {} }) {
   let options = [];
   let active = -1;
   let ctrl = null;
@@ -216,6 +216,13 @@ export function initSearch({ form, input, clearBtn, box, getCenter, onArea, onPl
     const plan = planSearch(q, { areas: ALL_AREAS, stations: store.stations, places: [...allPlaces()], center: getCenter() });
     if (plan.kind === 'location') return goLocation(plan.loc);
     if (plan.kind === 'place') return openPlace(plan.place);
+    if (plan.kind === 'seafood') {
+      close();
+      input.blur();
+      clearBtn.hidden = false;
+      const target = plan.loc ? locTarget(plan.loc) : null;
+      return onSeafood({ query: q, target });
+    }
     if (plan.kind === 'keyword') {
       close();
       input.blur();

@@ -87,7 +87,8 @@
     "queryGeocode": "Search as address",
     "queryEmpty": "No results for “{q}” in this part of the map.",
     "queryNearest": "Show the nearest results",
-    "showNearest": "Show the nearest places"
+    "showNearest": "Show the nearest places",
+    "seaSection": "Seafood restaurants"
   },
   "filter": {
     "label": "Filters",
@@ -107,7 +108,9 @@
       "c": "Cafés & bakeries",
       "m": "Markets & butchers",
       "o": "Other"
-    }
+    },
+    "showSea": "Halal + seafood",
+    "showEvery": "Everything (incl. seafood)"
   },
   "status": {
     "C": "Halal certified",
@@ -131,8 +134,11 @@
       "V": "Everything on the menu is vegetarian: no meat or fish, though dairy and eggs may be used. Not halal-certified: ask about alcohol in sauces, such as cooking wine.",
       "VV": "Everything on the menu is vegan: no meat, fish, dairy or eggs. Not halal-certified: ask about alcohol in sauces, such as cooking wine.",
       "M": "Serves some vegetarian dishes, but meat is cooked here too, so pans and oil may be shared. Not halal-certified.",
-      "MV": "Serves some vegan dishes, but meat is cooked here too, so pans and oil may be shared. Not halal-certified."
-    }
+      "MV": "Serves some vegan dishes, but meat is cooked here too, so pans and oil may be shared. Not halal-certified.",
+      "S": "A seafood restaurant: raw fish, sushi, grilled fish or shellfish. Fish needs no slaughter, but this place is not halal-certified. Followers of the Hanafi school eat fish only, not shrimp, shellfish or squid. Ask about cooking wine (mirin, soju) and meat broth in stews.",
+      "Vname": "Its name says vegan, vegetarian or temple food, so most or all of the menu should be meat-free. Not halal-certified: ask about alcohol in sauces, such as cooking wine."
+    },
+    "S": "Seafood"
   },
   "diet": {
     "v": "Vegan",
@@ -150,7 +156,9 @@
     "bonjuk": "The official allergen list (October 2026) shows no meat, milk or egg in these porridges, not even as cross-contact. Other porridges such as the vegetable porridge contain beef.",
     "pizzaschool": "The allergen lists on the official menu pages show milk, soy, wheat, tomato and egg, and no meat. Other pizzas, such as the truffle potato, contain ham.",
     "pizzamaru": "The official allergen list (January 2026) shows milk, soy, wheat and tomato and no meat for these pizzas with the regular crust. Special crusts can add egg or shrimp.",
-    "starbucks": "The allergen information on the official product pages lists soy, milk and wheat (and tomato), and no meat. Other sandwiches, even ones with vegetable names, contain ham."
+    "starbucks": "The allergen information on the official product pages lists soy, milk and wheat (and tomato), and no meat. Other sandwiches, even ones with vegetable names, contain ham.",
+    "mrpizza": "The official allergen and origin tables list no meat for these two pizzas; the Double Cheese has egg. Bacon, pepperoni and the meat toppings are on the other pizzas.",
+    "pizza7th": "The official allergen table lists wheat, soy and milk for the gorgonzola pizza (egg with the gold sweet crust). Its double cheese pizzas list chicken."
   },
   "cat": {
     "r": "Restaurant",
@@ -325,7 +333,45 @@
     "cardLanguage": "Card language",
     "fullscreen": "Show full screen",
     "exitFullscreen": "Close",
-    "listen": "Play the Korean audio"
+    "listen": "Play the Korean audio",
+    "kindsTitle": "What Muslims can eat in Korea",
+    "kindsIntro": "From the surest choice to the ones where you should ask first.",
+    "kindsShow": "Show on the map",
+    "dishesTitle": "Korean dishes",
+    "kinds": {
+      "halal": {
+        "title": "Halal-certified and Muslim-run restaurants",
+        "desc": "A certificate, an all-halal kitchen or a halal menu. The surest choice."
+      },
+      "cuisine": {
+        "title": "Food from Muslim countries",
+        "desc": "Turkish kebab, Uzbek and Central Asian, Pakistani, Bangladeshi, Afghan, Indonesian, Malaysian, Arab, Lebanese, Egyptian, Moroccan and Persian restaurants. Usually halal in Korea, but ask: some buy ordinary meat."
+      },
+      "veg": {
+        "title": "Vegetarian, vegan and temple food",
+        "desc": "No meat at all. Temple food (사찰음식) also leaves out garlic and onion. Ask about cooking wine in sauces."
+      },
+      "chains": {
+        "title": "Meat-free dishes at chains",
+        "desc": "Plant-based burgers, cheese and vegetable pizzas, porridge and salads, checked against each chain’s official allergen list."
+      },
+      "sea": {
+        "title": "Seafood: raw fish, sushi, grilled fish, seafood stews",
+        "desc": "Fish needs no slaughter, so many Muslims eat at seafood restaurants. Hanafi followers eat fish only, not shrimp, shellfish or squid. Ask about mirin, soju and meat broth in stews."
+      },
+      "korean": {
+        "title": "Korean dishes without meat",
+        "desc": "Bibimbap without meat, seafood pancake, seafood tofu stew, clam noodle soup, cold soybean noodles, vegetable gimbap without ham and porridge. See the dishes below."
+      },
+      "bakery": {
+        "title": "Bakeries and desserts",
+        "desc": "Bread is usually fine. Check fillings and desserts for gelatin (젤라틴), lard (라드) and liquor (술)."
+      },
+      "mart": {
+        "title": "Halal marts",
+        "desc": "Halal grocers (할랄마트) sell certified meat and ready meals, and some have a small kitchen. Turn on the “{filter}” filter to see them."
+      }
+    }
   },
   "dish": {
     "samgyeopsal": "Grilled pork belly",

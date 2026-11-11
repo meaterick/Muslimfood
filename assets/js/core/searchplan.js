@@ -2,7 +2,11 @@
 // open one restaurant, show every match on the map, or ask the geocoder.
 // Pure functions, shared by the search box and the tests.
 
-import { normText, matchesQuery, allNames } from './text.js';
+import { normText, matchesQuery, allNames, SEA_WORDS } from './text.js';
+
+const SEA_KEYS = new Set(SEA_WORDS.map((w) => normText(w)));
+/** Is this text a word for seafood ("회", "초밥", "seafood")? */
+export const isSeafoodWord = (text) => SEA_KEYS.has(normText(text));
 
 /** A place name without spaces, accents or the "역" / "Station" suffix. */
 export function locationKey(s) {
@@ -88,6 +92,7 @@ const inName = (p, q) => matchesQuery({ n: p.n, nl: p.nl }, q);
  *   { kind: 'location', loc }                  go there and drop a pin
  *   { kind: 'place', place }                   open this restaurant
  *   { kind: 'keyword', text, matches, loc }    show the matches (near loc, if given)
+ *   { kind: 'seafood', loc }                   show seafood restaurants (around loc)
  *   { kind: 'geocode', fallback }              nothing local: ask the geocoder
  *                                              (fallback: a location named in the query)
  */
@@ -97,6 +102,10 @@ export function planSearch(query, { areas = [], stations = [], places = [], cent
   const locate = (text) => findLocations(text, areas, stations, { center }).exact[0] || null;
   const loc = locate(q);
   if (loc) return { kind: 'location', loc };
+  // "seafood", "명동 회", "sushi gangnam": seafood restaurants (a layer of their own).
+  if (isSeafoodWord(q)) return { kind: 'seafood', loc: null };
+  const seaSplit = splitQuery(q, locate);
+  if (seaSplit && isSeafoodWord(seaSplit.keyword)) return { kind: 'seafood', loc: seaSplit.loc };
 
   const list = Array.isArray(places) ? places : [...places];
   const find = (text) => list.filter((p) => p.n && matchesQuery(p, text));

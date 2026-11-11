@@ -183,14 +183,38 @@ async function main() {
   // Write output
   const tzOf = await tzLookupFn();
   const cellsDir = path.join(OUT, 'cells');
+  const seaDir = path.join(OUT, 'sea');
   await rm(cellsDir, { recursive: true, force: true });
+  await rm(seaDir, { recursive: true, force: true });
   await mkdir(cellsDir, { recursive: true });
 
   const index = {};
-  const stats = { food: 0, prayer: 0, byStatus: {}, bySource: {}, korea: { food: 0, prayer: 0 } };
+  const seaIndex = {};
+  const stats = { food: 0, prayer: 0, sea: 0, byStatus: {}, bySource: {}, korea: { food: 0, prayer: 0 } };
   let bytes = 0;
-  for (const [key, list] of [...byCell.entries()].sort()) {
-    list.sort((a, b) => (a.id < b.id ? -1 : 1));
+  let seaBytes = 0;
+  for (const [key, all] of [...byCell.entries()].sort()) {
+    all.sort((a, b) => (a.id < b.id ? -1 : 1));
+    // Seafood restaurants go to their own files, loaded only when the visitor
+    // asks for seafood: there are five times as many as everything else.
+    const sea = all.filter((p) => p.s === 'S' && p.k !== 'p');
+    const list = sea.length ? all.filter((p) => !(p.s === 'S' && p.k !== 'p')) : all;
+    if (sea.length) {
+      for (const p of sea) {
+        compact(p);
+        if (p.srcs && p.srcs.length < 2) delete p.srcs;
+        delete p.src; // all from the store registry; the index says so
+      }
+      await mkdir(seaDir, { recursive: true });
+      const json = JSON.stringify(sea);
+      seaBytes += json.length;
+      await writeFile(path.join(seaDir, `${key}.json`), json);
+      const my = sea.reduce((a, p) => a + p.y, 0) / sea.length;
+      const mx = sea.reduce((a, p) => a + p.x, 0) / sea.length;
+      seaIndex[key] = [sea.length, +my.toFixed(4), +mx.toFixed(4)];
+      stats.sea += sea.length;
+    }
+    if (!list.length) continue;
     const food = list.filter((p) => p.k !== 'p');
     const prayer = list.length - food.length;
     for (const p of list) {
@@ -242,6 +266,8 @@ async function main() {
     })),
     // cell key -> [food count, mean lat, mean lon, time zone or 0, prayer count]
     cells: index,
+    // cell key -> [seafood restaurants, mean lat, mean lon] in data/sea/<key>.json
+    sea: seaIndex,
   };
   await writeFile(path.join(OUT, 'index.json'), JSON.stringify(out));
   // Keep the previous station list when this run could not download one.
@@ -255,6 +281,7 @@ async function main() {
     `wrote ${Object.keys(index).length} cells, ${stats.food} food places, ${stats.prayer} prayer places ` +
       `(${(bytes / 1024).toFixed(0)} KiB) in ${((Date.now() - started) / 1000).toFixed(1)}s`,
   );
+  if (stats.sea) log(`seafood: ${stats.sea} restaurants in ${Object.keys(seaIndex).length} files (${(seaBytes / 1024).toFixed(0)} KiB)`);
   log(`by status: ${JSON.stringify(stats.byStatus)}; Korea: ${JSON.stringify(stats.korea)}`);
   log(`sources: ${JSON.stringify(sourceStats)}`);
 

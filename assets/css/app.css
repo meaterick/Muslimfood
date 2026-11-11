@@ -25,6 +25,9 @@
   --leaf: #4b8a2b;
   --leaf-soft: #e9f3df;
   --leaf-ink: #36661c;
+  --sea: #2470a0;
+  --sea-soft: #e3eef6;
+  --sea-ink: #17577e;
   --on-leaf: #ffffff;
   --saffron: #d99a1c;
   --saffron-ink: #8a5d00;
@@ -71,6 +74,9 @@
   --leaf: #8cc85b;
   --leaf-soft: #1d2f16;
   --leaf-ink: #9cd36b;
+  --sea: #5fa8d8;
+  --sea-soft: #12293b;
+  --sea-ink: #8cc4ea;
   --on-leaf: #0e1726;
   --saffron: #e7b149;
   --saffron-ink: #f0c56d;
@@ -109,6 +115,9 @@
     --leaf: #8cc85b;
     --leaf-soft: #1d2f16;
     --leaf-ink: #9cd36b;
+  --sea: #5fa8d8;
+  --sea-soft: #12293b;
+  --sea-ink: #8cc4ea;
     --on-leaf: #0e1726;
     --saffron: #e7b149;
     --saffron-ink: #f0c56d;
@@ -590,6 +599,12 @@ a {
   border: 1.5px dashed var(--stone);
 }
 
+.legend-dot.s-S {
+  background: var(--paper);
+  border: 2px solid var(--sea);
+  border-radius: 3px;
+}
+
 .legend-dot.s-V {
   background: var(--leaf);
   border-radius: 3px;
@@ -761,6 +776,13 @@ a {
   border-radius: 11px;
 }
 
+.mark.s-S {
+  background: var(--paper);
+  color: var(--sea-ink);
+  border-radius: 11px;
+  border: 2.5px solid var(--sea);
+}
+
 .mark.s-M {
   background: var(--paper);
   color: var(--leaf-ink);
@@ -858,6 +880,12 @@ a {
 .badge.s-V {
   background: var(--leaf-soft);
   color: var(--leaf-ink);
+}
+
+.badge.s-S {
+  background: transparent;
+  color: var(--sea-ink);
+  border: 1.5px solid var(--sea);
 }
 
 .badge.s-M {
@@ -1317,6 +1345,11 @@ a {
 .status-card.s-P {
   background: var(--lapis-soft);
   border-color: var(--lapis);
+}
+
+.status-card.s-S {
+  background: var(--sea-soft);
+  border-color: var(--sea);
 }
 
 .status-card.s-V,
@@ -2024,9 +2057,60 @@ a {
   border-bottom: 0;
 }
 
+/* kinds of food Muslims can eat (guide) */
+.kinds-title,
+.dish-group-title {
+  margin: 4px 0 6px;
+  font-size: 17px;
+}
+
+.dish-group-title {
+  margin-top: 28px;
+}
+
+.food-kinds {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.food-kind {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.food-kind .mark {
+  width: 30px;
+  height: 30px;
+}
+
+.food-kind .mark .ic {
+  width: 17px;
+  height: 17px;
+}
+
+.food-kind .mark.s-V,
+.food-kind .mark.s-M,
+.food-kind .mark.s-S {
+  border-radius: 8px;
+}
+
+.food-kind p {
+  margin-top: 3px;
+  color: var(--ink-2);
+  font-size: 14px;
+}
+
 .chain-list a {
   display: inline-block;
   margin-top: 8px;
+}
+
+.list-divider.sea {
+  color: var(--sea-ink);
 }
 
 .list-divider {

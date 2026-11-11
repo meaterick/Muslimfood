@@ -230,16 +230,46 @@ export function dedupeOsm(places) {
 }
 
 /** Merge one non-OSM place, de-duplicating against nearby places. Returns true when added. */
+// Places near a point, from a grid of about 220 m kept next to byCell: merging
+// 50,000 seafood restaurants against whole 1° cells would take minutes.
+const FINE = 0.002;
+const fineKey = (y, x) => `${Math.floor(y / FINE)}:${Math.floor(x / FINE)}`;
+const indexes = new WeakMap();
+
+function fineIndex(byCell) {
+  let idx = indexes.get(byCell);
+  if (!idx) {
+    idx = { grid: new Map(), size: 0 };
+    indexes.set(byCell, idx);
+  }
+  // Pick up places added to byCell by other steps since the last call.
+  const size = [...byCell.values()].reduce((n, l) => n + l.length, 0);
+  if (size !== idx.size) {
+    idx.grid.clear();
+    for (const list of byCell.values()) for (const p of list) indexAdd(idx, p);
+    idx.size = size;
+  }
+  return idx;
+}
+
+function indexAdd(idx, p) {
+  const k = fineKey(p.y, p.x);
+  if (!idx.grid.has(k)) idx.grid.set(k, []);
+  idx.grid.get(k).push(p);
+}
+
+function nearby(idx, y, x) {
+  const cy = Math.floor(y / FINE);
+  const cx = Math.floor(x / FINE);
+  const out = [];
+  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) out.push(...(idx.grid.get(`${cy + i}:${cx + j}`) || []));
+  return out;
+}
+
 export function mergeInto(byCell, place, sourceKey) {
   const key = cellKey(place.y, place.x);
-  const [cy, cx] = key.split('_').map(Number);
-  const candidates = [];
-  for (const dy of [-CELL_SIZE, 0, CELL_SIZE]) {
-    for (const dx of [-CELL_SIZE, 0, CELL_SIZE]) {
-      const list = byCell.get(`${cy + dy}_${cx + dx}`);
-      if (list) candidates.push(...list);
-    }
-  }
+  const idx = fineIndex(byCell);
+  const candidates = nearby(idx, place.y, place.x);
   const sameChain = (o) => o.b === place.b && o.src !== sourceKey && distance(o.y, o.x, place.y, place.x) < CHAIN_MERGE_M;
   let bySound = false;
   const same = candidates.find((o) => {
@@ -247,6 +277,12 @@ export function mergeInto(byCell, place, sourceKey) {
     // are next to each other; from two sources they are the same shop,
     // whatever each source calls it ("Lotteria" / "롯데리아 강남역점").
     if (o.b && place.b) return sameChain(o);
+    // A chain branch and a place of another source are one shop only when that
+    // place is called after the chain too: "연지식당" is not "롯데리아 연지점".
+    if (o.b || place.b) {
+      const other = o.b ? place : o;
+      if (matchBrand(other.n)?.id !== (o.b || place.b)) return false;
+    }
     if ((o.k === 'p') !== (place.k === 'p')) return false;
     const d = distance(o.y, o.x, place.y, place.x);
     if (d >= MERGE_RADIUS_M) return false;
@@ -262,7 +298,10 @@ export function mergeInto(byCell, place, sourceKey) {
     return false;
   }
   if (!byCell.has(key)) byCell.set(key, []);
-  byCell.get(key).push({ ...place, src: sourceKey });
+  const added = { ...place, src: sourceKey };
+  byCell.get(key).push(added);
+  indexAdd(idx, added);
+  idx.size++;
   return true;
 }
 
@@ -303,7 +342,7 @@ export function applyBrand(place) {
 /** Merge local source files: official lists first, unconfirmed hints last. */
 export function mergeSources(byCell, sources) {
   // Halal lists first, then meat-free lists, unconfirmed hints last.
-  const order = (s) => (s.status === 'U' ? 3 : s.status === 'F' ? 0 : MEAT_FREE.has(s.status) ? 2 : 1);
+  const order = (s) => (s.status === 'S' ? 4 : s.status === 'U' ? 3 : s.status === 'F' ? 0 : MEAT_FREE.has(s.status) ? 2 : 1);
   const stats = [];
   for (const src of [...sources].sort((a, b) => order(a) - order(b))) {
     let added = 0;
@@ -321,6 +360,7 @@ export function mergeSources(byCell, sources) {
 
 /** Compact search rows with coordinates for loading the matching cell on selection. */
 export function searchRecords(places) {
-  return places.filter((p) => p.n && p.k !== 'p').map(({ id, n, nl, y, x, k, s, dv, a, cu, mn, ml, b }) =>
+  // Seafood restaurants (about 50,000) are left out; they are searched once loaded.
+  return places.filter((p) => p.n && p.k !== 'p' && p.s !== 'S').map(({ id, n, nl, y, x, k, s, dv, a, cu, mn, ml, b }) =>
     ({ id, n, nl, y, x, k, s, dv, a, cu, mn, ml, b }));
 }

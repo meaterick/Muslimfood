@@ -84,7 +84,8 @@
     "queryGeocode": "Cari sebagai alamat",
     "queryEmpty": "Tidak ada hasil untuk “{q}” di bagian peta ini.",
     "queryNearest": "Tampilkan hasil terdekat",
-    "showNearest": "Tampilkan tempat terdekat"
+    "showNearest": "Tampilkan tempat terdekat",
+    "seaSection": "Restoran makanan laut"
   },
   "filter": {
     "label": "Filter",
@@ -104,7 +105,9 @@
       "c": "Kafe & toko roti",
       "m": "Toko & tukang daging",
       "o": "Lainnya"
-    }
+    },
+    "showSea": "Halal + makanan laut",
+    "showEvery": "Semua (termasuk makanan laut)"
   },
   "status": {
     "C": "Bersertifikat halal",
@@ -128,8 +131,11 @@
       "V": "Semua menu vegetarian: tanpa daging atau ikan, tetapi mungkin memakai susu dan telur. Tidak bersertifikat halal: tanyakan alkohol dalam saus, seperti arak masak.",
       "VV": "Semua menu vegan: tanpa daging, ikan, susu, atau telur. Tidak bersertifikat halal: tanyakan alkohol dalam saus, seperti arak masak.",
       "M": "Menyajikan beberapa hidangan vegetarian, tetapi juga memasak daging, jadi peralatan dan minyak mungkin dipakai bersama. Tidak bersertifikat halal.",
-      "MV": "Menyajikan beberapa hidangan vegan, tetapi juga memasak daging, jadi peralatan dan minyak mungkin dipakai bersama. Tidak bersertifikat halal."
-    }
+      "MV": "Menyajikan beberapa hidangan vegan, tetapi juga memasak daging, jadi peralatan dan minyak mungkin dipakai bersama. Tidak bersertifikat halal.",
+      "S": "Restoran makanan laut: ikan mentah, sushi, ikan bakar, atau kerang. Ikan tidak perlu disembelih, tetapi tempat ini tidak bersertifikat halal. Pengikut mazhab Hanafi hanya makan ikan, bukan udang, kerang, atau cumi. Tanyakan arak masak (mirin, soju) dan kaldu daging dalam sup.",
+      "Vname": "Namanya menyebut vegan, vegetarian, atau makanan kuil, jadi sebagian besar atau semua menunya mungkin tanpa daging. Tidak bersertifikat halal: tanyakan alkohol dalam saus, seperti arak masak."
+    },
+    "S": "Makanan laut"
   },
   "diet": {
     "v": "Vegan",
@@ -147,7 +153,9 @@
     "bonjuk": "Daftar alergen resmi (Oktober 2026) menunjukkan bubur ini tanpa daging, susu, atau telur, bahkan dari kontaminasi silang. Bubur lain seperti bubur sayur berisi daging sapi.",
     "pizzaschool": "Info alergen di halaman menu resmi menunjukkan susu, kedelai, gandum, tomat, dan telur, tanpa daging. Pizza lain seperti truffle potato berisi ham.",
     "pizzamaru": "Daftar alergen resmi (Januari 2026) menunjukkan susu, kedelai, gandum, dan tomat, tanpa daging, untuk pizza ini dengan kulit biasa. Kulit spesial bisa menambah telur atau udang.",
-    "starbucks": "Info alergen di halaman produk resmi mencantumkan kedelai, susu, dan gandum (dan tomat), tanpa daging. Sandwich lain, bahkan yang bernama sayuran, berisi ham."
+    "starbucks": "Info alergen di halaman produk resmi mencantumkan kedelai, susu, dan gandum (dan tomat), tanpa daging. Sandwich lain, bahkan yang bernama sayuran, berisi ham.",
+    "mrpizza": "Tabel alergen dan asal bahan resmi tidak mencantumkan daging untuk kedua pizza ini; Double Cheese mengandung telur. Bacon, pepperoni, dan topping daging ada di pizza lain.",
+    "pizza7th": "Tabel alergen resmi mencantumkan gandum, kedelai, dan susu untuk pizza gorgonzola (telur dengan pinggiran gold sweet). Pizza double cheese mereka mengandung ayam."
   },
   "cat": {
     "r": "Restoran",
@@ -322,7 +330,45 @@
     "cardLanguage": "Bahasa kartu",
     "fullscreen": "Tampilkan layar penuh",
     "exitFullscreen": "Tutup",
-    "listen": "Putar suara bahasa Korea"
+    "listen": "Putar suara bahasa Korea",
+    "kindsTitle": "Yang bisa dimakan Muslim di Korea",
+    "kindsIntro": "Dari pilihan paling pasti hingga yang perlu ditanyakan dulu.",
+    "kindsShow": "Tampilkan di peta",
+    "dishesTitle": "Hidangan Korea",
+    "kinds": {
+      "halal": {
+        "title": "Restoran bersertifikat halal dan milik Muslim",
+        "desc": "Ada sertifikat, dapur yang semuanya halal, atau menu halal. Pilihan paling pasti."
+      },
+      "cuisine": {
+        "title": "Makanan dari negara Muslim",
+        "desc": "Restoran kebab Turki, Uzbek dan Asia Tengah, Pakistan, Bangladesh, Afganistan, Indonesia, Malaysia, Arab, Lebanon, Mesir, Maroko, dan Persia. Biasanya halal di Korea, tetapi tanyakan: ada yang membeli daging biasa."
+      },
+      "veg": {
+        "title": "Vegetarian, vegan, dan makanan kuil",
+        "desc": "Tanpa daging sama sekali. Makanan kuil (사찰음식) juga tanpa bawang putih dan bawang. Tanyakan arak masak dalam saus."
+      },
+      "chains": {
+        "title": "Menu tanpa daging di restoran waralaba",
+        "desc": "Burger nabati, piza keju dan sayur, bubur, dan salad, dicek dengan daftar alergen resmi setiap jaringan."
+      },
+      "sea": {
+        "title": "Makanan laut: ikan mentah, sushi, ikan bakar, sup makanan laut",
+        "desc": "Ikan tidak perlu disembelih, jadi banyak Muslim makan di restoran makanan laut. Pengikut Hanafi hanya makan ikan, bukan udang, kerang, atau cumi. Tanyakan mirin, soju, dan kaldu daging dalam sup."
+      },
+      "korean": {
+        "title": "Hidangan Korea tanpa daging",
+        "desc": "Bibimbap tanpa daging, pancake makanan laut, sup tahu makanan laut, mi kuah kerang, mi kacang kedelai dingin, gimbap sayur tanpa ham, dan bubur. Lihat daftar di bawah."
+      },
+      "bakery": {
+        "title": "Toko roti dan makanan penutup",
+        "desc": "Roti biasanya aman. Periksa isian dan makanan penutup dari gelatin (젤라틴), lemak babi (라드), dan minuman keras (술)."
+      },
+      "mart": {
+        "title": "Toko halal",
+        "desc": "Toko halal (할랄마트) menjual daging bersertifikat dan makanan siap saji, sebagian punya dapur kecil. Nyalakan filter “{filter}” untuk melihatnya."
+      }
+    }
   },
   "dish": {
     "samgyeopsal": "Perut babi panggang",

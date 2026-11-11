@@ -87,7 +87,8 @@
     "queryGeocode": "Adres olarak ara",
     "queryEmpty": "Haritanın bu bölümünde “{q}” için sonuç yok.",
     "queryNearest": "En yakın sonuçları göster",
-    "showNearest": "En yakın yerleri göster"
+    "showNearest": "En yakın yerleri göster",
+    "seaSection": "Deniz ürünleri restoranları"
   },
   "filter": {
     "label": "Filtreler",
@@ -107,7 +108,9 @@
       "c": "Kafeler ve fırınlar",
       "m": "Marketler ve kasaplar",
       "o": "Diğer"
-    }
+    },
+    "showSea": "Helal + deniz ürünleri",
+    "showEvery": "Hepsi (deniz ürünleri dahil)"
   },
   "status": {
     "C": "Helal sertifikalı",
@@ -131,8 +134,11 @@
       "V": "Menüdeki her şey vejetaryendir: et veya balık yoktur, ancak süt ürünleri ve yumurta kullanılabilir. Helal sertifikalı değildir: soslarda pişirme şarabı gibi alkol olup olmadığını sorun.",
       "VV": "Menüdeki her şey vegandır: et, balık, süt ürünü veya yumurta yoktur. Helal sertifikalı değildir: soslarda pişirme şarabı gibi alkol olup olmadığını sorun.",
       "M": "Bazı vejetaryen yemekler sunar, ancak burada et de pişirilir; tava ve yağ ortak kullanılabilir. Helal sertifikalı değildir.",
-      "MV": "Bazı vegan yemekler sunar, ancak burada et de pişirilir; tava ve yağ ortak kullanılabilir. Helal sertifikalı değildir."
-    }
+      "MV": "Bazı vegan yemekler sunar, ancak burada et de pişirilir; tava ve yağ ortak kullanılabilir. Helal sertifikalı değildir.",
+      "S": "Deniz ürünleri restoranı: çiğ balık, suşi, ızgara balık veya kabuklu deniz ürünleri. Balık kesim gerektirmez, ama burası helal sertifikalı değil. Hanefi mezhebine uyanlar yalnızca balık yer; karides, midye ve kalamar yemez. Pişirme şarabı (mirin, soju) ve güveçlerdeki et suyunu sorun.",
+      "Vname": "Adında vegan, vejetaryen veya tapınak yemeği geçiyor; menünün çoğu ya da tamamı etsiz olmalı. Helal sertifikalı değil: soslardaki alkolü, örneğin pişirme şarabını sorun."
+    },
+    "S": "Deniz ürünleri"
   },
   "diet": {
     "v": "Vegan",
@@ -150,7 +156,9 @@
     "bonjuk": "Resmî alerjen listesine (Ekim 2026) göre bu lapalarda et, süt ve yumurta yoktur; çapraz bulaşma da belirtilmemiştir. Sebze lapası gibi diğer lapalarda sığır eti vardır.",
     "pizzaschool": "Resmî menü sayfalarındaki alerjen bilgisinde süt, soya, buğday, domates ve yumurta var; et yok. Trüflü patatesli gibi diğer pizzalarda jambon vardır.",
     "pizzamaru": "Resmî alerjen listesine (Ocak 2026) göre normal hamurlu bu pizzalarda süt, soya, buğday ve domates var; et yok. Özel hamurlara yumurta veya karides eklenebilir.",
-    "starbucks": "Resmî ürün sayfalarındaki alerjen bilgisinde soya, süt ve buğday (ve domates) var; et yok. Sebze adı taşıyanlar dahil diğer sandviçlerde jambon vardır."
+    "starbucks": "Resmî ürün sayfalarındaki alerjen bilgisinde soya, süt ve buğday (ve domates) var; et yok. Sebze adı taşıyanlar dahil diğer sandviçlerde jambon vardır.",
+    "mrpizza": "Resmî alerjen ve menşe tablolarında bu iki pizza için et yok; Double Cheese yumurta içerir. Domuz pastırması, pepperoni ve et malzemeleri diğer pizzalarda.",
+    "pizza7th": "Resmî alerjen tablosunda gorgonzola pizza için buğday, soya ve süt yazıyor (gold sweet kenarla yumurta). Double cheese pizzalarında tavuk var."
   },
   "cat": {
     "r": "Restoran",
@@ -325,7 +333,45 @@
     "cardLanguage": "Kart dili",
     "fullscreen": "Tam ekran göster",
     "exitFullscreen": "Kapat",
-    "listen": "Korece sesi oynat"
+    "listen": "Korece sesi oynat",
+    "kindsTitle": "Kore’de Müslümanların yiyebilecekleri",
+    "kindsIntro": "En emin seçenekten önce sorulması gerekenlere doğru.",
+    "kindsShow": "Haritada göster",
+    "dishesTitle": "Kore yemekleri",
+    "kinds": {
+      "halal": {
+        "title": "Helal sertifikalı ve Müslümanların işlettiği restoranlar",
+        "desc": "Sertifika, tamamen helal mutfak veya helal menü. En emin seçenek."
+      },
+      "cuisine": {
+        "title": "Müslüman ülkelerin yemekleri",
+        "desc": "Türk kebabı, Özbek ve Orta Asya, Pakistan, Bangladeş, Afgan, Endonezya, Malezya, Arap, Lübnan, Mısır, Fas ve İran restoranları. Kore’de genellikle helal, ama sorun: bazıları sıradan et alıyor."
+      },
+      "veg": {
+        "title": "Vejetaryen, vegan ve tapınak yemekleri",
+        "desc": "Hiç et yok. Tapınak yemekleri (사찰음식) sarımsak ve soğan da kullanmaz. Soslardaki pişirme şarabını sorun."
+      },
+      "chains": {
+        "title": "Zincirlerde etsiz yemekler",
+        "desc": "Bitkisel burgerler, peynirli ve sebzeli pizzalar, lapalar ve salatalar; her zincirin resmî alerjen listesine göre kontrol edildi."
+      },
+      "sea": {
+        "title": "Deniz ürünleri: çiğ balık, suşi, ızgara balık, deniz ürünlü güveçler",
+        "desc": "Balık kesim gerektirmediği için birçok Müslüman deniz ürünleri restoranlarında yer. Hanefiler yalnızca balık yer; karides, midye ve kalamar yemez. Mirin, soju ve güveçlerdeki et suyunu sorun."
+      },
+      "korean": {
+        "title": "Etsiz Kore yemekleri",
+        "desc": "Etsiz bibimbap, deniz ürünlü krep, deniz ürünlü tofu güveci, midyeli erişte çorbası, soğuk soya sütlü erişte, jambonsuz sebzeli gimbap ve lapa. Aşağıdaki listeye bakın."
+      },
+      "bakery": {
+        "title": "Fırınlar ve tatlılar",
+        "desc": "Ekmek genellikle sorun değil. Dolgularda ve tatlılarda jelatin (젤라틴), domuz yağı (라드) ve alkol (술) olup olmadığına bakın."
+      },
+      "mart": {
+        "title": "Helal marketler",
+        "desc": "Helal marketler (할랄마트) sertifikalı et ve hazır yemek satar, bazılarının küçük bir mutfağı var. Görmek için “{filter}” filtresini açın."
+      }
+    }
   },
   "dish": {
     "samgyeopsal": "Izgara domuz karın eti",

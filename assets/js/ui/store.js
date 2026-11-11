@@ -17,6 +17,7 @@ export const store = {
   places: new Map(),
   aliases: new Map(),
   cells: new Map(), // key -> Promise
+  seaCells: new Map(), // key -> Promise (seafood restaurants, loaded on request)
   tz: new Map(),
   liveTiles: new Set(),
   prayerTiles: new Set(),
@@ -111,11 +112,34 @@ function loadCell(key) {
   return store.cells.get(key);
 }
 
-/** Make sure every prebuilt cell intersecting bbox is loaded. */
-export async function ensureArea(bbox, zoom) {
+function loadSeaCell(key) {
+  if (!store.seaCells.has(key)) {
+    const p = fetch(`data/sea/${key}.json`)
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then((list) => {
+        for (const place of list) add({ ...place, src: place.src || 'sbiz' });
+        store.version++;
+      })
+      .catch((err) => {
+        store.seaCells.delete(key);
+        throw err;
+      });
+    store.seaCells.set(key, p);
+  }
+  return store.seaCells.get(key);
+}
+
+/** Make sure every prebuilt cell intersecting bbox is loaded (with `sea`, the seafood files too). */
+export async function ensureArea(bbox, zoom, { sea = false } = {}) {
   const jobs = [];
   if (store.mode === 'static' && zoom >= DETAIL_ZOOM - 0.5) {
-    for (const key of cellsForBbox(bbox)) if (store.index.cells[key]) jobs.push(loadCell(key));
+    for (const key of cellsForBbox(bbox)) {
+      if (store.index.cells[key]) jobs.push(loadCell(key));
+      if (sea && store.index.sea?.[key]) jobs.push(loadSeaCell(key));
+    }
   }
   const results = await Promise.allSettled(jobs);
   const failed = results.filter((r) => r.status === 'rejected').length;
@@ -220,22 +244,25 @@ export function tzFor(p) {
 }
 
 /** Summary points for low zoom levels (one per data cell). */
-export function summaryGeoJSON() {
-  const features = [];
-  if (store.index) {
-    for (const [, v] of Object.entries(store.index.cells)) {
-      if (!v[0]) continue;
-      features.push({ type: 'Feature', geometry: { type: 'Point', coordinates: [v[2], v[1]] }, properties: { count: v[0] } });
-    }
-  }
+/** Index rows to count: food per cell, plus seafood when it is shown. */
+function summaryRows(sea) {
+  if (!store.index) return [];
+  const rows = Object.values(store.index.cells).map((v) => [v[0], v[1], v[2]]);
+  if (sea) rows.push(...Object.values(store.index.sea || {}));
+  return rows;
+}
+
+export function summaryGeoJSON({ sea = false } = {}) {
+  const features = summaryRows(sea)
+    .filter((v) => v[0])
+    .map((v) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [v[2], v[1]] }, properties: { count: v[0] } }));
   return { type: 'FeatureCollection', features };
 }
 
 /** Number of food places inside bbox according to the index (for zoomed-out views). */
-export function countInView(bbox) {
-  if (!store.index) return 0;
+export function countInView(bbox, { sea = false } = {}) {
   let n = 0;
-  for (const v of Object.values(store.index.cells)) if (inBbox(v[1], v[2], bbox)) n += v[0];
+  for (const v of summaryRows(sea)) if (inBbox(v[1], v[2], bbox)) n += v[0];
   return n;
 }
 

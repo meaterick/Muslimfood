@@ -121,6 +121,38 @@ export const BRANDS = [
     checked: '2026-11-09',
   },
   {
+    id: 'mrpizza',
+    name: { ko: '미스터피자', en: 'Mr. Pizza' },
+    match: ['미스터피자', 'MRPIZZA', 'MR.PIZZA', 'MR PIZZA'],
+    distinctive: true,
+    countries: ['KR'],
+    k: 'f',
+    cu: ['pizza'],
+    // Official allergen table: Double Cheese egg, milk, soy, wheat, tomato;
+    // Vegetarian milk, soy, wheat, tomato. The origin table lists no meat for
+    // either (it does for bacon, pepperoni and the meat toppings).
+    items: [
+      { n: '더블치즈', en: 'Double Cheese', d: 'lo' },
+      { n: '베지테리안', en: 'Vegetarian', d: 'l' },
+    ],
+    url: 'https://www.mrpizza.co.kr/sh_page/menuinfo.php?type=3',
+    checked: '2026-11-11',
+  },
+  {
+    id: 'pizza7th',
+    name: { ko: '7번가피자', en: '7th Street Pizza' },
+    match: ['7번가피자', '칠번가피자', '7번가 피자'],
+    distinctive: true,
+    countries: ['KR'],
+    k: 'f',
+    cu: ['pizza'],
+    // Official allergen table: gorgonzola wheat, soy, milk (plus egg with the
+    // gold sweet crust). Its double cheese pizzas list chicken, so they are not here.
+    items: [{ n: '고르곤졸라', en: 'Gorgonzola', d: 'l' }],
+    url: 'https://www.7thpizza.com/sub/menu/list.php?menuCate=6',
+    checked: '2026-11-11',
+  },
+  {
     id: 'starbucks',
     name: { ko: '스타벅스', en: 'Starbucks' },
     match: ['스타벅스', 'STARBUCKS'],

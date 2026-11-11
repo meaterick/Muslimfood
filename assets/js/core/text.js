@@ -46,6 +46,9 @@ const HALAL = new Set(['C', 'O', 'Y', 'F', 'L']);
 // Words people type when they look for meat-free food, in the UI languages.
 const VEG_WORDS = ['vegetarian', 'vegan', 'veggie', 'plant based', '채식', '비건', '식물성', 'végétarien', 'végane', 'vejetaryen', 'نباتي'];
 
+// Words for seafood, so "회", "초밥" or "seafood" find seafood restaurants.
+export const SEA_WORDS = ['seafood', 'fish', 'sushi', 'sashimi', '해산물', '생선', '횟집', '회', '초밥', '스시', 'poisson', 'fruits de mer', 'makanan laut', 'ikan', 'deniz ürünleri', 'balık', 'مأكولات بحرية', 'سمك'];
+
 // "halal" in the UI languages, so "할랄" or "حلال" finds every halal place.
 const HALAL_WORDS = ['halal', '할랄', 'حلال', 'helal'];
 
@@ -60,6 +63,7 @@ function searchFields(p) {
   fields = [...allNames(p), p.a, ...(p.cu || []), ...dishes].map(searchText).filter(Boolean);
   if (HALAL.has(p.s)) fields.push(...HALAL_WORDS.map(searchText));
   if (p.s === 'V' || p.s === 'M') fields.push(...VEG_WORDS.map(searchText));
+  if (p.s === 'S') fields.push(...SEA_WORDS.map(searchText));
   FIELDS.set(p, fields);
   return fields;
 }

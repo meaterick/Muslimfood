@@ -38,8 +38,10 @@ const NAME_LANGS = [...UI_LANGS, 'ja', 'zh'];
 
 // Strongest evidence first. A fully meat-free kitchen (V) ranks above an
 // unconfirmed halal hint (U); a normal kitchen with vegetarian dishes (M) last.
-export const STATUS_ORDER = { C: 0, O: 1, Y: 2, F: 3, L: 4, V: 5, U: 6, M: 7 };
+export const STATUS_ORDER = { C: 0, O: 1, Y: 2, F: 3, L: 4, V: 5, U: 6, M: 7, S: 8 };
 export const MEAT_FREE = new Set(['V', 'M']);
+// Alternatives to halal food: meat-free places and seafood restaurants (S).
+export const ALTERNATIVES = new Set(['V', 'M', 'S']);
 
 const AMENITY_CAT = {
   restaurant: 'r',

@@ -28,7 +28,7 @@ import { initDialogs, renderMenu, renderAbout, openGuide, initGuide, openDialog,
 import { AREAS, areaName, SEOUL_DEFAULT, TZ_START } from './ui/content.js';
 import { distance, padBbox, isInKorea, inBbox } from './core/geo.js';
 import { isOpenNow } from './core/hours.js';
-import { cuisineGroupOf, CUISINE_GROUP_KEYS, MEAT_FREE } from './core/normalize.js';
+import { cuisineGroupOf, CUISINE_GROUP_KEYS, MEAT_FREE, ALTERNATIVES } from './core/normalize.js';
 import { esc, matchesQuery } from './core/text.js';
 import { icon } from './ui/icons.js';
 import { track, trackPageview, initTracking } from './ui/analytics.js';
@@ -36,8 +36,12 @@ import { renderOwnerForm, voteHtml, handleVoteAction, refreshVoteCounts } from '
 
 const PAGE = 40;
 // "Show" choices: halal and vegetarian places, halal only, or vegetarian only.
-const SHOW = ['all', 'halal', 'veg'];
-const SHOW_ICON = { all: 'leaf', halal: 'restaurant', veg: 'leaf' };
+// "Show" choices: halal places with meat-free alternatives (default), halal
+// only, meat-free only, halal with seafood restaurants, and everything.
+const SHOW = ['all', 'halal', 'veg', 'sea', 'every'];
+const SHOW_ICON = { all: 'leaf', halal: 'restaurant', veg: 'leaf', sea: 'fish', every: 'menu' };
+/** Does the current choice include seafood restaurants (loaded separately)? */
+const showsSea = () => state.filters.show === 'sea' || state.filters.show === 'every';
 const savedShow = () => {
   const v = storage.get('show');
   return SHOW.includes(v) ? v : 'all';
@@ -166,9 +170,7 @@ function inQuery(p) {
 function passes(p, now, { ignoreConfirmed = false } = {}) {
   const f = state.filters;
   if (!inQuery(p)) return false;
-  if (f.show === 'halal' && MEAT_FREE.has(p.s)) return false;
-  // vegetarian: meat-free kitchens, places with vegetarian dishes, and halal places that have some
-  if (f.show === 'veg' && !MEAT_FREE.has(p.s) && !p.v) return false;
+  if (!showPasses(p, f.show)) return false;
   if (!ignoreConfirmed && f.confirmed && p.s === 'U') return false;
   if (f.cats.size && !f.cats.has(p.k)) return false;
   if (f.cuisine && !inCuisine(p, f.cuisine)) return false;
@@ -176,12 +178,28 @@ function passes(p, now, { ignoreConfirmed = false } = {}) {
   return true;
 }
 
+/** The "Show" choice for one place. */
+function showPasses(p, show) {
+  switch (show) {
+    case 'halal':
+      return !ALTERNATIVES.has(p.s);
+    // meat-free kitchens, places with vegetarian dishes, and halal places that have some
+    case 'veg':
+      return MEAT_FREE.has(p.s) || Boolean(p.v);
+    case 'sea':
+      return p.s === 'S' || !ALTERNATIVES.has(p.s);
+    case 'every':
+      return true;
+    default:
+      return p.s !== 'S';
+  }
+}
+
 /** The same filters for rows of the search catalog (no opening hours there). */
 function rowPasses(r) {
   const f = state.filters;
   if (r.k === 'p') return f.prayer;
-  if (f.show === 'halal' && MEAT_FREE.has(r.s)) return false;
-  if (f.show === 'veg' && !MEAT_FREE.has(r.s)) return false;
+  if (!showPasses(r, f.show)) return false;
   if (f.confirmed && r.s === 'U') return false;
   if (f.cats.size && !f.cats.has(r.k)) return false;
   if (f.cuisine && !inCuisine(r, f.cuisine)) return false;
@@ -197,7 +215,7 @@ function renderChips() {
   const f = state.filters;
   const chip = (key, label, pressed, extra = '') =>
     `<button type="button" class="chip ${extra}" data-filter="${key}" aria-pressed="${pressed}">${label}</button>`;
-  const showKey = { all: 'filter.showAll', halal: 'filter.showHalal', veg: 'filter.showVeg' };
+  const showKey = { all: 'filter.showAll', halal: 'filter.showHalal', veg: 'filter.showVeg', sea: 'filter.showSea', every: 'filter.showEvery' };
   $('#chips').innerHTML = [
     `<label class="chip has-select" data-active="${f.show !== 'all'}">${icon(SHOW_ICON[f.show])}<span class="visually-hidden">${esc(t('filter.show'))}</span><select id="show-select">${SHOW.map(
       (v) => `<option value="${v}"${v === f.show ? ' selected' : ''}>${esc(t(showKey[v]))}</option>`,
@@ -291,7 +309,7 @@ function render(v) {
   const live = store.mode === 'live' || (store.hybrid && !isInKorea(v.lat, v.lon));
   const tooFar = v.zoom < DETAIL_ZOOM || (live && v.zoom < LIVE_ZOOM);
   if (tooFar) {
-    const n = store.mode === 'static' ? countInView(v.bbox) : 0;
+    const n = store.mode === 'static' ? countInView(v.bbox, { sea: showsSea() }) : 0;
     setHeader(t('list.titleArea'), '');
     results.innerHTML = '';
     $('#more').hidden = true;
@@ -317,7 +335,8 @@ function render(v) {
   for (const p of list) p._d = distance(ref.lat, ref.lon, p.y, p.x);
   // Halal places first, then vegetarian ones (the fallback), each by distance,
   // so chain branches nearby never push a halal restaurant out of view.
-  const group = (p) => (MEAT_FREE.has(p.s) ? 1 : 0);
+  // Halal places first, then meat-free ones, then seafood restaurants.
+  const group = (p) => (p.s === 'S' ? 2 : MEAT_FREE.has(p.s) ? 1 : 0);
   list.sort((a, b) => group(a) - group(b) || a._d - b._d);
   const hiddenU = state.filters.confirmed ? food.filter((p) => p.s === 'U' && passes(p, now, { ignoreConfirmed: true })).length : 0;
 
@@ -384,8 +403,10 @@ function render(v) {
     shown
       .map((p, i) => {
         const item = listItemHtml(p, { dist: p._d, tz: tzFor(p), selected: p.id === state.selected, station: stationOf(p) });
-        const divider = i > 0 && group(p) && !group(shown[i - 1]);
-        return `${divider ? `<li class="list-divider" aria-hidden="true">${esc(t('list.vegSection'))}</li>` : ''}${item}${i === tipsAt ? tipsHtml : ''}`;
+        const g = group(p);
+        const divider = i > 0 && g && g !== group(shown[i - 1]);
+        const label = g === 2 ? t('list.seaSection') : t('list.vegSection');
+        return `${divider ? `<li class="list-divider${g === 2 ? ' sea' : ''}" aria-hidden="true">${esc(label)}</li>` : ''}${item}${i === tipsAt ? tipsHtml : ''}`;
       })
       .join('');
   $('#more').hidden = list.length <= state.limit;
@@ -425,7 +446,7 @@ async function refresh({ keepLimit = false } = {}) {
   render(v);
   let error = null;
   try {
-    await ensureArea(v.bbox, v.zoom);
+    await ensureArea(v.bbox, v.zoom, { sea: showsSea() });
     if (state.filters.prayer && v.zoom >= 11 && !isInKorea(v.lat, v.lon)) await ensureLive(v.bbox, 'prayer');
   } catch (err) {
     error = err;
@@ -543,6 +564,27 @@ function applyQuery({ text, query, matches, loc }) {
   sheet.ensure('half');
   $('#list-scroll').scrollTop = 0;
   showNearest({ auto: true });
+  refresh();
+}
+
+/** Switch the "Show" choice (from the filter, a search or the guide). */
+function setShow(value) {
+  state.filters.show = SHOW.includes(value) ? value : 'all';
+  storage.set('show', state.filters.show);
+  renderChips();
+  map?.setSummary(summaryGeoJSON({ sea: showsSea() }));
+}
+
+/** "회", "seafood", "명동 초밥": seafood restaurants around that place (or here). */
+function applySeafood({ target }) {
+  if (!$('#view-detail').hidden) closeDetail();
+  clearQuery();
+  if (!showsSea()) setShow('sea');
+  track('search/seafood');
+  sheet.ensure('half');
+  $('#list-scroll').scrollTop = 0;
+  if (target) moveTo(target);
+  else setSearchPin(null);
   refresh();
 }
 
@@ -783,7 +825,7 @@ async function initMap(start) {
     await mv.init();
     map = mv;
     $('#map-status')?.remove();
-    map.setSummary(summaryGeoJSON());
+    map.setSummary(summaryGeoJSON({ sea: showsSea() }));
     applySheetToMap(lastSheet);
     if (state.user) map.setUser(state.user);
     if (state.selected) {
@@ -844,6 +886,7 @@ function bindEvents() {
       const chipEl = e.target.closest('.chip');
       chipEl.dataset.active = String(state.filters.show !== 'all');
       chipEl.querySelector('.ic').outerHTML = icon(SHOW_ICON[state.filters.show]);
+      map?.setSummary(summaryGeoJSON({ sea: showsSea() }));
       refresh();
     }
   });
@@ -1096,6 +1139,7 @@ async function boot() {
     },
     onNoResults: (q) => track('search/none', { title: q }),
     onKeyword: applyQuery,
+    onSeafood: applySeafood,
     onClear: () => {
       const had = clearQuery();
       if (!had && !state.searchPin) return;
@@ -1104,7 +1148,14 @@ async function boot() {
     },
   });
   initDialogs();
-  initGuide(() => getView());
+  initGuide(() => getView(), {
+    onShow: (value) => {
+      if (!$('#view-detail').hidden) closeDetail();
+      setShow(value);
+      sheet.ensure('half');
+      refresh();
+    },
+  });
   initBig();
   bindEvents();
 
@@ -1112,7 +1163,7 @@ async function boot() {
   initMap(start);
   await indexReady;
   renderCredits();
-  map?.setSummary(summaryGeoJSON());
+  map?.setSummary(summaryGeoJSON({ sea: showsSea() }));
   await refresh();
 
   const params = new URLSearchParams(location.search);
